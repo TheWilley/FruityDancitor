@@ -1,19 +1,13 @@
-import { faRocket } from '@fortawesome/free-solid-svg-icons/faRocket';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import Card from './Components/Card';
+import Editor from './Components/Editor';
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
-      <div className='flex items-center justify-center h-screen'>
-        <div className='p-5'>
-          <h1 className='text-5xl mb-5'>Vite-Quick-Start <FontAwesomeIcon icon={faRocket} /></h1>
-          <button onClick={() => setCount((count) => count + 1)} className='border rounded bg-blue-300 hover:bg-blue-500 hover:text-white transition p-3 m-2'>
-            Count is {count}
-          </button>
-        </div>
+      <div className='h-screen p-3'>
+        <Card>
+          <Editor />
+        </Card>
       </div>
     </>
   );
