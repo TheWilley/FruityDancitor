@@ -1,13 +1,10 @@
-import Card from './Components/Card';
 import Editor from './Components/Editor';
 
 function App() {
   return (
     <>
-      <div className='p-3'>
-        <Card>
-          <Editor />
-        </Card>
+      <div className='bg-background-light dark:bg-background-dark p-5 flex justify-center'>
+        <Editor />
       </div>
     </>
   );
