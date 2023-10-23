@@ -1,12 +1,11 @@
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CardL1 from '../Components/CardL1';
 import Navbar from './Navbar';
 import { List, arrayMove } from 'react-movable';
 import { useState } from 'react';
+import Frame from '../Components/Frame';
 
 function Editor() {
-    const [items, setItems] = useState(['Item 1', 'Item 2', 'Item 3']);
+    const [items, setItems] = useState(Array.from(Array(10).keys()));
 
     return (
         <div>
@@ -15,12 +14,8 @@ function Editor() {
                 <CardL1 className='min-h-full'>
                     <ul className='h-full overflow-auto'>
                         {Array.from({ length: 30 }).map((_, i) => (
-                            <li className="p-1 mb-1 relative">
-                                <img src="https://picsum.photos/40/40" className="border inline mr-1" />
-                                <span> Frame {i} </span>
-                                <span className='absolute right-3 top-3'>
-                                    <FontAwesomeIcon icon={faTrash} />
-                                </span>
+                            <li>
+                                <Frame index={i} />
                             </li>
                         ))}
                     </ul>
@@ -64,7 +59,7 @@ function Editor() {
                                 setItems(arrayMove(items, oldIndex, newIndex))
                             }
                             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-                            renderItem={({ value, props }) => <li className='bg-base-200 p-2 rounded mb-1' {...props}>{value}</li>}
+                            renderItem={({ value, props }) => <li {...props}><Frame {...props} index={value} /></li>}
                         />
                     </div>
                 </CardL1>
