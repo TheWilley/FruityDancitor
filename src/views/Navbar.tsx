@@ -1,5 +1,7 @@
 import CardL1 from '../Components/CardL1';
 import { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCog, faFileExport, faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
 
 function Navbar() {
     const [tab, setTab] = useState(0);
@@ -7,19 +9,23 @@ function Navbar() {
     const tabs = [
         {
             name: 'App Settings',
-            view: <div>Tab 1</div>
+            view: <div></div>,
+            icon: <FontAwesomeIcon icon={faCog} />
         },
         {
             name: 'Editor Settings',
-            view: <div>Tab 2</div>
+            view: <div>Tab 2</div>,
+            icon: <FontAwesomeIcon icon={faPen} />
         },
         {
             name: 'Export',
-            view: <div>Tab 3</div>
+            view: <div>Tab 3</div>,
+            icon: <FontAwesomeIcon icon={faFileExport} />
         },
         {
             name: 'Information',
-            view: <div>Tab 4</div>
+            view: <div>Tab 4</div>,
+            icon: <FontAwesomeIcon icon={faInfoCircle} />
         },
     ];
 
@@ -49,7 +55,7 @@ function Navbar() {
                         return (
                             <div>
                                 <li onClick={onclick} className={itemClasses.join(' ')}>
-                                    <span className={borderClasses.join(' ')}>{item.name}</span>
+                                    <span className={borderClasses.join(' ')}><span className='mr-1'> {item.icon} </span> {item.name}</span>
                                 </li>
                             </div>
                         );
