@@ -59,7 +59,7 @@ function Editor() {
                                 setItems(arrayMove(items, oldIndex, newIndex))
                             }
                             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-                            renderItem={({ value, props }) => <li {...props}><Frame {...props} index={value} /></li>}
+                            renderItem={({ value, props }) => <li {...props}><Frame {...props} index={value} draggable /></li>}
                         />
                     </div>
                 </CardL1>
