@@ -9,7 +9,7 @@ function Navbar() {
     const tabs = [
         {
             name: 'App Settings',
-            view: <div></div>,
+            view: <div>Tab 1</div>,
             icon: <FontAwesomeIcon icon={faCog} />
         },
         {
@@ -30,43 +30,31 @@ function Navbar() {
     ];
 
     return (
-        <CardL1 className='mb-2 w-full'>
-            <nav>
-                <ul className='flex border-b-2 border-gray-dark border-opacity-30 justify-between pb-2'>
-                    {tabs.map((item, index) => {
-                        // Check if the current index represent the current tab
-                        const currentTab = index === tab;
-
-                        // Create a onclick handler to set tab index 
-                        const onclick = () => setTab(index);
-
-                        // Classes for a item in the navbar
-                        const itemClasses = [
-                            'hover:cursor-pointer',
-                            'text-gray-light dark:text-gray-dark',
-                        ];
-
-                        // Classes for the border of a item in the navbar
-                        const borderClasses = [
-                            currentTab ? 'border-b-2 border-b-blue-light !text-blue-light pb-2' : '',
-
-                        ];
-
-                        return (
-                            <div>
-                                <li onClick={onclick} className={itemClasses.join(' ')}>
-                                    <span className={borderClasses.join(' ')}><span className='mr-1'> {item.icon} </span> {item.name}</span>
-                                </li>
-                            </div>
-                        );
-                    })}
-                </ul>
-                
-                <div className='mt-3'>
-                    {tabs[tab].view}
+        <>
+            <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-base-200 mb-2">
+                <input type="checkbox" />
+                <div className="collapse-title text-xl font-medium">
+                    Settings & Exporting
                 </div>
-            </nav>
-        </CardL1>
+                <div className="collapse-content">
+                    <nav>
+                        <div className='tabs'>
+                            {tabs.map((item, index) => (
+                                <div>
+                                    <div onClick={() => setTab(index)}>
+                                        <span className={`tab tab-bordered ${index === tab && 'tab-active text-primary !border-primary'}`}><span className='mr-1'> {item.icon} </span> {item.name}</span>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div className='mt-3'>
+                            {tabs[tab].view}
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </>
+
     );
 }
 
