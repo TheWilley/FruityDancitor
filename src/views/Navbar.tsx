@@ -41,7 +41,7 @@ function Navbar() {
                             {tabs.map((item, index) => (
                                 <div>
                                     <div onClick={() => setTab(index)}>
-                                        <span className={`tab tab-bordered ${index === tab && 'tab-active text-primary !border-primary'}`}><span className='mr-1'> {item.icon} </span> {item.name}</span>
+                                        <span className={`tab tab-bordered ${index === tab && 'tab-active'}`}><span className='mr-1'> {item.icon} </span> {item.name}</span>
                                     </div>
                                 </div>
                             ))}
