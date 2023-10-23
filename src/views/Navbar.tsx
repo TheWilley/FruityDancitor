@@ -1,4 +1,3 @@
-import CardL1 from '../Components/CardL1';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faFileExport, faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
@@ -31,7 +30,7 @@ function Navbar() {
 
     return (
         <>
-            <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-base-200 mb-2">
+            <div tabIndex={0} className="collapse collapse-arrow border border-base-200 bg-base-100 mb-2">
                 <input type="checkbox" />
                 <div className="collapse-title text-xl font-medium">
                     Settings & Exporting
