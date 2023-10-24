@@ -8,7 +8,7 @@ function Frame(props: { index: number, draggable?: boolean }) {
             <img src="https://picsum.photos/40/40" className="border inline mr-1" />
             <span> Frame {props.index} </span>
             <span className='absolute right-3 top-3 cursor-pointer'>
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon icon={faTrash} className='hover:text-error'/>
             </span>
         </div>
     );
