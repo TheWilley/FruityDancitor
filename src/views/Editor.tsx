@@ -41,22 +41,38 @@ function Editor() {
                     </div>
                     <div className='p-2'>
                         <div>
-                            <div className='grid grid-cols-2 items-center p-2 rounded mb-1'>
-                                <div>ID:</div>
-                                <div>xxxxxxx</div>
+                            <div className='items-center rounded mb-1'>
+                                <div className="form-control w-full">
+                                    <label className="label">
+                                        <span className="label-text">ID</span>
+                                    </label>
+                                    <input type="text" placeholder="xxxxxxx" className="input input-bordered w-full" disabled />
+                                </div>
                             </div>
-                            <div className='grid grid-cols-2 items-center p-2 rounded mb-1'>
-                                <div>Name:</div>
-                                <div><input className='input w-full' type='text' /></div>
+                            <div className='items-center rounded mb-1'>
+                                <div className="form-control w-full">
+                                    <label className="label">
+                                        <span className="label-text">Name</span>
+                                    </label>
+                                    <input type="text" placeholder="Type here" className="input input-bordered w-full" />
+                                </div>
                             </div>
-                            <div className='grid grid-cols-2 items-center p-2 rounded mb-1'>
-                                <div>Renderd:</div>
-                                <div><input className='input w-full' type='text' /></div>
+                            <div className='items-center rounded mb-1'>
+                                <div className="form-control w-full">
+                                    <label className="label">
+                                        <span className="label-text">Render Mode</span>
+                                    </label>
+                                    <select className="select input-bordered w-full">
+                                        <option disabled selected>Select Mode</option>
+                                        <option>Normal</option>
+                                        <option>Fast</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div>
-                            <h2 className='text-2xl font-bold'> Frames </h2>
-                            <input type="file" className="file-input file-input-bordered file-input-md w-full max-w-xs mb-2" />
+                            <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
+                            <input type="file" className="file-input file-input-bordered file-input-md w-full mb-2" />
                             <List
                                 values={items}
                                 onChange={({ oldIndex, newIndex }) =>
