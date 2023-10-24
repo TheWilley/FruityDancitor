@@ -53,7 +53,6 @@ function Navbar() {
                 </div>
             </div>
         </>
-
     );
 }
 
