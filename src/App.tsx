@@ -1,4 +1,4 @@
-import Editor from './views/Editor';
+import Editor from './views/Editor/Editor';
 
 function App() {
   return (
