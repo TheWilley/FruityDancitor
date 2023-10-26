@@ -1,7 +1,7 @@
 import Navbar from '../navbar/Navbar';
-import Frames from './Frames';
-import Inspector from './Inspector';
-import Viewport from './Viewport';
+import Frames from './components/Frames';
+import Inspector from './components/Inspector';
+import Viewport from './components/Viewport';
 
 function Editor() {
 

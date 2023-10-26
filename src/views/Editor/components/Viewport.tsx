@@ -1,4 +1,4 @@
-import CardL1 from '../../Components/CardL1';
+import CardL1 from '../../../Components/CardL1';
 
 function Viewport() {
     return (

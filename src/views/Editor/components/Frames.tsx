@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import CardL1 from '../../Components/CardL1';
+import CardL1 from '../../../Components/CardL1';
 import Frame from './Frame';
 
 function FramesList() {
