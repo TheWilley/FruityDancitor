@@ -1,5 +1,5 @@
 import { List, arrayMove } from 'react-movable';
-import CardL1 from '../../../Components/CardL1';
+import CardL1 from '../../../components/CardL1';
 import { useState } from 'react';
 import Frame from './Frame';
 
