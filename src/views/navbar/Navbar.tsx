@@ -31,7 +31,7 @@ function Navbar() {
 
     return (
         <>
-            <div tabIndex={0} className="collapse collapse-arrow border border-base-200 bg-base-100 mb-2">
+            <div tabIndex={0} className="collapse collapse-arrow border border-base-200 bg-base-100">
                 <input type="checkbox" />
                 <div className="collapse-title text-xl font-medium">
                     Settings & Exporting
@@ -47,7 +47,7 @@ function Navbar() {
                                 </div>
                             ))}
                         </div>
-                        <div className='mt-3 max-w-md'>
+                        <div className='mt-3 pb-5 w-full'>
                             {tabs[tab].view}
                         </div>
                     </nav>
