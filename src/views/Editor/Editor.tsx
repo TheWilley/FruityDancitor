@@ -1,4 +1,4 @@
-import Navbar from '../Navbar';
+import Navbar from '../navbar/Navbar';
 import Frames from './Frames';
 import Inspector from './Inspector';
 import Viewport from './Viewport';

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faFileExport, faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
+import EditorSettings from './components/EditorSettings';
 
 function Navbar() {
     const [tab, setTab] = useState(0);
@@ -13,7 +14,7 @@ function Navbar() {
         },
         {
             name: 'Editor Settings',
-            view: <div>Tab 2</div>,
+            view: <EditorSettings />,
             icon: <FontAwesomeIcon icon={faPen} />
         },
         {
@@ -46,7 +47,7 @@ function Navbar() {
                                 </div>
                             ))}
                         </div>
-                        <div className='mt-3'>
+                        <div className='mt-3 max-w-md'>
                             {tabs[tab].view}
                         </div>
                     </nav>
