@@ -1,8 +1,7 @@
-function Viewport(props: {Navbar: React.ReactNode, Canvas: React.ReactNode}) {
+function Viewport(props: {children: React.ReactNode[]}) {
     return (
         <div className="flex flex-col gap-2">
-            {props.Navbar}
-            {props.Canvas}
+            {props.children}
         </div>
     );
 }

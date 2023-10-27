@@ -18,8 +18,11 @@ function Editor() {
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
-            <RowsList rows={editorSettings.rows}/>
-            <Viewport Navbar={<Navbar editorSettings={editorSettings}/>} Canvas={<Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width}/>} />
+            <RowsList rows={editorSettings.rows} />
+            <Viewport>
+                <Navbar editorSettings={editorSettings} />
+                <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} />
+            </Viewport>
             <Inspector />
         </div>
     );
