@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faFileExport, faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
 import EditorSettings from './components/EditorSettings';
+import { IEditorSettings } from '../../global/types';
 
-function Navbar() {
+function Navbar(props: {editorSettings: IEditorSettings}) {
     const [tab, setTab] = useState(0);
 
     const tabs = [
@@ -14,7 +15,7 @@ function Navbar() {
         },
         {
             name: 'Editor Settings',
-            view: <EditorSettings />,
+            view: <EditorSettings editorSettings={props.editorSettings}/>,
             icon: <FontAwesomeIcon icon={faPen} />
         },
         {
