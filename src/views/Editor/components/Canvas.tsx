@@ -6,12 +6,18 @@ function Canvas(props: { rows: number, height: number, width: number, frames: st
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
+        // Get canvas ref
         const canvas = canvasRef.current;
 
+        // Check if canvas exists
         if (canvas) {
+            // Go trough each frame in the frames array
             for (const [index, frame] of props.frames.entries()) {
+                // Get the context
                 const context = canvas.getContext('2d');
+                // Check if context exist
                 if (context) {
+                    // Draw image on the given tile, where x depends on frame and y depends on group
                     drawImageOnTile(context, frame, 0, index, props.height, props.width);
                 }
             }
