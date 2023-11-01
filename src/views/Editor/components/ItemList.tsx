@@ -2,7 +2,7 @@ import { List, arrayMove } from 'react-movable';
 import Item from './Item';
 import { IFrame } from '../../../global/types';
 
-function ItemList(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
+function FrameList(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
     return (
         <List
             values={props.frames[props.selectedRow].row.slice(0, props.rows)}
@@ -20,7 +20,7 @@ function ItemList(props: { frames: IFrame[], setFrames: React.Dispatch<React.Set
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props}>
-                    <Item {...props} index={index || 0} base64={value} prefix='Frame' />
+                    <Item {...props} base64={value} text={`Frame ${index}`} />
                 </li>
             )}
         />
@@ -28,4 +28,4 @@ function ItemList(props: { frames: IFrame[], setFrames: React.Dispatch<React.Set
 }
 
 
-export default ItemList;
+export default FrameList;
