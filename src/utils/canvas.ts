@@ -6,7 +6,7 @@ function drawImageOnTile(ctx: CanvasRenderingContext2D, base64: string, y: numbe
     image.src = base64;
 
     // Draw a rectangle at positon
-    ctx.drawImage(image, x * width, y * width, width, height);
+    ctx.drawImage(image, x * width, y * height, width, height);
     ctx.fill();
 }
 
