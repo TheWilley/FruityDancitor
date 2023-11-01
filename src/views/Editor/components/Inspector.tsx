@@ -1,11 +1,6 @@
-import { useState } from 'react';
 import CardL1 from '../../../components/CardL1';
-import ItemList from './ItemList';
 
-function Inspector() {
-    // Array to store frames
-    const [items, setItems] = useState(Array.from(Array(8).keys()));
-
+function Inspector(props: {children: React.ReactNode[]}) {
     return (
         <CardL1>
             <div className='flex justify-center p-5 bg-base-300 '>
@@ -43,9 +38,7 @@ function Inspector() {
                     </div>
                 </div>
                 <div>
-                    <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
-                    <input type="file" className="file-input file-input-bordered file-input-md w-full mb-2" />
-                    <ItemList items={items} setItems={setItems} rows={8} />
+                    {props.children}
                 </div>
             </div>
         </CardL1>

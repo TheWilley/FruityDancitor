@@ -13,7 +13,7 @@ function RowsList(props: { rows: number }) {
 
     return (
         <CardL1 className='p-1'>
-            <ItemList items={items} setItems={setItems} rows={props.rows} />
+            <ItemList frames={items} setFrames={setItems} rows={props.rows} />
         </CardL1>
     );
 }

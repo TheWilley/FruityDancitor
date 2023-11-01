@@ -2,17 +2,21 @@ import { useEffect, useRef } from 'react';
 import CardL1 from '../../../components/CardL1';
 import { drawImageOnTile } from '../../../utils/canvas';
 
-function Canvas(props: { rows: number, height: number, width: number }) {
-    const canvasRef = useRef(null);
+function Canvas(props: { rows: number, height: number, width: number, frames: string[] }) {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
 
         if (canvas) {
-            const context = canvas.getContext('2d');
-            drawImageOnTile(context, 0, 0, props.height, props.width);
+            for (const [index, frame] of props.frames.entries()) {
+                const context = canvas.getContext('2d');
+                if (context) {
+                    drawImageOnTile(context, frame, 0, index, props.height, props.width);
+                }
+            }
         }
-    }, [props.rows]);
+    }, [props]);
 
     return (
         <CardL1 className="flex justify-center items-center h-full">
