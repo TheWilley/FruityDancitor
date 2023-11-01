@@ -36,7 +36,7 @@ function FileUploadMultiple(props: { frames: IFrame[], setFrames: React.Dispatch
         };
 
         e();
-    }, [fileList, props.frames, props.setFrames]);
+    }, [fileList]);
 
     return (
         <div>
