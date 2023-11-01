@@ -23,7 +23,7 @@ function ItemList(props: {frames: string[], setFrames: React.Dispatch<React.SetS
                 props.setFrames(arrayMove(props.frames, oldIndex, newIndex))
             }
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-            renderItem={({ value, props, index }) => <li {...props}><Item {...props} index={index} base64={value} prefix='Frame' /></li>}
+            renderItem={({ value, props, index }) => <li {...props}><Item {...props} index={index ||0} base64={value} prefix='Frame' /></li>}
         />
     );
 }
