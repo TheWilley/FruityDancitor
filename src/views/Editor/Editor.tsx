@@ -3,7 +3,7 @@ import Inspector from './components/Inspector';
 import Viewport from './components/Viewport';
 import Navbar from '../navbar/Navbar';
 import Canvas from './components/Canvas';
-import FrameList from './components/ItemList';
+import FrameList from './components/FrameList';
 import FileUploadMultiple from './components/FileUploadMultiple';
 import RowList from './components/RowList';
 import appConfig from '../../../appConfig';
