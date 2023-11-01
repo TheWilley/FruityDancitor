@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import CardL1 from '../../../components/CardL1';
 import { drawImageOnTile } from '../../../utils/canvas';
 
-function Canvas(props: { rows: number, height: number, width: number, frames: string[] }) {
+function Canvas(props: { rows: number, height: number, width: number, frames: string[][] }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -11,14 +11,16 @@ function Canvas(props: { rows: number, height: number, width: number, frames: st
 
         // Check if canvas exists
         if (canvas) {
-            // Go trough each frame in the frames array
-            for (const [index, frame] of props.frames.entries()) {
-                // Get the context
-                const context = canvas.getContext('2d');
-                // Check if context exist
-                if (context) {
-                    // Draw image on the given tile, where x depends on frame and y depends on group
-                    drawImageOnTile(context, frame, 0, index, props.height, props.width);
+            for (const [y, row] of props.frames.entries()) {
+                // Go trough each frame in the frames array
+                for (const [x, frame] of row.entries()) {
+                    // Get the context
+                    const context = canvas.getContext('2d');
+                    // Check if context exist
+                    if (context) {
+                        // Draw image on the given tile, where x depends on frame and y depends on group
+                        drawImageOnTile(context, frame, y, x, props.height, props.width);
+                    }
                 }
             }
         }
