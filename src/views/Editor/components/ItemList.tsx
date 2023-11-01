@@ -1,17 +1,20 @@
 import { List, arrayMove } from 'react-movable';
 import Item from './Item';
+import { IFrame } from '../../../global/types';
 
-function  ItemList(props: {frames: string[][], setFrames: React.Dispatch<React.SetStateAction<string[][]>>, rows: number, selectedRow: number}) {
+function ItemList(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
     return (
         <List
-            values={props.frames[props.selectedRow].slice(0, props.rows)}
+            values={props.frames[props.selectedRow].row.slice(0, props.rows)}
             onChange={({ oldIndex, newIndex }) => {
-                const modifiedRow = arrayMove(props.frames[props.selectedRow], oldIndex, newIndex);
-                const newFrames = [
-                    ...props.frames.slice(0, props.selectedRow),
-                    modifiedRow,
-                    ...props.frames.slice(props.selectedRow + 1)
-                ];
+                const modifiedRow = arrayMove(props.frames[props.selectedRow].row, oldIndex, newIndex);
+                const newFrames = props.frames.map((frame, index) => {
+                    if (index === props.selectedRow) {
+                        return { ...frame, row: modifiedRow };
+                    }
+                    return frame;
+                });
+
                 props.setFrames(newFrames);
             }}
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}

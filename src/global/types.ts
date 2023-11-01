@@ -7,3 +7,5 @@ export type IEditorSettings = {
     height: number;
     setHeight: React.Dispatch<React.SetStateAction<number>>;
 };
+
+export type IFrame = { row: Array<string>, name: string }

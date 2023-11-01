@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 import CardL1 from '../../../components/CardL1';
 import { drawImageOnTile } from '../../../utils/canvas';
+import { IFrame } from '../../../global/types';
 
-function Canvas(props: { rows: number, height: number, width: number, frames: string[][] }) {
+function Canvas(props: { rows: number, height: number, width: number, frames: IFrame[] }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
@@ -21,7 +22,7 @@ function Canvas(props: { rows: number, height: number, width: number, frames: st
 
                 for (const [y, row] of props.frames.entries()) {
                     // Go trough each frame in the frames array
-                    for (const [x, frame] of row.entries()) {
+                    for (const [x, frame] of row.row.entries()) {
                         // Draw image on the given tile, where x depends on frame and y depends on group
                         drawImageOnTile(context, frame, y, x, props.height, props.width);
                     }

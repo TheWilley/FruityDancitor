@@ -7,6 +7,7 @@ import ItemList from './components/ItemList';
 import FileUploadMultiple from './components/FileUploadMultiple';
 import RowList from './components/RowList';
 import appConfig from '../../../appConfig';
+import { IFrame } from '../../global/types';
 
 function Editor() {
     // Editor Settings
@@ -20,7 +21,7 @@ function Editor() {
     };
 
     // Inspector
-    const [frames, setFrames] = useState<string[][]>(new Array(appConfig.amountOfRows).fill([]));
+    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({row: [], name: ''}));
     const [selectedRow, setSelectedRow] = useState(0);
 
     return (
