@@ -6,6 +6,7 @@ import Canvas from './components/Canvas';
 import ItemList from './components/ItemList';
 import FileUploadMultiple from './components/FileUploadMultiple';
 import RowList from './components/RowList';
+import appConfig from '../../../appConfig';
 
 function Editor() {
     // Editor Settings
@@ -19,7 +20,7 @@ function Editor() {
     };
 
     // Inspector
-    const [frames, setFrames] = useState<string[][]>(new Array(1000).fill([]));
+    const [frames, setFrames] = useState<string[][]>(new Array(appConfig.amountOfRows).fill([]));
     const [selectedRow, setSelectedRow] = useState(0);
 
     return (
