@@ -2,25 +2,38 @@ import { List, arrayMove } from 'react-movable';
 import Item from './Item';
 import { IFrame } from '../../../global/types';
 
-function FrameList(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
+function FrameList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
+    /**
+     * Modified a row with a new value
+     */
+    const adjustRow = (modifiedRow: string[]) => {
+        // Delete the specified frame from the row array
+        const newFrames = EProps.frames.map((frame, index) => {
+            if (index === EProps.selectedRow) {
+                return { ...frame, row: modifiedRow };
+            }
+            return frame;
+        });
+        EProps.setFrames(newFrames);
+    };
+
+    /**
+     * Callback when removing a frame
+     */
+    const callback = (targetFrame: number) => {
+        adjustRow(EProps.frames[EProps.selectedRow].row.filter((_, index) => index !== targetFrame));
+    };
+
     return (
         <List
-            values={props.frames[props.selectedRow].row.slice(0, props.rows)}
+            values={EProps.frames[EProps.selectedRow].row.slice(0, EProps.rows)}
             onChange={({ oldIndex, newIndex }) => {
-                const modifiedRow = arrayMove(props.frames[props.selectedRow].row, oldIndex, newIndex);
-                const newFrames = props.frames.map((frame, index) => {
-                    if (index === props.selectedRow) {
-                        return { ...frame, row: modifiedRow };
-                    }
-                    return frame;
-                });
-
-                props.setFrames(newFrames);
+                adjustRow(arrayMove(EProps.frames[EProps.selectedRow].row, oldIndex, newIndex));
             }}
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props}>
-                    <Item {...props} base64={value} text={`Frame ${index}`} />
+                    <Item {...props} base64={value} text={`Frame ${index}`} callback={() => callback(index || 0)} includeTrash />
                 </li>
             )}
         />
