@@ -20,11 +20,11 @@ function Editor() {
 
     // Inspector
     const [frames, setFrames] = useState<string[][]>(new Array(1000).fill([]));
-    const [selectedRow] = useState(0);
+    const [selectedRow, setSelectedRow] = useState(0);
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
-            <RowList frames={frames} setFrames={setFrames} rows={rows} />
+            <RowList frames={frames} setFrames={setFrames} rows={rows} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
             <Viewport>
                 <Navbar editorSettings={editorSettings} />
                 <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} />
