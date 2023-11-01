@@ -1,30 +1,19 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
-import CardL1 from '../../../components/CardL1';
 
-function Row(props: { index: number }) {
-    return (
-        <div className='p-2 m-1 relative bg-base-300 rounded cursor-move'>
-            {<FontAwesomeIcon icon={faGripVertical} className='mr-2 text-2xl' />}
-            <img src="https://picsum.photos/40/40" className="border inline mr-1" />
-            <span> Row {props.index}</span>
-            <span className='absolute right-3 top-3 cursor-pointer'>
-                <FontAwesomeIcon icon={faTrash} className='hover:text-error' />
-            </span>
-        </div>
-    );
-}
+import { useState } from 'react';
+import CardL1 from '../../../components/CardL1';
+import ItemList from './ItemList';
 
 function RowsList(props: { rows: number }) {
+    // Create a array with 1000 items to store data
+    // We do this because we cannot create a new array everytime we update the state as:
+    // 1. It does not work, as the state effectively already is set
+    // 2. It would overide data
+    // We instead splice the array during render, never messing with the state in the first place
+    const [items, setItems] = useState(Array.from(Array(1000).keys()));
+
     return (
         <CardL1 className='p-1'>
-            <ul className='h-full overflow-auto'>
-                {Array.from({ length: props.rows }).map((_, i) => (
-                    <li>
-                        <Row index={i} />
-                    </li>
-                ))}
-            </ul>
+            <ItemList items={items} setItems={setItems} rows={props.rows} />
         </CardL1>
     );
 }

@@ -1,24 +1,10 @@
-import { List, arrayMove } from 'react-movable';
-import CardL1 from '../../../components/CardL1';
 import { useState } from 'react';
-import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-function Frame(props: { index: number, draggable?: boolean }) {
-    return (
-        <div className={`p-2 m-1 relative bg-base-300 rounded ${props.draggable && 'cursor-move'}`}>
-            {props.draggable && <FontAwesomeIcon icon={faGripVertical} className='mr-2 text-2xl' />}
-            <img src="https://picsum.photos/40/40" className="border inline mr-1" />
-            <span> Frame {props.index} </span>
-            <span className='absolute right-3 top-3 cursor-pointer'>
-                <FontAwesomeIcon icon={faTrash} className='hover:text-error' />
-            </span>
-        </div>
-    );
-}
+import CardL1 from '../../../components/CardL1';
+import ItemList from './ItemList';
 
 function Inspector() {
-    const [items, setItems] = useState(Array.from(Array(10).keys()));
+    // Array to store frames
+    const [items, setItems] = useState(Array.from(Array(8).keys()));
 
     return (
         <CardL1>
@@ -59,14 +45,7 @@ function Inspector() {
                 <div>
                     <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
                     <input type="file" className="file-input file-input-bordered file-input-md w-full mb-2" />
-                    <List
-                        values={items}
-                        onChange={({ oldIndex, newIndex }) =>
-                            setItems(arrayMove(items, oldIndex, newIndex))
-                        }
-                        renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-                        renderItem={({ value, props }) => <li {...props}><Frame {...props} index={value} draggable /></li>}
-                    />
+                    <ItemList items={items} setItems={setItems} rows={8} />
                 </div>
             </div>
         </CardL1>
