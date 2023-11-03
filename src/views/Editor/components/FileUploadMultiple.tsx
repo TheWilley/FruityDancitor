@@ -10,11 +10,12 @@ function FileUploadMultiple(props: { frames: IFrame[], setFrames: React.Dispatch
         if (acceptedFiles) {
             // If drag was accepted
             setDragOver(false);
-            
+
             // Go through all entries
-            for (const file of acceptedFiles) {
+            for (const [index, file] of acceptedFiles.entries()) {
                 // Check if there is space for a new entry
-                if (props.frames[props.selectedRow].row.length < 8) {
+                console.log(props.frames[props.selectedRow].row.length);
+                if (props.frames[props.selectedRow].row.length + index < 8) {
                     // Get base64 for the file
                     const base64 = await getBase64(file) as string;
 
@@ -27,11 +28,10 @@ function FileUploadMultiple(props: { frames: IFrame[], setFrames: React.Dispatch
                             }));
                         });
                     }
-
                 }
             }
         }
-    }, []);
+    }, [props]);
 
     const onDragOver = () => {
         setDragOver(true);
