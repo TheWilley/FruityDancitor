@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import Inspector from './components/Inspector';
-import Viewport from './components/Viewport';
-import Navbar from '../navbar/Navbar';
-import Canvas from './components/Canvas';
-import FrameList from './components/FrameList';
-import FileUploadMultiple from './components/FileUploadMultiple';
-import RowList from './components/RowList';
 import appConfig from '../../../appConfig';
 import { IFrame } from '../../global/types';
+import Navbar from '../navbar/Navbar';
+import Canvas from './components/Canvas';
+import FileUploadMultiple from './components/FileUploadMultiple';
+import FrameList from './components/FrameList';
+import Inspector from './components/Inspector';
 import Name from './components/Name';
+import Preview from './components/Preview';
+import RowList from './components/RowList';
+import Viewport from './components/Viewport';
 
 function Editor() {
     // Editor Settings
@@ -22,20 +23,33 @@ function Editor() {
     };
 
     // Inspector
-    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({row: [], name: ''}));
+    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
     const [selectedRow, setSelectedRow] = useState(0);
+
+    // Canvas
+    const [canvasIsReady, setCanvasIsReady] = useState(false);
+    const [canvas, setCanvas] = useState<HTMLCanvasElement>();
+    const [currentFrame, setCurrentFrame] = useState(0);
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
             <RowList frames={frames} setFrames={setFrames} rows={rows} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
             <Viewport>
                 <Navbar editorSettings={editorSettings} />
-                <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} />
+                <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvasIsReady={setCanvasIsReady} setCanvas={setCanvas} />
             </Viewport>
             <Inspector>
+                <div className='flex justify-center'>
+                    <div className='p-5 bg-base-300 text-center'>
+                        {canvasIsReady && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} setCurrentFrame={setCurrentFrame} />}
+                        <div>
+                            {currentFrame}
+                        </div>
+                    </div>
+                </div>
                 <Name frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
                 <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
-                <FileUploadMultiple frames={frames} setFrames={setFrames} selectedRow={selectedRow}/>
+                <FileUploadMultiple frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
                 <FrameList frames={frames} setFrames={setFrames} rows={8} selectedRow={selectedRow} />
             </Inspector>
         </div>
