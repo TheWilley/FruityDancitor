@@ -47,6 +47,7 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 
 	return (
 		<div>
+			{}
 			<canvas
 				ref={previewRef}
 				width={100}
