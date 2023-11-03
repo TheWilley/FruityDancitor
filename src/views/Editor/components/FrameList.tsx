@@ -33,7 +33,7 @@ function FrameList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.S
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props}>
-                    <Item {...props} base64={value} text={`Frame ${index}`} callback={() => callback(index || 0)} includeTrash />
+                    <Item {...props} base64={value} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} includeTrash />
                 </li>
             )}
         />
