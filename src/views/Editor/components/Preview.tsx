@@ -7,11 +7,7 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 	const [sx, setSx] = useState(0);
 
 	// Rendering a frame
-	const nextFrame = () => {
-		// Get context
-		const context = previewRef.current.getContext('2d');
-		context.imageSmoothingEnabled = false;
-
+	const nextFrame = (context: CanvasRenderingContext2D) => {
 		// Create params
 		const drawParams = {
 			sourceX: sx,
@@ -27,8 +23,7 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 		// If context exists, clear and show relevant frame
 		if (context) {
 			context.clearRect(0, 0, 100, 100);
-			context.drawImage(props.originalCanvas, ...Object.values(drawParams));
-		}
+			context.drawImage(props.originalCanvas!, drawParams.sourceX, drawParams.sourceY, drawParams.sourceWidth, drawParams.sourceHeight, drawParams.destX, drawParams.destY, drawParams.destWidth, drawParams.destHeight);		}
 
 		setSx((sx + props.width > props.width * 7) ? 0 : (sx + props.width));
 		setCurrentFrame(Math.floor(sx / props.width + 1));
@@ -37,11 +32,21 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 	useEffect(() => {
 		// Check if both canvases exist before continuing 
 		if (props.originalCanvas && previewRef.current) {
+			// Get context
+			const context = (previewRef.current as HTMLCanvasElement).getContext('2d');
+
+			// If context does not exist, return
+			if(!context) return;
+
+			// So that images does not appear blury
+			context.imageSmoothingEnabled = false;
+
 			// Create a timer which keeps timer going and updates frames
 			const timer = setTimeout(() => {
 				setKeepTimer(keepTimer + 1);
-				nextFrame();
+				nextFrame(context);
 			}, 500);
+
 			return () => clearTimeout(timer);
 		}
 	}, [keepTimer]);
