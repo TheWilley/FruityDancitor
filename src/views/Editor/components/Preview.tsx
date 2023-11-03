@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number, setCurrentFrame: React.Dispatch<React.SetStateAction<number>> }) {
+function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number }) {
 	const previewRef = useRef(null);
 	const [keepTimer, setKeepTimer] = useState(0);
+	const [currentFrame, setCurrentFrame] = useState(0);
 	const [sx, setSx] = useState(0);
 
 	// Rendering a frame
@@ -13,7 +14,7 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 
 		// Create params
 		const drawParams = {
-			sourceX: sx ,
+			sourceX: sx,
 			sourceY: props.height * (props.selectedRow + 1) - props.height,
 			sourceWidth: props.width,
 			sourceHeight: props.height,
@@ -30,7 +31,7 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 		}
 
 		setSx((sx + props.width > props.width * 7) ? 0 : (sx + props.width));
-		props.setCurrentFrame(Math.floor(sx / props.width + 1));
+		setCurrentFrame(Math.floor(sx / props.width + 1));
 	};
 
 	useEffect(() => {
@@ -46,14 +47,16 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 	}, [keepTimer]);
 
 	return (
-		<div>
-			{}
-			<canvas
-				ref={previewRef}
-				width={100}
-				height={100}
-				className='border'
-			></canvas>
+		<div className='flex justify-center'>
+			<div className='p-5 bg-base-300 text-center'>
+				<canvas
+					ref={previewRef}
+					width={100}
+					height={100}
+					className='border'
+				></canvas>
+				{currentFrame}
+			</div>
 		</div>
 	);
 }

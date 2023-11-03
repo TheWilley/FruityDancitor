@@ -29,24 +29,18 @@ function Editor() {
     // Canvas
     const [canvasIsReady, setCanvasIsReady] = useState(false);
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
-    const [currentFrame, setCurrentFrame] = useState(0);
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
             <RowList frames={frames} setFrames={setFrames} rows={rows} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
+
             <Viewport>
                 <Navbar editorSettings={editorSettings} />
                 <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvasIsReady={setCanvasIsReady} setCanvas={setCanvas} />
             </Viewport>
+
             <Inspector>
-                <div className='flex justify-center'>
-                    <div className='p-5 bg-base-300 text-center'>
-                        {canvasIsReady && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} setCurrentFrame={setCurrentFrame} />}
-                        <div>
-                            {currentFrame}
-                        </div>
-                    </div>
-                </div>
+                {canvasIsReady && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} />}
                 <Name frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
                 <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
                 <FileUploadMultiple frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
