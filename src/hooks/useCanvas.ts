@@ -33,7 +33,7 @@ export default function useCanvas(canvasRef: RefObject<HTMLCanvasElement>, rows:
 
     const className = [
         'bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.nWLpYSGP33IYGhcR1sFOHgAAAA%26pid%3DApi&f=1&ipt=5812f5c126591b3cde8929ba6262c2374c2a488462b03474da6bd2da7c3a5bab&ipo=images)]'
-    ];
+    ].join(' ');
 
-    return [width * 8, height * rows, className.join(' ')];
+    return [width * 8, height * rows, className] as const;
 }
