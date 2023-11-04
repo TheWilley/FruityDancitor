@@ -4,7 +4,7 @@ function Inspector(props: { children: React.ReactNode[] }) {
     return (
         <CardL1>
             <div className='p-2'>
-                    {props.children}
+                {props.children}
             </div>
         </CardL1>
     );

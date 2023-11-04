@@ -23,6 +23,7 @@ function Editor() {
     };
 
     // Inspector
+    // TODO: Make the last row have "held" as name
     const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
     const [selectedRow, setSelectedRow] = useState(0);
 
@@ -30,12 +31,17 @@ function Editor() {
     const [canvasIsReady, setCanvasIsReady] = useState(false);
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
 
+    // Export Settings
+    const exportSettings = {
+        canvas, frames
+    };
+
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
             <RowList frames={frames} setFrames={setFrames} rows={rows} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
 
             <Viewport>
-                <Navbar editorSettings={editorSettings} />
+                <Navbar editorSettings={editorSettings} exportSettings={exportSettings} />
                 <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvasIsReady={setCanvasIsReady} setCanvas={setCanvas} />
             </Viewport>
 

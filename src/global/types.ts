@@ -8,4 +8,9 @@ export type IEditorSettings = {
     setHeight: React.Dispatch<React.SetStateAction<number>>;
 };
 
+export type IExportSettings = {
+    canvas: HTMLCanvasElement | undefined
+    frames: IFrame[]
+}
+
 export type IFrame = { row: Array<string>, name: string }
