@@ -28,7 +28,6 @@ function Editor() {
     const [selectedRow, setSelectedRow] = useState(0);
 
     // Canvas
-    const [canvasIsReady, setCanvasIsReady] = useState(false);
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
 
     // Export Settings
@@ -42,11 +41,11 @@ function Editor() {
 
             <Viewport>
                 <Navbar editorSettings={editorSettings} exportSettings={exportSettings} />
-                <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvasIsReady={setCanvasIsReady} setCanvas={setCanvas} />
+                <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvas={setCanvas} />
             </Viewport>
 
             <Inspector>
-                {canvasIsReady && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} />}
+                {canvas && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} />}
                 <Name frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
                 <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
                 <FileUploadMultiple frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
