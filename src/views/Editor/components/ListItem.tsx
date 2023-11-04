@@ -2,7 +2,7 @@ import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import noimage from '../../../../public/noimage.svg';
 
-function Item(props: { text: string, base64: string, highlighted?: boolean, callback?: () => void, includeTrash?: boolean }) {
+function ListItem(props: { text: string, base64: string, highlighted?: boolean, callback?: () => void, includeTrash?: boolean }) {
     return (
         <div className={`flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move ${props.highlighted ? 'border border-base border-opacity-30' : ''}`}>
             <div className={'mr-2 text-2xl'}>
@@ -30,4 +30,4 @@ function Item(props: { text: string, base64: string, highlighted?: boolean, call
 }
 
 
-export default Item;
+export default ListItem;

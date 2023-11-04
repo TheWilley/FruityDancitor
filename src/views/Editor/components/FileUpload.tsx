@@ -3,7 +3,7 @@ import { getBase64 } from '../../../utils/fileHandler';
 import { IFrame } from '../../../global/types';
 import { useDropzone } from 'react-dropzone';
 
-function FileUploadMultiple(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
+function FileUpload(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
     const [dragOver, setDragOver] = useState(false);
     const disabled = props.frames[props.selectedRow].row.length > 7;
 
@@ -80,4 +80,4 @@ function FileUploadMultiple(props: { frames: IFrame[], setFrames: React.Dispatch
 
 }
 
-export default FileUploadMultiple;
+export default FileUpload;

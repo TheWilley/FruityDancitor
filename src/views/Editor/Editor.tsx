@@ -2,10 +2,10 @@ import { useState } from 'react';
 import appConfig from '../../../appConfig';
 import { IFrame } from '../../global/types';
 import Navbar from '../navbar/Navbar';
-import FileUploadMultiple from './components/FileUploadMultiple';
-import FrameList from './components/FrameList';
+import FileUpload from './components/FileUpload';
+import FramesList from './components/FramesList';
 import Inspector from './components/Inspector';
-import Name from './components/Name';
+import RowName from './components/RowName';
 import Preview from './components/Preview';
 import RowList from './components/RowList';
 import Viewport from './components/Viewport';
@@ -46,10 +46,10 @@ function Editor() {
 
             <Inspector>
                 {canvas && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} />}
-                <Name frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
+                <RowName frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
                 <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
-                <FileUploadMultiple frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
-                <FrameList frames={frames} setFrames={setFrames} rows={8} selectedRow={selectedRow} />
+                <FileUpload frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
+                <FramesList frames={frames} setFrames={setFrames} rows={8} selectedRow={selectedRow} />
             </Inspector>
         </div>
     );

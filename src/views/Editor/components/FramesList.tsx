@@ -1,8 +1,8 @@
 import { List, arrayMove } from 'react-movable';
-import Item from './Item';
+import ListItem from './ListItem';
 import { IFrame } from '../../../global/types';
 
-function FrameList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
+function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
     /**
      * Modified a row with a new value
      */
@@ -33,7 +33,7 @@ function FrameList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.S
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props}>
-                    <Item {...props} base64={value} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} includeTrash />
+                    <ListItem {...props} base64={value} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} includeTrash />
                 </li>
             )}
         />
@@ -41,4 +41,4 @@ function FrameList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.S
 }
 
 
-export default FrameList;
+export default FramesList;

@@ -1,6 +1,6 @@
 import { List, arrayMove } from 'react-movable';
 import CardL1 from '../../../components/CardL1';
-import Item from './Item';
+import ListItem from './ListItem';
 import { IFrame } from '../../../global/types';
 
 function RowList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
@@ -15,7 +15,7 @@ function RowList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.Set
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}
                 renderItem={({ value, props, index }) => (
                     <li {...props} onMouseDown={() => EProps.setSelectedRow(index || 0)}>
-                        <Item {...props} base64={value.row[0]} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
+                        <ListItem {...props} base64={value.row[0]} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
                     </li>
                 )}
             />

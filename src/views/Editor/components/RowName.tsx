@@ -1,6 +1,6 @@
 import { IFrame } from '../../../global/types';
 
-function Name(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
+function RowName(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
     return (
         <div>
             <div className='items-center rounded mb-1'>
@@ -19,4 +19,4 @@ function Name(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStat
     );
 }
 
-export default Name;
+export default RowName;
