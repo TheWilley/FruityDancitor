@@ -5,8 +5,9 @@ import EditorSettings from './components/EditorSettings';
 import { IEditorSettings, IExportSettings } from '../../global/types';
 import Export from './components/Export';
 
-function Navbar(props: {editorSettings: IEditorSettings, exportSettings: IExportSettings}) {
+function Navbar(props: { editorSettings: IEditorSettings, exportSettings: IExportSettings }) {
     const [tab, setTab] = useState(0);
+    const [hidden, setHidden] = useState(false);
 
     const tabs = [
         {
@@ -16,12 +17,12 @@ function Navbar(props: {editorSettings: IEditorSettings, exportSettings: IExport
         },
         {
             name: 'Editor Settings',
-            view: <EditorSettings editorSettings={props.editorSettings}/>,
+            view: <EditorSettings editorSettings={props.editorSettings} />,
             icon: <FontAwesomeIcon icon={faPen} />
         },
         {
             name: 'Export',
-            view: <Export exportSettings={props.exportSettings}/>,
+            view: <Export exportSettings={props.exportSettings} />,
             icon: <FontAwesomeIcon icon={faFileExport} />
         },
         {
@@ -33,27 +34,33 @@ function Navbar(props: {editorSettings: IEditorSettings, exportSettings: IExport
 
     return (
         <>
-            <div tabIndex={0} className="collapse collapse-arrow border border-base-200 bg-base-100">
-                <input type="checkbox" />
-                <div className="collapse-title text-xl font-medium">
-                    Settings & Exporting
-                </div>
-                <div className="collapse-content">
-                    <nav>
-                        <div className='tabs'>
-                            {tabs.map((item, index) => (
-                                <div>
-                                    <div onClick={() => setTab(index)}>
-                                        <span className={`tab tab-bordered ${index === tab && 'tab-active'}`}><span className='mr-1'> {item.icon} </span> {item.name}</span>
-                                    </div>
+            <div tabIndex={0} className="card border border-base-200 bg-base-100 p-2">
+                <nav>
+                    <div className='tabs tabs-boxed'>
+                        {tabs.map((item, index) => (
+                            <div>
+                                <div
+                                    onClick={() => {
+                                        if (tab === index) {
+                                            if (hidden) {
+                                                setHidden(false);
+                                            } else {
+                                                setHidden(true);
+                                            }
+                                        } else {
+                                            setHidden(false);
+                                            setTab(index);
+                                        }
+                                    }}>
+                                    <span className={`tab ${!hidden ? index === tab && 'tab-active': ''}`}><span className='mr-1'> {item.icon} </span> {item.name}</span>
                                 </div>
-                            ))}
-                        </div>
-                        <div className='mt-3 pb-5 w-full'>
-                            {tabs[tab].view}
-                        </div>
-                    </nav>
-                </div>
+                            </div>
+                        ))}
+                    </div>
+                    <div className='mt-3 w-full h-full' style={{ display: hidden ? 'none' : 'block' }}>
+                        {tabs[tab].view}
+                    </div>
+                </nav>
             </div>
         </>
     );
