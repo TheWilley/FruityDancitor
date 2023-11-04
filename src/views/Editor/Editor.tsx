@@ -2,7 +2,6 @@ import { useState } from 'react';
 import appConfig from '../../../appConfig';
 import { IFrame } from '../../global/types';
 import Navbar from '../navbar/Navbar';
-import Canvas from './components/Canvas';
 import FileUploadMultiple from './components/FileUploadMultiple';
 import FrameList from './components/FrameList';
 import Inspector from './components/Inspector';
@@ -10,6 +9,7 @@ import Name from './components/Name';
 import Preview from './components/Preview';
 import RowList from './components/RowList';
 import Viewport from './components/Viewport';
+import SpriteSheetCanvas from './components/SpriteSheetCanvas';
 
 function Editor() {
     // Editor Settings
@@ -41,7 +41,7 @@ function Editor() {
 
             <Viewport>
                 <Navbar editorSettings={editorSettings} exportSettings={exportSettings} />
-                <Canvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvas={setCanvas} />
+                <SpriteSheetCanvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvas={setCanvas} />
             </Viewport>
 
             <Inspector>
