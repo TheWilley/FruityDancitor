@@ -13,6 +13,13 @@ export type IExportSettings = {
     frames: IFrame[]
 }
 
+export type ISaveAndLoadSettings = {
+    frames: IFrame[]
+    rows: number
+    width: number
+    height: number
+}
+
 type IMod = {
     xoffset: number,
     yoffset: number,

@@ -17,24 +17,31 @@ function Editor() {
     const [rows, setRows] = useState(1);
     const [width, setWidth] = useState(50);
     const [height, setHeight] = useState(50);
+    
+    // Inspector
+    // TODO: Make the last row have "held" as name
+    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
+    const [selectedRow, setSelectedRow] = useState(0);
+    const [selectedFrame, setSelectedFrame] = useState(0);
+    
+    // Canvas
+    const [canvas, setCanvas] = useState<HTMLCanvasElement>();
+    
+    // Editor Settings
     const editorSettings = {
         rows, setRows,
         width, setWidth,
         height, setHeight
     };
 
-    // Inspector
-    // TODO: Make the last row have "held" as name
-    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
-    const [selectedRow, setSelectedRow] = useState(0);
-    const [selectedFrame, setSelectedFrame] = useState(0);
-
-    // Canvas
-    const [canvas, setCanvas] = useState<HTMLCanvasElement>();
-
     // Export Settings
     const exportSettings = {
         canvas, frames
+    };
+
+    // Save & Load Settings
+    const saveAndLoadSettings = {
+        frames, rows, width, height
     };
 
     return (
@@ -42,7 +49,7 @@ function Editor() {
             <RowList frames={frames} setFrames={setFrames} rows={rows} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
 
             <Viewport>
-                <Navbar editorSettings={editorSettings} exportSettings={exportSettings} />
+                <Navbar editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
                 <SpriteSheetCanvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvas={setCanvas} />
             </Viewport>
 
