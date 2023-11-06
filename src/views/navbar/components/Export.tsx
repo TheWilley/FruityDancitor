@@ -1,5 +1,5 @@
 import { IExportSettings } from '../../../global/types';
-import { donwload } from '../../../utils/download';
+import { download } from '../../../utils/download';
 import { useState } from 'react';
 
 function Export(props: { exportSettings: IExportSettings }) {
@@ -8,7 +8,7 @@ function Export(props: { exportSettings: IExportSettings }) {
     return (
         <div>
             <input type="text" className="input input-bordered mb-1 input-sm w-full text-center" value={fileName} onChange={(e) => setFileName(e.target.value)} placeholder='File Name...' />
-            <button className="btn btn-outline btn-success w-full" onClick={() => donwload(props.exportSettings, fileName)}> Download </button>
+            <button className="btn btn-outline btn-success w-full" onClick={() => download(props.exportSettings, fileName)}> Download </button>
         </div>
     );
 }

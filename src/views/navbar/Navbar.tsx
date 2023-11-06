@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faFileExport, faInfoCircle, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faCog, faFileExport, faInfoCircle, faPen, faSave } from '@fortawesome/free-solid-svg-icons';
 import EditorSettings from './components/EditorSettings';
 import { IEditorSettings, IExportSettings } from '../../global/types';
 import Export from './components/Export';
+import SaveAndLoad from './components/SaveAndLoad';
 
 function Navbar(props: { editorSettings: IEditorSettings, exportSettings: IExportSettings }) {
     const [tab, setTab] = useState(0);
@@ -19,6 +20,11 @@ function Navbar(props: { editorSettings: IEditorSettings, exportSettings: IExpor
             name: 'Editor Settings',
             view: <EditorSettings editorSettings={props.editorSettings} />,
             icon: <FontAwesomeIcon icon={faPen} />
+        },
+        {
+            name: 'Save & Load',
+            view: <SaveAndLoad />,
+            icon: <FontAwesomeIcon icon={faSave} />
         },
         {
             name: 'Export',

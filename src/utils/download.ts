@@ -2,7 +2,7 @@ import JSZip from 'jszip';
 import { IExportSettings } from '../global/types';
 import { saveAs } from 'file-saver';
 
-export function donwload(exportSettings: IExportSettings, filename: string) {
+export function download(exportSettings: IExportSettings, filename: string) {
     // If a filename is not entered, use default name
     if(!filename) filename = 'spiriteSheet';
 
