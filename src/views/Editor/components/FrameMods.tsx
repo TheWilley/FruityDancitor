@@ -8,11 +8,13 @@ function FrameMods(props: { frames: IFrame[], setFrames: React.Dispatch<React.Se
      * Resets mod params to default
      */
     const resetMods = () => {
-        props.setFrames((prevFrames) => produce(prevFrames, (draft) => {
-            draft[props.selectedRow].row[props.selectedFrame].mods.scale = 1;
-            draft[props.selectedRow].row[props.selectedFrame].mods.xoffset = 0;
-            draft[props.selectedRow].row[props.selectedFrame].mods.yoffset = 0;
-        }));
+        if (props.frames[props.selectedRow].row[props.selectedFrame]) {
+            props.setFrames((prevFrames) => produce(prevFrames, (draft) => {
+                draft[props.selectedRow].row[props.selectedFrame].mods.scale = 1;
+                draft[props.selectedRow].row[props.selectedFrame].mods.xoffset = 0;
+                draft[props.selectedRow].row[props.selectedFrame].mods.yoffset = 0;
+            }));
+        }
     };
 
     return (
