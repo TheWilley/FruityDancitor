@@ -21,7 +21,7 @@ function FrameMods(props: { frames: IFrame[], setFrames: React.Dispatch<React.Se
                 <label className="label">
                     <span className="label-text">Scale</span>
                 </label>
-                <input type='number' className='input input-md input-bordered w-full' step={0.1} value={mods.scale} onChange={(e) => props.setFrames((prevFrames) => produce(prevFrames, (draft) => {
+                <input type='number' className='input input-md input-bordered w-full' step={0.1} min={0.1} value={mods.scale} onChange={(e) => props.setFrames((prevFrames) => produce(prevFrames, (draft) => {
                     draft[props.selectedRow].row[props.selectedFrame].mods.scale = parseFloat(e.target.value);
                 }))} disabled={props.selectedFrame === -1} />
             </div>
