@@ -24,7 +24,7 @@ export default function useCanvas(canvasRef: RefObject<HTMLCanvasElement>, rows:
                     // Go trough each frame in the frames array
                     for (const [x, frame] of row.row.entries()) {
                         // Draw image on the given tile, where x depends on frame and y depends on group
-                        drawImageOnTile(context, frame, y, x, height, width);
+                        drawImageOnTile(context, frame.base64, y, x, height, width);
                     }
                 }
             }

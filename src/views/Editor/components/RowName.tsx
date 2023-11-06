@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import { IFrame } from '../../../global/types';
 
 function RowName(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
@@ -9,9 +10,9 @@ function RowName(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetS
                         <span className="label-text">Name</span>
                     </label>
                     <input value={props.frames[props.selectedRow].name} type="text" placeholder="Type here" className="input input-bordered w-full" onChange={(e) => {
-                        const updatedFrames = [...props.frames];
-                        updatedFrames[props.selectedRow] = { ...updatedFrames[props.selectedRow], name: e.target.value };
-                        props.setFrames(updatedFrames);
+                        props.setFrames(produce(props.frames, (draft) => {
+                            draft[props.selectedRow].name = e.target.value;
+                        }));
                     }} />
                 </div>
             </div>

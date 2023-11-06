@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { getBase64 } from '../utils/fileHandler';
 import { IFrame } from '../global/types';
+import { produce } from 'immer';
 
 export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number) {
     const [dragOver, setDragOver] = useState(false);
@@ -20,14 +21,13 @@ export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatc
                     // Get base64 for the file
                     const base64 = await getBase64(file) as string;
 
-                    if (!frames[selectedRow].row.includes(base64)) {
+                    if (!frames[selectedRow].row.map(item => item.base64).includes(base64)) {
                         // Update the state by appending the image to the first row
-                        setFrames((prevFrames) => {
-                            return prevFrames.map((row, index) => ({
-                                name: row.name,
-                                row: index === selectedRow ? [...row.row, base64] : row.row
-                            }));
-                        });
+                        setFrames((prevFrames) =>
+                            produce(prevFrames, (draft) => {
+                                draft[selectedRow].row.push({ base64: base64, mods: { scale: 1, xoffset: 0, yoffset: 0 } });
+                            })
+                        );
                     }
                 }
             }

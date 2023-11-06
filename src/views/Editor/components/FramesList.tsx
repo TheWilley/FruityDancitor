@@ -1,20 +1,18 @@
 import { List, arrayMove } from 'react-movable';
 import ListItem from './ListItem';
 import { IFrame } from '../../../global/types';
+import { produce } from 'immer';
 
 function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
     /**
      * Modified a row with a new value
      */
-    const adjustRow = (modifiedRow: string[]) => {
-        // Delete the specified frame from the row array
-        const newFrames = EProps.frames.map((frame, index) => {
-            if (index === EProps.selectedRow) {
-                return { ...frame, row: modifiedRow };
-            }
-            return frame;
+    const adjustRow = (modifiedRow: IFrame['row']) => {
+        EProps.setFrames((prevFrames) => {
+            return produce(prevFrames, (draft) => {
+                draft[EProps.selectedRow].row = modifiedRow;
+            });
         });
-        EProps.setFrames(newFrames);
     };
 
     /**
@@ -33,7 +31,7 @@ function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props}>
-                    <ListItem {...props} base64={value} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} includeTrash />
+                    <ListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} includeTrash />
                 </li>
             )}
         />

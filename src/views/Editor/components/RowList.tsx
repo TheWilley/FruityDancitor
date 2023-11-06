@@ -15,7 +15,7 @@ function RowList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.Set
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}
                 renderItem={({ value, props, index }) => (
                     <li {...props} onMouseDown={() => EProps.setSelectedRow(index || 0)}>
-                        <ListItem {...props} base64={value.row[0]} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
+                        <ListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
                     </li>
                 )}
             />
