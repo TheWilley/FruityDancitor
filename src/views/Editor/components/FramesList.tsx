@@ -2,8 +2,33 @@ import { List, arrayMove } from 'react-movable';
 import ListItem from './ListItem';
 import { IFrame } from '../../../global/types';
 import { produce } from 'immer';
+import { useEffect } from 'react';
 
-function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number }) {
+function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
+    // Detects when a row is changed and sets a default value of 0
+    useEffect(() => {
+        EProps.setSelectedFrame(0);
+    }, [EProps.selectedRow]);
+
+    // Runs on every update
+    useEffect(() => {
+        // If out form is enabled
+        if (EProps.selectedFrame != -1) {
+            // If the selected index is out of bounds, move it down one step
+            if (EProps.frames[EProps.selectedRow].row.length <= EProps.selectedFrame) {
+                EProps.setSelectedFrame(EProps.selectedFrame - 1);
+            } 
+            // If we have no frames, disable form
+            else if (EProps.frames[EProps.selectedRow].row.length === 0) {
+                EProps.setSelectedFrame(-1);
+            }
+        } 
+        // If we only have one frame, select it
+        else if (EProps.frames[EProps.selectedRow].row.length === 1) {
+            EProps.setSelectedFrame(0);
+        }
+    });
+
     /**
      * Modified a row with a new value
      */
@@ -14,7 +39,6 @@ function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.
             });
         });
     };
-
     /**
      * Callback when removing a frame
      */
@@ -27,11 +51,12 @@ function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.
             values={EProps.frames[EProps.selectedRow].row.slice(0, EProps.rows)}
             onChange={({ oldIndex, newIndex }) => {
                 adjustRow(arrayMove(EProps.frames[EProps.selectedRow].row, oldIndex, newIndex));
+                EProps.setSelectedFrame(newIndex);
             }}
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
-                <li {...props}>
-                    <ListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} includeTrash />
+                <li {...props} onMouseDown={() => EProps.setSelectedFrame(index || 0)}>
+                    <ListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} highlighted={EProps.selectedFrame === index} includeTrash />
                 </li>
             )}
         />

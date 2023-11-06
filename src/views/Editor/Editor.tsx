@@ -10,6 +10,7 @@ import Preview from './components/Preview';
 import RowList from './components/RowList';
 import Viewport from './components/Viewport';
 import SpriteSheetCanvas from './components/SpriteSheetCanvas';
+import FrameMods from './components/FrameMods';
 
 function Editor() {
     // Editor Settings
@@ -26,6 +27,7 @@ function Editor() {
     // TODO: Make the last row have "held" as name
     const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
     const [selectedRow, setSelectedRow] = useState(0);
+    const [selectedFrame, setSelectedFrame] = useState(0);
 
     // Canvas
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
@@ -47,9 +49,11 @@ function Editor() {
             <Inspector>
                 {canvas && <Preview originalCanvas={canvas} height={height} width={width} selectedRow={selectedRow} />}
                 <RowName frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
-                <h2 className='text-2xl font-bold mt-3 mb-3'> Frames </h2>
+                <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
+                <FrameMods frames={frames} setFrames={setFrames} selectedRow={selectedRow} selectedFrame={selectedFrame} setSelectedFrame={setSelectedFrame} />
+                <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
                 <FileUpload frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
-                <FramesList frames={frames} setFrames={setFrames} rows={8} selectedRow={selectedRow} />
+                <FramesList frames={frames} setFrames={setFrames} rows={8} selectedRow={selectedRow} selectedFrame={selectedFrame} setSelectedFrame={setSelectedFrame} />
             </Inspector>
         </div>
     );
