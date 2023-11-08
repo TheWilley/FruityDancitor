@@ -1,20 +1,27 @@
+import Compressor from "compressorjs";
+
 /**
  * Extract base64 from an image
  */
 function getBase64(file: File) {
     return new Promise((resolve, reject) => {
         if (file.type === 'image/jpeg') {
-            const reader = new FileReader();
+            new Compressor(file, {
+                quality: 0.8,
+                success: (result) => {
+                    const reader = new FileReader();
 
-            reader.onloadend = function () {
-                resolve(reader.result);
-            };
+                    reader.onloadend = function () {
+                        resolve(reader.result);
+                    };
 
-            reader.onerror = function () {
-                reject(new Error('Failed to read the file as Base64'));
-            };
+                    reader.onerror = function () {
+                        reject(new Error('Failed to read the file as Base64'));
+                    };
 
-            reader.readAsDataURL(file);
+                    reader.readAsDataURL(result);
+                }
+            })
         } else {
             reject(new Error('Unsupported file type'));
         }
