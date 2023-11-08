@@ -1,6 +1,6 @@
-import {faPercent } from '@fortawesome/free-solid-svg-icons';
+import { faPercent } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IAppSettings } from '../../../global/types';
+import { IAppSettings } from '../../../hooks/useAppSettings';
 
 function AppSettings(props: {appSettings: IAppSettings}) {
     return (

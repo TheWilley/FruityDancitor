@@ -1,11 +1,13 @@
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faFileExport, faInfoCircle, faPen, faSave } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useState } from 'react';
+import { IAppSettings } from '../../hooks/useAppSettings';
+import { IEditorSettings } from '../../hooks/useEditorSettings';
+import { IExportSettings, ISaveAndLoadSettings } from '../../utils/settingsHelper';
+import AppSettings from './components/AppSettings';
 import EditorSettings from './components/EditorSettings';
-import { IAppSettings, IEditorSettings, IExportSettings, ISaveAndLoadSettings } from '../../global/types';
 import Export from './components/Export';
 import SaveAndLoad from './components/SaveAndLoad';
-import AppSettings from './components/AppSettings';
 
 function Navbar(props: { appSettings: IAppSettings, editorSettings: IEditorSettings, exportSettings: IExportSettings, saveAndLoadSettings: ISaveAndLoadSettings }) {
     const [tab, setTab] = useState(0);

@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react';
-import { drawImageOnTile } from '../utils/canvas';
 import { IFrame } from '../global/types';
+import { drawImageOnTile } from '../utils/canvas';
 
 export default function useCanvas(canvasRef: RefObject<HTMLCanvasElement>, rows: number, height: number, width: number, frames: IFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>) {
     useEffect(() => {

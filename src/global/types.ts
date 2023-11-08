@@ -1,29 +1,3 @@
-export type IAppSettings = {
-    compressionRatio: number
-    setCompressionRatio: React.Dispatch<React.SetStateAction<number>>;
-}
-
-export type IEditorSettings = {
-    rows: number;
-    setRows: React.Dispatch<React.SetStateAction<number>>;
-    width: number;
-    setWidth: React.Dispatch<React.SetStateAction<number>>;
-    height: number;
-    setHeight: React.Dispatch<React.SetStateAction<number>>;
-};
-
-export type IExportSettings = {
-    canvas: HTMLCanvasElement | undefined
-    frames: IFrame[]
-}
-
-export type ISaveAndLoadSettings = {
-    frames: IFrame[]
-    rows: number
-    width: number
-    height: number
-}
-
 type IMod = {
     xoffset: number,
     yoffset: number,

@@ -1,5 +1,5 @@
-import { ISaveAndLoadSettings } from '../../../global/types';
 import useSaveAndLoad from '../../../hooks/useSaveAndLoad';
+import { ISaveAndLoadSettings } from '../../../utils/settingsHelper';
 
 function SaveAndLoad(props: {saveAndLoadSettings: ISaveAndLoadSettings}) {
     const [save, load] = useSaveAndLoad();

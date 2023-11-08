@@ -1,4 +1,4 @@
-import Compressor from "compressorjs";
+import Compressor from 'compressorjs';
 
 /**
  * Extract base64 from an image
@@ -21,7 +21,7 @@ function getBase64(file: File, compressionRatio: number) {
 
                     reader.readAsDataURL(result);
                 }
-            })
+            });
         } else {
             reject(new Error('Unsupported file type'));
         }

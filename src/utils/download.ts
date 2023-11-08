@@ -1,6 +1,6 @@
-import JSZip from 'jszip';
-import { IExportSettings } from '../global/types';
 import { saveAs } from 'file-saver';
+import JSZip from 'jszip';
+import { IExportSettings } from './settingsHelper';
 
 export function download(exportSettings: IExportSettings, filename: string) {
     // If a filename is not entered, use default name

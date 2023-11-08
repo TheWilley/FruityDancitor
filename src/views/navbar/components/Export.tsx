@@ -1,6 +1,6 @@
-import { IExportSettings } from '../../../global/types';
-import { download } from '../../../utils/download';
 import { useState } from 'react';
+import { download } from '../../../utils/download';
+import { IExportSettings } from '../../../utils/settingsHelper';
 
 function Export(props: { exportSettings: IExportSettings }) {
     const [fileName, setFileName] = useState('');

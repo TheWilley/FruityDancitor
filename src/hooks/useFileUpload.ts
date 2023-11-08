@@ -1,8 +1,8 @@
+import { produce } from 'immer';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { getBase64 } from '../utils/fileHandler';
 import { IFrame } from '../global/types';
-import { produce } from 'immer';
+import { getBase64 } from '../utils/fileHandler';
 
 export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
