@@ -2,18 +2,19 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faFileExport, faInfoCircle, faPen, faSave } from '@fortawesome/free-solid-svg-icons';
 import EditorSettings from './components/EditorSettings';
-import { IEditorSettings, IExportSettings, ISaveAndLoadSettings } from '../../global/types';
+import { IAppSettings, IEditorSettings, IExportSettings, ISaveAndLoadSettings } from '../../global/types';
 import Export from './components/Export';
 import SaveAndLoad from './components/SaveAndLoad';
+import AppSettings from './components/AppSettings';
 
-function Navbar(props: { editorSettings: IEditorSettings, exportSettings: IExportSettings, saveAndLoadSettings: ISaveAndLoadSettings }) {
+function Navbar(props: { appSettings: IAppSettings, editorSettings: IEditorSettings, exportSettings: IExportSettings, saveAndLoadSettings: ISaveAndLoadSettings }) {
     const [tab, setTab] = useState(0);
     const [hidden, setHidden] = useState(false);
 
     const tabs = [
         {
             name: 'App Settings',
-            view: <div>Tab 1</div>,
+            view: <AppSettings appSettings={props.appSettings}/>,
             icon: <FontAwesomeIcon icon={faCog} />
         },
         {

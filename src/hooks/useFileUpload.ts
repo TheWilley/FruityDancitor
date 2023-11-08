@@ -4,7 +4,7 @@ import { getBase64 } from '../utils/fileHandler';
 import { IFrame } from '../global/types';
 import { produce } from 'immer';
 
-export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number) {
+export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
     const disabled = frames[selectedRow].row.length > 7;
 
@@ -19,7 +19,7 @@ export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatc
                 // Check if there is space for a new entry
                 if (frames[selectedRow].row.length + index < 8) {
                     // Get base64 for the file
-                    const base64 = await getBase64(file) as string;
+                    const base64 = await getBase64(file, compressionRatio) as string;
 
                     if (!frames[selectedRow].row.map(item => item.base64).includes(base64)) {
                         // Update the state by appending the image to the first row

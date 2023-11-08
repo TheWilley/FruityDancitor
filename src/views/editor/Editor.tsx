@@ -23,10 +23,16 @@ function Editor() {
     const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
     const [selectedRow, setSelectedRow] = useState(0);
     const [selectedFrame, setSelectedFrame] = useState(0);
-    
+    const [compressionRatio, setCompressionRatio] = useState(1)
+
     // Canvas
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
     
+    // App Settings
+    const appSettings = {
+        compressionRatio, setCompressionRatio
+    }
+
     // Editor Settings
     const editorSettings = {
         rows, setRows,
@@ -49,7 +55,7 @@ function Editor() {
             <RowList frames={frames} setFrames={setFrames} rows={rows} selectedRow={selectedRow} setSelectedRow={setSelectedRow} />
 
             <Viewport>
-                <Navbar editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
+                <Navbar appSettings={appSettings} editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
                 <SpriteSheetCanvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={frames} setCanvas={setCanvas} />
             </Viewport>
 
@@ -59,7 +65,7 @@ function Editor() {
                 <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
                 <FrameMods frames={frames} setFrames={setFrames} selectedRow={selectedRow} selectedFrame={selectedFrame} setSelectedFrame={setSelectedFrame} />
                 <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-                <FileUpload frames={frames} setFrames={setFrames} selectedRow={selectedRow} />
+                <FileUpload frames={frames} setFrames={setFrames} selectedRow={selectedRow} compressionRatio={compressionRatio} />
                 <FramesList frames={frames} setFrames={setFrames} rows={8} selectedRow={selectedRow} selectedFrame={selectedFrame} setSelectedFrame={setSelectedFrame} />
             </Inspector>
         </div>

@@ -1,4 +1,8 @@
-/*/ Editor Settings /*/
+export type IAppSettings = {
+    compressionRatio: number
+    setCompressionRatio: React.Dispatch<React.SetStateAction<number>>;
+}
+
 export type IEditorSettings = {
     rows: number;
     setRows: React.Dispatch<React.SetStateAction<number>>;
