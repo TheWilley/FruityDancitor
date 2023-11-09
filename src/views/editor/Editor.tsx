@@ -2,7 +2,7 @@ import useAppSettings from '../../hooks/useAppSettings';
 import useEditorData from '../../hooks/useEditorData';
 import useEditorSettings from '../../hooks/useEditorSettings';
 import { deriveExportSettings, deriveSaveAndLoadSettings } from '../../utils/settingsHelper';
-import Navbar from '../navbar/Navbar';
+import SectionNavbar from './components/SectionNavbar';
 import SectionInspector from './components/SectionInspector';
 import InspectorFileUpload from './components/InspectorFileUpload';
 import InspectorFrameMods from './components/InspectorFrameMods';
@@ -25,7 +25,7 @@ function Editor() {
             <SectionRowsList frames={editorData.frames} setFrames={editorData.setFrames} rows={editorSettings.rows} selectedRow={editorData.selectedRow} setSelectedRow={editorData.setSelectedRow} />
 
             <SectionViewport>
-                <Navbar appSettings={appSettings} editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
+                <SectionNavbar appSettings={appSettings} editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
                 <SpriteSheetCanvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={editorData.frames} setCanvas={editorData.setCanvas} />
             </SectionViewport>
 

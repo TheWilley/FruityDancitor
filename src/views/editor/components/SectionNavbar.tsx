@@ -1,15 +1,15 @@
 import { faCog, faFileExport, faInfoCircle, faPen, faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { IAppSettings } from '../../hooks/useAppSettings';
-import { IEditorSettings } from '../../hooks/useEditorSettings';
-import { IExportSettings, ISaveAndLoadSettings } from '../../utils/settingsHelper';
-import NavbarAppSettingsTab from './components/NavbarAppSettingsTab';
-import NavbarEditorSettingsTab from './components/NavbarEditorSettingsTab';
-import NavbarExportTab from './components/NavbarExportTab';
-import NavbarSaveAndLoadTab from './components/NavbarSaveAndLoadTab';
+import { IAppSettings } from '../../../hooks/useAppSettings';
+import { IEditorSettings } from '../../../hooks/useEditorSettings';
+import { IExportSettings, ISaveAndLoadSettings } from '../../../utils/settingsHelper';
+import NavbarAppSettingsTab from './NavbarAppSettingsTab';
+import NavbarEditorSettingsTab from './NavbarEditorSettingsTab';
+import NavbarExportTab from './NavbarExportTab';
+import NavbarSaveAndLoadTab from './NavbarSaveAndLoadTab';
 
-function Navbar(props: { appSettings: IAppSettings, editorSettings: IEditorSettings, exportSettings: IExportSettings, saveAndLoadSettings: ISaveAndLoadSettings }) {
+function SectionNavbar(props: { appSettings: IAppSettings, editorSettings: IEditorSettings, exportSettings: IExportSettings, saveAndLoadSettings: ISaveAndLoadSettings }) {
     const [tab, setTab] = useState(0);
     const [hidden, setHidden] = useState(false);
 
@@ -75,4 +75,4 @@ function Navbar(props: { appSettings: IAppSettings, editorSettings: IEditorSetti
     );
 }
 
-export default Navbar;
+export default SectionNavbar;
