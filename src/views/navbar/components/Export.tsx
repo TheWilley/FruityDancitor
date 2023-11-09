@@ -1,9 +1,8 @@
-import { useState } from 'react';
-import { downloadFile } from '../../../utils/fileHandler';
+import useExport from '../../../hooks/useExport';
 import { IExportSettings } from '../../../utils/settingsHelper';
 
 function Export(props: { exportSettings: IExportSettings }) {
-    const [fileName, setFileName] = useState('');
+    const [fileName, setFileName, downloadFile] = useExport();
 
     return (
         <div>

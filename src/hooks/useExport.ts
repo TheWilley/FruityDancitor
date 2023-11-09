@@ -1,35 +1,7 @@
-import Compressor from 'compressorjs';
-import { saveAs } from 'file-saver';
 import JSZip from 'jszip';
-import { IExportSettings } from './settingsHelper';
-
-/**
- * Extract base64 from an image
- */
-function getBase64(file: File, compressionRatio: number) {
-    return new Promise((resolve, reject) => {
-        if (file.type === 'image/jpeg') {
-            new Compressor(file, {
-                quality: compressionRatio,
-                success: (result) => {
-                    const reader = new FileReader();
-
-                    reader.onloadend = function () {
-                        resolve(reader.result);
-                    };
-
-                    reader.onerror = function () {
-                        reject(new Error('Failed to read the file as Base64'));
-                    };
-
-                    reader.readAsDataURL(result);
-                }
-            });
-        } else {
-            reject(new Error('Unsupported file type'));
-        }
-    });
-}
+import { IExportSettings } from '../utils/settingsHelper';
+import saveAs from 'file-saver';
+import { useState } from 'react';
 
 function downloadFile(exportSettings: IExportSettings, filename: string) {
     // If a filename is not entered, use default name
@@ -62,4 +34,8 @@ function downloadFile(exportSettings: IExportSettings, filename: string) {
     });
 }
 
-export { getBase64, downloadFile };
+export default function useExport() {
+    const [fileName, setFileName] = useState('');
+
+    return [fileName, setFileName, downloadFile] as const;    
+}
