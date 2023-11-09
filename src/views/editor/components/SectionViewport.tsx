@@ -1,4 +1,4 @@
-function Viewport(props: {children: React.ReactNode[]}) {
+function SectionViewport(props: {children: React.ReactNode[]}) {
     return (
         <div className="flex flex-col gap-2">
             {props.children}
@@ -6,4 +6,4 @@ function Viewport(props: {children: React.ReactNode[]}) {
     );
 }
 
-export default Viewport;
+export default SectionViewport;

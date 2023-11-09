@@ -1,6 +1,6 @@
 import CardL1 from '../../../components/CardL1';
 
-function Inspector(props: { children: React.ReactNode[] }) {
+function SectionInspector(props: { children: React.ReactNode[] }) {
     return (
         <CardL1>
             <div className='p-2'>
@@ -10,4 +10,4 @@ function Inspector(props: { children: React.ReactNode[] }) {
     );
 }
 
-export default Inspector;
+export default SectionInspector;
