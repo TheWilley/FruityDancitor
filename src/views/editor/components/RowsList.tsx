@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import { List, arrayMove } from 'react-movable';
 import CardL1 from '../../../components/CardL1';
 import { IFrame } from '../../../global/types';
-import ListItem from './ListItem';
+import CommonListItem from './CommonListItem';
 
-function RowList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
+function RowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
     useEffect(() => {
         if(EProps.selectedRow >= EProps.rows) {
             EProps.setSelectedRow(EProps.rows - 1);
@@ -22,7 +22,7 @@ function RowList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.Set
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}
                 renderItem={({ value, props, index }) => (
                     <li {...props} onMouseDown={() => EProps.setSelectedRow(index || 0)}>
-                        <ListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
+                        <CommonListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
                     </li>
                 )}
             />
@@ -31,4 +31,4 @@ function RowList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.Set
 }
 
 
-export default RowList;
+export default RowsList;

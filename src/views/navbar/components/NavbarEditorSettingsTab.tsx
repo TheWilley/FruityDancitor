@@ -2,7 +2,7 @@ import { faBars, faTextHeight, faTextWidth } from '@fortawesome/free-solid-svg-i
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IEditorSettings } from '../../../hooks/useEditorSettings';
 
-function EditorSettings(props: {editorSettings: IEditorSettings}) {
+function NavbarEditorSettingsTab(props: {editorSettings: IEditorSettings}) {
     return (
         <div className='grid grid-cols-3 gap-2'>
             <div className="join">
@@ -27,4 +27,4 @@ function EditorSettings(props: {editorSettings: IEditorSettings}) {
     );
 }
 
-export default EditorSettings;
+export default NavbarEditorSettingsTab;

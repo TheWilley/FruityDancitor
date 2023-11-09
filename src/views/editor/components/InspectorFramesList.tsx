@@ -2,9 +2,9 @@ import { produce } from 'immer';
 import { useEffect } from 'react';
 import { List, arrayMove } from 'react-movable';
 import { IFrame } from '../../../global/types';
-import ListItem from './ListItem';
+import CommonListItem from './CommonListItem';
 
-function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
+function InspectorFramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
     // Detects when a row is changed and sets a default value of 0
     useEffect(() => {
         EProps.setSelectedFrame(0);
@@ -56,7 +56,7 @@ function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props} onMouseDown={() => EProps.setSelectedFrame(index || 0)}>
-                    <ListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} highlighted={EProps.selectedFrame === index} includeTrash />
+                    <CommonListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} highlighted={EProps.selectedFrame === index} includeTrash />
                 </li>
             )}
         />
@@ -64,4 +64,4 @@ function FramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.
 }
 
 
-export default FramesList;
+export default InspectorFramesList;

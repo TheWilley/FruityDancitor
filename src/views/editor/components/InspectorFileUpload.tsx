@@ -1,7 +1,7 @@
 import { IFrame } from '../../../global/types';
 import useFileUpload from '../../../hooks/useFileUpload';
 
-function FileUpload(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, compressionRatio: number }) {
+function InspectorFileUpload(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, compressionRatio: number }) {
     const [rootProps, inputProps, placeholderText, disabled, className, style] = useFileUpload(props.frames, props.setFrames, props.selectedRow, props.compressionRatio);
 
     return (
@@ -20,4 +20,4 @@ function FileUpload(props: { frames: IFrame[], setFrames: React.Dispatch<React.S
 
 }
 
-export default FileUpload;
+export default InspectorFileUpload;

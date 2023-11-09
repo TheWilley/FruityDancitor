@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import usePreview from '../../../hooks/UsePreview';
 
 
-function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number }) {
+function InspectorPreview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number }) {
 	const previewRef = useRef(null);
 	const [currentFrame] = usePreview(previewRef.current!, props.originalCanvas, props.selectedRow, props.width, props.height);
 
@@ -21,4 +21,4 @@ function Preview(props: { originalCanvas: HTMLCanvasElement | undefined, selecte
 	);
 }
 
-export default Preview;
+export default InspectorPreview;

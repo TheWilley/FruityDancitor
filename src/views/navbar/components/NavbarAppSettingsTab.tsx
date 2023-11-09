@@ -2,7 +2,7 @@ import { faPercent } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IAppSettings } from '../../../hooks/useAppSettings';
 
-function AppSettings(props: {appSettings: IAppSettings}) {
+function NavbarAppSettingsTab(props: {appSettings: IAppSettings}) {
     return (
         <div className='grid grid-cols-3 gap-2'>
             <div className="join">
@@ -15,4 +15,4 @@ function AppSettings(props: {appSettings: IAppSettings}) {
     );
 }
 
-export default AppSettings;
+export default NavbarAppSettingsTab;

@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { IAppSettings } from '../../hooks/useAppSettings';
 import { IEditorSettings } from '../../hooks/useEditorSettings';
 import { IExportSettings, ISaveAndLoadSettings } from '../../utils/settingsHelper';
-import AppSettings from './components/AppSettings';
-import EditorSettings from './components/EditorSettings';
-import Export from './components/Export';
-import SaveAndLoad from './components/SaveAndLoad';
+import NavbarAppSettingsTab from './components/NavbarAppSettingsTab';
+import NavbarEditorSettingsTab from './components/NavbarEditorSettingsTab';
+import NavbarExportTab from './components/NavbarExportTab';
+import NavbarSaveAndLoadTab from './components/NavbarSaveAndLoadTab';
 
 function Navbar(props: { appSettings: IAppSettings, editorSettings: IEditorSettings, exportSettings: IExportSettings, saveAndLoadSettings: ISaveAndLoadSettings }) {
     const [tab, setTab] = useState(0);
@@ -16,22 +16,22 @@ function Navbar(props: { appSettings: IAppSettings, editorSettings: IEditorSetti
     const tabs = [
         {
             name: 'App Settings',
-            view: <AppSettings appSettings={props.appSettings}/>,
+            view: <NavbarAppSettingsTab appSettings={props.appSettings}/>,
             icon: <FontAwesomeIcon icon={faCog} />
         },
         {
             name: 'Editor Settings',
-            view: <EditorSettings editorSettings={props.editorSettings} />,
+            view: <NavbarEditorSettingsTab editorSettings={props.editorSettings} />,
             icon: <FontAwesomeIcon icon={faPen} />
         },
         {
             name: 'Save & Load',
-            view: <SaveAndLoad saveAndLoadSettings={props.saveAndLoadSettings} />,
+            view: <NavbarSaveAndLoadTab saveAndLoadSettings={props.saveAndLoadSettings} />,
             icon: <FontAwesomeIcon icon={faSave} />
         },
         {
             name: 'Export',
-            view: <Export exportSettings={props.exportSettings} />,
+            view: <NavbarExportTab exportSettings={props.exportSettings} />,
             icon: <FontAwesomeIcon icon={faFileExport} />
         },
         {

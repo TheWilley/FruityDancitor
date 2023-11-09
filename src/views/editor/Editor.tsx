@@ -3,15 +3,15 @@ import useEditorData from '../../hooks/useEditorData';
 import useEditorSettings from '../../hooks/useEditorSettings';
 import { deriveExportSettings, deriveSaveAndLoadSettings } from '../../utils/settingsHelper';
 import Navbar from '../navbar/Navbar';
-import FileUpload from './components/FileUpload';
-import FrameMods from './components/FrameMods';
-import FramesList from './components/FramesList';
 import Inspector from './components/Inspector';
-import Preview from './components/Preview';
-import RowList from './components/RowList';
-import RowName from './components/RowName';
-import SpriteSheetCanvas from './components/SpriteSheetCanvas';
+import InspectorFileUpload from './components/InspectorFileUpload';
+import InspectorFrameMods from './components/InspectorFrameMods';
+import InspectorFramesList from './components/InspectorFramesList';
+import InspectorPreview from './components/InspectorPreview';
+import InspectorRowName from './components/InspectorRowName';
+import RowsList from './components/RowsList';
 import Viewport from './components/Viewport';
+import SpriteSheetCanvas from './components/ViewportSpriteSheetCanvas';
 
 function Editor() {
     const editorData = useEditorData();
@@ -22,7 +22,7 @@ function Editor() {
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
-            <RowList frames={editorData.frames} setFrames={editorData.setFrames} rows={editorSettings.rows} selectedRow={editorData.selectedRow} setSelectedRow={editorData.setSelectedRow} />
+            <RowsList frames={editorData.frames} setFrames={editorData.setFrames} rows={editorSettings.rows} selectedRow={editorData.selectedRow} setSelectedRow={editorData.setSelectedRow} />
 
             <Viewport>
                 <Navbar appSettings={appSettings} editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
@@ -30,13 +30,13 @@ function Editor() {
             </Viewport>
 
             <Inspector>
-                {editorData.canvas && <Preview originalCanvas={editorData.canvas} height={editorSettings.height} width={editorSettings.width} selectedRow={editorData.selectedRow} />}
-                <RowName frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} />
+                {editorData.canvas && <InspectorPreview originalCanvas={editorData.canvas} height={editorSettings.height} width={editorSettings.width} selectedRow={editorData.selectedRow} />}
+                <InspectorRowName frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} />
                 <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
-                <FrameMods frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
+                <InspectorFrameMods frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
                 <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-                <FileUpload frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} compressionRatio={appSettings.compressionRatio} />
-                <FramesList frames={editorData.frames} setFrames={editorData.setFrames} rows={8} selectedRow={editorData.selectedRow} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
+                <InspectorFileUpload frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} compressionRatio={appSettings.compressionRatio} />
+                <InspectorFramesList frames={editorData.frames} setFrames={editorData.setFrames} rows={8} selectedRow={editorData.selectedRow} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
             </Inspector>
         </div>
     );

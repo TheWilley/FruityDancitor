@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { IFrame } from '../../../global/types';
 
-function FrameMods(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
+function InspectorFrameMods(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
     const mods = props.frames[props.selectedRow]?.row[props.selectedFrame]?.mods || { scale: 1, xoffset: 0, yoffset: 0 };
 
     /**
@@ -50,4 +50,4 @@ function FrameMods(props: { frames: IFrame[], setFrames: React.Dispatch<React.Se
     );
 }
 
-export default FrameMods;
+export default InspectorFrameMods;

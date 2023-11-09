@@ -1,7 +1,7 @@
 import useSaveAndLoad from '../../../hooks/useSaveAndLoad';
 import { ISaveAndLoadSettings } from '../../../utils/settingsHelper';
 
-function SaveAndLoad(props: {saveAndLoadSettings: ISaveAndLoadSettings}) {
+function NavbarSaveAndLoadTab(props: {saveAndLoadSettings: ISaveAndLoadSettings}) {
     const [save, load] = useSaveAndLoad();
     const {frames, rows, width, height} = props.saveAndLoadSettings;
 
@@ -13,4 +13,4 @@ function SaveAndLoad(props: {saveAndLoadSettings: ISaveAndLoadSettings}) {
     );
 }
 
-export default SaveAndLoad;
+export default NavbarSaveAndLoadTab;
