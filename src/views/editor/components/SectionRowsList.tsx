@@ -22,7 +22,7 @@ function SectionRowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<R
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}
                 renderItem={({ value, props, index }) => (
                     <li {...props} onMouseDown={() => EProps.setSelectedRow(index || 0)}>
-                        <CommonListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} highlighted={index === EProps.selectedRow}  />
+                        <CommonListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} alt={`Row ${index || 0 + 1}`} highlighted={index === EProps.selectedRow}  />
                     </li>
                 )}
             />

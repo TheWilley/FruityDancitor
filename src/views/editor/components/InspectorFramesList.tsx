@@ -56,7 +56,7 @@ function InspectorFramesList(EProps: { frames: IFrame[], setFrames: React.Dispat
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}
             renderItem={({ value, props, index }) => (
                 <li {...props} onMouseDown={() => EProps.setSelectedFrame(index || 0)}>
-                    <CommonListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} callback={() => callback(index || 0)} highlighted={EProps.selectedFrame === index} includeTrash />
+                    <CommonListItem {...props} base64={value.base64} text={`Frame ${(index || 0) + 1}`} alt='' callback={() => callback(index || 0)} highlighted={EProps.selectedFrame === index} includeTrash />
                 </li>
             )}
         />
