@@ -1,16 +1,9 @@
-import { useEffect } from 'react';
 import { List, arrayMove } from 'react-movable';
 import CardL1 from '../../../../components/CardL1';
 import { IFrame } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-function SectionRowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
-    useEffect(() => {
-        if(EProps.selectedRow >= EProps.rows) {
-            EProps.setSelectedRow(EProps.rows - 1);
-        }
-    });
-    
+function SectionRowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
     return (
         <CardL1 className='p-1'>
             <List
