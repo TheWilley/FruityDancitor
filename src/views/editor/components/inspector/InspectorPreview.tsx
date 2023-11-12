@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import usePreview from '../../../hooks/UsePreview';
+import usePreview from '../../../../hooks/UsePreview';
 
 
 function InspectorPreview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number }) {

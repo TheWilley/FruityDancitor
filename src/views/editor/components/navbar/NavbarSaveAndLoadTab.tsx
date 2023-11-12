@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import useSaveAndLoad from '../../../hooks/useSaveAndLoad';
-import { ISaveAndLoadSettings } from '../../../utils/settingsHelper';
+import useSaveAndLoad from '../../../../hooks/useSaveAndLoad';
+import { ISaveAndLoadSettings } from '../../../../utils/settingsHelper';
 
 function NavbarSaveAndLoadTab(props: { saveAndLoadSettings: ISaveAndLoadSettings }) {
     const [save, load] = useSaveAndLoad();

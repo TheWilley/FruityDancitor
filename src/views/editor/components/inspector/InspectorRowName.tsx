@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { IFrame } from '../../../global/types';
+import { IFrame } from '../../../../global/types';
 
 function InspectorRowName(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
     return (

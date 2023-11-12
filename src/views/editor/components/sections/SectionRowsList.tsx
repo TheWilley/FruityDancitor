@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { List, arrayMove } from 'react-movable';
-import CardL1 from '../../../components/CardL1';
-import { IFrame } from '../../../global/types';
-import CommonListItem from './CommonListItem';
+import CardL1 from '../../../../components/CardL1';
+import { IFrame } from '../../../../global/types';
+import CommonListItem from '../common/CommonListItem';
 
 function SectionRowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
     useEffect(() => {

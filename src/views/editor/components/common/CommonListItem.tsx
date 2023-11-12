@@ -1,6 +1,6 @@
 import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import noimage from '../../../media/noimage.svg';
+import noimage from '../../../../media/noimage.svg';
 
 function CommonListItem(props: { text: string, alt:string, base64: string, highlighted?: boolean, callback?: () => void, includeTrash?: boolean }) {
     return (

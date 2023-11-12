@@ -2,16 +2,16 @@ import useAppSettings from '../../hooks/useAppSettings';
 import useEditorData from '../../hooks/useEditorData';
 import useEditorSettings from '../../hooks/useEditorSettings';
 import { deriveExportSettings, deriveSaveAndLoadSettings } from '../../utils/settingsHelper';
-import SectionNavbar from './components/SectionNavbar';
-import SectionInspector from './components/SectionInspector';
-import InspectorFileUpload from './components/InspectorFileUpload';
-import InspectorFrameMods from './components/InspectorFrameMods';
-import InspectorFramesList from './components/InspectorFramesList';
-import InspectorPreview from './components/InspectorPreview';
-import InspectorRowName from './components/InspectorRowName';
-import SectionRowsList from './components/SectionRowsList';
-import SectionViewport from './components/SectionViewport';
-import SpriteSheetCanvas from './components/ViewportSpriteSheetCanvas';
+import SectionNavbar from './components/sections/SectionNavbar';
+import SectionInspector from './components/sections/SectionInspector';
+import InspectorFileUpload from './components/inspector/InspectorFileUpload';
+import InspectorFrameMods from './components/inspector/InspectorFrameMods';
+import InspectorFramesList from './components/inspector/InspectorFramesList';
+import InspectorPreview from './components/inspector/InspectorPreview';
+import InspectorRowName from './components/inspector/InspectorRowName';
+import SectionRowsList from './components/sections/SectionRowsList';
+import SectionViewport from './components/sections/SectionViewport';
+import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
 
 function Editor() {
     const appSettings = useAppSettings();

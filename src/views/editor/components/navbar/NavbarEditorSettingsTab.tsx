@@ -1,6 +1,6 @@
 import { faBars, faTextHeight, faTextWidth } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IEditorSettings } from '../../../hooks/useEditorSettings';
+import { IEditorSettings } from '../../../../hooks/useEditorSettings';
 
 function NavbarEditorSettingsTab(props: {editorSettings: IEditorSettings}) {
     return (

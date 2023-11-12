@@ -1,8 +1,8 @@
 import { produce } from 'immer';
 import { useEffect } from 'react';
 import { List, arrayMove } from 'react-movable';
-import { IFrame } from '../../../global/types';
-import CommonListItem from './CommonListItem';
+import { IFrame } from '../../../../global/types';
+import CommonListItem from '../common/CommonListItem';
 
 function InspectorFramesList(EProps: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, rows: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
     // Detects when a row is changed and sets a default value of 0

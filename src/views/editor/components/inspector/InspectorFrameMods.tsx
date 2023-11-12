@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { IFrame } from '../../../global/types';
+import { IFrame } from '../../../../global/types';
 
 function InspectorFrameMods(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
     const mods = props.frames[props.selectedRow]?.row[props.selectedFrame]?.mods || { scale: 1, xoffset: 0, yoffset: 0 };

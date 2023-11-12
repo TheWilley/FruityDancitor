@@ -1,6 +1,6 @@
 import { faPercent } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IAppSettings } from '../../../hooks/useAppSettings';
+import { IAppSettings } from '../../../../hooks/useAppSettings';
 
 function NavbarAppSettingsTab(props: {appSettings: IAppSettings}) {
     return (

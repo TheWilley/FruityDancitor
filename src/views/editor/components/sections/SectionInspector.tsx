@@ -1,4 +1,4 @@
-import CardL1 from '../../../components/CardL1';
+import CardL1 from '../../../../components/CardL1';
 
 function SectionInspector(props: { children: React.ReactNode[] }) {
     return (
