@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function usePreview(previewCanvas: HTMLCanvasElement, originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number ) {
+export default function usePreview(previewCanvas: HTMLCanvasElement | null, originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number ) {
 	const [keepTimer, setKeepTimer] = useState(0);
 	const [currentFrame, setCurrentFrame] = useState(0);
 	const [sx, setSx] = useState(0);
@@ -48,7 +48,7 @@ export default function usePreview(previewCanvas: HTMLCanvasElement, originalCan
 
 			return () => clearTimeout(timer);
 		}
-	}, [keepTimer]);
+	}, [keepTimer, previewCanvas]);
 
     return [currentFrame];
 

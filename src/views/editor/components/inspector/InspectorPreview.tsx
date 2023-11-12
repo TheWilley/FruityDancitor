@@ -4,7 +4,7 @@ import usePreview from '../../../../hooks/UsePreview';
 
 function InspectorPreview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number }) {
 	const previewRef = useRef(null);
-	const [currentFrame] = usePreview(previewRef.current!, props.originalCanvas, props.selectedRow, props.width, props.height);
+	const [currentFrame] = usePreview(previewRef.current, props.originalCanvas, props.selectedRow, props.width, props.height);
 
 	return (
 		<div className='flex justify-center'>
