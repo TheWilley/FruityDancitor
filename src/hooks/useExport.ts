@@ -14,7 +14,7 @@ function downloadFile(exportSettings: IExportSettings, filename: string) {
     const zip = new JSZip();
 
     // Get row names
-    const rowNames = exportSettings.frames.map((item) => item.name);
+    const rowNames = exportSettings.frames.map((item, index) => item.name || `Row ${index}`);
 
     // Convert canvas to image
     const image = new Image();
