@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 import CardL1 from '../../../../components/CardL1';
 import { IFrame } from '../../../../global/types';
-import useCanvas from '../../../../hooks/useSpriteSheetCanvas';
+import useViewport from '../../../../hooks/useViewport';
 
 function SpriteSheetCanvas(props: { rows: number, height: number, width: number, frames: IFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>> }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [width, height, className] = useCanvas(canvasRef, props.rows, props.height, props.width, props.frames, props.setCanvas);
+    const [width, height, className] = useViewport(canvasRef, props.rows, props.height, props.width, props.frames, props.setCanvas);
 
     return (
         <>

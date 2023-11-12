@@ -13,7 +13,7 @@ function drawImageOnTile(ctx: CanvasRenderingContext2D, base64: string, y: numbe
     ctx.fill();
 }
 
-export default function useCanvas(canvasRef: RefObject<HTMLCanvasElement>, rows: number, height: number, width: number, frames: IFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>) {
+export default function useViewport(canvasRef: RefObject<HTMLCanvasElement>, rows: number, height: number, width: number, frames: IFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>) {
     useEffect(() => {
         // Get canvas ref
         const canvas = canvasRef;
