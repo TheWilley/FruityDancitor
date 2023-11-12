@@ -1,7 +1,7 @@
 import { produce } from 'immer';
-import { IFrame } from '../../../../global/types';
+import { SpriteSheetFrame } from '../../../../global/types';
 
-function InspectorRowName(props: { frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number }) {
+function InspectorRowName(props: { frames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number }) {
     return (
         <div>
             <div className='items-center rounded mb-1'>

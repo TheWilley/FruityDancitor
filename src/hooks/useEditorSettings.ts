@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 export type IEditorSettings = {
-    rows: number;
-    setRows: React.Dispatch<React.SetStateAction<number>>;
+    numberOfSequences: number;
+    setnumberOfSequences: React.Dispatch<React.SetStateAction<number>>;
     width: number;
     setWidth: React.Dispatch<React.SetStateAction<number>>;
     height: number;
@@ -10,12 +10,12 @@ export type IEditorSettings = {
 };
 
 export default function useEditorSettings(): IEditorSettings {
-    const [rows, setRows] = useState(1);
+    const [numberOfSequences, setnumberOfSequences] = useState(1);
     const [width, setWidth] = useState(50);
     const [height, setHeight] = useState(50);
 
     return {
-        rows, setRows,
+        numberOfSequences, setnumberOfSequences,
         width, setWidth,
         height, setHeight
     };

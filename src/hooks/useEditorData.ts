@@ -1,44 +1,44 @@
 import { useState } from 'react';
-import { IFrame } from '../global/types';
+import { SpriteSheetFrame } from '../global/types';
 import appConfig from '../../appConfig';
 
-export type IEditorData = {
-    frames: IFrame[];
-    setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>;
-    selectedRow: number;
-    setSelectedRow: React.Dispatch<React.SetStateAction<number>>;
+export type EditorData = {
+    spriteSheetFrames: SpriteSheetFrame[];
+    setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>;
+    selectedSequence: number;
+    setSelectedSequence: React.Dispatch<React.SetStateAction<number>>;
     selectedFrame: number
     setSelectedFrame: React.Dispatch<React.SetStateAction<number>>;
     viewport: HTMLCanvasElement | undefined
     setViewport: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>;
 }
 
-function useFrames(rows: number) {
-    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
+function useSpriteSheetFrames(numberOfSequences: number) {
+    const [spriteSheetFrames, setSpriteSheetFrames] = useState<SpriteSheetFrame[]>(new Array(appConfig.numberOfSequences).fill({ sequence: [], name: '' }));
 
-    return [frames.slice(0, rows), setFrames] as const;
+    return [spriteSheetFrames.slice(0, numberOfSequences), setSpriteSheetFrames] as const;
 }
 
-function useSelectedRow(rows: number) {
-    const [selectedRow, setSelectedRow] = useState(0);
+function useSelectedSequence(numberOfSequences: number) {
+    const [selectedSequence, setSelectedSequence] = useState(0);
 
-    // Decrease the selected row index since the selected row no longer exists
-    if (selectedRow >= rows) {
-        setSelectedRow(rows - 1);
+    // Decrease the selected sequence index since the selected sequence no longer exists
+    if (selectedSequence >= numberOfSequences) {
+        setSelectedSequence(numberOfSequences - 1);
     }
 
-    return [selectedRow, setSelectedRow] as const;
+    return [selectedSequence, setSelectedSequence] as const;
 }
 
-export default function useEditorData(rows: number): IEditorData {
-    const [frames, setFrames] = useFrames(rows);
-    const [selectedRow, setSelectedRow] = useSelectedRow(rows);
+export default function useEditorData(numberOfSequences: number): EditorData {
+    const [spriteSheetFrames, setSpriteSheetFrames] = useSpriteSheetFrames(numberOfSequences);
+    const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences);
     const [selectedFrame, setSelectedFrame] = useState(0);
     const [viewport, setViewport] = useState<HTMLCanvasElement>();
 
     return {
-        frames, setFrames,
-        selectedRow, setSelectedRow,
+        spriteSheetFrames, setSpriteSheetFrames,
+        selectedSequence, setSelectedSequence,
         selectedFrame, setSelectedFrame,
         viewport, setViewport
     };

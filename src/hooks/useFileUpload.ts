@@ -2,7 +2,7 @@ import Compressor from 'compressorjs';
 import { produce } from 'immer';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { IFrame } from '../global/types';
+import { SpriteSheetFrame } from '../global/types';
 
 /**
  * Extract base64 from an image
@@ -32,9 +32,9 @@ function getBase64(file: File, compressionRatio: number) {
     });
 }
 
-export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatch<React.SetStateAction<IFrame[]>>, selectedRow: number, compressionRatio: number) {
+export default function useFileUpload(frames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
-    const disabled = frames[selectedRow].row.length > 7;
+    const disabled = frames[selectedRow].sequence.length > 7;
 
     // Runs when a file is uploaded
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -45,15 +45,15 @@ export default function useFileUpload(frames: IFrame[], setFrames: React.Dispatc
             // Go through all entries
             for (const [index, file] of acceptedFiles.entries()) {
                 // Check if there is space for a new entry
-                if (frames[selectedRow].row.length + index < 8) {
+                if (frames[selectedRow].sequence.length + index < 8) {
                     // Get base64 for the file
                     const base64 = await getBase64(file, compressionRatio) as string;
 
-                    if (!frames[selectedRow].row.map(item => item.base64).includes(base64)) {
-                        // Update the state by appending the image to the first row
+                    if (!frames[selectedRow].sequence.map(item => item.base64).includes(base64)) {
+                        // Update the state by appending the image to the first sequence
                         setFrames((prevFrames) =>
                             produce(prevFrames, (draft) => {
-                                draft[selectedRow].row.push({ base64: base64, mods: { scale: 1, xoffset: 0, yoffset: 0 } });
+                                draft[selectedRow].sequence.push({ base64: base64, modifications: { scale: 1, xoffset: 0, yoffset: 0 } });
                             })
                         );
                     }

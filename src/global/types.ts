@@ -1,7 +1,7 @@
-type IMod = {
+type Modifications = {
     xoffset: number,
     yoffset: number,
     scale: number
 }
 
-export type IFrame = { row: Array<{base64: string, mods: IMod}>, name: string }
+export type SpriteSheetFrame = { sequence: Array<{base64: string, modifications: Modifications}>, name: string }

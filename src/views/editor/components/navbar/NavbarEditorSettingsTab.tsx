@@ -7,8 +7,8 @@ function NavbarEditorSettingsTab(props: {editorSettings: IEditorSettings}) {
         <div className='grid grid-cols-3 gap-2'>
             <div className="join">
                 <div className='bg-base-200 join-item p-1 pl-2 pr-2'> <FontAwesomeIcon icon={faBars} /> </div>
-                <div className='w-full tooltip tooltip-bottom' data-tip="Rows - The amount of rows">
-                    <input type="number" className="input input-bordered join-item input-sm w-full" placeholder='Rows' min={1} value={props.editorSettings.rows} onChange={(e) => props.editorSettings.setRows(Number(e.target.value))}/>
+                <div className='w-full tooltip tooltip-bottom' data-tip="Sequences - The number of Sequences">
+                    <input type="number" className="input input-bordered join-item input-sm w-full" placeholder='Sequences' min={1} value={props.editorSettings.numberOfSequences} onChange={(e) => props.editorSettings.setnumberOfSequences(Number(e.target.value))}/>
                 </div>
             </div>
             <div className="join">

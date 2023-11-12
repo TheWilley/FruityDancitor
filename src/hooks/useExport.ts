@@ -13,15 +13,15 @@ function downloadFile(exportSettings: IExportSettings, filename: string) {
     // Create new zip instance
     const zip = new JSZip();
 
-    // Get row names
-    const rowNames = exportSettings.frames.map((item, index) => item.name || `Row ${index}`);
+    // Get sequence names
+    const sequenceNames = exportSettings.frames.map((item, index) => item.name || `Sequence ${index}`);
 
     // Convert canvas to image
     const image = new Image();
     image.src = exportSettings.canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream');
 
     // Add files
-    zip.file(`${filename}.txt`, rowNames.join('\n'));
+    zip.file(`${filename}.txt`, sequenceNames.join('\n'));
     zip.file(
         `${filename}.png`,
         image.src.substring(image.src.indexOf(',') + 1),
