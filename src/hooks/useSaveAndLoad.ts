@@ -32,7 +32,7 @@ function load(file: File) {
 
         reader.readAsText(file);
     } else {
-        alert('Not a valid sprite sheet file');
+        alert('Not a JSON file');
     }
 }
 
