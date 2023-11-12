@@ -1,8 +1,8 @@
 import { SpriteSheetFrame } from '../../../../global/types';
 import useFileUpload from '../../../../hooks/useFileUpload';
 
-function InspectorFileUpload(props: { frames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number }) {
-    const [rootProps, inputProps, placeholderText, disabled, className, style] = useFileUpload(props.frames, props.setFrames, props.selectedRow, props.compressionRatio);
+function InspectorFileUpload(props: { spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number }) {
+    const [rootProps, inputProps, placeholderText, disabled, className, style] = useFileUpload(props.spriteSheetFrames, props.setFrames, props.selectedRow, props.compressionRatio);
 
     return (
         <div

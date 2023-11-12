@@ -3,9 +3,9 @@ import CardL1 from '../../../../components/CardL1';
 import { SpriteSheetFrame } from '../../../../global/types';
 import useViewport from '../../../../hooks/useViewport';
 
-function SpriteSheetCanvas(props: { numberOfSequences: number, height: number, width: number, frames: SpriteSheetFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>> }) {
+function SpriteSheetCanvas(props: { numberOfSequences: number, height: number, width: number, spriteSheetFrames: SpriteSheetFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>> }) {
     const viewportRef = useRef<HTMLCanvasElement>(null);
-    const [width, height, className] = useViewport(viewportRef, props.numberOfSequences, props.height, props.width, props.frames, props.setCanvas);
+    const [width, height, className] = useViewport(viewportRef, props.numberOfSequences, props.height, props.width, props.spriteSheetFrames, props.setCanvas);
 
     return (
         <>

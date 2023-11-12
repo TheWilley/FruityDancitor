@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import { SpriteSheetFrame } from '../global/types';
 
 export type ISaveAndLoadSettings = {
-    frames: SpriteSheetFrame[]
+    spriteSheetFrames: SpriteSheetFrame[]
     numberOfSequences: number
     width: number
     height: number
@@ -39,11 +39,11 @@ function load(file: File) {
 /**
  * Saves a Fruity Dance Generator JSON file
  */
-function save(frames: SpriteSheetFrame[], numberOfSequences: number, width: number, height: number) {
+function save(spriteSheetFrames: SpriteSheetFrame[], numberOfSequences: number, width: number, height: number) {
     // Create a object to collect data (empty sequences are removed from JSON)
     const json = {
         type: 'fruity_dance_generator_config',
-        frames: JSON.stringify(frames.filter(item => item.sequence.length > 0)),
+        spriteSheetFrames: JSON.stringify(spriteSheetFrames.filter(item => item.sequence.length > 0)),
         numberOfSequences: numberOfSequences,
         width: width,
         height: height

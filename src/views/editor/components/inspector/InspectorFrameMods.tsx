@@ -1,14 +1,14 @@
 import { produce } from 'immer';
 import { SpriteSheetFrame } from '../../../../global/types';
 
-function InspectorFrameMods(props: { frames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
-    const mods = props.frames[props.selectedRow]?.sequence[props.selectedFrame]?.modifications || { scale: 1, xoffset: 0, yoffset: 0 };
+function InspectorFrameMods(props: { spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
+    const mods = props.spriteSheetFrames[props.selectedRow]?.sequence[props.selectedFrame]?.modifications || { scale: 1, xoffset: 0, yoffset: 0 };
 
     /**
      * Resets mod params to default
      */
     const resetMods = () => {
-        if (props.frames[props.selectedRow].sequence[props.selectedFrame]) {
+        if (props.spriteSheetFrames[props.selectedRow].sequence[props.selectedFrame]) {
             props.setFrames((prevFrames) => produce(prevFrames, (draft) => {
                 draft[props.selectedRow].sequence[props.selectedFrame].modifications.scale = 1;
                 draft[props.selectedRow].sequence[props.selectedFrame].modifications.xoffset = 0;

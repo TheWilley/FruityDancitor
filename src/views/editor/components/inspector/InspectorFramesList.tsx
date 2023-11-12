@@ -4,7 +4,7 @@ import { List, arrayMove } from 'react-movable';
 import { SpriteSheetFrame } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-function InspectorFramesList(EProps: { frames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, numberOfSequences: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
+function InspectorFramesList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, numberOfSequences: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
     // Detects when a sequence is changed and sets a default value of 0
     useEffect(() => {
         EProps.setSelectedFrame(0);
@@ -15,16 +15,16 @@ function InspectorFramesList(EProps: { frames: SpriteSheetFrame[], setFrames: Re
         // If out form is enabled
         if (EProps.selectedFrame != -1) {
             // If the selected index is out of bounds, move it down one step
-            if (EProps.frames[EProps.selectedRow].sequence.length <= EProps.selectedFrame) {
+            if (EProps.spriteSheetFrames[EProps.selectedRow].sequence.length <= EProps.selectedFrame) {
                 EProps.setSelectedFrame(EProps.selectedFrame - 1);
             } 
-            // If we have no frames, disable form
-            else if (EProps.frames[EProps.selectedRow].sequence.length === 0) {
+            // If we have no spriteSheetFrames, disable form
+            else if (EProps.spriteSheetFrames[EProps.selectedRow].sequence.length === 0) {
                 EProps.setSelectedFrame(-1);
             }
         } 
         // If we only have one frame, select it
-        else if (EProps.frames[EProps.selectedRow].sequence.length === 1) {
+        else if (EProps.spriteSheetFrames[EProps.selectedRow].sequence.length === 1) {
             EProps.setSelectedFrame(0);
         }
     });
@@ -43,14 +43,14 @@ function InspectorFramesList(EProps: { frames: SpriteSheetFrame[], setFrames: Re
      * Callback when removing a frame
      */
     const callback = (targetFrame: number) => {
-        adjustRow(EProps.frames[EProps.selectedRow].sequence.filter((_, index) => index !== targetFrame));
+        adjustRow(EProps.spriteSheetFrames[EProps.selectedRow].sequence.filter((_, index) => index !== targetFrame));
     };
 
     return (
         <List
-            values={EProps.frames[EProps.selectedRow].sequence}
+            values={EProps.spriteSheetFrames[EProps.selectedRow].sequence}
             onChange={({ oldIndex, newIndex }) => {
-                adjustRow(arrayMove(EProps.frames[EProps.selectedRow].sequence, oldIndex, newIndex));
+                adjustRow(arrayMove(EProps.spriteSheetFrames[EProps.selectedRow].sequence, oldIndex, newIndex));
                 EProps.setSelectedFrame(newIndex);
             }}
             renderList={({ children, props }) => <ul {...props}>{children}</ul>}

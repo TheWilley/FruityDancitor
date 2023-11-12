@@ -40,7 +40,7 @@ export default function usePreview(previewCanvas: HTMLCanvasElement, originalCan
 			// So that images does not appear blury
 			context.imageSmoothingEnabled = false;
 
-			// Create a timer which keeps timer going and updates frames
+			// Create a timer which keeps timer going and updates spriteSheetFrames
 			const timer = setTimeout(() => {
 				setKeepTimer(keepTimer + 1);
 				nextFrame(context);

@@ -4,18 +4,18 @@ import { IEditorSettings } from '../hooks/useEditorSettings';
 
 export type IExportSettings = {
     canvas: HTMLCanvasElement | undefined
-    frames: SpriteSheetFrame[]
+    spriteSheetFrames: SpriteSheetFrame[]
 }
 
 export const deriveExportSettings = (editorData: EditorData) => {
     return {
         canvas: editorData.viewport,
-        frames: editorData.spriteSheetFrames,
+        spriteSheetFrames: editorData.spriteSheetFrames,
     };
 };
 
 export type ISaveAndLoadSettings = {
-    frames: SpriteSheetFrame[]
+    spriteSheetFrames: SpriteSheetFrame[]
     numberOfSequences: number
     width: number
     height: number
@@ -23,7 +23,7 @@ export type ISaveAndLoadSettings = {
 
 export const deriveSaveAndLoadSettings = (editorData: EditorData, editorSettings: IEditorSettings) => {
     return {
-        frames: editorData.spriteSheetFrames,
+        spriteSheetFrames: editorData.spriteSheetFrames,
         numberOfSequences: editorSettings.numberOfSequences,
         width: editorSettings.width,
         height: editorSettings.height,

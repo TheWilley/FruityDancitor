@@ -8,13 +8,13 @@ function downloadFile(exportSettings: IExportSettings, filename: string) {
     if (!filename) filename = 'spiriteSheet';
 
     // Check that required settings exists before continue
-    if (!exportSettings.canvas || !exportSettings.frames) return;
+    if (!exportSettings.canvas || !exportSettings.spriteSheetFrames) return;
 
     // Create new zip instance
     const zip = new JSZip();
 
     // Get sequence names
-    const sequenceNames = exportSettings.frames.map((item, index) => item.name || `Sequence ${index}`);
+    const sequenceNames = exportSettings.spriteSheetFrames.map((item, index) => item.name || `Sequence ${index}`);
 
     // Convert canvas to image
     const image = new Image();

@@ -32,9 +32,9 @@ function getBase64(file: File, compressionRatio: number) {
     });
 }
 
-export default function useFileUpload(frames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
+export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
-    const disabled = frames[selectedRow].sequence.length > 7;
+    const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
 
     // Runs when a file is uploaded
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -45,11 +45,11 @@ export default function useFileUpload(frames: SpriteSheetFrame[], setFrames: Rea
             // Go through all entries
             for (const [index, file] of acceptedFiles.entries()) {
                 // Check if there is space for a new entry
-                if (frames[selectedRow].sequence.length + index < 8) {
+                if (spriteSheetFrames[selectedRow].sequence.length + index < 8) {
                     // Get base64 for the file
                     const base64 = await getBase64(file, compressionRatio) as string;
 
-                    if (!frames[selectedRow].sequence.map(item => item.base64).includes(base64)) {
+                    if (!spriteSheetFrames[selectedRow].sequence.map(item => item.base64).includes(base64)) {
                         // Update the state by appending the image to the first sequence
                         setFrames((prevFrames) =>
                             produce(prevFrames, (draft) => {
@@ -60,7 +60,7 @@ export default function useFileUpload(frames: SpriteSheetFrame[], setFrames: Rea
                 }
             }
         }
-    }, [frames]);
+    }, [spriteSheetFrames]);
 
     // When hovering over
     const onDragOver = () => {

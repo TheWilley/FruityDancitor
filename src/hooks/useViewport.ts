@@ -13,7 +13,7 @@ function drawImageOnTile(ctx: CanvasRenderingContext2D, base64: string, y: numbe
     ctx.fill();
 }
 
-export default function useViewport(canvasRef: RefObject<HTMLCanvasElement>, numberOfSequences: number, height: number, width: number, frames: SpriteSheetFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>) {
+export default function useViewport(canvasRef: RefObject<HTMLCanvasElement>, numberOfSequences: number, height: number, width: number, spriteSheetFrames: SpriteSheetFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>) {
     useEffect(() => {
         // Get canvas ref
         const canvas = canvasRef;
@@ -31,11 +31,11 @@ export default function useViewport(canvasRef: RefObject<HTMLCanvasElement>, num
                 // Clear the canvas
                 context.clearRect(0, 0, canvas.current.width, canvas.current.height);
 
-                for (const [y, sequence] of frames.entries()) {
-                    // Go trough each frame in the frames array
-                    for (const [x, frame] of sequence.sequence.entries()) {
-                        // Draw image on the given tile, where x depends on frame and y depends on group
-                        drawImageOnTile(context, frame.base64, y, x, height, width, frame.modifications.scale, frame.modifications.xoffset, frame.modifications.yoffset);
+                for (const [y, sequence] of spriteSheetFrames.entries()) {
+                    // Go trough each spriteSheetFrame in the spriteSheetFrames array
+                    for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
+                        // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
+                        drawImageOnTile(context, spriteSheetFrame.base64, y, x, height, width, spriteSheetFrame.modifications.scale, spriteSheetFrame.modifications.xoffset, spriteSheetFrame.modifications.yoffset);
                     }
                 }
             }
