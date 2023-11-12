@@ -14,7 +14,7 @@ function SectionRowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<R
     return (
         <CardL1 className='p-1'>
             <List
-                values={EProps.frames.slice(0, EProps.rows)}
+                values={EProps.frames}
                 onChange={({ oldIndex, newIndex }) => {
                     EProps.setFrames(arrayMove(EProps.frames, oldIndex, newIndex));
                     EProps.setSelectedRow(newIndex);
@@ -22,7 +22,7 @@ function SectionRowsList(EProps: { frames: IFrame[], setFrames: React.Dispatch<R
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}
                 renderItem={({ value, props, index }) => (
                     <li {...props} onMouseDown={() => EProps.setSelectedRow(index || 0)}>
-                        <CommonListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} alt={`Row ${index || 0 + 1}`} highlighted={index === EProps.selectedRow}  />
+                        <CommonListItem {...props} base64={value.row[0]?.base64} text={EProps.frames[index || 0].name} alt={`Row ${(index || 0) + 1}`} highlighted={index === EProps.selectedRow}  />
                     </li>
                 )}
             />

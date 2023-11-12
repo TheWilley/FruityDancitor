@@ -14,9 +14,9 @@ import SectionViewport from './components/SectionViewport';
 import SpriteSheetCanvas from './components/ViewportSpriteSheetCanvas';
 
 function Editor() {
-    const editorData = useEditorData();
     const appSettings = useAppSettings();
     const editorSettings = useEditorSettings();
+    const editorData = useEditorData(editorSettings.rows);
     const exportSettings = deriveExportSettings(editorData);
     const saveAndLoadSettings = deriveSaveAndLoadSettings(editorData, editorSettings);
 

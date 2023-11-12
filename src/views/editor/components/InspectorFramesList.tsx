@@ -48,7 +48,7 @@ function InspectorFramesList(EProps: { frames: IFrame[], setFrames: React.Dispat
 
     return (
         <List
-            values={EProps.frames[EProps.selectedRow].row.slice(0, EProps.rows)}
+            values={EProps.frames[EProps.selectedRow].row}
             onChange={({ oldIndex, newIndex }) => {
                 adjustRow(arrayMove(EProps.frames[EProps.selectedRow].row, oldIndex, newIndex));
                 EProps.setSelectedFrame(newIndex);

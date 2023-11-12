@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import appConfig from '../../appConfig';
 import { IFrame } from '../global/types';
+import useFrames from './useFrames';
 
 export type IEditorData = {
     frames: IFrame[];
@@ -13,12 +13,12 @@ export type IEditorData = {
     setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>;
 }
 
-export default function useEditorData(): IEditorData {
-    const [frames, setFrames] = useState<IFrame[]>(new Array(appConfig.amountOfRows).fill({ row: [], name: '' }));
+export default function useEditorData(rows: number): IEditorData {
+    const [frames, setFrames] = useFrames(rows);
     const [selectedRow, setSelectedRow] = useState(0);
     const [selectedFrame, setSelectedFrame] = useState(0);
     const [canvas, setCanvas] = useState<HTMLCanvasElement>();
-
+    
     return {
         frames, setFrames,
         selectedRow, setSelectedRow,
