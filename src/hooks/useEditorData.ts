@@ -9,8 +9,8 @@ export type IEditorData = {
     setSelectedRow: React.Dispatch<React.SetStateAction<number>>;
     selectedFrame: number
     setSelectedFrame: React.Dispatch<React.SetStateAction<number>>;
-    canvas: HTMLCanvasElement | undefined
-    setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>;
+    viewport: HTMLCanvasElement | undefined
+    setViewport: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>;
 }
 
 function useFrames(rows: number) {
@@ -34,12 +34,12 @@ export default function useEditorData(rows: number): IEditorData {
     const [frames, setFrames] = useFrames(rows);
     const [selectedRow, setSelectedRow] = useSelectedRow(rows);
     const [selectedFrame, setSelectedFrame] = useState(0);
-    const [canvas, setCanvas] = useState<HTMLCanvasElement>();
+    const [viewport, setViewport] = useState<HTMLCanvasElement>();
 
     return {
         frames, setFrames,
         selectedRow, setSelectedRow,
         selectedFrame, setSelectedFrame,
-        canvas, setCanvas
+        viewport, setViewport
     };
 }

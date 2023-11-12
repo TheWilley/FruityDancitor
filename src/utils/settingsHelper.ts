@@ -9,7 +9,7 @@ export type IExportSettings = {
 
 export const deriveExportSettings = (editorData: IEditorData) => {
     return {
-        canvas: editorData.canvas,
+        canvas: editorData.viewport,
         frames: editorData.frames,
     };
 };

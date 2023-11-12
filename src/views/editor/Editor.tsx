@@ -26,11 +26,11 @@ function Editor() {
 
             <SectionViewport>
                 <SectionNavbar appSettings={appSettings} editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
-                <SpriteSheetCanvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={editorData.frames} setCanvas={editorData.setCanvas} />
+                <SpriteSheetCanvas rows={editorSettings.rows} height={editorSettings.height} width={editorSettings.width} frames={editorData.frames} setCanvas={editorData.setViewport} />
             </SectionViewport>
 
             <SectionInspector>
-                {editorData.canvas && <InspectorPreview originalCanvas={editorData.canvas} height={editorSettings.height} width={editorSettings.width} selectedRow={editorData.selectedRow} />}
+                {editorData.viewport && <InspectorPreview originalCanvas={editorData.viewport} height={editorSettings.height} width={editorSettings.width} selectedRow={editorData.selectedRow} />}
                 <InspectorRowName frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} />
                 <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
                 <InspectorFrameMods frames={editorData.frames} setFrames={editorData.setFrames} selectedRow={editorData.selectedRow} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
