@@ -1,9 +1,9 @@
 import JSZip from 'jszip';
-import { IExportSettings } from '../utils/settingsHelper';
+import { DeriveExportSettings } from '../utils/settingsHelper';
 import saveAs from 'file-saver';
 import { useState } from 'react';
 
-function downloadFile(exportSettings: IExportSettings, filename: string) {
+function downloadFile(exportSettings: DeriveExportSettings, filename: string) {
     // If a filename is not entered, use default name
     if (!filename) filename = 'spiriteSheet';
 

@@ -1,7 +1,7 @@
 import useExport from '../../../../hooks/useExport';
-import { IExportSettings } from '../../../../utils/settingsHelper';
+import { DeriveExportSettings } from '../../../../utils/settingsHelper';
 
-function NavbarExportTab(props: { exportSettings: IExportSettings }) {
+function NavbarExportTab(props: { exportSettings: DeriveExportSettings }) {
     const [fileName, setFileName, downloadFile] = useExport();
 
     return (

@@ -1,15 +1,15 @@
 import { useRef } from 'react';
 import useSaveAndLoad from '../../../../hooks/useSaveAndLoad';
-import { ISaveAndLoadSettings } from '../../../../utils/settingsHelper';
+import { DeriveSaveAndLoadSettings } from '../../../../utils/settingsHelper';
 
-function NavbarSaveAndLoadTab(props: { saveAndLoadSettings: ISaveAndLoadSettings }) {
+function NavbarSaveAndLoadTab(props: { saveAndLoadSettings: DeriveSaveAndLoadSettings }) {
+    const { spriteSheetFrames, setSpriteSheetFrames, numberOfSequences, setNumberOfSequences, width, setWidth, height, setHeight } = props.saveAndLoadSettings;
     const [save, load] = useSaveAndLoad();
-    const { spriteSheetFrames, numberOfSequences: numberOfSequences, width, height } = props.saveAndLoadSettings;
     const fileRef = useRef<HTMLInputElement | null>(null);
 
     return (
         <div>
-            <input id='selectImage' type="file" onChange={(e) => { e.target.files && load(e.target.files[0]); }} ref={fileRef} className='hidden' />
+            <input id='selectImage' type="file" onChange={(e) => { e.target.files && load(e.target.files[0], setSpriteSheetFrames, setNumberOfSequences, setWidth, setHeight); }} ref={fileRef} className='hidden' />
             <button className="btn btn-outline btn-warning w-full" onClick={() => fileRef.current && fileRef.current.click()}> Load </button>
             <button className="btn btn-outline btn-success w-full mt-1" onClick={() => save(spriteSheetFrames, numberOfSequences, width, height)}> Save </button>
         </div>
