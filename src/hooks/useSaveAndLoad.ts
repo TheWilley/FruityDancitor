@@ -2,9 +2,9 @@ import { saveAs } from 'file-saver';
 import { SpriteSheetFrame } from '../global/types';
 import { DeriveSaveAndLoadSettings } from '../utils/settingsHelper';
 
-type LoadedSpriteSheetFile = {
+type SpriteSheetFile = {
     type: string
-    spriteSheetFrames: string
+    stringifiedSpriteSheetFrames: string
     numberOfSequences: DeriveSaveAndLoadSettings['numberOfSequences']
     width: DeriveSaveAndLoadSettings['width']
     height: DeriveSaveAndLoadSettings['height']
@@ -18,7 +18,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
         const reader = new FileReader();
 
         reader.onloadend = function () {
-            const data = JSON.parse(reader.result as string) as LoadedSpriteSheetFile;
+            const data = JSON.parse(reader.result as string) as SpriteSheetFile;
             if (data.type !== 'fruity_dance_generator_config') {
                 new Error('Not a valid Fruity_Dance_Generator config file');
                 alert('Not a valid Fruity_Dance_Generator config file');
@@ -26,7 +26,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
                 setWidth(data.width);
                 setHeight(data.height);
                 setNumberOfSequences(data.numberOfSequences);
-                setSpriteSheetFrames(JSON.parse(data.spriteSheetFrames));
+                setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
                 console.log('Loaded!');
             }
         };
@@ -47,9 +47,9 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
  */
 function save(spriteSheetFrames: SpriteSheetFrame[], numberOfSequences: number, width: number, height: number) {
     // Create a object to collect data (empty sequences are removed from JSON)
-    const json = {
+    const json: SpriteSheetFile = {
         type: 'fruity_dance_generator_config',
-        spriteSheetFrames: JSON.stringify(spriteSheetFrames),
+        stringifiedSpriteSheetFrames: JSON.stringify(spriteSheetFrames),
         numberOfSequences: numberOfSequences,
         width: width,
         height: height
