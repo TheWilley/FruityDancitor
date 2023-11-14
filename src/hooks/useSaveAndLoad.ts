@@ -27,7 +27,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
                 setHeight(data.height);
                 setNumberOfSequences(data.numberOfSequences);
                 setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
-                console.log('Loaded!');
+                alert('Loaded!');
             }
         };
 
