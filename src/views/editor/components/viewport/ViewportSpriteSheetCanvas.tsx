@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import CardL1 from '../../../../components/CardL1';
+import Card from '../../../../components/Card';
 import { SpriteSheetFrame } from '../../../../global/types';
 import useViewport from '../../../../hooks/useViewport';
 
@@ -9,9 +9,9 @@ function SpriteSheetCanvas(props: { numberOfSequences: number, height: number, w
 
     return (
         <>
-            <CardL1 className="flex justify-center items-center h-full">
+            <Card className="flex justify-center items-center h-full">
                 <canvas ref={viewportRef} width={width} height={height} className={className} />
-            </CardL1>
+            </Card>
         </>
     );
 }

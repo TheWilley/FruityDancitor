@@ -1,11 +1,11 @@
 import { List, arrayMove } from 'react-movable';
-import CardL1 from '../../../../components/CardL1';
+import Card from '../../../../components/Card';
 import { SpriteSheetFrame } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
 function SectionSequenceList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
     return (
-        <CardL1 className='p-1'>
+        <Card className='p-1'>
             <List
                 values={EProps.spriteSheetFrames}
                 onChange={({ oldIndex, newIndex }) => {
@@ -19,7 +19,7 @@ function SectionSequenceList(EProps: { spriteSheetFrames: SpriteSheetFrame[], se
                     </li>
                 )}
             />
-        </CardL1>
+        </Card>
     );
 }
 

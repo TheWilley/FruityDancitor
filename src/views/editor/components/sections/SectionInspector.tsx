@@ -1,12 +1,12 @@
-import CardL1 from '../../../../components/CardL1';
+import Card from '../../../../components/Card';
 
 function SectionInspector(props: { children: React.ReactNode[] }) {
     return (
-        <CardL1>
+        <Card>
             <div className='p-2'>
                 {props.children}
             </div>
-        </CardL1>
+        </Card>
     );
 }
 
