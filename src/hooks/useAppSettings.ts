@@ -6,7 +6,7 @@ export type AppSettings = {
 }
 
 export default function useAppSettings(): AppSettings {
-    const [imageCompressionRatio, setImageCompressionRatio] = useState(1);
+    const [imageCompressionRatio, setImageCompressionRatio] = useState(0.7);
 
     return {
         imageCompressionRatio, setImageCompressionRatio
