@@ -15,18 +15,33 @@ type SpriteSheetFile = {
  */
 function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSpriteSheetFrames'], setNumberOfSequences: DeriveSaveAndLoadSettings['setNumberOfSequences'], setWidth: DeriveSaveAndLoadSettings['setWidth'], setHeight: DeriveSaveAndLoadSettings['setHeight']) {
     if (file.type === 'application/json') {
+        // Create a new reader to read JSON file
         const reader = new FileReader();
 
+        // Define data variable here as we assign it later within the 
+        let data: SpriteSheetFile;
+
         reader.onloadend = function () {
-            const data = JSON.parse(reader.result as string) as SpriteSheetFile;
+            try {
+                data = JSON.parse(reader.result as string);
+            } catch (e) {
+                console.error('Parsing Error: ' + e);
+                alert('Error parsing JSON file');
+                return;
+            }
             if (data.type !== 'FruityDancitor_JSON') {
-                new Error('Not a valid FruityDancitor JSON file');
                 alert('Not a valid  FruityDancitor JSON file');
             } else {
-                setWidth(data.width);
-                setHeight(data.height);
-                setNumberOfSequences(data.numberOfSequences);
-                setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
+                try {
+                    setWidth(data.width);
+                    setHeight(data.height);
+                    setNumberOfSequences(data.numberOfSequences);
+                    setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
+                } catch (e) {
+                    console.error('Error: ' + e);
+                    alert('Could not load FruityDancitor JSON file');
+                    return;
+                }
             }
         };
 
