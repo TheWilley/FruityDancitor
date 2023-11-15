@@ -11,7 +11,7 @@ type SpriteSheetFile = {
 };
 
 /**
- * Loads a Fruity Dance Generator JSON file
+ * Loads a  FruityDancitor JSON file
  */
 function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSpriteSheetFrames'], setNumberOfSequences: DeriveSaveAndLoadSettings['setNumberOfSequences'], setWidth: DeriveSaveAndLoadSettings['setWidth'], setHeight: DeriveSaveAndLoadSettings['setHeight']) {
     if (file.type === 'application/json') {
@@ -19,15 +19,14 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
 
         reader.onloadend = function () {
             const data = JSON.parse(reader.result as string) as SpriteSheetFile;
-            if (data.type !== 'fruity_dance_generator_config') {
-                new Error('Not a valid Fruity_Dance_Generator config file');
-                alert('Not a valid Fruity_Dance_Generator config file');
+            if (data.type !== 'FruityDancitor_JSON') {
+                new Error('Not a valid FruityDancitor JSON file');
+                alert('Not a valid  FruityDancitor JSON file');
             } else {
                 setWidth(data.width);
                 setHeight(data.height);
                 setNumberOfSequences(data.numberOfSequences);
                 setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
-                alert('Loaded!');
             }
         };
 
@@ -43,12 +42,12 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
 }
 
 /**
- * Saves a Fruity Dance Generator JSON file
+ * Saves a FruityDancitor JSON file
  */
 function save(spriteSheetFrames: SpriteSheetFrame[], numberOfSequences: number, width: number, height: number) {
     // Create a object to collect data (empty sequences are removed from JSON)
     const json: SpriteSheetFile = {
-        type: 'fruity_dance_generator_config',
+        type: 'FruityDancitor_JSON',
         stringifiedSpriteSheetFrames: JSON.stringify(spriteSheetFrames),
         numberOfSequences: numberOfSequences,
         width: width,
