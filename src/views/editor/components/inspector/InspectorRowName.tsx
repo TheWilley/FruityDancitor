@@ -13,7 +13,7 @@ function InspectorRowName(props: { spriteSheetFrames: SpriteSheetFrame[], setSpr
                         props.setSpriteSheetFrames(produce(props.spriteSheetFrames, (draft) => {
                             draft[props.selectedRow].name = e.target.value;
                         }));
-                    }} />
+                    }} disabled={props.spriteSheetFrames.length - 1 === props.selectedRow} />
                 </div>
             </div>
         </div>
