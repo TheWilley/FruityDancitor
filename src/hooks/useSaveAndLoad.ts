@@ -11,7 +11,7 @@ type SpriteSheetFile = {
 };
 
 /**
- * Loads a  FruityDancitor JSON file
+ * Loads a FruityDancitor JSON file
  */
 function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSpriteSheetFrames'], setNumberOfSequences: DeriveSaveAndLoadSettings['setNumberOfSequences'], setWidth: DeriveSaveAndLoadSettings['setWidth'], setHeight: DeriveSaveAndLoadSettings['setHeight']) {
     if (file.type === 'application/json') {
