@@ -13,6 +13,5 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     semi: 2,
     quotes: [1, "single"],
-    'no-console': 1,
   },
 }
