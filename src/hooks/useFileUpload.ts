@@ -44,6 +44,9 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
 
             // Go through all entries
             for (const [index, file] of acceptedFiles.entries()) {
+                // Don't accept too large images
+                if(file.size >= 8000000) continue;
+
                 // Check if there is space for a new entry
                 if (spriteSheetFrames[selectedRow].sequence.length + index < 8) {
                     // Get base64 for the file
