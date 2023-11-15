@@ -10,8 +10,8 @@ function NavbarSaveAndLoadTab(props: { saveAndLoadSettings: DeriveSaveAndLoadSet
     return (
         <div>
             <input id='selectImage' type="file" onChange={(e) => { e.target.files && load(e.target.files[0], setSpriteSheetFrames, setNumberOfSequences, setWidth, setHeight); }} ref={fileRef} className='hidden' />
-            <button className="btn btn-outline btn-warning w-full" onClick={() => fileRef.current && fileRef.current.click()}> Load </button>
-            <button className="btn btn-outline btn-success w-full mt-1" onClick={() => save(spriteSheetFrames, numberOfSequences, width, height)}> Save </button>
+            <button className="btn btn-outline btn-warning w-full" onClick={() => fileRef.current && fileRef.current.click()}> Load Project </button>
+            <button className="btn btn-outline btn-success w-full mt-1" onClick={() => save(spriteSheetFrames, numberOfSequences, width, height)}> Save Project </button>
         </div>
     );
 }
