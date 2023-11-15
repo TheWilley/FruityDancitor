@@ -4,7 +4,7 @@ import { List, arrayMove } from 'react-movable';
 import { SpriteSheetFrame } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-function InspectorFramesList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, numberOfSequences: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
+function InspectorFramesList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, numberOfSequences: number, selectedRow: number, selectedFrame: number, setSelectedFrame: React.Dispatch<React.SetStateAction<number>> }) {
     // Detects when a sequence is changed and sets a default value of 0
     useEffect(() => {
         EProps.setSelectedFrame(0);
@@ -33,7 +33,7 @@ function InspectorFramesList(EProps: { spriteSheetFrames: SpriteSheetFrame[], se
      * Modified a row with a new value
      */
     const adjustRow = (modifiedRow: SpriteSheetFrame['sequence']) => {
-        EProps.setFrames((prevFrames) => {
+        EProps.setSpriteSheetFrames((prevFrames) => {
             return produce(prevFrames, (draft) => {
                 draft[EProps.selectedRow].sequence = modifiedRow;
             });

@@ -3,13 +3,13 @@ import Card from '../../../../components/Card';
 import { SpriteSheetFrame } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-function SectionSequenceList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
+function SectionSequenceList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
     return (
         <Card className='p-1'>
             <List
                 values={EProps.spriteSheetFrames}
                 onChange={({ oldIndex, newIndex }) => {
-                    EProps.setFrames(arrayMove(EProps.spriteSheetFrames, oldIndex, newIndex));
+                    EProps.setSpriteSheetFrames(arrayMove(EProps.spriteSheetFrames, oldIndex, newIndex));
                     EProps.setSelectedRow(newIndex);
                 }}
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}

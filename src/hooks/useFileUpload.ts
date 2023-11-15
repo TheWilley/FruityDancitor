@@ -32,7 +32,7 @@ function getBase64(file: File, compressionRatio: number) {
     });
 }
 
-export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
+export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
     const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
 
@@ -54,7 +54,7 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
 
                     if (!spriteSheetFrames[selectedRow].sequence.map(item => item.base64).includes(base64)) {
                         // Update the state by appending the image to the first sequence
-                        setFrames((prevFrames) =>
+                        setSpriteSheetFrames((prevFrames) =>
                             produce(prevFrames, (draft) => {
                                 draft[selectedRow].sequence.push({ base64: base64, modifications: { scale: 1, xoffset: 0, yoffset: 0 } });
                             })
