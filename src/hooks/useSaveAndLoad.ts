@@ -26,20 +26,21 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
                 data = JSON.parse(reader.result as string);
             } catch (e) {
                 console.error('Parsing Error: ' + e);
-                alert('Error parsing JSON file');
+                alert('Error parsing project file');
                 return;
             }
-            if (data.type !== 'FruityDancitor_JSON') {
-                alert('Not a valid  FruityDancitor JSON file');
+            if (data.type !== 'FruityDancitorProject') {
+                alert('Not a valid  FruityDancitor project file');
             } else {
                 try {
                     setWidth(data.width);
                     setHeight(data.height);
                     setNumberOfSequences(data.numberOfSequences);
                     setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
+                    alert('Project loaded');
                 } catch (e) {
                     console.error('Error: ' + e);
-                    alert('Could not load FruityDancitor JSON file');
+                    alert('Could not load project');
                     return;
                 }
             }
@@ -62,7 +63,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
 function save(spriteSheetFrames: SpriteSheetFrame[], numberOfSequences: number, width: number, height: number) {
     // Create a object to collect data (empty sequences are removed from JSON)
     const json: SpriteSheetFile = {
-        type: 'FruityDancitor_JSON',
+        type: 'FruityDancitorProject',
         stringifiedSpriteSheetFrames: JSON.stringify(spriteSheetFrames),
         numberOfSequences: numberOfSequences,
         width: width,
