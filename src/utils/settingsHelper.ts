@@ -1,4 +1,4 @@
-import { AppSettings, DeriveExportSettings, DeriveSaveAndLoadSettings, EditorData, IEditorSettings } from '../global/types';
+import { AppSettings, DeriveExportSettings, DeriveSaveAndLoadSettings, EditorData, EditorSettings } from '../global/types';
 export const deriveExportSettings = (editorData: EditorData): DeriveExportSettings => {
     return {
         canvas: editorData.viewport,
@@ -6,7 +6,7 @@ export const deriveExportSettings = (editorData: EditorData): DeriveExportSettin
     };
 };
 
-export const deriveSaveAndLoadSettings = (editorData: EditorData, appSettings: AppSettings, editorSettings: IEditorSettings): DeriveSaveAndLoadSettings => {
+export const deriveSaveAndLoadSettings = (editorData: EditorData, appSettings: AppSettings, editorSettings: EditorSettings): DeriveSaveAndLoadSettings => {
     return {
         setSpriteSheetFrames: editorData.setSpriteSheetFrames,
         spriteSheetFrames: editorData.spriteSheetFrames,

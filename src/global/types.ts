@@ -16,7 +16,7 @@ export type DeriveExportSettings = {
     spriteSheetFrames: SpriteSheetFrame[]
 }
 
-export type IEditorSettings = {
+export type EditorSettings = {
     numberOfSequences: number;
     setnumberOfSequences: React.Dispatch<React.SetStateAction<number>>;
     width: number;
