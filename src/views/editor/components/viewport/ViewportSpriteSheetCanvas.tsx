@@ -9,8 +9,10 @@ function SpriteSheetCanvas(props: { numberOfSequences: number, height: number, w
 
     return (
         <>
-            <Card className="flex justify-center items-center h-full">
-                <canvas ref={viewportRef} width={width} height={height} className={className} />
+            <Card className="w-full h-full">
+                <div className='overflow-auto m-auto'>
+                    <canvas ref={viewportRef} width={width} height={height} className={className} />
+                </div>
             </Card>
         </>
     );
