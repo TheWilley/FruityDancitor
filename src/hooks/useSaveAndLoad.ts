@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import { SpriteSheetFrame } from '../global/types';
 import { DeriveSaveAndLoadSettings } from '../utils/settingsHelper';
 
-type SpriteSheetFile = {
+type ProjectFile = {
     type: string
     imageCompressionRatio: DeriveSaveAndLoadSettings['imageCompressionRatio']
     stringifiedSpriteSheetFrames: string
@@ -20,7 +20,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
         const reader = new FileReader();
 
         // Define data variable here as we assign it later within the 
-        let data: SpriteSheetFile;
+        let data: ProjectFile;
 
         reader.onloadend = function () {
             try {
@@ -64,7 +64,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
  */
 function save(spriteSheetFrames: SpriteSheetFrame[], imageCompressionRatio: number, numberOfSequences: number, width: number, height: number) {
     // Create a object to collect data (empty sequences are removed from JSON)
-    const json: SpriteSheetFile = {
+    const json: ProjectFile = {
         type: 'FruityDancitorProject',
         imageCompressionRatio:imageCompressionRatio,
         stringifiedSpriteSheetFrames: JSON.stringify(spriteSheetFrames),
