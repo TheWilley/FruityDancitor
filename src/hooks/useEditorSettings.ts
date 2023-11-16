@@ -1,13 +1,5 @@
 import { useState } from 'react';
-
-export type IEditorSettings = {
-    numberOfSequences: number;
-    setnumberOfSequences: React.Dispatch<React.SetStateAction<number>>;
-    width: number;
-    setWidth: React.Dispatch<React.SetStateAction<number>>;
-    height: number;
-    setHeight: React.Dispatch<React.SetStateAction<number>>;
-};
+import { IEditorSettings } from '../global/types';
 
 export default function useEditorSettings(): IEditorSettings {
     const [numberOfSequences, setnumberOfSequences] = useState(1);

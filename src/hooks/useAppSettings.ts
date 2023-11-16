@@ -1,9 +1,5 @@
 import { useState } from 'react';
-
-export type AppSettings = {
-    imageCompressionRatio: number
-    setImageCompressionRatio: React.Dispatch<React.SetStateAction<number>>;
-}
+import { AppSettings } from '../global/types';
 
 export default function useAppSettings(): AppSettings {
     const [imageCompressionRatio, setImageCompressionRatio] = useState(0.7);

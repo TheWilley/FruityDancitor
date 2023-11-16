@@ -1,18 +1,7 @@
 import { useState } from 'react';
-import { SpriteSheetFrame } from '../global/types';
+import { EditorData, SpriteSheetFrame } from '../global/types';
 import appConfig from '../../appConfig';
 import { produce } from 'immer';
-
-export type EditorData = {
-    spriteSheetFrames: SpriteSheetFrame[];
-    setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>;
-    selectedSequence: number;
-    setSelectedSequence: React.Dispatch<React.SetStateAction<number>>;
-    selectedFrame: number
-    setSelectedFrame: React.Dispatch<React.SetStateAction<number>>;
-    viewport: HTMLCanvasElement | undefined
-    setViewport: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>;
-}
 
 function useSpriteSheetFrames(numberOfSequences: number) {
     // Initiate empty array containing SpriteSheetFrame objects
