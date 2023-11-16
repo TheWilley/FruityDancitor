@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SpriteSheetFrame } from '../global/types';
 import appConfig from '../../appConfig';
+import { produce } from 'immer';
 
 export type EditorData = {
     spriteSheetFrames: SpriteSheetFrame[];
@@ -24,12 +25,17 @@ function useSpriteSheetFrames(numberOfSequences: number) {
      * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance
     */
     const modifiedFrames = () => {
-        const frames = spriteSheetFrames.splice(0, numberOfSequences);
-        frames[frames.length - 1].name = 'held';
+        const frames = produce(spriteSheetFrames, (draftFrames) => {
+            // Splice frames
+            draftFrames.splice(numberOfSequences);
+
+            // Modify the 'name' property of the last sequence
+            draftFrames[draftFrames.length - 1].name = 'held';
+        });
 
         return frames;
     };
-
+    
     return [modifiedFrames(), setSpriteSheetFrames] as const;
 }
 
