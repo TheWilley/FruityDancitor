@@ -4,6 +4,7 @@ import { DeriveSaveAndLoadSettings } from '../utils/settingsHelper';
 
 type SpriteSheetFile = {
     type: string
+    imageCompressionRatio: DeriveSaveAndLoadSettings['imageCompressionRatio']
     stringifiedSpriteSheetFrames: string
     numberOfSequences: DeriveSaveAndLoadSettings['numberOfSequences']
     width: DeriveSaveAndLoadSettings['width']
@@ -13,7 +14,7 @@ type SpriteSheetFile = {
 /**
  * Loads a FruityDancitor JSON file
  */
-function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSpriteSheetFrames'], setNumberOfSequences: DeriveSaveAndLoadSettings['setNumberOfSequences'], setWidth: DeriveSaveAndLoadSettings['setWidth'], setHeight: DeriveSaveAndLoadSettings['setHeight']) {
+function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSpriteSheetFrames'], setImageCompressionRatio: DeriveSaveAndLoadSettings['setImageCompressionRatio'], setNumberOfSequences: DeriveSaveAndLoadSettings['setNumberOfSequences'], setWidth: DeriveSaveAndLoadSettings['setWidth'], setHeight: DeriveSaveAndLoadSettings['setHeight']) {
     if (file.type === 'application/json') {
         // Create a new reader to read JSON file
         const reader = new FileReader();
@@ -33,6 +34,7 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
                 alert('Not a valid  FruityDancitor project file');
             } else {
                 try {
+                    setImageCompressionRatio(data.imageCompressionRatio);
                     setWidth(data.width);
                     setHeight(data.height);
                     setNumberOfSequences(data.numberOfSequences);
@@ -60,10 +62,11 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
 /**
  * Saves a FruityDancitor JSON file
  */
-function save(spriteSheetFrames: SpriteSheetFrame[], numberOfSequences: number, width: number, height: number) {
+function save(spriteSheetFrames: SpriteSheetFrame[], imageCompressionRatio: number, numberOfSequences: number, width: number, height: number) {
     // Create a object to collect data (empty sequences are removed from JSON)
     const json: SpriteSheetFile = {
         type: 'FruityDancitorProject',
+        imageCompressionRatio:imageCompressionRatio,
         stringifiedSpriteSheetFrames: JSON.stringify(spriteSheetFrames),
         numberOfSequences: numberOfSequences,
         width: width,
