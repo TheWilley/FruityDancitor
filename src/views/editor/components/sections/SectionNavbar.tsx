@@ -8,6 +8,7 @@ import NavbarAppSettingsTab from '../navbar/NavbarAppSettingsTab';
 import NavbarEditorSettingsTab from '../navbar/NavbarEditorSettingsTab';
 import NavbarExportTab from '../navbar/NavbarExportTab';
 import NavbarSaveAndLoadTab from '../navbar/NavbarSaveAndLoadTab';
+import NavbarInfoTab from '../navbar/NavbarInfoTab';
 
 function SectionNavbar(props: { appSettings: AppSettings, editorSettings: IEditorSettings, exportSettings: DeriveExportSettings, saveAndLoadSettings: DeriveSaveAndLoadSettings }) {
     const [tab, setTab] = useState(0);
@@ -36,7 +37,7 @@ function SectionNavbar(props: { appSettings: AppSettings, editorSettings: IEdito
         },
         {
             name: 'Information',
-            view: <div>Tab 4</div>,
+            view: <NavbarInfoTab />,
             icon: <FontAwesomeIcon icon={faInfoCircle} />
         },
     ];
