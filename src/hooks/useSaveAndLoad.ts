@@ -74,7 +74,7 @@ function save(spriteSheetFrames: SpriteSheetFrame[], numberOfSequences: number, 
     const blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
 
     // Save the blob (downloads file)
-    saveAs(blob, 'savedSpriteSheet.json');
+    saveAs(blob, 'savedFruityDancitorProject.json');
 }
 
 export default function useSaveAndLoad() {
