@@ -1,22 +1,18 @@
-import { AppSettings, DeriveExportSettings, DeriveSaveAndLoadSettings, EditorData, EditorSettings } from '../global/types';
-export const deriveExportSettings = (editorData: EditorData): DeriveExportSettings => {
+import {AppSettings, EditorData, EditorSettings} from '../global/types';
+
+export const deriveExportSettings = (editorData: EditorData) => {
     return {
-        canvas: editorData.viewport,
+        viewport: editorData.viewport,
         spriteSheetFrames: editorData.spriteSheetFrames,
     };
 };
 
-export const deriveSaveAndLoadSettings = (editorData: EditorData, appSettings: AppSettings, editorSettings: EditorSettings): DeriveSaveAndLoadSettings => {
+export const deriveSaveAndLoadSettings = (editorData: EditorData, appSettings: AppSettings, editorSettings: EditorSettings) => {
     return {
-        setSpriteSheetFrames: editorData.setSpriteSheetFrames,
         spriteSheetFrames: editorData.spriteSheetFrames,
-        setImageCompressionRatio: appSettings.setImageCompressionRatio,
         imageCompressionRatio: appSettings.imageCompressionRatio,
-        setNumberOfSequences: editorSettings.setnumberOfSequences,
         numberOfSequences: editorSettings.numberOfSequences,
-        setWidth: editorSettings.setWidth,
         width: editorSettings.width,
-        setHeight: editorSettings.setHeight,
         height: editorSettings.height,
     };
 };

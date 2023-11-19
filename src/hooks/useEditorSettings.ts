@@ -7,8 +7,17 @@ export default function useEditorSettings(): EditorSettings {
     const [height, setHeight] = useState(50);
 
     return {
-        numberOfSequences, setnumberOfSequences,
-        width, setWidth,
-        height, setHeight
+        numberOfSequences: {
+            value: numberOfSequences,
+            setValue: setnumberOfSequences
+        },
+        width: {
+            value: width,
+            setValue: setWidth
+        },
+        height: {
+            value: height,
+            setValue: setHeight
+        }
     };
 }

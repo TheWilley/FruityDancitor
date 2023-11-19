@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { EditorData, SpriteSheetFrame } from '../global/types';
+import { EditorData, EditorSettings, SpriteSheetFrame } from '../global/types';
 import appConfig from '../../appConfig';
 import { produce } from 'immer';
 
@@ -39,16 +39,28 @@ function useSelectedSequence(numberOfSequences: number) {
     return [selectedSequence, setSelectedSequence] as const;
 }
 
-export default function useEditorData(numberOfSequences: number): EditorData {
-    const [spriteSheetFrames, setSpriteSheetFrames] = useSpriteSheetFrames(numberOfSequences);
-    const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences);
+export default function useEditorData(numberOfSequences: EditorSettings['numberOfSequences']): EditorData {
+    const [spriteSheetFrames, setSpriteSheetFrames] = useSpriteSheetFrames(numberOfSequences.value);
+    const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences.value);
     const [selectedFrame, setSelectedFrame] = useState(0);
     const [viewport, setViewport] = useState<HTMLCanvasElement>();
 
     return {
-        spriteSheetFrames, setSpriteSheetFrames,
-        selectedSequence, setSelectedSequence,
-        selectedFrame, setSelectedFrame,
-        viewport, setViewport
+        spriteSheetFrames: {
+            value: spriteSheetFrames,
+            setValue: setSpriteSheetFrames
+        },
+        selectedSequence: {
+            value: selectedSequence,
+            setValue: setSelectedSequence
+        },
+        selectedFrame: {
+            value: selectedFrame,
+            setValue: setSelectedFrame
+        },
+        viewport: {
+            value: viewport,
+            setValue: setViewport
+        }
     };
 }
