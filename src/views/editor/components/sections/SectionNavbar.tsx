@@ -8,7 +8,7 @@ import NavbarSaveAndLoadTab from '../navbar/NavbarSaveAndLoadTab';
 import NavbarInfoTab from '../navbar/NavbarInfoTab';
 import {AppSettings, EditorData, EditorSettings, SaveAndLoadSettings} from '../../../../global/types';
 
-type Props = { appSettings: AppSettings, editorSettings: EditorSettings, exportSettings: Pick<EditorData, 'spriteSheetFrames' | 'viewport'>, saveAndLoadSettings: SaveAndLoadSettings}
+type Props = { appSettings: AppSettings, editorSettings: EditorSettings, exportSettings: Pick<EditorData, 'spriteSheetFrames' | 'viewport'>, saveAndLoadSettings: SaveAndLoadSettings }
 
 function SectionNavbar(props: Props) {
     const [tab, setTab] = useState(0);

@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import { EditorData, EditorSettings, SpriteSheetFrame } from '../global/types';
+import {useState} from 'react';
+import {EditorData, EditorSettings, SpriteSheetFrame} from '../global/types';
 import appConfig from '../../appConfig';
-import { produce } from 'immer';
+import {produce} from 'immer';
 
 function useSpriteSheetFrames(numberOfSequences: number) {
     // Initiate empty array containing SpriteSheetFrame objects
-    const [spriteSheetFrames, setSpriteSheetFrames] = useState<SpriteSheetFrame[]>(new Array(appConfig.numberOfSequences).fill({ sequence: [], name: '' }));
+    const [spriteSheetFrames, setSpriteSheetFrames] = useState<SpriteSheetFrame[]>(new Array(appConfig.numberOfSequences).fill({sequence: [], name: ''}));
 
     /**
      * Function to modify frames before returning the result
      * Used here to:
      * 1. Splice the sequences so that we don't return an unnecessary amount (i.e, more than the amount of sequences)
      * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance
-    */
+     */
     const modifiedFrames = () => {
         const frames = produce(spriteSheetFrames, (draftFrames) => {
             // Splice frames
@@ -24,7 +24,7 @@ function useSpriteSheetFrames(numberOfSequences: number) {
 
         return frames;
     };
-    
+
     return [modifiedFrames(), setSpriteSheetFrames] as const;
 }
 

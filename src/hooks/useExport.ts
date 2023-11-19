@@ -1,6 +1,6 @@
 import JSZip from 'jszip';
 import saveAs from 'file-saver';
-import { useState } from 'react';
+import {useState} from 'react';
 import {ExportSettings} from '../global/types';
 
 function downloadFile(exportSettings: ExportSettings & { filename: string }) {
@@ -27,10 +27,10 @@ function downloadFile(exportSettings: ExportSettings & { filename: string }) {
     zip.file(
         `${exportSettings.filename}.png`,
         image.src.substring(image.src.indexOf(',') + 1),
-        { base64: true }
+        {base64: true}
     );
 
-    zip.generateAsync({ type: 'blob' }).then(function (content) {
+    zip.generateAsync({type: 'blob'}).then(function (content) {
         // see FileSaver.js
         saveAs(content, `${exportSettings.filename}.zip`);
     });

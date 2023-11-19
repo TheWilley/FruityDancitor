@@ -1,4 +1,4 @@
-type Props = {children: React.ReactNode[]}
+type Props = { children: React.ReactNode[] }
 
 function SectionViewport(props: Props) {
     return (

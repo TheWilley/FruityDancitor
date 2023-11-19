@@ -1,21 +1,22 @@
-import { produce } from 'immer';
-import { EditorData } from '../../../../global/types';
+import {produce} from 'immer';
+import {EditorData} from '../../../../global/types';
 
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>
 
 function InspectorRowName(props: Props) {
     return (
         <div>
-            <div className='items-center rounded mb-1'>
+            <div className="items-center rounded mb-1">
                 <div className="form-control w-full">
                     <label className="label">
                         <span className="label-text">Name</span>
                     </label>
-                    <input value={props.spriteSheetFrames.value[props.selectedSequence.value].name} type="text" placeholder="Type here" className="input input-bordered w-full" onChange={(e) => {
+                    <input value={props.spriteSheetFrames.value[props.selectedSequence.value].name} type="text"
+                           placeholder="Type here" className="input input-bordered w-full" onChange={(e) => {
                         props.spriteSheetFrames.setValue(produce(props.spriteSheetFrames.value, (draft) => {
                             draft[props.selectedSequence.value].name = e.target.value;
                         }));
-                    }} disabled={props.spriteSheetFrames.value.length - 1 === props.selectedSequence.value} />
+                    }} disabled={props.spriteSheetFrames.value.length - 1 === props.selectedSequence.value}/>
                 </div>
             </div>
         </div>

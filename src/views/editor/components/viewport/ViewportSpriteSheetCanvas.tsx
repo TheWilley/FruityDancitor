@@ -1,9 +1,11 @@
-import { useRef } from 'react';
+import {useRef} from 'react';
 import Card from '../../../../components/Card';
-import { EditorData, EditorSettings } from '../../../../global/types';
+import {EditorData, EditorSettings} from '../../../../global/types';
 import useViewport from '../../../../hooks/useViewport';
 
-type Props = Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'> & Pick<EditorData, 'spriteSheetFrames' | 'viewport'>
+type Props =
+    Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>
+    & Pick<EditorData, 'spriteSheetFrames' | 'viewport'>
 
 function SpriteSheetCanvas(props: Props) {
     const viewportRef = useRef<HTMLCanvasElement>(null);
@@ -12,8 +14,8 @@ function SpriteSheetCanvas(props: Props) {
     return (
         <>
             <Card className="w-full h-full">
-                <div className='overflow-auto m-auto'>
-                    <canvas ref={viewportRef} width={width} height={height} className={className} />
+                <div className="overflow-auto m-auto">
+                    <canvas ref={viewportRef} width={width} height={height} className={className}/>
                 </div>
             </Card>
         </>

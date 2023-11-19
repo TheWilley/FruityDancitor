@@ -1,8 +1,8 @@
 import Compressor from 'compressorjs';
-import { produce } from 'immer';
-import { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { SpriteSheetFrame } from '../global/types';
+import {produce} from 'immer';
+import {useCallback, useState} from 'react';
+import {useDropzone} from 'react-dropzone';
+import {SpriteSheetFrame} from '../global/types';
 
 /**
  * Extract base64 from an image
@@ -45,7 +45,7 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
             // Go through all entries
             for (const [index, file] of acceptedFiles.entries()) {
                 // Don't accept too large images
-                if(file.size >= 8000000) continue;
+                if (file.size >= 8000000) continue;
 
                 // Check if there is space for a new entry
                 if (spriteSheetFrames[selectedRow].sequence.length + index < 8) {
@@ -56,7 +56,7 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
                         // Update the state by appending the image to the first sequence
                         setSpriteSheetFrames((prevFrames) =>
                             produce(prevFrames, (draft) => {
-                                draft[selectedRow].sequence.push({ base64: base64, modifications: { scale: 1, xoffset: 0, yoffset: 0 } });
+                                draft[selectedRow].sequence.push({base64: base64, modifications: {scale: 1, xoffset: 0, yoffset: 0}});
                             })
                         );
                     }
@@ -76,7 +76,7 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
     };
 
     // Create a dropzone
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, onDragOver, onDragLeave });
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop, onDragOver, onDragLeave});
 
     // Create a dynamic class to use below
     const className = [

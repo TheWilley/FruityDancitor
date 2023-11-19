@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver';
+import {saveAs} from 'file-saver';
 import {SaveAndLoadSettings} from '../global/types';
 
 // TODO: This project file needs to be changed as it assumes we use an object value, which is currently not true
@@ -74,7 +74,7 @@ function save(saveAndLoadSettings: SaveAndLoadSettings) {
     };
 
     // Create a blob to be saved
-    const blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
+    const blob = new Blob([JSON.stringify(json)], {type: 'text/plain;charset=utf-8'});
 
     // Save the blob (downloads file)
     saveAs(blob, 'savedFruityDancitorProject.json');

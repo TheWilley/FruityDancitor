@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { EditorSettings } from '../global/types';
+import {useState} from 'react';
+import {EditorSettings} from '../global/types';
 
 export default function useEditorSettings(): EditorSettings {
     const [numberOfSequences, setnumberOfSequences] = useState(1);

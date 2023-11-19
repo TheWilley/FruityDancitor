@@ -5,7 +5,7 @@ export interface StateWithSetter<T> {
 }
 
 export type AppSettings = {
-    imageCompressionRatio: StateWithSetter<number> 
+    imageCompressionRatio: StateWithSetter<number>
 }
 
 export type EditorSettings = {
@@ -23,7 +23,10 @@ export type EditorData = {
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>
 
-export type SaveAndLoadSettings = Pick<EditorData, 'spriteSheetFrames'> & Pick<AppSettings, 'imageCompressionRatio'> & Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>
+export type SaveAndLoadSettings =
+    Pick<EditorData, 'spriteSheetFrames'>
+    & Pick<AppSettings, 'imageCompressionRatio'>
+    & Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>
 
 type Modifications = {
     xoffset: number,

@@ -3,7 +3,7 @@ import Editor from './editor/Editor';
 function Accordion() {
     return (
         <div>
-            <Editor />
+            <Editor/>
         </div>
     );
 }

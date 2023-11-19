@@ -1,4 +1,4 @@
-import { AppSettings, EditorData } from '../../../../global/types';
+import {AppSettings, EditorData} from '../../../../global/types';
 import useFileUpload from '../../../../hooks/useFileUpload';
 
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'> & Pick<AppSettings, 'imageCompressionRatio'>
