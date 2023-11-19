@@ -1,10 +1,12 @@
 import { useRef } from 'react';
 import usePreview from '../../../../hooks/UsePreview';
+import { EditorData, EditorSettings } from '../../../../global/types';
 
+type Props = Pick<EditorData, 'selectedSequence' | 'viewport'> & Pick<EditorSettings, 'width' | 'height'>
 
-function InspectorPreview(props: { originalCanvas: HTMLCanvasElement | undefined, selectedRow: number, width: number, height: number }) {
+function InspectorPreview(props: Props) {
 	const previewRef = useRef(null);
-	const [currentFrame] = usePreview(previewRef.current, props.originalCanvas, props.selectedRow, props.width, props.height);
+	const [currentFrame] = usePreview(previewRef.current, props.viewport.value, props.selectedSequence.value, props.width.value, props.height.value);
 
 	return (
 		<div className='flex justify-center'>

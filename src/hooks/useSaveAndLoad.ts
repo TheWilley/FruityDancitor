@@ -1,20 +1,20 @@
 import { saveAs } from 'file-saver';
-import { SpriteSheetFrame } from '../global/types';
-import { DeriveSaveAndLoadSettings } from '../utils/settingsHelper';
+import {SaveAndLoadSettings} from '../global/types';
 
+// TODO: This project file needs to be changed as it assumes we use an object value, which is currently not true
 type ProjectFile = {
     type: string
-    imageCompressionRatio: DeriveSaveAndLoadSettings['imageCompressionRatio']
     stringifiedSpriteSheetFrames: string
-    numberOfSequences: DeriveSaveAndLoadSettings['numberOfSequences']
-    width: DeriveSaveAndLoadSettings['width']
-    height: DeriveSaveAndLoadSettings['height']
-};
+    imageCompressionRatio: SaveAndLoadSettings['imageCompressionRatio']['value']
+    width: SaveAndLoadSettings['width']['value']
+    height: SaveAndLoadSettings['height']['value']
+    numberOfSequences: SaveAndLoadSettings['numberOfSequences']['value']
+}
 
 /**
  * Loads a FruityDancitor JSON file
  */
-function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSpriteSheetFrames'], setImageCompressionRatio: DeriveSaveAndLoadSettings['setImageCompressionRatio'], setNumberOfSequences: DeriveSaveAndLoadSettings['setNumberOfSequences'], setWidth: DeriveSaveAndLoadSettings['setWidth'], setHeight: DeriveSaveAndLoadSettings['setHeight']) {
+function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
     if (file.type === 'application/json') {
         // Create a new reader to read JSON file
         const reader = new FileReader();
@@ -34,11 +34,11 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
                 alert('Not a valid  FruityDancitor project file');
             } else {
                 try {
-                    setImageCompressionRatio(data.imageCompressionRatio);
-                    setWidth(data.width);
-                    setHeight(data.height);
-                    setNumberOfSequences(data.numberOfSequences);
-                    setSpriteSheetFrames(JSON.parse(data.stringifiedSpriteSheetFrames));
+                    saveAndLoadSettings.imageCompressionRatio.setValue(data.imageCompressionRatio);
+                    saveAndLoadSettings.width.setValue(data.width);
+                    saveAndLoadSettings.height.setValue(data.height);
+                    saveAndLoadSettings.numberOfSequences.setValue(data.numberOfSequences);
+                    saveAndLoadSettings.spriteSheetFrames.setValue(JSON.parse(data.stringifiedSpriteSheetFrames));
                     alert('Project loaded');
                 } catch (e) {
                     console.error('Error: ' + e);
@@ -62,15 +62,15 @@ function load(file: File, setSpriteSheetFrames: DeriveSaveAndLoadSettings['setSp
 /**
  * Saves a FruityDancitor JSON file
  */
-function save(spriteSheetFrames: SpriteSheetFrame[], imageCompressionRatio: number, numberOfSequences: number, width: number, height: number) {
-    // Create a object to collect data (empty sequences are removed from JSON)
+function save(saveAndLoadSettings: SaveAndLoadSettings) {
+    // Create an object to collect data (empty sequences are removed from JSON)
     const json: ProjectFile = {
         type: 'FruityDancitorProject',
-        imageCompressionRatio:imageCompressionRatio,
-        stringifiedSpriteSheetFrames: JSON.stringify(spriteSheetFrames),
-        numberOfSequences: numberOfSequences,
-        width: width,
-        height: height
+        imageCompressionRatio: saveAndLoadSettings.imageCompressionRatio.value,
+        stringifiedSpriteSheetFrames: JSON.stringify(saveAndLoadSettings.spriteSheetFrames.value),
+        numberOfSequences: saveAndLoadSettings.numberOfSequences.value,
+        width: saveAndLoadSettings.width.value,
+        height: saveAndLoadSettings.height.value
     };
 
     // Create a blob to be saved

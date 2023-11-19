@@ -1,7 +1,9 @@
 import { produce } from 'immer';
-import { SpriteSheetFrame } from '../../../../global/types';
+import { EditorData } from '../../../../global/types';
 
-function InspectorRowName(props: { spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number }) {
+type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>
+
+function InspectorRowName(props: Props) {
     return (
         <div>
             <div className='items-center rounded mb-1'>
@@ -9,11 +11,11 @@ function InspectorRowName(props: { spriteSheetFrames: SpriteSheetFrame[], setSpr
                     <label className="label">
                         <span className="label-text">Name</span>
                     </label>
-                    <input value={props.spriteSheetFrames[props.selectedRow].name} type="text" placeholder="Type here" className="input input-bordered w-full" onChange={(e) => {
-                        props.setSpriteSheetFrames(produce(props.spriteSheetFrames, (draft) => {
-                            draft[props.selectedRow].name = e.target.value;
+                    <input value={props.spriteSheetFrames.value[props.selectedSequence.value].name} type="text" placeholder="Type here" className="input input-bordered w-full" onChange={(e) => {
+                        props.spriteSheetFrames.setValue(produce(props.spriteSheetFrames.value, (draft) => {
+                            draft[props.selectedSequence.value].name = e.target.value;
                         }));
-                    }} disabled={props.spriteSheetFrames.length - 1 === props.selectedRow} />
+                    }} disabled={props.spriteSheetFrames.value.length - 1 === props.selectedSequence.value} />
                 </div>
             </div>
         </div>

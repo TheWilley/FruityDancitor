@@ -1,21 +1,23 @@
 import { List, arrayMove } from 'react-movable';
 import Card from '../../../../components/Card';
-import { SpriteSheetFrame } from '../../../../global/types';
+import { EditorData } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-function SectionSequenceList(EProps: { spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, setSelectedRow: React.Dispatch<React.SetStateAction<number>> }) {
+type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>
+
+function SectionSequenceList(EProps: Props) {
     return (
         <Card className='p-1'>
             <List
-                values={EProps.spriteSheetFrames}
+                values={EProps.spriteSheetFrames.value}
                 onChange={({ oldIndex, newIndex }) => {
-                    EProps.setSpriteSheetFrames(arrayMove(EProps.spriteSheetFrames, oldIndex, newIndex));
-                    EProps.setSelectedRow(newIndex);
+                    EProps.spriteSheetFrames.setValue(arrayMove(EProps.spriteSheetFrames.value, oldIndex, newIndex));
+                    EProps.selectedSequence.setValue(newIndex);
                 }}
                 renderList={({ children, props }) => <ul {...props}>{children}</ul>}
                 renderItem={({ value, props, index }) => (
-                    <li {...props} onMouseDown={() => EProps.setSelectedRow(index || 0)}>
-                        <CommonListItem {...props} base64={value.sequence[0]?.base64} text={EProps.spriteSheetFrames[index || 0].name} alt={`Sequence ${(index || 0) + 1}`} highlighted={index === EProps.selectedRow}  />
+                    <li {...props} onMouseDown={() => EProps.selectedSequence.setValue(index || 0)}>
+                        <CommonListItem {...props} base64={value.sequence[0]?.base64} text={EProps.spriteSheetFrames.value[index || 0].name} alt={`Sequence ${(index || 0) + 1}`} highlighted={index === EProps.selectedSequence.value}  />
                     </li>
                 )}
             />

@@ -22,21 +22,21 @@ function Editor() {
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full" style={{ height: 'calc(100vh - 40px)' }}>
-            <SectionSequenceList spriteSheetFrames={editorData.spriteSheetFrames} setSpriteSheetFrames={editorData.setSpriteSheetFrames} selectedRow={editorData.selectedSequence} setSelectedRow={editorData.setSelectedSequence} />
+            <SectionSequenceList spriteSheetFrames={editorData.spriteSheetFrames} selectedSequence={editorData.selectedSequence} />
 
             <SectionViewport>
                 <SectionNavbar appSettings={appSettings} editorSettings={editorSettings} exportSettings={exportSettings} saveAndLoadSettings={saveAndLoadSettings} />
-                <SpriteSheetCanvas numberOfSequences={editorSettings.numberOfSequences} height={editorSettings.height} width={editorSettings.width} spriteSheetFrames={editorData.spriteSheetFrames} setCanvas={editorData.setViewport} />
+                <SpriteSheetCanvas numberOfSequences={editorSettings.numberOfSequences} height={editorSettings.height} width={editorSettings.width} spriteSheetFrames={editorData.spriteSheetFrames} viewport={editorData.viewport} />
             </SectionViewport>
 
             <SectionInspector>
-                {editorData.viewport && <InspectorPreview originalCanvas={editorData.viewport} height={editorSettings.height} width={editorSettings.width} selectedRow={editorData.selectedSequence} />}
-                <InspectorRowName spriteSheetFrames={editorData.spriteSheetFrames} setSpriteSheetFrames={editorData.setSpriteSheetFrames} selectedRow={editorData.selectedSequence} />
+                {editorData.viewport && <InspectorPreview viewport={editorData.viewport} height={editorSettings.height} width={editorSettings.width} selectedSequence={editorData.selectedSequence} />}
+                <InspectorRowName spriteSheetFrames={editorData.spriteSheetFrames} selectedSequence={editorData.selectedSequence} />
                 <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
-                <InspectorFrameMods spriteSheetFrames={editorData.spriteSheetFrames} setSpriteSheetFrames={editorData.setSpriteSheetFrames} selectedRow={editorData.selectedSequence} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
+                <InspectorFrameMods spriteSheetFrames={editorData.spriteSheetFrames} selectedSequence={editorData.selectedSequence} selectedFrame={editorData.selectedFrame} />
                 <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-                <InspectorFileUpload spriteSheetFrames={editorData.spriteSheetFrames} setSpriteSheetFrames={editorData.setSpriteSheetFrames} selectedRow={editorData.selectedSequence} compressionRatio={appSettings.imageCompressionRatio} />
-                <InspectorFramesList spriteSheetFrames={editorData.spriteSheetFrames} setSpriteSheetFrames={editorData.setSpriteSheetFrames} numberOfSequences={8} selectedRow={editorData.selectedSequence} selectedFrame={editorData.selectedFrame} setSelectedFrame={editorData.setSelectedFrame} />
+                <InspectorFileUpload spriteSheetFrames={editorData.spriteSheetFrames} selectedSequence={editorData.selectedSequence} imageCompressionRatio={appSettings.imageCompressionRatio} />
+                <InspectorFramesList spriteSheetFrames={editorData.spriteSheetFrames} selectedSequence={editorData.selectedSequence} selectedFrame={editorData.selectedFrame} />
             </SectionInspector>
         </div>
     );

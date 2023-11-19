@@ -2,7 +2,9 @@ import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import noimage from '../../../../media/noimage.svg';
 
-function CommonListItem(props: { text: string, alt:string, base64: string, highlighted?: boolean, callback?: () => void, includeTrash?: boolean }) {
+type Props = { text: string, alt:string, base64: string, highlighted?: boolean, callback?: () => void, includeTrash?: boolean }
+
+function CommonListItem(props: Props) {
     return (
         <div className={`flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move ${props.highlighted ? 'border border-base border-opacity-30' : ''}`}>
             <div className={'mr-2 text-2xl'}>

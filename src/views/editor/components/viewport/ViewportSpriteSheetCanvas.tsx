@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import Card from '../../../../components/Card';
-import { SpriteSheetFrame } from '../../../../global/types';
+import { EditorData, EditorSettings } from '../../../../global/types';
 import useViewport from '../../../../hooks/useViewport';
 
-function SpriteSheetCanvas(props: { numberOfSequences: number, height: number, width: number, spriteSheetFrames: SpriteSheetFrame[], setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>> }) {
+type Props = Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'> & Pick<EditorData, 'spriteSheetFrames' | 'viewport'>
+
+function SpriteSheetCanvas(props: Props) {
     const viewportRef = useRef<HTMLCanvasElement>(null);
-    const [width, height, className] = useViewport(viewportRef, props.numberOfSequences, props.height, props.width, props.spriteSheetFrames, props.setCanvas);
+    const [width, height, className] = useViewport(viewportRef, props.numberOfSequences.value, props.height.value, props.width.value, props.spriteSheetFrames.value, props.viewport.setValue);
 
     return (
         <>

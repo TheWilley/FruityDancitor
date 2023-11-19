@@ -1,6 +1,8 @@
 import Card from '../../../../components/Card';
 
-function SectionInspector(props: { children: React.ReactNode[] }) {
+type Props = {children: React.ReactNode[]}
+
+function SectionInspector(props: Props) {
     return (
         <Card>
             <div className='p-2'>

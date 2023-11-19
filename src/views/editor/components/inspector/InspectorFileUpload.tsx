@@ -1,8 +1,10 @@
-import { SpriteSheetFrame } from '../../../../global/types';
+import { AppSettings, EditorData } from '../../../../global/types';
 import useFileUpload from '../../../../hooks/useFileUpload';
 
-function InspectorFileUpload(props: { spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number }) {
-    const [rootProps, inputProps, placeholderText, disabled, className, style] = useFileUpload(props.spriteSheetFrames, props.setSpriteSheetFrames, props.selectedRow, props.compressionRatio);
+type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'> & Pick<AppSettings, 'imageCompressionRatio'>
+
+function InspectorFileUpload(props: Props) {
+    const [rootProps, inputProps, placeholderText, disabled, className, style] = useFileUpload(props.spriteSheetFrames.value, props.spriteSheetFrames.setValue, props.selectedSequence.value, props.imageCompressionRatio.value);
 
     return (
         <div
