@@ -21,6 +21,10 @@ export type EditorData = {
     viewport: StateWithSetter<HTMLCanvasElement | undefined>;
 };
 
+export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>
+
+export type SaveAndLoadSettings = Pick<EditorData, 'spriteSheetFrames'> & Pick<AppSettings, 'imageCompressionRatio'> & Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>
+
 type Modifications = {
     xoffset: number,
     yoffset: number,
