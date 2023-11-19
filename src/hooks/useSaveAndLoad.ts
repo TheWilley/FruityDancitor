@@ -1,7 +1,6 @@
 import {saveAs} from 'file-saver';
 import {SaveAndLoadSettings} from '../global/types';
 
-// TODO: This project file needs to be changed as it assumes we use an object value, which is currently not true
 type ProjectFile = {
     type: string
     stringifiedSpriteSheetFrames: string

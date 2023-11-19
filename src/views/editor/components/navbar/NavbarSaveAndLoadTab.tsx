@@ -4,7 +4,6 @@ import {SaveAndLoadSettings} from '../../../../global/types.ts';
 
 type Props = { saveAndLoadSettings: SaveAndLoadSettings }
 
-// TODO: Fix this file
 function NavbarSaveAndLoadTab(props: Props) {
     const [save, load] = useSaveAndLoad();
     const fileRef = useRef<HTMLInputElement | null>(null);
