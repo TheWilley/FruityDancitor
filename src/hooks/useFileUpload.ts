@@ -3,17 +3,22 @@ import {useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import {SpriteSheetFrame} from '../global/types';
 import imageCompressor from '../utils/imageCompressor.ts';
+import {extractGifFrames} from '../utils/extractGifFrames.ts';
 
 /**
  * Extract base64 from an image
  */
 function getBase64(file: File, compressionRatio: number) {
-    return new Promise((resolve, reject) => {
+    return new Promise<string | string[]>((resolve, reject) => {
         if (file.type === 'image/jpeg' || file.type === 'image/png') {
             imageCompressor(file, compressionRatio, (result) => {
                 resolve(result);
             });
-        } else {
+        } else if(file.type === 'image/gif') {
+            extractGifFrames(file).then(results => resolve(results));
+        }
+
+        else {
             reject(new Error('Unsupported file type'));
         }
     });
@@ -22,6 +27,18 @@ function getBase64(file: File, compressionRatio: number) {
 export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
     const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
+
+    // Adds new frame
+    const addNewFrame = (base64: string) => {
+        if (!spriteSheetFrames[selectedRow].sequence.map(item => item.base64).includes(base64)) {
+            // Update the state by appending the image to the first sequence
+            setSpriteSheetFrames((prevFrames) =>
+                produce(prevFrames, (draft) => {
+                    draft[selectedRow].sequence.push({base64: base64, modifications: {scale: 1, xoffset: 0, yoffset: 0}});
+                })
+            );
+        }
+    };
 
     // Runs when a file is uploaded
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
@@ -39,13 +56,10 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
                     // Get base64 for the file
                     const base64 = await getBase64(file, compressionRatio) as string;
 
-                    if (!spriteSheetFrames[selectedRow].sequence.map(item => item.base64).includes(base64)) {
-                        // Update the state by appending the image to the first sequence
-                        setSpriteSheetFrames((prevFrames) =>
-                            produce(prevFrames, (draft) => {
-                                draft[selectedRow].sequence.push({base64: base64, modifications: {scale: 1, xoffset: 0, yoffset: 0}});
-                            })
-                        );
+                    if(Array.isArray(base64)) {
+                        base64.forEach(item => addNewFrame(item));
+                    } else {
+                        addNewFrame((base64));
                     }
                 }
             }
