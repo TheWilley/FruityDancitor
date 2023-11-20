@@ -2,7 +2,10 @@ export default function NavbarInfoTab() {
     return (
         <div className="ml-2">
             <div className="text-2xl font-bold">
-                Made by TheWilley
+                FruityDancitor
+                <div className='text-sm'>
+                    By TheWilley
+                </div>
             </div>
             <ul className="flex mt-2 [&>*]:mr-3">
                 <li className="card">
