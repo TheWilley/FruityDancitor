@@ -43,7 +43,7 @@ function imageCompressor(file: File, compressionRatio: number, callback: (result
                     const ctx = canvas.getContext('2d');
                     if (ctx) {
                         ctx.drawImage(image, 0, 0, width, height);
-                        callback(canvas.toDataURL('image/jpeg', compressionRatio));
+                        callback(canvas.toDataURL('image/png', compressionRatio));
                     }
                 };
             }
