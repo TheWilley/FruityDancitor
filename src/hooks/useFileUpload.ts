@@ -1,8 +1,8 @@
-import Compressor from 'compressorjs';
 import {produce} from 'immer';
 import {useCallback, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import {SpriteSheetFrame} from '../global/types';
+import imageCompressor from '../utils/imageCompressor.ts';
 
 /**
  * Extract base64 from an image
@@ -10,21 +10,8 @@ import {SpriteSheetFrame} from '../global/types';
 function getBase64(file: File, compressionRatio: number) {
     return new Promise((resolve, reject) => {
         if (file.type === 'image/jpeg') {
-            new Compressor(file, {
-                quality: compressionRatio,
-                success: (result) => {
-                    const reader = new FileReader();
-
-                    reader.onloadend = function () {
-                        resolve(reader.result);
-                    };
-
-                    reader.onerror = function () {
-                        reject(new Error('Failed to read the file as Base64'));
-                    };
-
-                    reader.readAsDataURL(result);
-                }
+            imageCompressor(file, compressionRatio, (result) => {
+                resolve(result);
             });
         } else {
             reject(new Error('Unsupported file type'));
