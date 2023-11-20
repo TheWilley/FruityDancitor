@@ -13,7 +13,7 @@ function CommonListItem(props: Props) {
             </div>
             <img
                 src={props.base64 || noimage}
-                className={`inline mr-1 ${props.base64 && 'border'}`}
+                className={`inline mr-1 w-10 h-10 ${props.base64 && 'border'}`}
                 width={40}
                 height={40}
             />
