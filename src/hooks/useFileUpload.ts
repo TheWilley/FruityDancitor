@@ -9,7 +9,7 @@ import imageCompressor from '../utils/imageCompressor.ts';
  */
 function getBase64(file: File, compressionRatio: number) {
     return new Promise((resolve, reject) => {
-        if (file.type === 'image/jpeg') {
+        if (file.type === 'image/jpeg' || file.type === 'image/png') {
             imageCompressor(file, compressionRatio, (result) => {
                 resolve(result);
             });
