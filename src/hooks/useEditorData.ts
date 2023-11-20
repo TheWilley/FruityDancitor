@@ -18,6 +18,11 @@ function useSpriteSheetFrames(numberOfSequences: number) {
             // Splice frames
             draftFrames.splice(numberOfSequences);
 
+            // Make sure there is only one held sequence
+            for(let i = 0; i < draftFrames.length; i++) {
+                if(draftFrames[i].name === 'held') draftFrames[i].name = '';
+            }
+
             // Modify the 'name' property of the last sequence
             draftFrames[draftFrames.length - 1].name = 'held';
         });
