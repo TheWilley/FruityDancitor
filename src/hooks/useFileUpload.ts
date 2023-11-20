@@ -24,7 +24,7 @@ function getBase64(file: File, compressionRatio: number) {
     });
 }
 
-export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
+export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, setShowDialog: React.Dispatch<React.SetStateAction<boolean>>, setDialogFrames: React.Dispatch<React.SetStateAction<string[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
     const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
 
@@ -57,7 +57,9 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
                     const base64 = await getBase64(file, compressionRatio) as string;
 
                     if(Array.isArray(base64)) {
-                        base64.forEach(item => addNewFrame(item));
+                        setShowDialog(true);
+                        setDialogFrames(base64.map(item => item));
+                        //base64.forEach(item => addNewFrame(item));
                     } else {
                         addNewFrame((base64));
                     }

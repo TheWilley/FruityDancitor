@@ -12,6 +12,8 @@ import InspectorRowName from './components/inspector/InspectorRowName';
 import SectionSequenceList from './components/sections/SectionSequenceList';
 import SectionViewport from './components/sections/SectionViewport';
 import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
+import InspectorPickFrames from './components/inspector/InspectorPickFrames.tsx';
+import usePickFrames from '../../hooks/usePickFrames.ts';
 
 function Editor() {
     const appSettings = useAppSettings();
@@ -19,6 +21,7 @@ function Editor() {
     const editorData = useEditorData(editorSettings.numberOfSequences);
     const exportSettings = deriveExportSettings(editorData);
     const saveAndLoadSettings = deriveSaveAndLoadSettings(editorData, appSettings, editorSettings);
+    const pickFrames = usePickFrames();
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full"
@@ -47,10 +50,14 @@ function Editor() {
                 <h2 className="text-2xl font-bold mt-5 mb-3"> Frames </h2>
                 <InspectorFileUpload spriteSheetFrames={editorData.spriteSheetFrames}
                                      selectedSequence={editorData.selectedSequence}
-                                     imageCompressionRatio={appSettings.imageCompressionRatio}/>
+                                     imageCompressionRatio={appSettings.imageCompressionRatio}
+                                     showDialog={pickFrames.showDialog}
+                                     dialogFrames={pickFrames.dialogFrames} />
                 <InspectorFramesList spriteSheetFrames={editorData.spriteSheetFrames}
                                      selectedSequence={editorData.selectedSequence}
                                      selectedFrame={editorData.selectedFrame}/>
+                <InspectorPickFrames dialogFrames={pickFrames.dialogFrames}
+                                     showDialog={pickFrames.showDialog} />
             </SectionInspector>
         </div>
     );
