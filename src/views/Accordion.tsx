@@ -1,11 +1,11 @@
 import Editor from './editor/Editor';
 
 function Accordion() {
-    return (
-        <div>
-            <Editor/>
-        </div>
-    );
+  return (
+    <div>
+      <Editor />
+    </div>
+  );
 }
 
 export default Accordion;
