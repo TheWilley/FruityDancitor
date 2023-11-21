@@ -14,6 +14,8 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     'semi': 2,
     'quotes': [1, 'single'],
-    'react/jsx-no-bind': 2
+    'react/jsx-no-bind': 2,
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
   },
 };
