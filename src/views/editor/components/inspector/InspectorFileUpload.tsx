@@ -48,11 +48,11 @@ function InspectorPickFrames(props: PickDialogFrames) {
           <div className='grid grid-cols-5 gap-2'>
             {props.dialogFrames.value.map((frame, index) => (
               <img
-                key={index} // Added a unique key for each rendered element
+                key={index}
                 src={frame}
                 alt={`Frame ${index}`}
                 width={150}
-                className={`border ${
+                className={`border cursor-pointer ${
                   props.selectedDialogFrames.value.includes(index) ? 'border-primary' : ''
                 }`}
                 onClick={() => selectFrame(index)}
@@ -66,11 +66,14 @@ function InspectorPickFrames(props: PickDialogFrames) {
             </form>
             <button
               className='btn btn-success'
-              onClick={() =>
-                props.selectedDialogFrames.value.map((item) =>
+              onClick={() => {
+                // Since we don't need to show the dialog anymore, we close it
+                props.showDialog.setValue(false);
+
+                return props.selectedDialogFrames.value.map((item) =>
                   props.callback(props.dialogFrames.value[item])
-                )
-              }
+                );
+              }}
             >
               {' '}
               Upload
@@ -105,9 +108,11 @@ function InspectorFileUpload(props: Props) {
   );
 
   return (
-    <div {...rootProps} className={className} style={style}>
-      <input {...inputProps} disabled={disabled} />
-      <p>{placeholder}</p>
+    <>
+      <div {...rootProps} className={className} style={style}>
+        <input {...inputProps} disabled={disabled} />
+        <p>{placeholder}</p>
+      </div>
       <InspectorPickFrames
         dialogFrames={dialogFrames}
         showDialog={showDialog}
@@ -116,7 +121,7 @@ function InspectorFileUpload(props: Props) {
         spriteSheetFrames={props.spriteSheetFrames}
         callback={addNewFrame}
       />
-    </div>
+    </>
   );
 }
 
