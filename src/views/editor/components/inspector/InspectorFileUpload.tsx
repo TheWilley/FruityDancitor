@@ -20,10 +20,9 @@ function InspectorPickFrames(props: PickDialogFrames) {
         } else {
           // Makes sure we don't upload too many frames
           if (
-            draftDialogFrames.length -
-              props.spriteSheetFrames.value[props.selectedSequence.value].sequence
-                .length >=
-            8
+            draftDialogFrames.length >=
+            8 -
+              props.spriteSheetFrames.value[props.selectedSequence.value].sequence.length
           ) {
             draftDialogFrames.pop();
           }

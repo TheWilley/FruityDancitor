@@ -32,9 +32,7 @@ export default function useFileUpload(
   const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
   const [showDialog, setShowDialog] = useState(false);
   const [dialogFrames, setDialogFrames] = useState<string[]>([]);
-  const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([
-    0, 1, 2, 3, 4,
-  ]);
+  const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([]);
 
   // Adds new frame
   const addNewFrame = (base64: string) => {
@@ -73,6 +71,12 @@ export default function useFileUpload(
             if (Array.isArray(base64)) {
               setShowDialog(true);
               setDialogFrames(base64.map((item) => item));
+              setSelectedDialogFrames(
+                Array.from(
+                  { length: 8 - (spriteSheetFrames[selectedRow]?.sequence.length || 0) },
+                  (_, index) => index
+                )
+              );
             } else {
               addNewFrame(base64);
             }
