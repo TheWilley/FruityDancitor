@@ -28,12 +28,6 @@ export type SaveAndLoadSettings =
     & Pick<AppSettings, 'imageCompressionRatio'>
     & Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>
 
-export type PickDialogFrames = {
-    showDialog: StateWithSetter<boolean>
-    dialogFrames: StateWithSetter<string[]>
-    selectedDialogFrames: StateWithSetter<number[]>
-} & Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>
-
 type Modifications = {
     xoffset: number,
     yoffset: number,

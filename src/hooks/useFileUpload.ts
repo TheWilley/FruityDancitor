@@ -24,9 +24,12 @@ function getBase64(file: File, compressionRatio: number) {
     });
 }
 
-export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, setShowDialog: React.Dispatch<React.SetStateAction<boolean>>, setDialogFrames: React.Dispatch<React.SetStateAction<string[]>>, selectedRow: number, compressionRatio: number) {
+export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>, selectedRow: number, compressionRatio: number) {
     const [dragOver, setDragOver] = useState(false);
     const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
+    const [showDialog, setShowDialog] = useState(false);
+    const [dialogFrames, setDialogFrames] = useState<string[]>([]);
+    const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([0,1,2,3,4]);
 
     // Adds new frame
     const addNewFrame = (base64: string) => {
@@ -59,7 +62,6 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
                     if(Array.isArray(base64)) {
                         setShowDialog(true);
                         setDialogFrames(base64.map(item => item));
-                        //base64.forEach(item => addNewFrame(item));
                     } else {
                         addNewFrame((base64));
                     }
@@ -100,6 +102,17 @@ export default function useFileUpload(spriteSheetFrames: SpriteSheetFrame[], set
 
     const placeholder = disabled ? 'Can\'t upload more than 8 files' : isDragActive ? 'Drop the files here...' : 'Drag \'n\' drop some files here, or click to select files';
 
-    return [getRootProps(), getInputProps(), placeholder, disabled, className, style, placeholder] as const;
+    return [
+        getRootProps(),
+        getInputProps(),
+        placeholder,
+        disabled,
+        className,
+        style,
+        addNewFrame,
+        { value: showDialog, setValue: setShowDialog },
+        { value: dialogFrames, setValue: setDialogFrames },
+        { value: selectedDialogFrames, setValue: setSelectedDialogFrames },
+    ] as const;
 }
 
