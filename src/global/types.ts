@@ -28,9 +28,10 @@ export type SaveAndLoadSettings =
     & Pick<AppSettings, 'imageCompressionRatio'>
     & Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>
 
-export type PickFrames = {
+export type PickDialogFrames = {
     showDialog: StateWithSetter<boolean>
     dialogFrames: StateWithSetter<string[]>
+    selectedDialogFrames: StateWithSetter<number[]>
 }
 
 type Modifications = {

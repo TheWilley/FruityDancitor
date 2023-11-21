@@ -1,15 +1,37 @@
-import {PickFrames} from '../../../../global/types.ts';
+import {PickDialogFrames} from '../../../../global/types.ts';
+import {produce} from 'immer';
 
-type Props = PickFrames
+type Props = PickDialogFrames
 
 export default function InspectorPickFrames(props: Props) {
     return (
         <>
-            <dialog id="my_modal_1" className="modal" open={props.showDialog.value} onClose={() => props.showDialog.setValue(false)}>
+            <dialog id="my_modal_1" className="modal" open={props.showDialog.value}
+                    onClose={() => props.showDialog.setValue(false)}>
                 <div className="modal-box">
-                    {props.dialogFrames.value.map((frame, index) => (
-                        <img src={frame} alt={`Frame ${index}`} />
-                    ))}
+                    <h1 className="text-2xl mb-2"> Select Frames </h1>
+                    <div className="grid grid-cols-5 gap-2">
+                        {props.dialogFrames.value.map((frame, index) => (
+                            <img
+                                key={index} // Added a unique key for each rendered element
+                                src={frame}
+                                alt={`Frame ${index}`}
+                                width={150}
+                                className={`border ${props.selectedDialogFrames.value.includes(index) ? 'border-primary' : ''}`}
+                                onClick={() => {
+                                    //TODO: We need to check how many frames are already uploaded and stop user from uploading too many
+                                    props.selectedDialogFrames.setValue(produce(props.selectedDialogFrames.value, (draftDialogFrames) => {
+                                        const selectedIndex = draftDialogFrames.indexOf(index);
+                                        if (selectedIndex !== -1) {
+                                            draftDialogFrames.splice(selectedIndex, 1); // Remove if already selected
+                                        } else {
+                                            draftDialogFrames.push(index); // Add if not selected
+                                        }
+                                    }));
+                                }}
+                            />
+                        ))}
+                    </div>
                     <div className="modal-action">
                         <form method="dialog">
                             {/* if there is a button in form, it will close the modal */}

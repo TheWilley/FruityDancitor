@@ -1,9 +1,10 @@
 import {useState} from 'react';
-import {PickFrames} from '../global/types.ts';
+import {PickDialogFrames} from '../global/types.ts';
 
-export default function usePickFrames(): PickFrames {
+export default function usePickDialogFrames(): PickDialogFrames {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogFrames, setDialogFrames] = useState<string[]>([]);
+    const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([0,1,2,3,4]);
 
     return {
         showDialog: {
@@ -13,6 +14,10 @@ export default function usePickFrames(): PickFrames {
         dialogFrames: {
             value: dialogFrames,
             setValue: setDialogFrames
+        },
+        selectedDialogFrames: {
+            value: selectedDialogFrames,
+            setValue: setSelectedDialogFrames
         }
     };
 }

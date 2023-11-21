@@ -13,7 +13,7 @@ import SectionSequenceList from './components/sections/SectionSequenceList';
 import SectionViewport from './components/sections/SectionViewport';
 import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
 import InspectorPickFrames from './components/inspector/InspectorPickFrames.tsx';
-import usePickFrames from '../../hooks/usePickFrames.ts';
+import usePickDialogFrames from '../../hooks/usePickDialogFrames.ts';
 
 function Editor() {
     const appSettings = useAppSettings();
@@ -21,7 +21,7 @@ function Editor() {
     const editorData = useEditorData(editorSettings.numberOfSequences);
     const exportSettings = deriveExportSettings(editorData);
     const saveAndLoadSettings = deriveSaveAndLoadSettings(editorData, appSettings, editorSettings);
-    const pickFrames = usePickFrames();
+    const pickFrames = usePickDialogFrames();
 
     return (
         <div className="grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full"
@@ -57,7 +57,8 @@ function Editor() {
                                      selectedSequence={editorData.selectedSequence}
                                      selectedFrame={editorData.selectedFrame}/>
                 <InspectorPickFrames dialogFrames={pickFrames.dialogFrames}
-                                     showDialog={pickFrames.showDialog} />
+                                     showDialog={pickFrames.showDialog}
+                                     selectedDialogFrames={pickFrames.selectedDialogFrames} />
             </SectionInspector>
         </div>
     );
