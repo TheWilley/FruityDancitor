@@ -1,5 +1,5 @@
 import { AppSettings, EditorData, StateWithSetter } from '../../../../global/types';
-import useFileUpload from '../../../../hooks/useFileUpload';
+import useFileUpload from '../../../../hooks/utils/useFileUpload.ts';
 import { produce } from 'immer';
 
 type PickDialogFrames = {

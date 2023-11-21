@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import useSaveAndLoad from '../../../../hooks/useSaveAndLoad';
+import useSaveAndLoad from '../../../../hooks/utils/useSaveAndLoad.ts';
 import { SaveAndLoadSettings } from '../../../../global/types.ts';
 
 type Props = { saveAndLoadSettings: SaveAndLoadSettings };

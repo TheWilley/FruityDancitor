@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { EditorData, EditorSettings, SpriteSheetFrame } from '../global/types';
-import appConfig from '../../appConfig';
+import { EditorData, EditorSettings, SpriteSheetFrame } from '../../global/types.ts';
+import appConfig from '../../../appConfig.ts';
 import { produce } from 'immer';
 
 function useSpriteSheetFrames(numberOfSequences: number) {

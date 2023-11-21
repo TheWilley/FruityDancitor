@@ -1,5 +1,5 @@
 import { RefObject, useEffect } from 'react';
-import { SpriteSheetFrame } from '../global/types';
+import { SpriteSheetFrame } from '../../global/types.ts';
 
 /**
  * Draws an image on a given tile

@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import usePreview from '../../../../hooks/UsePreview';
+import usePreview from '../../../../hooks/utils/UsePreview.ts';
 import { EditorData, EditorSettings } from '../../../../global/types';
 
 type Props = Pick<EditorData, 'selectedSequence' | 'viewport'> &

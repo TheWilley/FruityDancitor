@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import Card from '../../../../components/Card';
 import { EditorData, EditorSettings } from '../../../../global/types';
-import useViewport from '../../../../hooks/useViewport';
+import useViewport from '../../../../hooks/utils/useViewport.ts';
 
 type Props = Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'> &
   Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;

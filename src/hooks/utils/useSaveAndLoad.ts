@@ -1,5 +1,5 @@
 import { saveAs } from 'file-saver';
-import { SaveAndLoadSettings } from '../global/types';
+import { SaveAndLoadSettings } from '../../global/types.ts';
 
 type ProjectFile = {
   type: string;

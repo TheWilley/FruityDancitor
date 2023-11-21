@@ -1,9 +1,9 @@
 import { produce } from 'immer';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { SpriteSheetFrame } from '../global/types';
-import imageCompressor from '../utils/imageCompressor.ts';
-import { extractGifFrames } from '../utils/extractGifFrames.ts';
+import { SpriteSheetFrame } from '../../global/types.ts';
+import imageCompressor from '../../utils/imageCompressor.ts';
+import { extractGifFrames } from '../../utils/extractGifFrames.ts';
 
 /**
  * Extract base64 from an image

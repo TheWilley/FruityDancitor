@@ -1,7 +1,7 @@
 import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import { useState } from 'react';
-import { ExportSettings } from '../global/types';
+import { ExportSettings } from '../../global/types.ts';
 
 function downloadFile(exportSettings: ExportSettings & { filename: string }) {
   // If a filename is not entered, use default name

@@ -1,6 +1,6 @@
-import useAppSettings from '../../hooks/useAppSettings';
-import useEditorData from '../../hooks/useEditorData';
-import useEditorSettings from '../../hooks/useEditorSettings';
+import useAppSettings from '../../hooks/state/useAppSettings.ts';
+import useEditorData from '../../hooks/state/useEditorData.ts';
+import useEditorSettings from '../../hooks/state/useEditorSettings.ts';
 import {
   deriveExportSettings,
   deriveSaveAndLoadSettings,
