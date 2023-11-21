@@ -58,7 +58,9 @@ function Editor() {
                                      selectedFrame={editorData.selectedFrame}/>
                 <InspectorPickFrames dialogFrames={pickFrames.dialogFrames}
                                      showDialog={pickFrames.showDialog}
-                                     selectedDialogFrames={pickFrames.selectedDialogFrames} />
+                                     selectedDialogFrames={pickFrames.selectedDialogFrames}
+                                     spriteSheetFrames={editorData.spriteSheetFrames}
+                                    selectedSequence={editorData.selectedSequence} />
             </SectionInspector>
         </div>
     );

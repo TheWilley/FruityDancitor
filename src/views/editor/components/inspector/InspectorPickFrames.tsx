@@ -19,13 +19,19 @@ export default function InspectorPickFrames(props: Props) {
                                 width={150}
                                 className={`border ${props.selectedDialogFrames.value.includes(index) ? 'border-primary' : ''}`}
                                 onClick={() => {
-                                    //TODO: We need to check how many frames are already uploaded and stop user from uploading too many
                                     props.selectedDialogFrames.setValue(produce(props.selectedDialogFrames.value, (draftDialogFrames) => {
                                         const selectedIndex = draftDialogFrames.indexOf(index);
                                         if (selectedIndex !== -1) {
-                                            draftDialogFrames.splice(selectedIndex, 1); // Remove if already selected
+                                            // Remove frame
+                                            draftDialogFrames.splice(selectedIndex, 1);
                                         } else {
-                                            draftDialogFrames.push(index); // Add if not selected
+                                            // Makes sure we don't upload too many frames
+                                            if(draftDialogFrames.length - props.spriteSheetFrames.value[props.selectedSequence.value].sequence.length >= 8) {
+                                                draftDialogFrames.pop();
+                                            }
+
+                                            // Push clicked frame
+                                            draftDialogFrames.push(index);
                                         }
                                     }));
                                 }}
