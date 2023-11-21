@@ -12,7 +12,8 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     '@typescript-eslint/no-non-null-assertion': 'off',
-    semi: 2,
-    quotes: [1, 'single'],
+    'semi': 2,
+    'quotes': [1, 'single'],
+    'react/jsx-no-bind': 2
   },
 };
