@@ -124,10 +124,10 @@ export default function useFileUpload(
   };
 
   const placeholder = disabled
-    ? "Can't upload more than 8 files"
+    ? 'Can\'t upload more than 8 files'
     : isDragActive
       ? 'Drop the files here...'
-      : "Drag 'n' drop some files here, or click to select files";
+      : 'Drag \'n\' drop some files here, or click to select files';
 
   return [
     getRootProps(),

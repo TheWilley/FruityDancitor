@@ -15,7 +15,7 @@ export default function NavbarInfoTab() {
           <a
             href='https://github.com/TheWilley/FruityDancitor'
             target='_blank'
-            className='link'
+            className='link' rel="noreferrer"
           >
             {' '}
             Source Code{' '}
@@ -25,7 +25,7 @@ export default function NavbarInfoTab() {
           <a
             href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'
             target='_blank'
-            className='link'
+            className='link' rel="noreferrer"
           >
             {' '}
             License{' '}
@@ -35,7 +35,7 @@ export default function NavbarInfoTab() {
           <a
             href='https://github.com/TheWilley/FruityDancitor/issues'
             target='_blank'
-            className='link'
+            className='link' rel="noreferrer"
           >
             {' '}
             Report a Bug{' '}
@@ -45,7 +45,7 @@ export default function NavbarInfoTab() {
           <a
             href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm'
             target='_blank'
-            className='link'
+            className='link' rel="noreferrer"
           >
             {' '}
             Fruity Dance Docs{' '}
