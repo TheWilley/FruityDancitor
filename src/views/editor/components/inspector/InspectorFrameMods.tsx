@@ -66,6 +66,9 @@ function InspectorFrameMods(props: Props) {
     );
   };
 
+  // Decides weather the inputs should be disabled or not
+  const disabled = props.selectedFrame.value === -1;
+
   return (
     <>
       <div>
@@ -79,7 +82,7 @@ function InspectorFrameMods(props: Props) {
           min={0.1}
           value={mods.scale}
           onChange={(e) => setScale(e)}
-          disabled={props.selectedFrame.value === -1}
+          disabled={disabled}
         />
       </div>
       <div className='grid grid-cols-2 gap-3'>
@@ -92,7 +95,7 @@ function InspectorFrameMods(props: Props) {
             className='input input-md input-bordered w-full'
             value={mods.xoffset}
             onChange={(e) => setxoffset(e)}
-            disabled={props.selectedFrame.value === -1}
+            disabled={disabled}
           />
         </div>
         <div>
@@ -104,11 +107,11 @@ function InspectorFrameMods(props: Props) {
             className='input input-md input-bordered w-full'
             value={mods.yoffset}
             onChange={(e) => setyoffset(e)}
-            disabled={props.selectedFrame.value === -1}
+            disabled={disabled}
           />
         </div>
       </div>
-      <button className='btn btn-md w-full mt-4' onClick={resetMods}>
+      <button className='btn btn-md w-full mt-4' onClick={resetMods} disabled={disabled}>
         Reset
       </button>
     </>
