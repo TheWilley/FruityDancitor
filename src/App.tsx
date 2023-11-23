@@ -7,8 +7,9 @@ import Accordion from './views/Accordion';
 function App() {
   return (
     <>
+      <div id='customBackground' className='z-10 fixed w-screen h-screen bg-cover' />
       <div className='bg-background-light dark:bg-background-dark p-5 flex justify-center'>
-        <div style={{ maxWidth: appConfig.maxWidth }} className='w-full'>
+        <div style={{ maxWidth: appConfig.maxWidth }} className='w-full z-20'>
           <Accordion />
         </div>
       </div>

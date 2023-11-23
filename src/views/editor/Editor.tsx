@@ -15,6 +15,7 @@ import InspectorSequenceName from './components/inspector/InspectorSequenceName.
 import SectionSequenceList from './components/sections/SectionSequenceList';
 import SectionViewport from './components/sections/SectionViewport';
 import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
+import useBackground from '../../hooks/utils/useBackground.ts';
 
 /**
  * Represents a sprite sheet Editor.
@@ -30,6 +31,11 @@ function Editor() {
     editorData,
     appSettings,
     editorSettings
+  );
+
+  useBackground(
+    appSettings.customBackgroundSrc.value,
+    appSettings.customBackgroundDarkness.value
   );
 
   return (

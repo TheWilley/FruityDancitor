@@ -6,6 +6,8 @@ export interface StateWithSetter<T> {
 
 export type AppSettings = {
   imageCompressionRatio: StateWithSetter<number>;
+  customBackgroundSrc: StateWithSetter<string>;
+  customBackgroundDarkness: StateWithSetter<number>;
 };
 
 export type EditorSettings = {
