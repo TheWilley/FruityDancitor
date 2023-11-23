@@ -26,7 +26,10 @@ export type EditorData = {
 export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
 
 export type SaveAndLoadSettings = Pick<EditorData, 'spriteSheetFrames'> &
-  Pick<AppSettings, 'imageCompressionRatio'> &
+  Pick<
+    AppSettings,
+    'imageCompressionRatio' | 'customBackgroundSrc' | 'customBackgroundDarkness'
+  > &
   Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
 
 type Modifications = {

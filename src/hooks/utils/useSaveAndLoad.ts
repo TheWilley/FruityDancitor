@@ -1,14 +1,5 @@
-import { saveAs } from 'file-saver';
 import { SaveAndLoadSettings } from '../../global/types.ts';
-
-type ProjectFile = {
-  type: string;
-  stringifiedSpriteSheetFrames: string;
-  imageCompressionRatio: SaveAndLoadSettings['imageCompressionRatio']['value'];
-  width: SaveAndLoadSettings['width']['value'];
-  height: SaveAndLoadSettings['height']['value'];
-  numberOfSequences: SaveAndLoadSettings['numberOfSequences']['value'];
-};
+import saveAs from 'file-saver';
 
 /**
  * Loads a FruityDancitor JSON file.
@@ -19,7 +10,7 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
     const reader = new FileReader();
 
     // Define data variable here as we assign it later within the
-    let data: ProjectFile;
+    let data = {};
 
     reader.onloadend = function () {
       try {
@@ -29,23 +20,19 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
         alert('Error parsing project file');
         return;
       }
-      if (data.type !== 'FruityDancitorProject') {
-        alert('Not a valid  FruityDancitor project file');
-      } else {
-        try {
-          saveAndLoadSettings.imageCompressionRatio.setValue(data.imageCompressionRatio);
-          saveAndLoadSettings.width.setValue(data.width);
-          saveAndLoadSettings.height.setValue(data.height);
-          saveAndLoadSettings.numberOfSequences.setValue(data.numberOfSequences);
-          saveAndLoadSettings.spriteSheetFrames.setValue(
-            JSON.parse(data.stringifiedSpriteSheetFrames)
+
+      try {
+        // Dynamic mapping and loading of properties
+        Object.keys(saveAndLoadSettings).forEach((key) => {
+          saveAndLoadSettings[key as keyof typeof saveAndLoadSettings].setValue(
+            (data as { [key: string]: never })[key]
           );
-          alert('Project loaded');
-        } catch (e) {
-          console.error('Error: ' + e);
-          alert('Could not load project');
-          return;
-        }
+        });
+        alert('Project loaded');
+      } catch (e) {
+        console.error('Error: ' + e);
+        alert('Could not load project');
+        return;
       }
     };
 
@@ -64,17 +51,11 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
  * Saves a FruityDancitor JSON file.
  */
 function save(saveAndLoadSettings: SaveAndLoadSettings) {
-  // Create an object to collect data (empty sequences are removed from JSON)
-  const json: ProjectFile = {
-    type: 'FruityDancitorProject',
-    imageCompressionRatio: saveAndLoadSettings.imageCompressionRatio.value,
-    stringifiedSpriteSheetFrames: JSON.stringify(
-      saveAndLoadSettings.spriteSheetFrames.value
-    ),
-    numberOfSequences: saveAndLoadSettings.numberOfSequences.value,
-    width: saveAndLoadSettings.width.value,
-    height: saveAndLoadSettings.height.value,
-  };
+  // Create object containing all props to save
+  const json = Object.entries(saveAndLoadSettings).reduce(
+    (acc, [key, value]) => ({ ...acc, [key]: value.value }),
+    {}
+  );
 
   // Create a blob to be saved
   const blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
