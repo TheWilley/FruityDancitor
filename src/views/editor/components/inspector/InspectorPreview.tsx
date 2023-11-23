@@ -21,8 +21,8 @@ function InspectorPreview(props: Props) {
   );
 
   return (
-    <div className='flex justify-center'>
-      <div className='p-5 bg-base-300 text-center'>
+    <div className='flex justify-center bg-base-300'>
+      <div className='p-5 text-center'>
         <canvas ref={previewRef} width={100} height={100} className='border'></canvas>
         {currentFrame}
       </div>

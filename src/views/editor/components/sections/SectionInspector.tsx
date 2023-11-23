@@ -6,11 +6,7 @@ type Props = { children: React.ReactNode[] };
  * Component which displays the sprite sheet.
  */
 function SectionInspector(props: Props) {
-  return (
-    <Card>
-      <div className='p-2'>{props.children}</div>
-    </Card>
-  );
+  return <Card>{props.children}</Card>;
 }
 
 export default SectionInspector;

@@ -67,27 +67,29 @@ function Editor() {
             selectedSequence={editorData.selectedSequence}
           />
         )}
-        <InspectorSequenceName
-          spriteSheetFrames={editorData.spriteSheetFrames}
-          selectedSequence={editorData.selectedSequence}
-        />
-        <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
-        <InspectorFrameMods
-          spriteSheetFrames={editorData.spriteSheetFrames}
-          selectedSequence={editorData.selectedSequence}
-          selectedFrame={editorData.selectedFrame}
-        />
-        <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-        <InspectorFileUpload
-          spriteSheetFrames={editorData.spriteSheetFrames}
-          selectedSequence={editorData.selectedSequence}
-          imageCompressionRatio={appSettings.imageCompressionRatio}
-        />
-        <InspectorFramesList
-          spriteSheetFrames={editorData.spriteSheetFrames}
-          selectedSequence={editorData.selectedSequence}
-          selectedFrame={editorData.selectedFrame}
-        />
+        <div className='p-2'>
+          <InspectorSequenceName
+            spriteSheetFrames={editorData.spriteSheetFrames}
+            selectedSequence={editorData.selectedSequence}
+          />
+          <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
+          <InspectorFrameMods
+            spriteSheetFrames={editorData.spriteSheetFrames}
+            selectedSequence={editorData.selectedSequence}
+            selectedFrame={editorData.selectedFrame}
+          />
+          <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
+          <InspectorFileUpload
+            spriteSheetFrames={editorData.spriteSheetFrames}
+            selectedSequence={editorData.selectedSequence}
+            imageCompressionRatio={appSettings.imageCompressionRatio}
+          />
+          <InspectorFramesList
+            spriteSheetFrames={editorData.spriteSheetFrames}
+            selectedSequence={editorData.selectedSequence}
+            selectedFrame={editorData.selectedFrame}
+          />
+        </div>
       </SectionInspector>
     </div>
   );
