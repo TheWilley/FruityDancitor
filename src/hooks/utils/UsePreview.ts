@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 export default function usePreview(
   previewCanvas: HTMLCanvasElement | null,
   originalCanvas: HTMLCanvasElement | undefined,
-  selectedRow: number,
+  selectedSequence: number,
   width: number,
   height: number
 ) {
@@ -19,7 +19,7 @@ export default function usePreview(
     // Create params
     const drawParams = {
       sourceX: sx,
-      sourceY: height * (selectedRow + 1) - height,
+      sourceY: height * (selectedSequence + 1) - height,
       sourceWidth: width,
       sourceHeight: height,
       destX: 0,

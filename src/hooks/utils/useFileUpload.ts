@@ -33,11 +33,11 @@ function getBase64(file: File, compressionRatio: number) {
 export default function useFileUpload(
   spriteSheetFrames: SpriteSheetFrame[],
   setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>,
-  selectedRow: number,
+  selectedSequence: number,
   compressionRatio: number
 ) {
   const [dragOver, setDragOver] = useState(false);
-  const disabled = spriteSheetFrames[selectedRow].sequence.length > 7;
+  const disabled = spriteSheetFrames[selectedSequence].sequence.length > 7;
   const [showDialog, setShowDialog] = useState(false);
   const [dialogFrames, setDialogFrames] = useState<string[]>([]);
   const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([]);
@@ -45,12 +45,14 @@ export default function useFileUpload(
   // Adds new frame
   const addNewFrame = (base64: string) => {
     if (
-      !spriteSheetFrames[selectedRow].sequence.map((item) => item.base64).includes(base64)
+      !spriteSheetFrames[selectedSequence].sequence
+        .map((item) => item.base64)
+        .includes(base64)
     ) {
       // Update the state by appending the image to the first sequence
       setSpriteSheetFrames((prevFrames) =>
         produce(prevFrames, (draft) => {
-          draft[selectedRow].sequence.push({
+          draft[selectedSequence].sequence.push({
             base64: base64,
             modifications: { scale: 1, xoffset: 0, yoffset: 0 },
           });
@@ -74,7 +76,7 @@ export default function useFileUpload(
           if (file.size >= 8000000) continue;
 
           // Check if there is space for a new entry
-          if (spriteSheetFrames[selectedRow].sequence.length + index < 8) {
+          if (spriteSheetFrames[selectedSequence].sequence.length + index < 8) {
             // Get base64 for the file
             const base64 = (await getBase64(file, compressionRatio)) as string | string[];
 
@@ -84,7 +86,10 @@ export default function useFileUpload(
               setDialogFrames(base64.map((item) => item));
               setSelectedDialogFrames(
                 Array.from(
-                  { length: 8 - (spriteSheetFrames[selectedRow]?.sequence.length || 0) },
+                  {
+                    length:
+                      8 - (spriteSheetFrames[selectedSequence]?.sequence.length || 0),
+                  },
                   (_, index) => index
                 )
               );

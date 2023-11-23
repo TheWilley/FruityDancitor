@@ -11,7 +11,7 @@ import InspectorFileUpload from './components/inspector/InspectorFileUpload';
 import InspectorFrameMods from './components/inspector/InspectorFrameMods';
 import InspectorFramesList from './components/inspector/InspectorFramesList';
 import InspectorPreview from './components/inspector/InspectorPreview';
-import InspectorRowName from './components/inspector/InspectorRowName';
+import InspectorSequenceName from './components/inspector/InspectorSequenceName.tsx';
 import SectionSequenceList from './components/sections/SectionSequenceList';
 import SectionViewport from './components/sections/SectionViewport';
 import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
@@ -67,7 +67,7 @@ function Editor() {
             selectedSequence={editorData.selectedSequence}
           />
         )}
-        <InspectorRowName
+        <InspectorSequenceName
           spriteSheetFrames={editorData.spriteSheetFrames}
           selectedSequence={editorData.selectedSequence}
         />

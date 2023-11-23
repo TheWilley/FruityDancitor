@@ -7,9 +7,8 @@ type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
  * Represents the name of a sequence.
  *
  * This is used later within FL Studio as a unique identifier for a given sequence.
- * TODO: Change this to "inspectorSequenceName"
  */
-function InspectorRowName(props: Props) {
+function InspectorSequenceName(props: Props) {
   return (
     <div>
       <div className='items-center rounded mb-1'>
@@ -39,4 +38,4 @@ function InspectorRowName(props: Props) {
   );
 }
 
-export default InspectorRowName;
+export default InspectorSequenceName;

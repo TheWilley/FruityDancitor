@@ -44,12 +44,12 @@ function InspectorFramesList(EProps: Props) {
   });
 
   /**
-   * Modifies a row with a new value.
+   * Modifies a sequence with a new value.
    */
-  const adjustRow = (modifiedRow: SpriteSheetFrame['sequence']) => {
+  const adjustSequence = (modifiedSequence: SpriteSheetFrame['sequence']) => {
     EProps.spriteSheetFrames.setValue((prevFrames) => {
       return produce(prevFrames, (draft) => {
-        draft[EProps.selectedSequence.value].sequence = modifiedRow;
+        draft[EProps.selectedSequence.value].sequence = modifiedSequence;
       });
     });
   };
@@ -58,7 +58,7 @@ function InspectorFramesList(EProps: Props) {
    * Callback when removing a frame.
    */
   const callback = (targetFrame: number) => {
-    adjustRow(
+    adjustSequence(
       EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.filter(
         (_, index) => index !== targetFrame
       )
@@ -69,7 +69,7 @@ function InspectorFramesList(EProps: Props) {
     <List
       values={EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence}
       onChange={({ oldIndex, newIndex }) => {
-        adjustRow(
+        adjustSequence(
           arrayMove(
             EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence,
             oldIndex,
