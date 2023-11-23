@@ -61,34 +61,42 @@ function SectionNavbar(props: Props) {
     },
   ];
 
+  /**
+   * Renders all tabs.
+   */
+  const renderTabs = () => {
+    /**
+     * Shows a given tab depending on which tab the user clicks.
+     */
+    const showTab = (index: number) => {
+      if (tab === index) {
+        if (hidden) {
+          setHidden(false);
+        } else {
+          setHidden(true);
+        }
+      } else {
+        setHidden(false);
+        setTab(index);
+      }
+    };
+
+    return tabs.map((item, index) => (
+      <div key={index}>
+        <div onClick={() => showTab(index)}>
+          <span className={`tab ${!hidden ? index === tab && 'tab-active' : ''}`}>
+            <span className='mr-1'> {item.icon} </span> {item.name}
+          </span>
+        </div>
+      </div>
+    ));
+  };
+
   return (
     <>
       <div tabIndex={0} className='card border border-base-200 bg-base-100 p-2'>
         <nav>
-          <div className='tabs tabs-boxed'>
-            {tabs.map((item, index) => (
-              <div>
-                <div
-                  onClick={() => {
-                    if (tab === index) {
-                      if (hidden) {
-                        setHidden(false);
-                      } else {
-                        setHidden(true);
-                      }
-                    } else {
-                      setHidden(false);
-                      setTab(index);
-                    }
-                  }}
-                >
-                  <span className={`tab ${!hidden ? index === tab && 'tab-active' : ''}`}>
-                    <span className='mr-1'> {item.icon} </span> {item.name}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
+          <div className='tabs tabs-boxed'>{renderTabs()}</div>
           <div
             className='mt-3 w-full h-full'
             style={{ display: hidden ? 'none' : 'block' }}
