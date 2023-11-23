@@ -3,6 +3,11 @@ import { EditorData, EditorSettings, SpriteSheetFrame } from '../../global/types
 import appConfig from '../../../appConfig.ts';
 import { produce } from 'immer';
 
+/**
+ * Custom hook which serves as a complementary to useEditorData.
+ *
+ * Modifies sprite sheet frames before returning data.
+ */
 function useSpriteSheetFrames(numberOfSequences: number) {
   // Initiate empty array containing SpriteSheetFrame objects
   const [spriteSheetFrames, setSpriteSheetFrames] = useState<SpriteSheetFrame[]>(
@@ -10,13 +15,13 @@ function useSpriteSheetFrames(numberOfSequences: number) {
   );
 
   /**
-   * Function to modify frames before returning the result
+   * Function to modify frames before returning the result.
    * Used here to:
-   * 1. Splice the sequences so that we don't return an unnecessary amount (i.e, more than the amount of sequences)
-   * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance
+   * 1. Splice the sequences so that we don't return an unnecessary amount (i.e, more than the amount of sequences).
+   * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance.
    */
   const modifiedFrames = () => {
-    const frames = produce(spriteSheetFrames, (draftFrames) => {
+    return produce(spriteSheetFrames, (draftFrames) => {
       // Splice frames
       draftFrames.splice(numberOfSequences);
 
@@ -28,17 +33,20 @@ function useSpriteSheetFrames(numberOfSequences: number) {
       // Modify the 'name' property of the last sequence
       draftFrames[draftFrames.length - 1].name = 'held';
     });
-
-    return frames;
   };
 
   return [modifiedFrames(), setSpriteSheetFrames] as const;
 }
 
+/**
+ * Custom hook which serves as a complementary to useEditorData.
+ *
+ * Modifies the number of sequences before returning data
+ */
 function useSelectedSequence(numberOfSequences: number) {
   const [selectedSequence, setSelectedSequence] = useState(0);
 
-  // Decrease the selected sequence index since the selected sequence no longer exists (i.e the amount of sequences are lower than the selected sequence)
+  // Decrease the selected sequence index since the selected sequence no longer exists (i.e, the amount of sequences is lower than the selected sequence)
   if (selectedSequence >= numberOfSequences) {
     setSelectedSequence(numberOfSequences - 1);
   }
@@ -46,6 +54,9 @@ function useSelectedSequence(numberOfSequences: number) {
   return [selectedSequence, setSelectedSequence] as const;
 }
 
+/**
+ * Custom hook which consolidates and manages the crucial data utilized across the application, not directly mutable by the user.
+ */
 export default function useEditorData(
   numberOfSequences: EditorSettings['numberOfSequences']
 ): EditorData {

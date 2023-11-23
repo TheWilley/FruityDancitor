@@ -1,3 +1,6 @@
+/**
+ * Compresses a image file.
+ */
 function imageCompressor(
   file: File,
   compressionRatio: number,

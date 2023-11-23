@@ -2,7 +2,7 @@ import { RefObject, useEffect } from 'react';
 import { SpriteSheetFrame } from '../../global/types.ts';
 
 /**
- * Draws an image on a given tile
+ * Draws an image on a given tile.
  */
 function drawImageOnTile(
   ctx: CanvasRenderingContext2D,
@@ -29,6 +29,9 @@ function drawImageOnTile(
   ctx.fill();
 }
 
+/**
+ * Custom hook to render sprite sheet.
+ */
 export default function useViewport(
   canvasRef: RefObject<HTMLCanvasElement>,
   numberOfSequences: number,

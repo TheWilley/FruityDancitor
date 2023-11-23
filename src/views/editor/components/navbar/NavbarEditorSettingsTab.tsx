@@ -4,6 +4,11 @@ import { EditorSettings } from '../../../../global/types';
 
 type Props = { editorSettings: EditorSettings };
 
+/**
+ * Component which represents settings concerning the editor.
+ *
+ * For example, the width and height of a tile (i.e, things you would change when editing the sprite sheet).
+ */
 function NavbarEditorSettingsTab(props: Props) {
   return (
     <div className='grid grid-cols-3 gap-2'>

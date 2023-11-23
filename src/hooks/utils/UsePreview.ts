@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * Custom hook for previewing a sequence of frames.
+ */
 export default function usePreview(
   previewCanvas: HTMLCanvasElement | null,
   originalCanvas: HTMLCanvasElement | undefined,

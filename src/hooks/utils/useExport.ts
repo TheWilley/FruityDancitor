@@ -3,6 +3,9 @@ import saveAs from 'file-saver';
 import { useState } from 'react';
 import { ExportSettings } from '../../global/types.ts';
 
+/**
+ * Zips both the sprite sheet and sequence names, then downloads them.
+ */
 function downloadFile(exportSettings: ExportSettings & { filename: string }) {
   // If a filename is not entered, use default name
   if (!exportSettings.filename) exportSettings.filename = 'spiriteSheet';
@@ -36,12 +39,15 @@ function downloadFile(exportSettings: ExportSettings & { filename: string }) {
     }
   );
 
+  // Generates ZIP file
   zip.generateAsync({ type: 'blob' }).then(function (content) {
-    // see FileSaver.js
     saveAs(content, `${exportSettings.filename}.zip`);
   });
 }
 
+/**
+ * Custom hook to export a project.
+ */
 export default function useExport() {
   const [fileName, setFileName] = useState('');
 

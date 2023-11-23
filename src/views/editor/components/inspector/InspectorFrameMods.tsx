@@ -3,13 +3,16 @@ import { EditorData } from '../../../../global/types';
 
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence' | 'selectedFrame'>;
 
+/**
+ * Component which represents settings for a selected frame.
+ */
 function InspectorFrameMods(props: Props) {
   const mods = props.spriteSheetFrames.value[props.selectedSequence.value]?.sequence[
     props.selectedFrame.value
   ]?.modifications || { scale: 1, xoffset: 0, yoffset: 0 };
 
   /**
-   * Resets mod params to default
+   * Resets mod params to default.
    */
   const resetMods = () => {
     if (
@@ -33,6 +36,36 @@ function InspectorFrameMods(props: Props) {
     }
   };
 
+  const setScale = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.spriteSheetFrames.setValue((prevFrames) =>
+      produce(prevFrames, (draft) => {
+        draft[props.selectedSequence.value].sequence[
+          props.selectedFrame.value
+        ].modifications.scale = parseFloat(e.target.value);
+      })
+    );
+  };
+
+  const setxoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.spriteSheetFrames.setValue((prevFrames) =>
+      produce(prevFrames, (draft) => {
+        draft[props.selectedSequence.value].sequence[
+          props.selectedFrame.value
+        ].modifications.xoffset = parseInt(e.target.value);
+      })
+    );
+  };
+
+  const setyoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.spriteSheetFrames.setValue((prevFrames) =>
+      produce(prevFrames, (draft) => {
+        draft[props.selectedSequence.value].sequence[
+          props.selectedFrame.value
+        ].modifications.yoffset = parseInt(e.target.value);
+      })
+    );
+  };
+
   return (
     <>
       <div>
@@ -45,15 +78,7 @@ function InspectorFrameMods(props: Props) {
           step={0.1}
           min={0.1}
           value={mods.scale}
-          onChange={(e) =>
-            props.spriteSheetFrames.setValue((prevFrames) =>
-              produce(prevFrames, (draft) => {
-                draft[props.selectedSequence.value].sequence[
-                  props.selectedFrame.value
-                ].modifications.scale = parseFloat(e.target.value);
-              })
-            )
-          }
+          onChange={(e) => setScale(e)}
           disabled={props.selectedFrame.value === -1}
         />
       </div>
@@ -66,15 +91,7 @@ function InspectorFrameMods(props: Props) {
             type='number'
             className='input input-md input-bordered w-full'
             value={mods.xoffset}
-            onChange={(e) =>
-              props.spriteSheetFrames.setValue((prevFrames) =>
-                produce(prevFrames, (draft) => {
-                  draft[props.selectedSequence.value].sequence[
-                    props.selectedFrame.value
-                  ].modifications.xoffset = parseInt(e.target.value);
-                })
-              )
-            }
+            onChange={(e) => setxoffset(e)}
             disabled={props.selectedFrame.value === -1}
           />
         </div>
@@ -86,21 +103,12 @@ function InspectorFrameMods(props: Props) {
             type='number'
             className='input input-md input-bordered w-full'
             value={mods.yoffset}
-            onChange={(e) =>
-              props.spriteSheetFrames.setValue((prevFrames) =>
-                produce(prevFrames, (draft) => {
-                  draft[props.selectedSequence.value].sequence[
-                    props.selectedFrame.value
-                  ].modifications.yoffset = parseInt(e.target.value);
-                })
-              )
-            }
+            onChange={(e) => setyoffset(e)}
             disabled={props.selectedFrame.value === -1}
           />
         </div>
       </div>
       <button className='btn btn-md w-full mt-4' onClick={resetMods}>
-        {' '}
         Reset
       </button>
     </>

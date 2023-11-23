@@ -1,6 +1,9 @@
 import appConfig from '../appConfig';
 import Accordion from './views/Accordion';
 
+/**
+ * The primary app component, ecapsulates all other components on the web page
+ */
 function App() {
   return (
     <>

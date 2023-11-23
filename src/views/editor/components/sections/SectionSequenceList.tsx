@@ -5,6 +5,9 @@ import CommonListItem from '../common/CommonListItem';
 
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
 
+/**
+ * Component which represents a list of all sequences in a reordable list.
+ */
 function SectionSequenceList(EProps: Props) {
   return (
     <Card className='p-1'>

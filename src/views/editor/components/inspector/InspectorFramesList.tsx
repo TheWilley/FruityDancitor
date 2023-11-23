@@ -6,15 +6,17 @@ import CommonListItem from '../common/CommonListItem';
 
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence' | 'selectedFrame'>;
 
+/**
+ * Component which represents the list of frames for a given sequence.
+ */
 function InspectorFramesList(EProps: Props) {
   // Detects when a sequence is changed and sets a default value of 0
   useEffect(() => {
     EProps.selectedFrame.setValue(0);
   }, [EProps.selectedSequence.value]);
 
-  // Runs on every update
   useEffect(() => {
-    // If out form is enabled
+    // Checks if the form is enabled (>0) or disabled (-1)
     if (EProps.selectedFrame.value != -1) {
       // If the selected index is out of bounds, move it down one step
       if (
@@ -23,6 +25,7 @@ function InspectorFramesList(EProps: Props) {
       ) {
         EProps.selectedFrame.setValue(EProps.selectedFrame.value - 1);
       }
+
       // If we have no spriteSheetFrames, disable form
       else if (
         EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.length ===
@@ -31,6 +34,7 @@ function InspectorFramesList(EProps: Props) {
         EProps.selectedFrame.setValue(-1);
       }
     }
+
     // If we only have one frame, select it
     else if (
       EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.length === 1
@@ -40,7 +44,7 @@ function InspectorFramesList(EProps: Props) {
   });
 
   /**
-   * Modified a row with a new value
+   * Modifies a row with a new value.
    */
   const adjustRow = (modifiedRow: SpriteSheetFrame['sequence']) => {
     EProps.spriteSheetFrames.setValue((prevFrames) => {
@@ -49,8 +53,9 @@ function InspectorFramesList(EProps: Props) {
       });
     });
   };
+
   /**
-   * Callback when removing a frame
+   * Callback when removing a frame.
    */
   const callback = (targetFrame: number) => {
     adjustRow(

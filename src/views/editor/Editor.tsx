@@ -16,6 +16,11 @@ import SectionSequenceList from './components/sections/SectionSequenceList';
 import SectionViewport from './components/sections/SectionViewport';
 import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
 
+/**
+ * Represents a sprite sheet Editor.
+ * This component serves as a comprehensive editor interface for managing sequences,
+ * frames, and various settings associated with the sprite sheet.
+ */
 function Editor() {
   const appSettings = useAppSettings();
   const editorSettings = useEditorSettings();

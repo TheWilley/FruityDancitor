@@ -3,6 +3,12 @@ import { EditorData } from '../../../../global/types';
 
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
 
+/**
+ * Represents the name of a sequence.
+ *
+ * This is used later within FL Studio as a unique identifier for a given sequence.
+ * TODO: Change this to "inspectorSequenceName"
+ */
 function InspectorRowName(props: Props) {
   return (
     <div>

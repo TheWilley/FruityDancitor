@@ -4,6 +4,11 @@ import { AppSettings } from '../../../../global/types';
 
 type Props = { appSettings: AppSettings };
 
+/**
+ * Component which represents settings concerning the app.
+ *
+ * More specifically, settings which does not concern a specific section of the app.
+ */
 function NavbarAppSettingsTab(props: Props) {
   return (
     <div className='grid grid-cols-3 gap-2'>

@@ -9,7 +9,15 @@ type PickDialogFrames = {
   callback: (base64: string) => void;
 } & Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
 
+/**
+ * Represents an image picker.
+ *
+ * The user picks which frames to extract from the GIF, which is then subsequently uploaded.
+ */
 function InspectorPickFrames(props: PickDialogFrames) {
+  /**
+   * Handles logic of selecting frames.
+   */
   const selectFrame = (index: number) => {
     props.selectedDialogFrames.setValue(
       produce(props.selectedDialogFrames.value, (draftDialogFrames) => {
@@ -34,13 +42,32 @@ function InspectorPickFrames(props: PickDialogFrames) {
     );
   };
 
+  /**
+   * Hides the gif frames dialog.
+   */
+  const hideDialog = () => {
+    props.showDialog.setValue(false);
+  };
+
+  /**
+   * Uploads the selected gif frames.
+   */
+  const uploadSelectedImages = () => {
+    //Since we don't need to show the dialog anymore, we close it
+    hideDialog();
+
+    return props.selectedDialogFrames.value.map((item) =>
+      props.callback(props.dialogFrames.value[item])
+    );
+  };
+
   return (
     <>
       <dialog
         id='my_modal_1'
         className='modal'
         open={props.showDialog.value}
-        onClose={() => props.showDialog.setValue(false)}
+        onClose={() => hideDialog()}
       >
         <div className='modal-box'>
           <h1 className='text-2xl mb-2'> Select Frames </h1>
@@ -63,17 +90,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
               {/* if there is a button in form, it will close the modal */}
               <button className='btn'>Close</button>
             </form>
-            <button
-              className='btn btn-success'
-              onClick={() => {
-                // Since we don't need to show the dialog anymore, we close it
-                props.showDialog.setValue(false);
-
-                return props.selectedDialogFrames.value.map((item) =>
-                  props.callback(props.dialogFrames.value[item])
-                );
-              }}
-            >
+            <button className='btn btn-success' onClick={() => uploadSelectedImages()}>
               {' '}
               Upload
             </button>
@@ -87,6 +104,11 @@ function InspectorPickFrames(props: PickDialogFrames) {
 type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'> &
   Pick<AppSettings, 'imageCompressionRatio'>;
 
+/**
+ * Represent a file upload area.
+ *
+ * This area can be clicked, or files can be dragged and dropped over it. It's purpose it to upload images (i.e, frames).
+ */
 function InspectorFileUpload(props: Props) {
   const [
     rootProps,

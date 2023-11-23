@@ -7,10 +7,13 @@ type Props = {
   alt: string;
   base64: string;
   highlighted?: boolean;
-  callback?: () => void;
+  callback?: () => void; //FIXME: Callback is a bad name since it does not say what it does
   includeTrash?: boolean;
 };
 
+/**
+ * A component which represent a list item within both SectionSequenceList and InspectorFramesList.
+ */
 function CommonListItem(props: Props) {
   return (
     <div

@@ -26,6 +26,9 @@ type Props = {
   saveAndLoadSettings: SaveAndLoadSettings;
 };
 
+/**
+ * Component which represents a navbar which the user can use to navigate to different tabs.
+ */
 function SectionNavbar(props: Props) {
   const [tab, setTab] = useState(0);
   const [hidden, setHidden] = useState(false);

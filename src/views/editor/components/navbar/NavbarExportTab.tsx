@@ -3,6 +3,9 @@ import useExport from '../../../../hooks/utils/useExport.ts';
 
 type Props = { exportSettings: ExportSettings };
 
+/**
+ * Component which allows user to export their FruityDancitor project.
+ */
 function NavbarExportTab(props: Props) {
   const [fileName, setFileName, downloadFile] = useExport();
 

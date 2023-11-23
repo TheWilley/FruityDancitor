@@ -4,6 +4,9 @@ import { SaveAndLoadSettings } from '../../../../global/types.ts';
 
 type Props = { saveAndLoadSettings: SaveAndLoadSettings };
 
+/**
+ * Component used to save and load a FruityDancitor project.
+ */
 function NavbarSaveAndLoadTab(props: Props) {
   const [save, load] = useSaveAndLoad();
   const fileRef = useRef<HTMLInputElement | null>(null);

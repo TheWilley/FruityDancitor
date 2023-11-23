@@ -6,6 +6,9 @@ import useViewport from '../../../../hooks/utils/useViewport.ts';
 type Props = Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'> &
   Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
 
+/**
+ * Component which show the sprite sheet.
+ */
 function SpriteSheetCanvas(props: Props) {
   const viewportRef = useRef<HTMLCanvasElement>(null);
   const [width, height, className] = useViewport(

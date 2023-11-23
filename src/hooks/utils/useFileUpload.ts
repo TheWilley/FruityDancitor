@@ -6,7 +6,7 @@ import imageCompressor from '../../utils/imageCompressor.ts';
 import { extractGifFrames } from '../../utils/extractGifFrames.ts';
 
 /**
- * Extract base64 from an image
+ * Extract base64 from an image.
  */
 function getBase64(file: File, compressionRatio: number) {
   return new Promise<string | string[]>((resolve, reject) => {
@@ -22,6 +22,14 @@ function getBase64(file: File, compressionRatio: number) {
   });
 }
 
+/**
+ * Custom hooks which handles file uploads.
+ *
+ * This includes:
+ * - Drag and drop detection and logic
+ * - File upload logic
+ * - etc.
+ */
 export default function useFileUpload(
   spriteSheetFrames: SpriteSheetFrame[],
   setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>,
@@ -51,7 +59,9 @@ export default function useFileUpload(
     }
   };
 
-  // Runs when a file is uploaded
+  /**
+   * Runs when a file is uploaded.
+   */
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       if (acceptedFiles) {
@@ -66,8 +76,9 @@ export default function useFileUpload(
           // Check if there is space for a new entry
           if (spriteSheetFrames[selectedRow].sequence.length + index < 8) {
             // Get base64 for the file
-            const base64 = (await getBase64(file, compressionRatio)) as string;
+            const base64 = (await getBase64(file, compressionRatio)) as string | string[];
 
+            // Check if it is a collection of images or a single one
             if (Array.isArray(base64)) {
               setShowDialog(true);
               setDialogFrames(base64.map((item) => item));
@@ -124,10 +135,10 @@ export default function useFileUpload(
   };
 
   const placeholder = disabled
-    ? 'Can\'t upload more than 8 files'
+    ? "Can't upload more than 8 files"
     : isDragActive
       ? 'Drop the files here...'
-      : 'Drag \'n\' drop some files here, or click to select files';
+      : "Drag 'n' drop some files here, or click to select files";
 
   return [
     getRootProps(),

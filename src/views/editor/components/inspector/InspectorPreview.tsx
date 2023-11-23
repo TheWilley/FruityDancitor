@@ -5,6 +5,11 @@ import { EditorData, EditorSettings } from '../../../../global/types';
 type Props = Pick<EditorData, 'selectedSequence' | 'viewport'> &
   Pick<EditorSettings, 'width' | 'height'>;
 
+/**
+ * Component which represents a preview of a given sequence.
+ *
+ * Goes through all frames in the sequence one by one, showing what the sprite sheet will look like within FL Studio.
+ */
 function InspectorPreview(props: Props) {
   const previewRef = useRef(null);
   const [currentFrame] = usePreview(

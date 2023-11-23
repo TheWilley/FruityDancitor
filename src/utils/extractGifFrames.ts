@@ -1,5 +1,8 @@
 import { GifReader } from 'omggif';
 
+/**
+ * Convert canvas data the dataURL format.
+ */
 function imageDataToDataURL(imageData: ImageData) {
   const canvas = document.createElement('canvas');
   canvas.width = imageData.width;
@@ -9,6 +12,9 @@ function imageDataToDataURL(imageData: ImageData) {
   return canvas.toDataURL(); // This will return the Data URL
 }
 
+/**
+ * Extracts frames from a gif file.
+ */
 export async function extractGifFrames(file: File) {
   const blob = new Blob([file]);
   const arrayBuffer = await blob.arrayBuffer();

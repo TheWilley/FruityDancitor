@@ -11,7 +11,7 @@ type ProjectFile = {
 };
 
 /**
- * Loads a FruityDancitor JSON file
+ * Loads a FruityDancitor JSON file.
  */
 function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
   if (file.type === 'application/json') {
@@ -61,7 +61,7 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
 }
 
 /**
- * Saves a FruityDancitor JSON file
+ * Saves a FruityDancitor JSON file.
  */
 function save(saveAndLoadSettings: SaveAndLoadSettings) {
   // Create an object to collect data (empty sequences are removed from JSON)
@@ -83,6 +83,9 @@ function save(saveAndLoadSettings: SaveAndLoadSettings) {
   saveAs(blob, 'savedFruityDancitorProject.json');
 }
 
+/**
+ * Custom hook for saving and loading a project.
+ */
 export default function useSaveAndLoad() {
   return [save, load] as const;
 }
