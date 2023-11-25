@@ -1,11 +1,13 @@
 import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import noimage from '../../../../media/noimage.svg';
+import { useEffect, useState } from 'react';
+import { getImage } from '../../../../utils/dbHelper.ts';
 
 type Props = {
   text: string;
   alt: string;
-  base64: string;
+  id: number;
   highlighted?: boolean;
   callback?: () => void; //FIXME: Callback is a bad name since it does not say what it does
   includeTrash?: boolean;
@@ -15,6 +17,21 @@ type Props = {
  * A component which represent a list item within both SectionSequenceList and InspectorFramesList.
  */
 function CommonListItem(props: Props) {
+  const [imageData, setImageData] = useState('');
+
+  useEffect(() => {
+    getImage(props.id)
+      .then((frame) => {
+        if (frame?.base64) {
+          setImageData(frame.base64);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching image:', error);
+        // Handle error state if needed
+      });
+  });
+
   return (
     <div
       className={`flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move ${
@@ -25,8 +42,8 @@ function CommonListItem(props: Props) {
         <FontAwesomeIcon icon={faGripVertical} />
       </div>
       <img
-        src={props.base64 || noimage}
-        className={`inline mr-1 w-10 h-10 ${props.base64 && 'border'}`}
+        src={imageData || noimage}
+        className={`inline mr-1 w-10 h-10 ${imageData && 'border'}`}
         width={40}
         height={40}
       />

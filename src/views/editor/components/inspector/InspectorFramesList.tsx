@@ -83,7 +83,7 @@ function InspectorFramesList(EProps: Props) {
         <li {...props} onMouseDown={() => EProps.selectedFrame.setValue(index || 0)}>
           <CommonListItem
             {...props}
-            base64={value.base64}
+            id={value.id}
             text={`Frame ${(index || 0) + 1}`}
             alt=''
             callback={() => callback(index || 0)}

@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import { SpriteSheetFrame } from '../../global/types.ts';
 import imageCompressor from '../../utils/imageCompressor.ts';
 import { extractGifFrames } from '../../utils/extractGifFrames.ts';
+import { addImage } from '../../utils/dbHelper.ts';
 
 /**
  * Extract base64 from an image.
@@ -44,21 +45,17 @@ export default function useFileUpload(
 
   // Adds new frame
   const addNewFrame = (base64: string) => {
-    if (
-      !spriteSheetFrames[selectedSequence].sequence
-        .map((item) => item.base64)
-        .includes(base64)
-    ) {
+    addImage(base64).then((id) => {
       // Update the state by appending the image to the first sequence
       setSpriteSheetFrames((prevFrames) =>
         produce(prevFrames, (draft) => {
           draft[selectedSequence].sequence.push({
-            base64: base64,
+            id: id as number,
             modifications: { scale: 1, xoffset: 0, yoffset: 0 },
           });
         })
       );
-    }
+    });
   };
 
   /**
