@@ -32,7 +32,7 @@ export type SaveAndLoadSettings = Pick<EditorData, 'spriteSheetFrames'> &
   > &
   Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
 
-type Modifications = {
+export type Modifications = {
   xoffset: number;
   yoffset: number;
   scale: number;
