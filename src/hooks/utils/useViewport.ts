@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { SpriteSheetFrame } from '../../global/types.ts';
 import { getImage } from '../../utils/dbHelper.ts';
 
@@ -41,12 +41,20 @@ export default function useViewport(
   spriteSheetFrames: SpriteSheetFrame[],
   setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>
 ) {
+  const [oldSpriteSheetFrames, setOldSpriteSheetFrames] = useState<SpriteSheetFrame[]>();
+
   useEffect(() => {
     // Get canvas ref
     const canvas = canvasRef;
 
     // Check if canvas exists
-    if (canvas.current) {
+    if (
+      canvas.current &&
+      JSON.stringify(oldSpriteSheetFrames) !== JSON.stringify(spriteSheetFrames)
+    ) {
+      // Store sprite sheet frames to be compared later
+      setOldSpriteSheetFrames(spriteSheetFrames);
+
       // The canvas is not null
       setCanvas(canvas.current);
 
