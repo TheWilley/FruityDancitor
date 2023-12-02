@@ -18,14 +18,7 @@ function drawImageOnTile(
   const image = new Image();
   image.src = objectURL;
 
-  // Define the mask region
-  ctx.save(); // Save the current drawing state
-  ctx.beginPath();
-  const region = new Path2D();
-  region.rect(x, y, width, height);
-  ctx.clip(region, 'nonzero'); // Set the current path as the clipping region
-
-  // Draw a rectangle at positon
+  // Draw the image clipped to the cell
   ctx.drawImage(
     image,
     x * width * scale + xoffset,
@@ -33,7 +26,6 @@ function drawImageOnTile(
     width * scale,
     height * scale
   );
-  ctx.fill();
 }
 
 /**
