@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useMemo } from 'react';
 import { SpriteSheetFrame } from '../../global/types.ts';
 
 /**
@@ -17,6 +17,13 @@ function drawImageOnTile(
 ) {
   const image = new Image();
   image.src = objectURL;
+
+  // Define the mask region
+  ctx.save(); // Save the current drawing state
+  ctx.beginPath();
+  const region = new Path2D();
+  region.rect(x, y, width, height);
+  ctx.clip(region, 'nonzero'); // Set the current path as the clipping region
 
   // Draw a rectangle at positon
   ctx.drawImage(
@@ -40,48 +47,40 @@ export default function useViewport(
   spriteSheetFrames: SpriteSheetFrame[],
   setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>
 ) {
-  const [oldSpriteSheetFrames, setOldSpriteSheetFrames] = useState<SpriteSheetFrame[]>();
-
-  useEffect(() => {
+  useMemo(() => {
     // Get canvas ref
     const canvas = canvasRef;
 
-    // Check if canvas exists
-    if (
-      canvas.current &&
-      JSON.stringify(oldSpriteSheetFrames) !== JSON.stringify(spriteSheetFrames)
-    ) {
-      // Store sprite sheet frames to be compared later
-      setOldSpriteSheetFrames(spriteSheetFrames);
+    // Return if the canvas context is not found
+    if (!canvas.current) return;
 
-      // The canvas is not null
-      setCanvas(canvas.current);
+    // The canvas is not null
+    setCanvas(canvas.current);
 
-      // Get the context
-      const context = canvas.current.getContext('2d');
+    // Get the context
+    const context = canvas.current.getContext('2d');
 
-      // Check if context exist
-      if (context) {
-        // Clear the canvas
-        context.clearRect(0, 0, canvas.current.width, canvas.current.height);
+    // Check if context exist
+    if (context) {
+      // Clear the canvas
+      context.clearRect(0, 0, canvas.current.width, canvas.current.height);
 
-        for (const [y, sequence] of spriteSheetFrames.entries()) {
-          // Go through each spriteSheetFrame in the spriteSheetFrames array
-          for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
-            if (spriteSheetFrame?.objectURL) {
-              // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
-              drawImageOnTile(
-                context,
-                spriteSheetFrame.objectURL,
-                y,
-                x,
-                height,
-                width,
-                spriteSheetFrame.modifications.scale,
-                spriteSheetFrame.modifications.xoffset,
-                spriteSheetFrame.modifications.yoffset
-              );
-            }
+      for (const [y, sequence] of spriteSheetFrames.entries()) {
+        // Go through each spriteSheetFrame in the spriteSheetFrames array
+        for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
+          if (spriteSheetFrame?.objectURL) {
+            // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
+            drawImageOnTile(
+              context,
+              spriteSheetFrame.objectURL,
+              y,
+              x,
+              height,
+              width,
+              spriteSheetFrame.modifications.scale,
+              spriteSheetFrame.modifications.xoffset,
+              spriteSheetFrame.modifications.yoffset
+            );
           }
         }
       }
