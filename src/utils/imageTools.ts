@@ -5,7 +5,7 @@ import { GifReader } from 'omggif';
  * Converts base64 to a blob
  * @see https://stackoverflow.com/a/36183085
  */
-export async function b64toBlob(base64: string, type = 'image/png') {
+export async function b64toBlob(base64: string) {
   console.log(base64);
   const res = await fetch(base64);
   return await res.blob();
