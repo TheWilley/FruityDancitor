@@ -24,7 +24,7 @@ function SectionSequenceList(EProps: Props) {
           <li {...props} onMouseDown={() => EProps.selectedSequence.setValue(index || 0)}>
             <CommonListItem
               {...props}
-              id={value.sequence[0]?.id}
+              objectURL={value.sequence[0]?.objectURL}
               text={EProps.spriteSheetFrames.value[index || 0].name}
               alt={`Sequence ${(index || 0) + 1}`}
               highlighted={index === EProps.selectedSequence.value}

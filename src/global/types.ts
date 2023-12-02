@@ -39,6 +39,6 @@ export type Modifications = {
 };
 
 export type SpriteSheetFrame = {
-  sequence: Array<{ id: number; modifications: Modifications }>;
+  sequence: Array<{ objectURL: string; modifications: Modifications }>;
   name: string;
 };

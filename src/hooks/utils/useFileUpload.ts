@@ -2,26 +2,7 @@ import { produce } from 'immer';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { SpriteSheetFrame } from '../../global/types.ts';
-import imageCompressor from '../../utils/imageCompressor.ts';
-import { extractGifFrames } from '../../utils/extractGifFrames.ts';
-import { addImage } from '../../utils/dbHelper.ts';
-
-/**
- * Extract base64 from an image.
- */
-function getBase64(file: File, compressionRatio: number) {
-  return new Promise<string | string[]>((resolve, reject) => {
-    if (file.type === 'image/jpeg' || file.type === 'image/png') {
-      imageCompressor(file, compressionRatio, (result) => {
-        resolve(result);
-      });
-    } else if (file.type === 'image/gif') {
-      extractGifFrames(file).then((results) => resolve(results));
-    } else {
-      reject(new Error('Unsupported file type'));
-    }
-  });
-}
+import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
 
 /**
  * Custom hooks which handles file uploads.
@@ -45,12 +26,12 @@ export default function useFileUpload(
 
   // Adds new frame
   const addNewFrame = (base64: string) => {
-    addImage(base64).then((id) => {
+    b64toBlob(base64).then((result) => {
       // Update the state by appending the image to the first sequence
       setSpriteSheetFrames((prevFrames) =>
         produce(prevFrames, (draft) => {
           draft[selectedSequence].sequence.push({
-            id: id as number,
+            objectURL: URL.createObjectURL(result),
             modifications: { scale: 1, xoffset: 0, yoffset: 0 },
           });
         })

@@ -83,7 +83,7 @@ function InspectorFramesList(EProps: Props) {
         <li {...props} onMouseDown={() => EProps.selectedFrame.setValue(index || 0)}>
           <CommonListItem
             {...props}
-            id={value.id}
+            objectURL={value.objectURL}
             text={`Frame ${(index || 0) + 1}`}
             alt=''
             callback={() => callback(index || 0)}

@@ -1,13 +1,12 @@
 import { RefObject, useEffect, useState } from 'react';
 import { SpriteSheetFrame } from '../../global/types.ts';
-import { getImage } from '../../utils/dbHelper.ts';
 
 /**
  * Draws an image on a given tile.
  */
 function drawImageOnTile(
   ctx: CanvasRenderingContext2D,
-  base64: string,
+  objectURL: string,
   y: number,
   x: number,
   height: number,
@@ -17,7 +16,7 @@ function drawImageOnTile(
   yoffset: number
 ) {
   const image = new Image();
-  image.src = base64;
+  image.src = objectURL;
 
   // Draw a rectangle at positon
   ctx.drawImage(
@@ -69,22 +68,20 @@ export default function useViewport(
         for (const [y, sequence] of spriteSheetFrames.entries()) {
           // Go through each spriteSheetFrame in the spriteSheetFrames array
           for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
-            getImage(spriteSheetFrame.id).then((frame) => {
-              if (frame?.base64) {
-                // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
-                drawImageOnTile(
-                  context,
-                  frame.base64,
-                  y,
-                  x,
-                  height,
-                  width,
-                  spriteSheetFrame.modifications.scale,
-                  spriteSheetFrame.modifications.xoffset,
-                  spriteSheetFrame.modifications.yoffset
-                );
-              }
-            });
+            if (spriteSheetFrame?.objectURL) {
+              // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
+              drawImageOnTile(
+                context,
+                spriteSheetFrame.objectURL,
+                y,
+                x,
+                height,
+                width,
+                spriteSheetFrame.modifications.scale,
+                spriteSheetFrame.modifications.xoffset,
+                spriteSheetFrame.modifications.yoffset
+              );
+            }
           }
         }
       }
