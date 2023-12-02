@@ -63,6 +63,10 @@ function InspectorFramesList(EProps: Props) {
         (_, index) => index !== targetFrame
       )
     );
+    URL.revokeObjectURL(
+      EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence[targetFrame]
+        .objectURL
+    );
   };
 
   return (
