@@ -20,16 +20,18 @@ function CommonListItem(props: Props) {
   const [imageData, setImageData] = useState('');
 
   useEffect(() => {
-    getImage(props.id)
-      .then((frame) => {
-        if (frame?.base64) {
-          setImageData(frame.base64);
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching image:', error);
-        // Handle error state if needed
-      });
+    if (props.id) {
+      getImage(props.id)
+        .then((frame) => {
+          if (frame?.base64) {
+            setImageData(frame.base64);
+          }
+        })
+        .catch((error) => {
+          console.error('Error fetching image:', error);
+          // Handle error state if needed
+        });
+    }
   });
 
   return (
