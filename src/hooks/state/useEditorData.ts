@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { EditorData, EditorSettings, SpriteSheetFrame } from '../../global/types.ts';
-import appConfig from '../../../appConfig.ts';
 import { produce } from 'immer';
+import appConfig from '../../../appConfig.ts';
+
+// Initial frames
+const initialFrames = new Array(appConfig.numberOfSequences).fill({
+  sequence: [],
+  name: '',
+});
 
 /**
  * Custom hook which serves as a complementary to useEditorData.
@@ -10,9 +16,8 @@ import { produce } from 'immer';
  */
 function useSpriteSheetFrames(numberOfSequences: number) {
   // Initiate empty array containing SpriteSheetFrame objects
-  const [spriteSheetFrames, setSpriteSheetFrames] = useState<SpriteSheetFrame[]>(
-    new Array(appConfig.numberOfSequences).fill({ sequence: [], name: '' })
-  );
+  const [spriteSheetFrames, setSpriteSheetFrames] =
+    useState<SpriteSheetFrame[]>(initialFrames);
 
   /**
    * Function to modify frames before returning the result.
@@ -20,7 +25,7 @@ function useSpriteSheetFrames(numberOfSequences: number) {
    * 1. Splice the sequences so that we don't return an unnecessary amount (i.e, more than the amount of sequences).
    * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance.
    */
-  const modifiedFrames = () => {
+  const modifiedFrames = useMemo(() => {
     return produce(spriteSheetFrames, (draftFrames) => {
       // Splice frames
       draftFrames.splice(numberOfSequences);
@@ -33,9 +38,9 @@ function useSpriteSheetFrames(numberOfSequences: number) {
       // Modify the 'name' property of the last sequence
       draftFrames[draftFrames.length - 1].name = 'held';
     });
-  };
+  }, [numberOfSequences, spriteSheetFrames]);
 
-  return [modifiedFrames(), setSpriteSheetFrames] as const;
+  return [modifiedFrames, setSpriteSheetFrames] as const;
 }
 
 /**
@@ -58,14 +63,11 @@ function useSelectedSequence(numberOfSequences: number) {
  * Custom hook which consolidates and manages the crucial data utilized across the application, not directly mutable by the user.
  */
 export default function useEditorData(
-  numberOfSequences: EditorSettings['numberOfSequences']
+  numberOfSequences: EditorSettings['numberOfSequences']['value']
 ): EditorData {
-  const [spriteSheetFrames, setSpriteSheetFrames] = useSpriteSheetFrames(
-    numberOfSequences.value
-  );
-  const [selectedSequence, setSelectedSequence] = useSelectedSequence(
-    numberOfSequences.value
-  );
+  const [spriteSheetFrames, setSpriteSheetFrames] =
+    useSpriteSheetFrames(numberOfSequences);
+  const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences);
   const [selectedFrame, setSelectedFrame] = useState(0);
   const [viewport, setViewport] = useState<HTMLCanvasElement>();
 

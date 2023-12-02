@@ -1,10 +1,15 @@
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
 import Card from '../../../../components/Card';
 import { EditorData, EditorSettings } from '../../../../global/types';
 import useViewport from '../../../../hooks/utils/useViewport.ts';
 
-type Props = Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'> &
-  Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
+type Props = {
+  numberOfSequences: EditorSettings['numberOfSequences']['value'];
+  height: EditorSettings['height']['value'];
+  width: EditorSettings['width']['value'];
+  spriteSheetFrames: EditorData['spriteSheetFrames']['value'];
+  viewport: EditorData['viewport']['setValue'];
+};
 
 /**
  * Component which show the sprite sheet.
@@ -13,11 +18,11 @@ function SpriteSheetCanvas(props: Props) {
   const viewportRef = useRef<HTMLCanvasElement>(null);
   const [width, height, className] = useViewport(
     viewportRef,
-    props.numberOfSequences.value,
-    props.height.value,
-    props.width.value,
-    props.spriteSheetFrames.value,
-    props.viewport.setValue
+    props.numberOfSequences,
+    props.height,
+    props.width,
+    props.spriteSheetFrames,
+    props.viewport
   );
 
   return (
@@ -31,4 +36,4 @@ function SpriteSheetCanvas(props: Props) {
   );
 }
 
-export default SpriteSheetCanvas;
+export default memo(SpriteSheetCanvas);

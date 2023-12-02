@@ -25,7 +25,7 @@ import useBackground from '../../hooks/utils/useBackground.ts';
 function Editor() {
   const appSettings = useAppSettings();
   const editorSettings = useEditorSettings();
-  const editorData = useEditorData(editorSettings.numberOfSequences);
+  const editorData = useEditorData(editorSettings.numberOfSequences.value);
   const exportSettings = deriveExportSettings(editorData);
   const saveAndLoadSettings = deriveSaveAndLoadSettings(
     editorData,
@@ -56,11 +56,11 @@ function Editor() {
           saveAndLoadSettings={saveAndLoadSettings}
         />
         <SpriteSheetCanvas
-          numberOfSequences={editorSettings.numberOfSequences}
-          height={editorSettings.height}
-          width={editorSettings.width}
-          spriteSheetFrames={editorData.spriteSheetFrames}
-          viewport={editorData.viewport}
+          numberOfSequences={editorSettings.numberOfSequences.value}
+          height={editorSettings.height.value}
+          width={editorSettings.width.value}
+          spriteSheetFrames={editorData.spriteSheetFrames.value}
+          viewport={editorData.viewport.setValue}
         />
       </SectionViewport>
 
