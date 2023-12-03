@@ -1,4 +1,4 @@
-import { RefObject, useMemo } from 'react';
+import { RefObject, useEffect } from 'react';
 import { SpriteSheetFrame } from '../../global/types.ts';
 
 /**
@@ -38,7 +38,7 @@ export default function useViewport(
   width: number,
   spriteSheetFrames: SpriteSheetFrame[]
 ) {
-  useMemo(() => {
+  useEffect(() => {
     // Return if the canvas context is not found
     if (!viewport.current) return;
 
