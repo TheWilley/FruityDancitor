@@ -1,7 +1,10 @@
 import { produce } from 'immer';
 import { EditorData } from '../../../../global/types';
 
-type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
+type Props = Pick<
+  EditorData,
+  'spriteSheetFrames' | 'setSpriteSheetFrames' | 'selectedSequence'
+>;
 
 /**
  * Represents the name of a sequence.
@@ -17,20 +20,18 @@ function InspectorSequenceName(props: Props) {
             <span className='label-text'>Name</span>
           </label>
           <input
-            value={props.spriteSheetFrames.value[props.selectedSequence.value].name}
+            value={props.spriteSheetFrames[props.selectedSequence].name}
             type='text'
             placeholder='Type here'
             className='input input-bordered w-full'
             onChange={(e) => {
-              props.spriteSheetFrames.setValue(
-                produce(props.spriteSheetFrames.value, (draft) => {
-                  draft[props.selectedSequence.value].name = e.target.value;
+              props.setSpriteSheetFrames(
+                produce(props.spriteSheetFrames, (draft) => {
+                  draft[props.selectedSequence].name = e.target.value;
                 })
               );
             }}
-            disabled={
-              props.spriteSheetFrames.value.length - 1 === props.selectedSequence.value
-            }
+            disabled={props.spriteSheetFrames.length - 1 === props.selectedSequence}
           />
         </div>
       </div>

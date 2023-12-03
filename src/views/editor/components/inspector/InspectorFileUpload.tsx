@@ -1,13 +1,6 @@
-import { AppSettings, EditorData, StateWithSetter } from '../../../../global/types';
+import { AppSettings, EditorData, PickDialogFrames } from '../../../../global/types';
 import useFileUpload from '../../../../hooks/utils/useFileUpload.ts';
 import { produce } from 'immer';
-
-type PickDialogFrames = {
-  showDialog: StateWithSetter<boolean>;
-  dialogFrames: StateWithSetter<string[]>;
-  selectedDialogFrames: StateWithSetter<number[]>;
-  callback: (base64: string) => void;
-} & Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
 
 /**
  * Represents an image picker.
@@ -19,8 +12,8 @@ function InspectorPickFrames(props: PickDialogFrames) {
    * Handles logic of selecting frames.
    */
   const selectFrame = (index: number) => {
-    props.selectedDialogFrames.setValue(
-      produce(props.selectedDialogFrames.value, (draftDialogFrames) => {
+    props.setSelectedDialogFrames(
+      produce(props.selectedDialogFrames, (draftDialogFrames) => {
         const selectedIndex = draftDialogFrames.indexOf(index);
         if (selectedIndex !== -1) {
           // Remove frame
@@ -29,8 +22,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
           // Makes sure we don't upload too many frames
           if (
             draftDialogFrames.length >=
-            8 -
-              props.spriteSheetFrames.value[props.selectedSequence.value].sequence.length
+            8 - props.spriteSheetFrames[props.selectedSequence].sequence.length
           ) {
             draftDialogFrames.pop();
           }
@@ -46,7 +38,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
    * Hides the gif frames dialog.
    */
   const hideDialog = () => {
-    props.showDialog.setValue(false);
+    props.setShowDialog(false);
   };
 
   /**
@@ -56,8 +48,8 @@ function InspectorPickFrames(props: PickDialogFrames) {
     //Since we don't need to show the dialog anymore, we close it
     hideDialog();
 
-    return props.selectedDialogFrames.value.map((item) =>
-      props.callback(props.dialogFrames.value[item])
+    return props.selectedDialogFrames.map((item) =>
+      props.callback(props.dialogFrames[item])
     );
   };
 
@@ -66,20 +58,20 @@ function InspectorPickFrames(props: PickDialogFrames) {
       <dialog
         id='my_modal_1'
         className='modal'
-        open={props.showDialog.value}
+        open={props.showDialog}
         onClose={() => hideDialog()}
       >
         <div className='modal-box'>
           <h1 className='text-2xl mb-2'> Select Frames </h1>
           <div className='grid grid-cols-5 gap-2'>
-            {props.dialogFrames.value.map((frame, index) => (
+            {props.dialogFrames.map((frame, index) => (
               <img
                 key={index}
                 src={frame}
                 alt={`Frame ${index}`}
                 width={150}
                 className={`border cursor-pointer ${
-                  props.selectedDialogFrames.value.includes(index) ? 'border-primary' : ''
+                  props.selectedDialogFrames.includes(index) ? 'border-primary' : ''
                 }`}
                 onClick={() => selectFrame(index)}
               />
@@ -101,7 +93,10 @@ function InspectorPickFrames(props: PickDialogFrames) {
   );
 }
 
-type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'> &
+type Props = Pick<
+  EditorData,
+  'spriteSheetFrames' | 'setSpriteSheetFrames' | 'selectedSequence'
+> &
   Pick<AppSettings, 'imageCompressionRatio'>;
 
 /**
@@ -110,34 +105,40 @@ type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'> &
  * This area can be clicked, or files can be dragged and dropped over it. It's purpose it to upload images (i.e, frames).
  */
 function InspectorFileUpload(props: Props) {
-  const [
-    rootProps,
-    inputProps,
+  const {
+    getRootProps,
+    getInputProps,
     placeholder,
     disabled,
     className,
     style,
     addNewFrame,
     showDialog,
+    setShowDialog,
     dialogFrames,
+    setDialogFrames,
     selectedDialogFrames,
-  ] = useFileUpload(
-    props.spriteSheetFrames.value,
-    props.spriteSheetFrames.setValue,
-    props.selectedSequence.value,
-    props.imageCompressionRatio.value
+    setSelectedDialogFrames,
+  } = useFileUpload(
+    props.spriteSheetFrames,
+    props.setSpriteSheetFrames,
+    props.selectedSequence,
+    props.imageCompressionRatio
   );
 
   return (
     <>
-      <div {...rootProps} className={className} style={style}>
-        <input {...inputProps} disabled={disabled} />
+      <div {...getRootProps()} className={className} style={style}>
+        <input {...getInputProps()} disabled={disabled} />
         <p>{placeholder}</p>
       </div>
       <InspectorPickFrames
         dialogFrames={dialogFrames}
-        showDialog={showDialog}
+        setDialogFrames={setDialogFrames}
         selectedDialogFrames={selectedDialogFrames}
+        setSelectedDialogFrames={setSelectedDialogFrames}
+        showDialog={showDialog}
+        setShowDialog={setShowDialog}
         selectedSequence={props.selectedSequence}
         spriteSheetFrames={props.spriteSheetFrames}
         callback={addNewFrame}

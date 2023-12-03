@@ -3,13 +3,8 @@ import Card from '../../../../components/Card';
 import { EditorData, EditorSettings } from '../../../../global/types';
 import useViewport from '../../../../hooks/utils/useViewport.ts';
 
-type Props = {
-  numberOfSequences: EditorSettings['numberOfSequences']['value'];
-  height: EditorSettings['height']['value'];
-  width: EditorSettings['width']['value'];
-  spriteSheetFrames: EditorData['spriteSheetFrames']['value'];
-  viewport: EditorData['viewport'];
-};
+type Props = Pick<EditorData, 'viewport' | 'spriteSheetFrames'> &
+  Pick<EditorSettings, 'numberOfSequences' | 'height' | 'width'>;
 
 /**
  * Component which show the sprite sheet.

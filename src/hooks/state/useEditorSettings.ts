@@ -5,22 +5,16 @@ import { EditorSettings } from '../../global/types.ts';
  * Custom hook which returns navbar editor-settings.
  */
 export default function useEditorSettings(): EditorSettings {
-  const [numberOfSequences, setnumberOfSequences] = useState(1);
+  const [numberOfSequences, setNumberOfSequences] = useState(1);
   const [width, setWidth] = useState(50);
   const [height, setHeight] = useState(50);
 
   return {
-    numberOfSequences: {
-      value: numberOfSequences,
-      setValue: setnumberOfSequences,
-    },
-    width: {
-      value: width,
-      setValue: setWidth,
-    },
-    height: {
-      value: height,
-      setValue: setHeight,
-    },
+    height,
+    setHeight,
+    numberOfSequences,
+    setNumberOfSequences,
+    width,
+    setWidth,
   };
 }

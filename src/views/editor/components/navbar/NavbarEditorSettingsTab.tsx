@@ -25,9 +25,9 @@ function NavbarEditorSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Sequences'
             min={1}
-            value={props.editorSettings.numberOfSequences.value}
+            value={props.editorSettings.numberOfSequences}
             onChange={(e) =>
-              props.editorSettings.numberOfSequences.setValue(Number(e.target.value))
+              props.editorSettings.setNumberOfSequences(Number(e.target.value))
             }
           />
         </div>
@@ -45,8 +45,8 @@ function NavbarEditorSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Width'
             min={50}
-            value={props.editorSettings.width.value}
-            onChange={(e) => props.editorSettings.width.setValue(Number(e.target.value))}
+            value={props.editorSettings.width}
+            onChange={(e) => props.editorSettings.setWidth(Number(e.target.value))}
           />
         </div>
       </div>
@@ -63,8 +63,8 @@ function NavbarEditorSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Height'
             min={50}
-            value={props.editorSettings.height.value}
-            onChange={(e) => props.editorSettings.height.setValue(Number(e.target.value))}
+            value={props.editorSettings.height}
+            onChange={(e) => props.editorSettings.setHeight(Number(e.target.value))}
           />
         </div>
       </div>

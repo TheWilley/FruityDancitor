@@ -63,7 +63,7 @@ function useSelectedSequence(numberOfSequences: number) {
  * Custom hook which consolidates and manages the crucial data utilized across the application, not directly mutable by the user.
  */
 export default function useEditorData(
-  numberOfSequences: EditorSettings['numberOfSequences']['value']
+  numberOfSequences: EditorSettings['numberOfSequences']
 ): EditorData {
   const [spriteSheetFrames, setSpriteSheetFrames] =
     useSpriteSheetFrames(numberOfSequences);
@@ -72,18 +72,12 @@ export default function useEditorData(
   const viewport = useRef<HTMLCanvasElement>(null);
 
   return {
-    spriteSheetFrames: {
-      value: spriteSheetFrames,
-      setValue: setSpriteSheetFrames,
-    },
-    selectedSequence: {
-      value: selectedSequence,
-      setValue: setSelectedSequence,
-    },
-    selectedFrame: {
-      value: selectedFrame,
-      setValue: setSelectedFrame,
-    },
-    viewport: viewport,
+    spriteSheetFrames,
+    setSpriteSheetFrames,
+    selectedSequence,
+    setSelectedSequence,
+    selectedFrame,
+    setSelectedFrame,
+    viewport,
   };
 }

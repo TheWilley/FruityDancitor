@@ -4,7 +4,14 @@ import { arrayMove, List } from 'react-movable';
 import { EditorData, SpriteSheetFrame } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence' | 'selectedFrame'>;
+type Props = Pick<
+  EditorData,
+  | 'selectedFrame'
+  | 'setSelectedFrame'
+  | 'spriteSheetFrames'
+  | 'setSpriteSheetFrames'
+  | 'selectedSequence'
+>;
 
 /**
  * Component which represents the list of frames for a given sequence.
@@ -12,34 +19,29 @@ type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence' | 'select
 function InspectorFramesList(EProps: Props) {
   // Detects when a sequence is changed and sets a default value of 0
   useEffect(() => {
-    EProps.selectedFrame.setValue(0);
-  }, [EProps.selectedSequence.value]);
+    EProps.setSelectedFrame(0);
+  }, [EProps.selectedSequence]);
 
   useEffect(() => {
     // Checks if the form is enabled (>0) or disabled (-1)
-    if (EProps.selectedFrame.value != -1) {
+    if (EProps.selectedFrame != -1) {
       // If the selected index is out of bounds, move it down one step
       if (
-        EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.length <=
-        EProps.selectedFrame.value
+        EProps.spriteSheetFrames[EProps.selectedSequence].sequence.length <=
+        EProps.selectedFrame
       ) {
-        EProps.selectedFrame.setValue(EProps.selectedFrame.value - 1);
+        EProps.setSelectedFrame(EProps.selectedFrame - 1);
       }
 
       // If we have no spriteSheetFrames, disable form
-      else if (
-        EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.length ===
-        0
-      ) {
-        EProps.selectedFrame.setValue(-1);
+      else if (EProps.spriteSheetFrames[EProps.selectedSequence].sequence.length === 0) {
+        EProps.setSelectedFrame(-1);
       }
     }
 
     // If we only have one frame, select it
-    else if (
-      EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.length === 1
-    ) {
-      EProps.selectedFrame.setValue(0);
+    else if (EProps.spriteSheetFrames[EProps.selectedSequence].sequence.length === 1) {
+      EProps.setSelectedFrame(0);
     }
   });
 
@@ -47,9 +49,9 @@ function InspectorFramesList(EProps: Props) {
    * Modifies a sequence with a new value.
    */
   const adjustSequence = (modifiedSequence: SpriteSheetFrame['sequence']) => {
-    EProps.spriteSheetFrames.setValue((prevFrames) => {
+    EProps.setSpriteSheetFrames((prevFrames) => {
       return produce(prevFrames, (draft) => {
-        draft[EProps.selectedSequence.value].sequence = modifiedSequence;
+        draft[EProps.selectedSequence].sequence = modifiedSequence;
       });
     });
   };
@@ -59,34 +61,33 @@ function InspectorFramesList(EProps: Props) {
    */
   const callback = (targetFrame: number) => {
     adjustSequence(
-      EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence.filter(
+      EProps.spriteSheetFrames[EProps.selectedSequence].sequence.filter(
         (_, index) => index !== targetFrame
       )
     );
     URL.revokeObjectURL(
-      EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence[targetFrame]
-        .objectURL
+      EProps.spriteSheetFrames[EProps.selectedSequence].sequence[targetFrame].objectURL
     );
   };
 
   return (
     <List
-      values={EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence}
+      values={EProps.spriteSheetFrames[EProps.selectedSequence].sequence}
       onChange={({ oldIndex, newIndex }) => {
         adjustSequence(
           arrayMove(
-            EProps.spriteSheetFrames.value[EProps.selectedSequence.value].sequence,
+            EProps.spriteSheetFrames[EProps.selectedSequence].sequence,
             oldIndex,
             newIndex
           )
         );
-        EProps.selectedFrame.setValue(newIndex);
+        EProps.setSelectedFrame(newIndex);
       }}
       renderList={({ children, props }) => <ul {...props}>{children}</ul>}
       renderItem={({ value, props, index }) => (
         <li
           {...props}
-          onMouseDown={() => EProps.selectedFrame.setValue(index || 0)}
+          onMouseDown={() => EProps.setSelectedFrame(index || 0)}
           className='z-30'
         >
           <CommonListItem
@@ -95,7 +96,7 @@ function InspectorFramesList(EProps: Props) {
             text={`Frame ${(index || 0) + 1}`}
             alt=''
             callback={() => callback(index || 0)}
-            highlighted={EProps.selectedFrame.value === index}
+            highlighted={EProps.selectedFrame === index}
             includeTrash
           />
         </li>

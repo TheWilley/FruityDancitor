@@ -123,16 +123,19 @@ export default function useFileUpload(
       ? 'Drop the files here...'
       : "Drag 'n' drop some files here, or click to select files";
 
-  return [
-    getRootProps(),
-    getInputProps(),
+  return {
+    getRootProps,
+    getInputProps,
     placeholder,
     disabled,
     className,
     style,
     addNewFrame,
-    { value: showDialog, setValue: setShowDialog },
-    { value: dialogFrames, setValue: setDialogFrames },
-    { value: selectedDialogFrames, setValue: setSelectedDialogFrames },
-  ] as const;
+    showDialog,
+    setShowDialog,
+    dialogFrames,
+    setDialogFrames,
+    selectedDialogFrames,
+    setSelectedDialogFrames,
+  };
 }

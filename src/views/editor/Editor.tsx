@@ -1,10 +1,6 @@
 import useAppSettings from '../../hooks/state/useAppSettings.ts';
 import useEditorData from '../../hooks/state/useEditorData.ts';
 import useEditorSettings from '../../hooks/state/useEditorSettings.ts';
-import {
-  deriveExportSettings,
-  deriveSaveAndLoadSettings,
-} from '../../utils/settingsHelper';
 import SectionNavbar from './components/sections/SectionNavbar';
 import SectionInspector from './components/sections/SectionInspector';
 import InspectorFileUpload from './components/inspector/InspectorFileUpload';
@@ -25,18 +21,9 @@ import useBackground from '../../hooks/utils/useBackground.ts';
 function Editor() {
   const appSettings = useAppSettings();
   const editorSettings = useEditorSettings();
-  const editorData = useEditorData(editorSettings.numberOfSequences.value);
-  const exportSettings = deriveExportSettings(editorData);
-  const saveAndLoadSettings = deriveSaveAndLoadSettings(
-    editorData,
-    appSettings,
-    editorSettings
-  );
+  const editorData = useEditorData(editorSettings.numberOfSequences);
 
-  useBackground(
-    appSettings.customBackgroundSrc.value,
-    appSettings.customBackgroundDarkness.value
-  );
+  useBackground(appSettings.customBackgroundSrc, appSettings.customBackgroundDarkness);
 
   return (
     <div
@@ -45,21 +32,34 @@ function Editor() {
     >
       <SectionSequenceList
         spriteSheetFrames={editorData.spriteSheetFrames}
+        setSpriteSheetFrames={editorData.setSpriteSheetFrames}
         selectedSequence={editorData.selectedSequence}
+        setSelectedSequence={editorData.setSelectedSequence}
       />
 
       <SectionViewport>
         <SectionNavbar
           appSettings={appSettings}
           editorSettings={editorSettings}
-          exportSettings={exportSettings}
-          saveAndLoadSettings={saveAndLoadSettings}
+          exportSettings={{
+            viewport: editorData.viewport,
+            spriteSheetFrames: editorData.spriteSheetFrames,
+          }}
+          saveAndLoadSettings={{
+            setSpriteSheetFrames: editorData.setSpriteSheetFrames,
+            setNumberOfSequences: editorSettings.setNumberOfSequences,
+            setHeight: editorSettings.setHeight,
+            setWidth: editorSettings.setWidth,
+            setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
+            setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
+            setImageCompressionRatio: appSettings.setImageCompressionRatio,
+          }}
         />
         <SpriteSheetCanvas
-          numberOfSequences={editorSettings.numberOfSequences.value}
-          height={editorSettings.height.value}
-          width={editorSettings.width.value}
-          spriteSheetFrames={editorData.spriteSheetFrames.value}
+          numberOfSequences={editorSettings.numberOfSequences}
+          height={editorSettings.height}
+          width={editorSettings.width}
+          spriteSheetFrames={editorData.spriteSheetFrames}
           viewport={editorData.viewport}
         />
       </SectionViewport>
@@ -76,24 +76,29 @@ function Editor() {
         <div className='p-2'>
           <InspectorSequenceName
             spriteSheetFrames={editorData.spriteSheetFrames}
+            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
             selectedSequence={editorData.selectedSequence}
           />
           <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
           <InspectorFrameMods
             spriteSheetFrames={editorData.spriteSheetFrames}
+            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
             selectedSequence={editorData.selectedSequence}
             selectedFrame={editorData.selectedFrame}
           />
           <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
           <InspectorFileUpload
             spriteSheetFrames={editorData.spriteSheetFrames}
+            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
             selectedSequence={editorData.selectedSequence}
             imageCompressionRatio={appSettings.imageCompressionRatio}
           />
           <InspectorFramesList
             spriteSheetFrames={editorData.spriteSheetFrames}
+            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
             selectedSequence={editorData.selectedSequence}
             selectedFrame={editorData.selectedFrame}
+            setSelectedFrame={editorData.setSelectedFrame}
           />
         </div>
       </SectionInspector>

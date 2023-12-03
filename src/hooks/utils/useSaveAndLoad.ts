@@ -24,7 +24,7 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
       try {
         // Dynamic mapping and loading of properties
         Object.keys(saveAndLoadSettings).forEach((key) => {
-          saveAndLoadSettings[key as keyof typeof saveAndLoadSettings].setValue(
+          saveAndLoadSettings[key as keyof typeof saveAndLoadSettings](
             (data as { [key: string]: never })[key]
           );
         });
@@ -53,7 +53,7 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
 function save(saveAndLoadSettings: SaveAndLoadSettings) {
   // Create object containing all props to save
   const json = Object.entries(saveAndLoadSettings).reduce(
-    (acc, [key, value]) => ({ ...acc, [key]: value.value }),
+    (acc, [key, value]) => ({ ...acc, [key]: value }),
     {}
   );
 

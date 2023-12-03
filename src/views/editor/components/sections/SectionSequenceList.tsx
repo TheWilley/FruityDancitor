@@ -3,7 +3,13 @@ import Card from '../../../../components/Card';
 import { EditorData } from '../../../../global/types';
 import CommonListItem from '../common/CommonListItem';
 
-type Props = Pick<EditorData, 'spriteSheetFrames' | 'selectedSequence'>;
+type Props = Pick<
+  EditorData,
+  | 'spriteSheetFrames'
+  | 'setSpriteSheetFrames'
+  | 'selectedSequence'
+  | 'setSelectedSequence'
+>;
 
 /**
  * Component which represents a list of all sequences in a reordable list.
@@ -12,26 +18,26 @@ function SectionSequenceList(EProps: Props) {
   return (
     <Card className='p-1'>
       <List
-        values={EProps.spriteSheetFrames.value}
+        values={EProps.spriteSheetFrames}
         onChange={({ oldIndex, newIndex }) => {
-          EProps.spriteSheetFrames.setValue(
-            arrayMove(EProps.spriteSheetFrames.value, oldIndex, newIndex)
+          EProps.setSpriteSheetFrames(
+            arrayMove(EProps.spriteSheetFrames, oldIndex, newIndex)
           );
-          EProps.selectedSequence.setValue(newIndex);
+          EProps.setSelectedSequence(newIndex);
         }}
         renderList={({ children, props }) => <ul {...props}>{children}</ul>}
         renderItem={({ value, props, index }) => (
           <li
             {...props}
-            onMouseDown={() => EProps.selectedSequence.setValue(index || 0)}
+            onMouseDown={() => EProps.setSelectedSequence(index || 0)}
             className='z-30'
           >
             <CommonListItem
               {...props}
               objectURL={value.sequence[0]?.objectURL}
-              text={EProps.spriteSheetFrames.value[index || 0].name}
+              text={EProps.spriteSheetFrames[index || 0].name}
               alt={`Sequence ${(index || 0) + 1}`}
-              highlighted={index === EProps.selectedSequence.value}
+              highlighted={index === EProps.selectedSequence}
             />
           </li>
         )}

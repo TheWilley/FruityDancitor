@@ -10,17 +10,11 @@ export default function useAppSettings(): AppSettings {
   const [customBackgroundDarkness, setCustomBackgroundDarkness] = useState(0);
 
   return {
-    imageCompressionRatio: {
-      value: imageCompressionRatio,
-      setValue: setImageCompressionRatio,
-    },
-    customBackgroundSrc: {
-      value: customBackgroundSrc,
-      setValue: setCustomBackgroundSrc,
-    },
-    customBackgroundDarkness: {
-      value: customBackgroundDarkness,
-      setValue: setCustomBackgroundDarkness,
-    },
+    imageCompressionRatio,
+    setImageCompressionRatio,
+    customBackgroundSrc,
+    setCustomBackgroundSrc,
+    customBackgroundDarkness,
+    setCustomBackgroundDarkness,
   };
 }

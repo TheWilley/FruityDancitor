@@ -11,13 +11,13 @@ function downloadFile(exportSettings: ExportSettings & { filename: string }) {
   if (!exportSettings.filename) exportSettings.filename = 'spiriteSheet';
 
   // Check that required settings exists before continue
-  if (!exportSettings.viewport || !exportSettings.spriteSheetFrames.value) return;
+  if (!exportSettings.viewport || !exportSettings.spriteSheetFrames) return;
 
   // Create new zip instance
   const zip = new JSZip();
 
   // Get sequence names
-  const sequenceNames = exportSettings.spriteSheetFrames.value.map(
+  const sequenceNames = exportSettings.spriteSheetFrames.map(
     (item, index) => item.name || `Sequence ${index}`
   );
 

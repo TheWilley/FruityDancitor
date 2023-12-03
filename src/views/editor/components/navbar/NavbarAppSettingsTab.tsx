@@ -27,9 +27,9 @@ function NavbarAppSettingsTab(props: Props) {
             min={0.1}
             max={1}
             step={0.1}
-            value={props.appSettings.imageCompressionRatio.value}
+            value={props.appSettings.imageCompressionRatio}
             onChange={(e) =>
-              props.appSettings.imageCompressionRatio.setValue(Number(e.target.value))
+              props.appSettings.setImageCompressionRatio(Number(e.target.value))
             }
           />
         </div>
@@ -46,10 +46,8 @@ function NavbarAppSettingsTab(props: Props) {
             type='text'
             className='input input-bordered join-item input-sm w-full'
             placeholder='Custom Background URL'
-            value={props.appSettings.customBackgroundSrc.value}
-            onChange={(e) =>
-              props.appSettings.customBackgroundSrc.setValue(e.target.value)
-            }
+            value={props.appSettings.customBackgroundSrc}
+            onChange={(e) => props.appSettings.setCustomBackgroundSrc(e.target.value)}
           />
         </div>
       </div>
@@ -68,9 +66,9 @@ function NavbarAppSettingsTab(props: Props) {
             min={0.1}
             max={1}
             step={0.1}
-            value={props.appSettings.customBackgroundDarkness.value}
+            value={props.appSettings.customBackgroundDarkness}
             onChange={(e) =>
-              props.appSettings.customBackgroundDarkness.setValue(Number(e.target.value))
+              props.appSettings.setCustomBackgroundDarkness(Number(e.target.value))
             }
           />
         </div>

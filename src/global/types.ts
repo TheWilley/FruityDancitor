@@ -1,38 +1,56 @@
 // Generic type for setters and getters of useState
-import { RefObject } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 
-export interface StateWithSetter<T> {
-  value: T;
-  setValue: React.Dispatch<React.SetStateAction<T>>;
-}
+export type Setter<T> = Dispatch<SetStateAction<T>>;
 
 export type AppSettings = {
-  imageCompressionRatio: StateWithSetter<number>;
-  customBackgroundSrc: StateWithSetter<string>;
-  customBackgroundDarkness: StateWithSetter<number>;
+  imageCompressionRatio: number;
+  setImageCompressionRatio: Setter<number>;
+  customBackgroundSrc: string;
+  setCustomBackgroundSrc: Setter<string>;
+  customBackgroundDarkness: number;
+  setCustomBackgroundDarkness: Setter<number>;
 };
 
 export type EditorSettings = {
-  numberOfSequences: StateWithSetter<number>;
-  width: StateWithSetter<number>;
-  height: StateWithSetter<number>;
+  numberOfSequences: number;
+  setNumberOfSequences: Setter<number>;
+  width: number;
+  setWidth: Setter<number>;
+  height: number;
+  setHeight: Setter<number>;
 };
 
 export type EditorData = {
-  spriteSheetFrames: StateWithSetter<SpriteSheetFrame[]>;
-  selectedSequence: StateWithSetter<number>;
-  selectedFrame: StateWithSetter<number>;
+  spriteSheetFrames: SpriteSheetFrame[];
+  setSpriteSheetFrames: Setter<SpriteSheetFrame[]>;
+  selectedSequence: number;
+  setSelectedSequence: Setter<number>;
+  selectedFrame: number;
+  setSelectedFrame: Setter<number>;
   viewport: RefObject<HTMLCanvasElement>;
+};
+
+export type PickDialogFrames = {
+  showDialog: boolean;
+  setShowDialog: Setter<boolean>;
+  dialogFrames: string[];
+  setDialogFrames: Setter<string[]>;
+  selectedDialogFrames: number[];
+  setSelectedDialogFrames: Setter<number[]>;
+  callback: (base64: string) => void;
+  spriteSheetFrames: EditorData['spriteSheetFrames'];
+  selectedSequence: EditorData['selectedSequence'];
 };
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
 
-export type SaveAndLoadSettings = Pick<EditorData, 'spriteSheetFrames'> &
+export type SaveAndLoadSettings = Pick<EditorData, 'setSpriteSheetFrames'> &
   Pick<
     AppSettings,
-    'imageCompressionRatio' | 'customBackgroundSrc' | 'customBackgroundDarkness'
+    'setImageCompressionRatio' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
   > &
-  Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
+  Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
 
 export type Modifications = {
   xoffset: number;
