@@ -1,5 +1,5 @@
-import { produce } from 'immer';
 import { EditorData } from '../../../../global/types';
+import useFrameMods from '../../../../hooks/utils/useFrameMods.ts';
 
 type Props = Pick<
   EditorData,
@@ -10,62 +10,12 @@ type Props = Pick<
  * Component which represents settings for a selected frame.
  */
 function InspectorFrameMods(props: Props) {
-  const mods = props.spriteSheetFrames[props.selectedSequence]?.sequence[
+  const { mods, disabled, setxoffset, setyoffset, setScale, resetMods } = useFrameMods(
+    props.spriteSheetFrames,
+    props.setSpriteSheetFrames,
+    props.selectedSequence,
     props.selectedFrame
-  ]?.modifications || { scale: 1, xoffset: 0, yoffset: 0 };
-
-  /**
-   * Resets mod params to default.
-   */
-  const resetMods = () => {
-    if (props.spriteSheetFrames[props.selectedSequence].sequence[props.selectedFrame]) {
-      props.setSpriteSheetFrames((prevFrames) =>
-        produce(prevFrames, (draft) => {
-          draft[props.selectedSequence].sequence[
-            props.selectedFrame
-          ].modifications.scale = 1;
-          draft[props.selectedSequence].sequence[
-            props.selectedFrame
-          ].modifications.xoffset = 0;
-          draft[props.selectedSequence].sequence[
-            props.selectedFrame
-          ].modifications.yoffset = 0;
-        })
-      );
-    }
-  };
-
-  const setScale = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.setSpriteSheetFrames((prevFrames) =>
-      produce(prevFrames, (draft) => {
-        draft[props.selectedSequence].sequence[props.selectedFrame].modifications.scale =
-          parseFloat(e.target.value);
-      })
-    );
-  };
-
-  const setxoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.setSpriteSheetFrames((prevFrames) =>
-      produce(prevFrames, (draft) => {
-        draft[props.selectedSequence].sequence[
-          props.selectedFrame
-        ].modifications.xoffset = parseInt(e.target.value);
-      })
-    );
-  };
-
-  const setyoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.setSpriteSheetFrames((prevFrames) =>
-      produce(prevFrames, (draft) => {
-        draft[props.selectedSequence].sequence[
-          props.selectedFrame
-        ].modifications.yoffset = parseInt(e.target.value);
-      })
-    );
-  };
-
-  // Decides weather the inputs should be disabled or not
-  const disabled = props.selectedFrame === -1;
+  );
 
   return (
     <>
