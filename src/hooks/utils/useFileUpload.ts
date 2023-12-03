@@ -78,7 +78,7 @@ export default function useFileUpload(
         }
       }
     },
-    [spriteSheetFrames]
+    [addNewFrame, compressionRatio, selectedSequence, spriteSheetFrames]
   );
 
   // When hovering over
