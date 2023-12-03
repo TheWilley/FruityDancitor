@@ -60,7 +60,7 @@ function Editor() {
           height={editorSettings.height.value}
           width={editorSettings.width.value}
           spriteSheetFrames={editorData.spriteSheetFrames.value}
-          viewport={editorData.viewport.setValue}
+          viewport={editorData.viewport}
         />
       </SectionViewport>
 

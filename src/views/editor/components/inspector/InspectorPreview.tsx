@@ -14,7 +14,7 @@ function InspectorPreview(props: Props) {
   const previewRef = useRef(null);
   const [currentFrame] = usePreview(
     previewRef.current,
-    props.viewport.value,
+    props.viewport.current,
     props.selectedSequence.value,
     props.width.value,
     props.height.value

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
  */
 export default function usePreview(
   previewCanvas: HTMLCanvasElement | null,
-  originalCanvas: HTMLCanvasElement | undefined,
+  originalCanvas: HTMLCanvasElement | null,
   selectedSequence: number,
   width: number,
   height: number

@@ -6,7 +6,6 @@ import { GifReader } from 'omggif';
  * @see https://stackoverflow.com/a/36183085
  */
 export async function b64toBlob(base64: string) {
-  console.log(base64);
   const res = await fetch(base64);
   return await res.blob();
 }

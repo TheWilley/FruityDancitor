@@ -24,9 +24,8 @@ function downloadFile(exportSettings: ExportSettings & { filename: string }) {
   // Convert canvas to image
   const image = new Image();
 
-  // TODO: Make sure it is not undefined before attempting to read DataURL
-  if (exportSettings.viewport.value) {
-    image.src = exportSettings.viewport.value
+  if (exportSettings.viewport.current) {
+    image.src = exportSettings.viewport.current
       .toDataURL('image/png')
       .replace('image/png', 'image/octet-stream');
   }

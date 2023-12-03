@@ -1,4 +1,6 @@
 // Generic type for setters and getters of useState
+import { RefObject } from 'react';
+
 export interface StateWithSetter<T> {
   value: T;
   setValue: React.Dispatch<React.SetStateAction<T>>;
@@ -20,7 +22,7 @@ export type EditorData = {
   spriteSheetFrames: StateWithSetter<SpriteSheetFrame[]>;
   selectedSequence: StateWithSetter<number>;
   selectedFrame: StateWithSetter<number>;
-  viewport: StateWithSetter<HTMLCanvasElement | undefined>;
+  viewport: RefObject<HTMLCanvasElement>;
 };
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;

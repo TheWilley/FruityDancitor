@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { EditorData, EditorSettings, SpriteSheetFrame } from '../../global/types.ts';
 import { produce } from 'immer';
 import appConfig from '../../../appConfig.ts';
@@ -69,7 +69,7 @@ export default function useEditorData(
     useSpriteSheetFrames(numberOfSequences);
   const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences);
   const [selectedFrame, setSelectedFrame] = useState(0);
-  const [viewport, setViewport] = useState<HTMLCanvasElement>();
+  const viewport = useRef<HTMLCanvasElement>(null);
 
   return {
     spriteSheetFrames: {
@@ -84,9 +84,6 @@ export default function useEditorData(
       value: selectedFrame,
       setValue: setSelectedFrame,
     },
-    viewport: {
-      value: viewport,
-      setValue: setViewport,
-    },
+    viewport: viewport,
   };
 }

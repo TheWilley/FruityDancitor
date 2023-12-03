@@ -32,30 +32,23 @@ function drawImageOnTile(
  * Custom hook to render sprite sheet.
  */
 export default function useViewport(
-  canvasRef: RefObject<HTMLCanvasElement>,
+  viewport: RefObject<HTMLCanvasElement>,
   numberOfSequences: number,
   height: number,
   width: number,
-  spriteSheetFrames: SpriteSheetFrame[],
-  setCanvas: React.Dispatch<React.SetStateAction<HTMLCanvasElement | undefined>>
+  spriteSheetFrames: SpriteSheetFrame[]
 ) {
   useMemo(() => {
-    // Get canvas ref
-    const canvas = canvasRef;
-
     // Return if the canvas context is not found
-    if (!canvas.current) return;
-
-    // The canvas is not null
-    setCanvas(canvas.current);
+    if (!viewport.current) return;
 
     // Get the context
-    const context = canvas.current.getContext('2d');
+    const context = viewport.current.getContext('2d');
 
     // Check if context exist
     if (context) {
       // Clear the canvas
-      context.clearRect(0, 0, canvas.current.width, canvas.current.height);
+      context.clearRect(0, 0, viewport.current.width, viewport.current.height);
 
       for (const [y, sequence] of spriteSheetFrames.entries()) {
         // Go through each spriteSheetFrame in the spriteSheetFrames array
@@ -77,7 +70,7 @@ export default function useViewport(
         }
       }
     }
-  }, [canvasRef, height, setCanvas, spriteSheetFrames, width]);
+  }, [height, spriteSheetFrames, viewport, width]);
 
   const className = [
     'bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.nWLpYSGP33IYGhcR1sFOHgAAAA%26pid%3DApi&f=1&ipt=5812f5c126591b3cde8929ba6262c2374c2a488462b03474da6bd2da7c3a5bab&ipo=images)]',
