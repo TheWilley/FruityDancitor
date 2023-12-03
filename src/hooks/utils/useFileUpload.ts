@@ -25,19 +25,22 @@ export default function useFileUpload(
   const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([]);
 
   // Adds new frame
-  const addNewFrame = (base64: string) => {
-    b64toBlob(base64).then((result) => {
-      // Update the state by appending the image to the first sequence
-      setSpriteSheetFrames((prevFrames) =>
-        produce(prevFrames, (draft) => {
-          draft[selectedSequence].sequence.push({
-            objectURL: URL.createObjectURL(result),
-            modifications: { scale: 1, xoffset: 0, yoffset: 0 },
-          });
-        })
-      );
-    });
-  };
+  const addNewFrame = useCallback(
+    (base64: string) => {
+      b64toBlob(base64).then((result) => {
+        // Update the state by appending the image to the first sequence
+        setSpriteSheetFrames((prevFrames) =>
+          produce(prevFrames, (draft) => {
+            draft[selectedSequence].sequence.push({
+              objectURL: URL.createObjectURL(result),
+              modifications: { scale: 1, xoffset: 0, yoffset: 0 },
+            });
+          })
+        );
+      });
+    },
+    [selectedSequence, setSpriteSheetFrames]
+  );
 
   /**
    * Runs when a file is uploaded.
