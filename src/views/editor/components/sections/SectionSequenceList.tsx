@@ -21,7 +21,11 @@ function SectionSequenceList(EProps: Props) {
         }}
         renderList={({ children, props }) => <ul {...props}>{children}</ul>}
         renderItem={({ value, props, index }) => (
-          <li {...props} onMouseDown={() => EProps.selectedSequence.setValue(index || 0)}>
+          <li
+            {...props}
+            onMouseDown={() => EProps.selectedSequence.setValue(index || 0)}
+            className='z-30'
+          >
             <CommonListItem
               {...props}
               objectURL={value.sequence[0]?.objectURL}

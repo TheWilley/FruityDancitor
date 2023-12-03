@@ -84,7 +84,11 @@ function InspectorFramesList(EProps: Props) {
       }}
       renderList={({ children, props }) => <ul {...props}>{children}</ul>}
       renderItem={({ value, props, index }) => (
-        <li {...props} onMouseDown={() => EProps.selectedFrame.setValue(index || 0)}>
+        <li
+          {...props}
+          onMouseDown={() => EProps.selectedFrame.setValue(index || 0)}
+          className='z-30'
+        >
           <CommonListItem
             {...props}
             objectURL={value.objectURL}
