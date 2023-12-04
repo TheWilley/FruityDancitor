@@ -16,16 +16,20 @@ function drawImageOnTile(
   yoffset: number
 ) {
   const image = new Image();
-  image.src = objectURL;
 
-  // Draw the image clipped to the cell
-  ctx.drawImage(
-    image,
-    x * width * scale + xoffset,
-    y * height * scale + yoffset,
-    width * scale,
-    height * scale
-  );
+  // Wait for image to load before continuing as image otherwise won't be rendered until next rerender
+  image.onload = () => {
+    // Draw the image clipped to the cell
+    ctx.drawImage(
+      image,
+      x * width * scale + xoffset,
+      y * height * scale + yoffset,
+      width * scale,
+      height * scale
+    );
+  };
+
+  image.src = objectURL;
 }
 
 /**
