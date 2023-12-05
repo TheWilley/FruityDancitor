@@ -1,10 +1,10 @@
-import { SaveAndLoadSettings } from '../../global/types.ts';
+import { LoadSettings, SaveSettings } from '../../global/types.ts';
 import saveAs from 'file-saver';
 
 /**
  * Loads a FruityDancitor JSON file.
  */
-function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
+function load(file: File, loadSettings: LoadSettings) {
   if (file.type === 'application/json') {
     // Create a new reader to read JSON file
     const reader = new FileReader();
@@ -23,8 +23,8 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
 
       try {
         // Dynamic mapping and loading of properties
-        Object.keys(saveAndLoadSettings).forEach((key) => {
-          saveAndLoadSettings[key as keyof typeof saveAndLoadSettings](
+        Object.keys(loadSettings).forEach((key) => {
+          loadSettings[key as keyof typeof loadSettings](
             (data as { [key: string]: never })[key]
           );
         });
@@ -50,12 +50,14 @@ function load(file: File, saveAndLoadSettings: SaveAndLoadSettings) {
 /**
  * Saves a FruityDancitor JSON file.
  */
-function save(saveAndLoadSettings: SaveAndLoadSettings) {
+function save(saveSettings: SaveSettings) {
   // Create object containing all props to save
-  const json = Object.entries(saveAndLoadSettings).reduce(
+  const json = Object.entries(saveSettings).reduce(
     (acc, [key, value]) => ({ ...acc, [key]: value }),
     {}
   );
+
+  console.log(json);
 
   // Create a blob to be saved
   const blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });

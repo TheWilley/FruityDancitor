@@ -45,7 +45,7 @@ function Editor() {
             viewport: editorData.viewport,
             spriteSheetFrames: editorData.spriteSheetFrames,
           }}
-          saveAndLoadSettings={{
+          loadSettings={{
             setSpriteSheetFrames: editorData.setSpriteSheetFrames,
             setNumberOfSequences: editorSettings.setNumberOfSequences,
             setHeight: editorSettings.setHeight,
@@ -53,6 +53,15 @@ function Editor() {
             setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
             setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
             setImageCompressionRatio: appSettings.setImageCompressionRatio,
+          }}
+          saveSettings={{
+            spriteSheetFrames: editorData.spriteSheetFrames,
+            numberOfSequences: editorSettings.numberOfSequences,
+            height: editorSettings.height,
+            width: editorSettings.width,
+            customBackgroundSrc: appSettings.customBackgroundSrc,
+            customBackgroundDarkness: appSettings.customBackgroundDarkness,
+            imageCompressionRatio: appSettings.imageCompressionRatio,
           }}
         />
         <SpriteSheetCanvas

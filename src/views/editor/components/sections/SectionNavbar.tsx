@@ -16,14 +16,16 @@ import {
   AppSettings,
   EditorData,
   EditorSettings,
-  SaveAndLoadSettings,
+  LoadSettings,
+  SaveSettings,
 } from '../../../../global/types';
 
 type Props = {
   appSettings: AppSettings;
   editorSettings: EditorSettings;
   exportSettings: Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
-  saveAndLoadSettings: SaveAndLoadSettings;
+  saveSettings: SaveSettings;
+  loadSettings: LoadSettings;
 };
 
 /**
@@ -46,7 +48,12 @@ function SectionNavbar(props: Props) {
     },
     {
       name: 'Save & Load',
-      view: <NavbarSaveAndLoadTab saveAndLoadSettings={props.saveAndLoadSettings} />,
+      view: (
+        <NavbarSaveAndLoadTab
+          saveSettings={props.saveSettings}
+          loadSettings={props.loadSettings}
+        />
+      ),
       icon: <FontAwesomeIcon icon={faSave} />,
     },
     {

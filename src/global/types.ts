@@ -45,12 +45,19 @@ export type PickDialogFrames = {
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
 
-export type SaveAndLoadSettings = Pick<EditorData, 'setSpriteSheetFrames'> &
+export type LoadSettings = Pick<EditorData, 'setSpriteSheetFrames'> &
   Pick<
     AppSettings,
     'setImageCompressionRatio' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
   > &
   Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
+
+export type SaveSettings = Pick<EditorData, 'spriteSheetFrames'> &
+  Pick<
+    AppSettings,
+    'imageCompressionRatio' | 'customBackgroundSrc' | 'customBackgroundDarkness'
+  > &
+  Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
 
 export type Modifications = {
   xoffset: number;
