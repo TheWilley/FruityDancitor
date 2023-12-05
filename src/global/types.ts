@@ -69,3 +69,8 @@ export type SpriteSheetFrame = {
   sequence: Array<{ objectURL: string; modifications: Modifications }>;
   name: string;
 };
+
+export type SavedFileSpriteSheetFrame = {
+  sequence: Array<{ base64: string; modifications: Modifications }>;
+  name: string;
+};

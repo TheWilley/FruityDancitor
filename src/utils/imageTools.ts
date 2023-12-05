@@ -1,4 +1,5 @@
 import { GifReader } from 'omggif';
+import { SpriteSheetFrame } from '../global/types.ts';
 
 /**
  * EXPORTED
@@ -8,6 +9,67 @@ import { GifReader } from 'omggif';
 export async function b64toBlob(base64: string) {
   const res = await fetch(base64);
   return await res.blob();
+}
+
+/**
+ * EXPORTED
+ * Converts a series of frames to base64
+ */
+export async function convertFramesToBase64(spriteSheetFrames: SpriteSheetFrame[]) {
+  const updatedFrames: SpriteSheetFrame[] = [];
+
+  for (const frame of spriteSheetFrames) {
+    const updatedSequence = await Promise.all(
+      frame.sequence.map(async (sequenceItem) => {
+        const base64 = await getBase64FromUrl(sequenceItem.objectURL);
+        return {
+          objectURL: base64 as string, // Ensure the type is string
+          modifications: sequenceItem.modifications,
+        };
+      })
+    );
+
+    const updatedFrame: SpriteSheetFrame = {
+      sequence: updatedSequence,
+      name: frame.name,
+    };
+
+    updatedFrames.push(updatedFrame);
+  }
+
+  return updatedFrames;
+}
+
+/**
+ * EXPORTED
+ * Converts a series of frames to baseURL
+ */
+export async function convertFramesToObjectURLs(
+  spriteSheetFrames: SpriteSheetFrame[]
+): Promise<SpriteSheetFrame[]> {
+  const updatedFrames: SpriteSheetFrame[] = [];
+
+  for (const frame of spriteSheetFrames) {
+    const updatedSequence = await Promise.all(
+      frame.sequence.map(async (sequenceItem) => {
+        const blob = await b64toBlob(sequenceItem.objectURL);
+        const objectURL = URL.createObjectURL(blob);
+        return {
+          objectURL,
+          modifications: sequenceItem.modifications,
+        };
+      })
+    );
+
+    const updatedFrame: SpriteSheetFrame = {
+      sequence: updatedSequence,
+      name: frame.name,
+    };
+
+    updatedFrames.push(updatedFrame);
+  }
+
+  return updatedFrames;
 }
 
 /**
@@ -25,6 +87,23 @@ export function getBase64(file: File, compressionRatio: number) {
     } else {
       reject(new Error('Unsupported file type'));
     }
+  });
+}
+
+/**
+ * Convert a objectURL to base64
+ * @see https://stackoverflow.com/a/71869551
+ */
+async function getBase64FromUrl(url: string) {
+  const data = await fetch(url);
+  const blob = await data.blob();
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      resolve(base64data);
+    };
   });
 }
 

@@ -1,5 +1,9 @@
 import { LoadSettings, SaveSettings } from '../../global/types.ts';
 import saveAs from 'file-saver';
+import {
+  convertFramesToBase64,
+  convertFramesToObjectURLs,
+} from '../../utils/imageTools.ts';
 
 /**
  * Loads a FruityDancitor JSON file.
@@ -10,7 +14,7 @@ function load(file: File, loadSettings: LoadSettings) {
     const reader = new FileReader();
 
     // Define data variable here as we assign it later within the
-    let data = {};
+    let data = {} as SaveSettings;
 
     reader.onloadend = function () {
       try {
@@ -22,11 +26,15 @@ function load(file: File, loadSettings: LoadSettings) {
       }
 
       try {
-        // Dynamic mapping and loading of properties
-        Object.keys(loadSettings).forEach((key) => {
-          loadSettings[key as keyof typeof loadSettings](
-            (data as { [key: string]: never })[key]
-          );
+        convertFramesToObjectURLs(data.spriteSheetFrames).then((result) => {
+          loadSettings.setHeight(data.height);
+          loadSettings.setWidth(data.width);
+          loadSettings.setNumberOfSequences(data.numberOfSequences);
+          loadSettings.setCustomBackgroundSrc(data.customBackgroundSrc);
+          loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
+          loadSettings.setImageCompressionRatio(data.imageCompressionRatio);
+          loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
+          loadSettings.setSpriteSheetFrames(result);
         });
         alert('Project loaded');
       } catch (e) {
@@ -51,19 +59,21 @@ function load(file: File, loadSettings: LoadSettings) {
  * Saves a FruityDancitor JSON file.
  */
 function save(saveSettings: SaveSettings) {
-  // Create object containing all props to save
-  const json = Object.entries(saveSettings).reduce(
-    (acc, [key, value]) => ({ ...acc, [key]: value }),
-    {}
-  );
+  convertFramesToBase64(saveSettings.spriteSheetFrames).then((result) => {
+    const json: SaveSettings = {
+        height: saveSettings.height,
+        width: saveSettings.width,
+        numberOfSequences: saveSettings.numberOfSequences,
+        customBackgroundSrc: saveSettings.customBackgroundSrc,
+        customBackgroundDarkness: saveSettings.customBackgroundDarkness,
+        imageCompressionRatio: saveSettings.imageCompressionRatio,
+        spriteSheetFrames: result,
+      },
+      blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
 
-  console.log(json);
-
-  // Create a blob to be saved
-  const blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
-
-  // Save the blob (downloads file)
-  saveAs(blob, 'savedFruityDancitorProject.json');
+    // Save the blob (downloads file)
+    saveAs(blob, 'savedFruityDancitorProject.json');
+  });
 }
 
 /**
