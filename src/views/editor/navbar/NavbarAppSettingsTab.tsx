@@ -1,6 +1,6 @@
 import { faImage, faLightbulb, faPercent } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AppSettings } from '../../../../global/types';
+import { AppSettings } from '../../../global/types.ts';
 
 type Props = { appSettings: AppSettings };
 

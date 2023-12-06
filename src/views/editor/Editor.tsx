@@ -1,16 +1,16 @@
 import useAppSettings from '../../hooks/state/useAppSettings.ts';
 import useEditorData from '../../hooks/state/useEditorData.ts';
 import useEditorSettings from '../../hooks/state/useEditorSettings.ts';
-import SectionNavbar from './components/sections/SectionNavbar';
-import SectionInspector from './components/sections/SectionInspector';
-import InspectorFileUpload from './components/inspector/InspectorFileUpload';
-import InspectorFrameMods from './components/inspector/InspectorFrameMods';
-import InspectorFramesList from './components/inspector/InspectorFramesList';
-import InspectorPreview from './components/inspector/InspectorPreview';
-import InspectorSequenceName from './components/inspector/InspectorSequenceName.tsx';
-import SectionSequenceList from './components/sections/SectionSequenceList';
-import SectionViewport from './components/sections/SectionViewport';
-import SpriteSheetCanvas from './components/viewport/ViewportSpriteSheetCanvas';
+import Navbar from './navbar/Navbar.tsx';
+import Inspector from './inspector/Inspector.tsx';
+import InspectorFileUpload from './inspector/InspectorFileUpload';
+import InspectorFrameMods from './inspector/InspectorFrameMods';
+import InspectorFramesList from './inspector/InspectorFramesList';
+import InspectorPreview from './inspector/InspectorPreview';
+import InspectorSequenceName from './inspector/InspectorSequenceName.tsx';
+import SequenceList from './sequencelist/SequenceList.tsx';
+import Viewport from './viewport/Viewport.tsx';
+import SpriteSheetCanvas from './viewport/ViewportSpriteSheetCanvas';
 import useBackground from '../../hooks/utils/useBackground.ts';
 
 /**
@@ -30,15 +30,15 @@ function Editor() {
       className='grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full'
       style={{ height: 'calc(100vh - 40px)' }}
     >
-      <SectionSequenceList
+      <SequenceList
         spriteSheetSequences={editorData.spriteSheetSequences}
         setSpriteSheetSequences={editorData.setSpriteSheetSequences}
         selectedSequence={editorData.selectedSequence}
         setSelectedSequence={editorData.setSelectedSequence}
       />
 
-      <SectionViewport>
-        <SectionNavbar
+      <Viewport>
+        <Navbar
           appSettings={appSettings}
           editorSettings={editorSettings}
           exportSettings={{
@@ -71,9 +71,9 @@ function Editor() {
           spriteSheetSequences={editorData.spriteSheetSequences}
           viewport={editorData.viewport}
         />
-      </SectionViewport>
+      </Viewport>
 
-      <SectionInspector>
+      <Inspector>
         {editorData.viewport && (
           <InspectorPreview
             viewport={editorData.viewport}
@@ -110,7 +110,7 @@ function Editor() {
             setSelectedFrame={editorData.setSelectedFrame}
           />
         </div>
-      </SectionInspector>
+      </Inspector>
     </div>
   );
 }

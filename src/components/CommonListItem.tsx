@@ -1,6 +1,6 @@
 import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import noimage from '../../../../media/noimage.svg';
+import noimage from '../media/noimage.svg';
 
 type Props = {
   text: string;
@@ -12,7 +12,7 @@ type Props = {
 };
 
 /**
- * A component which represent a list item within both SectionSequenceList and InspectorFramesList.
+ * A component which represent a list item within both SequenceList and InspectorFramesList.
  */
 function CommonListItem(props: Props) {
   return (

@@ -1,7 +1,7 @@
 import { arrayMove, List } from 'react-movable';
-import Card from '../../../../components/Card';
-import { EditorData } from '../../../../global/types';
-import CommonListItem from '../common/CommonListItem';
+import Card from '../../../components/Card.tsx';
+import { EditorData } from '../../../global/types.ts';
+import CommonListItem from '../../../components/CommonListItem.tsx';
 
 type Props = Pick<
   EditorData,
@@ -14,7 +14,7 @@ type Props = Pick<
 /**
  * Component which represents a list of all sequences in a reordable list.
  */
-function SectionSequenceList(EProps: Props) {
+function SequenceList(EProps: Props) {
   return (
     <Card className='p-1'>
       <List
@@ -46,4 +46,4 @@ function SectionSequenceList(EProps: Props) {
   );
 }
 
-export default SectionSequenceList;
+export default SequenceList;

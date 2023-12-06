@@ -1,6 +1,6 @@
 import { useRef } from 'react';
-import usePreview from '../../../../hooks/utils/UsePreview.ts';
-import { EditorData, EditorSettings } from '../../../../global/types';
+import usePreview from '../../../hooks/utils/UsePreview.ts';
+import { EditorData, EditorSettings } from '../../../global/types.ts';
 
 type Props = Pick<EditorData, 'viewport' | 'selectedSequence'> &
   Pick<EditorSettings, 'width' | 'height'>;

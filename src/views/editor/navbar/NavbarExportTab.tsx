@@ -1,5 +1,5 @@
-import { ExportSettings } from '../../../../global/types';
-import useExport from '../../../../hooks/utils/useExport.ts';
+import { ExportSettings } from '../../../global/types.ts';
+import useExport from '../../../hooks/utils/useExport.ts';
 
 type Props = { exportSettings: ExportSettings };
 

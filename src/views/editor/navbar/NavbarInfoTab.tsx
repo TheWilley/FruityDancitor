@@ -1,4 +1,4 @@
-import logotype from '../../../../media/logotype.svg';
+import logotype from '../../../media/logotype.svg';
 
 /**
  * Component which displays some general info about the app.

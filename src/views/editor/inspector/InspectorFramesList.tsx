@@ -1,7 +1,7 @@
 import { arrayMove, List } from 'react-movable';
-import { EditorData } from '../../../../global/types';
-import CommonListItem from '../common/CommonListItem';
-import useFrameList from '../../../../hooks/utils/useFrameList.ts';
+import { EditorData } from '../../../global/types.ts';
+import CommonListItem from '../../../components/CommonListItem.tsx';
+import useFrameList from '../../../hooks/utils/useFrameList.ts';
 
 type Props = Pick<
   EditorData,

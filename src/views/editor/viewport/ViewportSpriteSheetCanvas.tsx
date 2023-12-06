@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import Card from '../../../../components/Card';
-import { EditorData, EditorSettings } from '../../../../global/types';
-import useViewport from '../../../../hooks/utils/useViewport.ts';
+import Card from '../../../components/Card.tsx';
+import { EditorData, EditorSettings } from '../../../global/types.ts';
+import useViewport from '../../../hooks/utils/useViewport.ts';
 
 type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
   Pick<EditorSettings, 'numberOfSequences' | 'height' | 'width'>;

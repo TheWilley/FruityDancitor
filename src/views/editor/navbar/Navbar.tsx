@@ -7,18 +7,18 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import NavbarAppSettingsTab from '../navbar/NavbarAppSettingsTab';
-import NavbarEditorSettingsTab from '../navbar/NavbarEditorSettingsTab';
-import NavbarExportTab from '../navbar/NavbarExportTab';
-import NavbarSaveAndLoadTab from '../navbar/NavbarSaveAndLoadTab';
-import NavbarInfoTab from '../navbar/NavbarInfoTab';
+import NavbarAppSettingsTab from './NavbarAppSettingsTab.tsx';
+import NavbarEditorSettingsTab from './NavbarEditorSettingsTab.tsx';
+import NavbarExportTab from './NavbarExportTab.tsx';
+import NavbarSaveAndLoadTab from './NavbarSaveAndLoadTab.tsx';
+import NavbarInfoTab from './NavbarInfoTab.tsx';
 import {
   AppSettings,
   EditorData,
   EditorSettings,
   LoadSettings,
   SaveSettings,
-} from '../../../../global/types';
+} from '../../../global/types.ts';
 
 type Props = {
   appSettings: AppSettings;
@@ -31,7 +31,7 @@ type Props = {
 /**
  * Component which represents a navbar which the user can use to navigate to different tabs.
  */
-function SectionNavbar(props: Props) {
+function Navbar(props: Props) {
   const [tab, setTab] = useState(0);
   const [hidden, setHidden] = useState(false);
 
@@ -116,4 +116,4 @@ function SectionNavbar(props: Props) {
   );
 }
 
-export default SectionNavbar;
+export default Navbar;

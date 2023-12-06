@@ -1,5 +1,5 @@
-import { AppSettings, EditorData, PickDialogFrames } from '../../../../global/types';
-import useFileUpload from '../../../../hooks/utils/useFileUpload.ts';
+import { AppSettings, EditorData, PickDialogFrames } from '../../../global/types.ts';
+import useFileUpload from '../../../hooks/utils/useFileUpload.ts';
 import { produce } from 'immer';
 
 /**
@@ -108,17 +108,17 @@ function InspectorFileUpload(props: Props) {
   const {
     getRootProps,
     getInputProps,
+    setShowDialog,
+    setDialogFrames,
+    setSelectedDialogFrames,
     placeholder,
     disabled,
     className,
     style,
     addNewFrame,
     showDialog,
-    setShowDialog,
     dialogFrames,
-    setDialogFrames,
     selectedDialogFrames,
-    setSelectedDialogFrames,
   } = useFileUpload(
     props.spriteSheetSequences,
     props.setSpriteSheetSequences,

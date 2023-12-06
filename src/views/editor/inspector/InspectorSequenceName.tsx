@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { EditorData } from '../../../../global/types';
+import { EditorData } from '../../../global/types.ts';
 
 type Props = Pick<
   EditorData,

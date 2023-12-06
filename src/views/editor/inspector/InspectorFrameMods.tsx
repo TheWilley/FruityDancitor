@@ -1,5 +1,5 @@
-import { EditorData } from '../../../../global/types';
-import useFrameMods from '../../../../hooks/utils/useFrameMods.ts';
+import { EditorData } from '../../../global/types.ts';
+import useFrameMods from '../../../hooks/utils/useFrameMods.ts';
 
 type Props = Pick<
   EditorData,

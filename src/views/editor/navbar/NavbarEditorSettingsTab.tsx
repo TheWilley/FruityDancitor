@@ -1,6 +1,6 @@
 import { faBars, faTextHeight, faTextWidth } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EditorSettings } from '../../../../global/types';
+import { EditorSettings } from '../../../global/types.ts';
 
 type Props = { editorSettings: EditorSettings };
 

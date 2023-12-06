@@ -19,10 +19,10 @@ export default function useFileUpload(
   compressionRatio: number
 ) {
   const [dragOver, setDragOver] = useState(false);
-  const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
   const [showDialog, setShowDialog] = useState(false);
   const [dialogFrames, setDialogFrames] = useState<string[]>([]);
   const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([]);
+  const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
 
   // Adds new frame
   const addNewFrame = useCallback(
@@ -129,16 +129,16 @@ export default function useFileUpload(
   return {
     getRootProps,
     getInputProps,
+    setShowDialog,
+    setDialogFrames,
+    setSelectedDialogFrames,
     placeholder,
     disabled,
     className,
     style,
     addNewFrame,
     showDialog,
-    setShowDialog,
     dialogFrames,
-    setDialogFrames,
     selectedDialogFrames,
-    setSelectedDialogFrames,
   };
 }
