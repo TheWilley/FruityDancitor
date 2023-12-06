@@ -3,7 +3,10 @@ import useFrameMods from '../../../../hooks/utils/useFrameMods.ts';
 
 type Props = Pick<
   EditorData,
-  'spriteSheetFrames' | 'setSpriteSheetFrames' | 'selectedSequence' | 'selectedFrame'
+  | 'spriteSheetSequences'
+  | 'setSpriteSheetSequences'
+  | 'selectedSequence'
+  | 'selectedFrame'
 >;
 
 /**
@@ -11,8 +14,8 @@ type Props = Pick<
  */
 function InspectorFrameMods(props: Props) {
   const { mods, disabled, setxoffset, setyoffset, setScale, resetMods } = useFrameMods(
-    props.spriteSheetFrames,
-    props.setSpriteSheetFrames,
+    props.spriteSheetSequences,
+    props.setSpriteSheetSequences,
     props.selectedSequence,
     props.selectedFrame
   );

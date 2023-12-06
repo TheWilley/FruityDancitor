@@ -3,7 +3,7 @@ import Card from '../../../../components/Card';
 import { EditorData, EditorSettings } from '../../../../global/types';
 import useViewport from '../../../../hooks/utils/useViewport.ts';
 
-type Props = Pick<EditorData, 'viewport' | 'spriteSheetFrames'> &
+type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
   Pick<EditorSettings, 'numberOfSequences' | 'height' | 'width'>;
 
 /**
@@ -15,7 +15,7 @@ function SpriteSheetCanvas(props: Props) {
     props.numberOfSequences,
     props.height,
     props.width,
-    props.spriteSheetFrames
+    props.spriteSheetSequences
   );
 
   return (

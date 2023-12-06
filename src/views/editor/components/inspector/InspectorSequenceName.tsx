@@ -3,7 +3,7 @@ import { EditorData } from '../../../../global/types';
 
 type Props = Pick<
   EditorData,
-  'spriteSheetFrames' | 'setSpriteSheetFrames' | 'selectedSequence'
+  'spriteSheetSequences' | 'setSpriteSheetSequences' | 'selectedSequence'
 >;
 
 /**
@@ -20,18 +20,18 @@ function InspectorSequenceName(props: Props) {
             <span className='label-text'>Name</span>
           </label>
           <input
-            value={props.spriteSheetFrames[props.selectedSequence].name}
+            value={props.spriteSheetSequences[props.selectedSequence].name}
             type='text'
             placeholder='Type here'
             className='input input-bordered w-full'
             onChange={(e) => {
-              props.setSpriteSheetFrames(
-                produce(props.spriteSheetFrames, (draft) => {
+              props.setSpriteSheetSequences(
+                produce(props.spriteSheetSequences, (draft) => {
                   draft[props.selectedSequence].name = e.target.value;
                 })
               );
             }}
-            disabled={props.spriteSheetFrames.length - 1 === props.selectedSequence}
+            disabled={props.spriteSheetSequences.length - 1 === props.selectedSequence}
           />
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { SpriteSheetFrame } from '../../global/types.ts';
+import { SpriteSheetSequences } from '../../global/types.ts';
 import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
 
 /**
@@ -13,13 +13,13 @@ import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
  * - etc.
  */
 export default function useFileUpload(
-  spriteSheetFrames: SpriteSheetFrame[],
-  setSpriteSheetFrames: React.Dispatch<React.SetStateAction<SpriteSheetFrame[]>>,
+  spriteSheetSequences: SpriteSheetSequences[],
+  setSpriteSheetSequences: React.Dispatch<React.SetStateAction<SpriteSheetSequences[]>>,
   selectedSequence: number,
   compressionRatio: number
 ) {
   const [dragOver, setDragOver] = useState(false);
-  const disabled = spriteSheetFrames[selectedSequence].sequence.length > 7;
+  const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
   const [showDialog, setShowDialog] = useState(false);
   const [dialogFrames, setDialogFrames] = useState<string[]>([]);
   const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([]);
@@ -29,8 +29,8 @@ export default function useFileUpload(
     (base64: string) => {
       b64toBlob(base64).then((result) => {
         // Update the state by appending the image to the first sequence
-        setSpriteSheetFrames((prevFrames) =>
-          produce(prevFrames, (draft) => {
+        setSpriteSheetSequences((prevSequences) =>
+          produce(prevSequences, (draft) => {
             draft[selectedSequence].sequence.push({
               objectURL: URL.createObjectURL(result),
               modifications: { scale: 1, xoffset: 0, yoffset: 0 },
@@ -39,7 +39,7 @@ export default function useFileUpload(
         );
       });
     },
-    [selectedSequence, setSpriteSheetFrames]
+    [selectedSequence, setSpriteSheetSequences]
   );
 
   /**
@@ -57,7 +57,7 @@ export default function useFileUpload(
           if (file.size >= 8000000) continue;
 
           // Check if there is space for a new entry
-          if (spriteSheetFrames[selectedSequence].sequence.length + index < 8) {
+          if (spriteSheetSequences[selectedSequence].sequence.length + index < 8) {
             // Get base64 for the file
             const base64 = (await getBase64(file, compressionRatio)) as string | string[];
 
@@ -69,7 +69,7 @@ export default function useFileUpload(
                 Array.from(
                   {
                     length:
-                      8 - (spriteSheetFrames[selectedSequence]?.sequence.length || 0),
+                      8 - (spriteSheetSequences[selectedSequence]?.sequence.length || 0),
                   },
                   (_, index) => index
                 )
@@ -81,7 +81,7 @@ export default function useFileUpload(
         }
       }
     },
-    [addNewFrame, compressionRatio, selectedSequence, spriteSheetFrames]
+    [addNewFrame, compressionRatio, selectedSequence, spriteSheetSequences]
   );
 
   // When hovering over

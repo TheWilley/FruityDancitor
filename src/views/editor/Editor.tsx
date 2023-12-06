@@ -31,8 +31,8 @@ function Editor() {
       style={{ height: 'calc(100vh - 40px)' }}
     >
       <SectionSequenceList
-        spriteSheetFrames={editorData.spriteSheetFrames}
-        setSpriteSheetFrames={editorData.setSpriteSheetFrames}
+        spriteSheetSequences={editorData.spriteSheetSequences}
+        setSpriteSheetSequences={editorData.setSpriteSheetSequences}
         selectedSequence={editorData.selectedSequence}
         setSelectedSequence={editorData.setSelectedSequence}
       />
@@ -43,10 +43,10 @@ function Editor() {
           editorSettings={editorSettings}
           exportSettings={{
             viewport: editorData.viewport,
-            spriteSheetFrames: editorData.spriteSheetFrames,
+            spriteSheetSequences: editorData.spriteSheetSequences,
           }}
           loadSettings={{
-            setSpriteSheetFrames: editorData.setSpriteSheetFrames,
+            setSpriteSheetSequences: editorData.setSpriteSheetSequences,
             setNumberOfSequences: editorSettings.setNumberOfSequences,
             setHeight: editorSettings.setHeight,
             setWidth: editorSettings.setWidth,
@@ -55,7 +55,7 @@ function Editor() {
             setImageCompressionRatio: appSettings.setImageCompressionRatio,
           }}
           saveSettings={{
-            spriteSheetFrames: editorData.spriteSheetFrames,
+            spriteSheetSequences: editorData.spriteSheetSequences,
             numberOfSequences: editorSettings.numberOfSequences,
             height: editorSettings.height,
             width: editorSettings.width,
@@ -68,7 +68,7 @@ function Editor() {
           numberOfSequences={editorSettings.numberOfSequences}
           height={editorSettings.height}
           width={editorSettings.width}
-          spriteSheetFrames={editorData.spriteSheetFrames}
+          spriteSheetSequences={editorData.spriteSheetSequences}
           viewport={editorData.viewport}
         />
       </SectionViewport>
@@ -84,27 +84,27 @@ function Editor() {
         )}
         <div className='p-2'>
           <InspectorSequenceName
-            spriteSheetFrames={editorData.spriteSheetFrames}
-            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
+            spriteSheetSequences={editorData.spriteSheetSequences}
+            setSpriteSheetSequences={editorData.setSpriteSheetSequences}
             selectedSequence={editorData.selectedSequence}
           />
           <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
           <InspectorFrameMods
-            spriteSheetFrames={editorData.spriteSheetFrames}
-            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
+            spriteSheetSequences={editorData.spriteSheetSequences}
+            setSpriteSheetSequences={editorData.setSpriteSheetSequences}
             selectedSequence={editorData.selectedSequence}
             selectedFrame={editorData.selectedFrame}
           />
           <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
           <InspectorFileUpload
-            spriteSheetFrames={editorData.spriteSheetFrames}
-            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
+            spriteSheetSequences={editorData.spriteSheetSequences}
+            setSpriteSheetSequences={editorData.setSpriteSheetSequences}
             selectedSequence={editorData.selectedSequence}
             imageCompressionRatio={appSettings.imageCompressionRatio}
           />
           <InspectorFramesList
-            spriteSheetFrames={editorData.spriteSheetFrames}
-            setSpriteSheetFrames={editorData.setSpriteSheetFrames}
+            spriteSheetSequences={editorData.spriteSheetSequences}
+            setSpriteSheetSequences={editorData.setSpriteSheetSequences}
             selectedSequence={editorData.selectedSequence}
             selectedFrame={editorData.selectedFrame}
             setSelectedFrame={editorData.setSelectedFrame}

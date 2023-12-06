@@ -5,21 +5,21 @@ import { EditorData } from '../../global/types.ts';
  * Custom hook which handles frame manupilaton
  */
 export default function useFrameMods(
-  spriteSheetFrames: EditorData['spriteSheetFrames'],
-  setSpriteSheetFrames: EditorData['setSpriteSheetFrames'],
+  spriteSheetSequences: EditorData['spriteSheetSequences'],
+  setSpriteSheetSequences: EditorData['setSpriteSheetSequences'],
   selectedSequence: EditorData['selectedSequence'],
   selectedFrame: EditorData['selectedFrame']
 ) {
-  const mods = spriteSheetFrames[selectedSequence]?.sequence[selectedFrame]
+  const mods = spriteSheetSequences[selectedSequence]?.sequence[selectedFrame]
     ?.modifications || { scale: 1, xoffset: 0, yoffset: 0 };
 
   /**
    * Resets mod params to default.
    */
   const resetMods = () => {
-    if (spriteSheetFrames[selectedSequence].sequence[selectedFrame]) {
-      setSpriteSheetFrames((prevFrames) =>
-        produce(prevFrames, (draft) => {
+    if (spriteSheetSequences[selectedSequence].sequence[selectedFrame]) {
+      setSpriteSheetSequences((prevSequences) =>
+        produce(prevSequences, (draft) => {
           draft[selectedSequence].sequence[selectedFrame].modifications.scale = 1;
           draft[selectedSequence].sequence[selectedFrame].modifications.xoffset = 0;
           draft[selectedSequence].sequence[selectedFrame].modifications.yoffset = 0;
@@ -29,8 +29,8 @@ export default function useFrameMods(
   };
 
   const setScale = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSpriteSheetFrames((prevFrames) =>
-      produce(prevFrames, (draft) => {
+    setSpriteSheetSequences((prevSequences) =>
+      produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence[selectedFrame].modifications.scale = parseFloat(
           e.target.value
         );
@@ -39,8 +39,8 @@ export default function useFrameMods(
   };
 
   const setxoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSpriteSheetFrames((prevFrames) =>
-      produce(prevFrames, (draft) => {
+    setSpriteSheetSequences((prevSequences) =>
+      produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence[selectedFrame].modifications.xoffset = parseInt(
           e.target.value
         );
@@ -49,8 +49,8 @@ export default function useFrameMods(
   };
 
   const setyoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSpriteSheetFrames((prevFrames) =>
-      produce(prevFrames, (draft) => {
+    setSpriteSheetSequences((prevSequences) =>
+      produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence[selectedFrame].modifications.yoffset = parseInt(
           e.target.value
         );

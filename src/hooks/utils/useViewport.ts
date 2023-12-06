@@ -1,5 +1,5 @@
 import { RefObject, useEffect } from 'react';
-import { SpriteSheetFrame } from '../../global/types.ts';
+import { SpriteSheetSequences } from '../../global/types.ts';
 
 /**
  * Draws an image on a given tile.
@@ -40,7 +40,7 @@ export default function useViewport(
   numberOfSequences: number,
   height: number,
   width: number,
-  spriteSheetFrames: SpriteSheetFrame[]
+  spriteSheetSequences: SpriteSheetSequences[]
 ) {
   useEffect(() => {
     // Return if the canvas context is not found
@@ -54,8 +54,8 @@ export default function useViewport(
       // Clear the canvas
       context.clearRect(0, 0, viewport.current.width, viewport.current.height);
 
-      for (const [y, sequence] of spriteSheetFrames.entries()) {
-        // Go through each spriteSheetFrame in the spriteSheetFrames array
+      for (const [y, sequence] of spriteSheetSequences.entries()) {
+        // Go through each spriteSheetFrame in the spriteSheetSequences array
         for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
           if (spriteSheetFrame?.objectURL) {
             // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
@@ -74,7 +74,7 @@ export default function useViewport(
         }
       }
     }
-  }, [height, spriteSheetFrames, viewport, width]);
+  }, [height, spriteSheetSequences, viewport, width]);
 
   const className = [
     'bg-[url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.nWLpYSGP33IYGhcR1sFOHgAAAA%26pid%3DApi&f=1&ipt=5812f5c126591b3cde8929ba6262c2374c2a488462b03474da6bd2da7c3a5bab&ipo=images)]',

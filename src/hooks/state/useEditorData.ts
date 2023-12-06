@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from 'react';
-import { EditorData, EditorSettings, SpriteSheetFrame } from '../../global/types.ts';
+import { EditorData, EditorSettings, SpriteSheetSequences } from '../../global/types.ts';
 import { produce } from 'immer';
 import appConfig from '../../../appConfig.ts';
 
@@ -14,10 +14,10 @@ const initialFrames = new Array(appConfig.numberOfSequences).fill({
  *
  * Modifies sprite sheet frames before returning data.
  */
-function useSpriteSheetFrames(numberOfSequences: number) {
-  // Initiate empty array containing SpriteSheetFrame objects
-  const [spriteSheetFrames, setSpriteSheetFrames] =
-    useState<SpriteSheetFrame[]>(initialFrames);
+function useSpriteSheetSequences(numberOfSequences: number) {
+  // Initiate empty array containing SpriteSheetSequences objects
+  const [spriteSheetSequences, setSpriteSheetSequences] =
+    useState<SpriteSheetSequences[]>(initialFrames);
 
   /**
    * Function to modify frames before returning the result.
@@ -26,7 +26,7 @@ function useSpriteSheetFrames(numberOfSequences: number) {
    * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance.
    */
   const modifiedFrames = useMemo(() => {
-    return produce(spriteSheetFrames, (draftFrames) => {
+    return produce(spriteSheetSequences, (draftFrames) => {
       // Splice frames
       draftFrames.splice(numberOfSequences);
 
@@ -38,9 +38,9 @@ function useSpriteSheetFrames(numberOfSequences: number) {
       // Modify the 'name' property of the last sequence
       draftFrames[draftFrames.length - 1].name = 'held';
     });
-  }, [numberOfSequences, spriteSheetFrames]);
+  }, [numberOfSequences, spriteSheetSequences]);
 
-  return [modifiedFrames, setSpriteSheetFrames] as const;
+  return [modifiedFrames, setSpriteSheetSequences] as const;
 }
 
 /**
@@ -65,15 +65,15 @@ function useSelectedSequence(numberOfSequences: number) {
 export default function useEditorData(
   numberOfSequences: EditorSettings['numberOfSequences']
 ): EditorData {
-  const [spriteSheetFrames, setSpriteSheetFrames] =
-    useSpriteSheetFrames(numberOfSequences);
+  const [spriteSheetSequences, setSpriteSheetSequences] =
+    useSpriteSheetSequences(numberOfSequences);
   const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences);
   const [selectedFrame, setSelectedFrame] = useState(0);
   const viewport = useRef<HTMLCanvasElement>(null);
 
   return {
-    spriteSheetFrames,
-    setSpriteSheetFrames,
+    spriteSheetSequences,
+    setSpriteSheetSequences,
     selectedSequence,
     setSelectedSequence,
     selectedFrame,

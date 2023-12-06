@@ -7,8 +7,8 @@ type Props = Pick<
   EditorData,
   | 'selectedFrame'
   | 'setSelectedFrame'
-  | 'spriteSheetFrames'
-  | 'setSpriteSheetFrames'
+  | 'spriteSheetSequences'
+  | 'setSpriteSheetSequences'
   | 'selectedSequence'
 >;
 
@@ -17,8 +17,8 @@ type Props = Pick<
  */
 function InspectorFramesList(EProps: Props) {
   const { callback, adjustSequence } = useFrameList(
-    EProps.spriteSheetFrames,
-    EProps.setSpriteSheetFrames,
+    EProps.spriteSheetSequences,
+    EProps.setSpriteSheetSequences,
     EProps.selectedSequence,
     EProps.selectedFrame,
     EProps.setSelectedFrame
@@ -26,11 +26,11 @@ function InspectorFramesList(EProps: Props) {
 
   return (
     <List
-      values={EProps.spriteSheetFrames[EProps.selectedSequence].sequence}
+      values={EProps.spriteSheetSequences[EProps.selectedSequence].sequence}
       onChange={({ oldIndex, newIndex }) => {
         adjustSequence(
           arrayMove(
-            EProps.spriteSheetFrames[EProps.selectedSequence].sequence,
+            EProps.spriteSheetSequences[EProps.selectedSequence].sequence,
             oldIndex,
             newIndex
           )

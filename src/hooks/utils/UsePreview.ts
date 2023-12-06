@@ -60,7 +60,7 @@ export default function usePreview(
       // So that images does not appear blury
       context.imageSmoothingEnabled = false;
 
-      // Create a timer which keeps timer going and updates spriteSheetFrames
+      // Create a timer which keeps timer going and updates spriteSheetSequences
       const timer = setTimeout(() => {
         setKeepTimer(keepTimer + 1);
         nextFrame(context);

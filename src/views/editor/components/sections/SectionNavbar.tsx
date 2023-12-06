@@ -23,7 +23,7 @@ import {
 type Props = {
   appSettings: AppSettings;
   editorSettings: EditorSettings;
-  exportSettings: Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
+  exportSettings: Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
   saveSettings: SaveSettings;
   loadSettings: LoadSettings;
 };

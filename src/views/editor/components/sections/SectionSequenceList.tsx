@@ -5,8 +5,8 @@ import CommonListItem from '../common/CommonListItem';
 
 type Props = Pick<
   EditorData,
-  | 'spriteSheetFrames'
-  | 'setSpriteSheetFrames'
+  | 'spriteSheetSequences'
+  | 'setSpriteSheetSequences'
   | 'selectedSequence'
   | 'setSelectedSequence'
 >;
@@ -18,10 +18,10 @@ function SectionSequenceList(EProps: Props) {
   return (
     <Card className='p-1'>
       <List
-        values={EProps.spriteSheetFrames}
+        values={EProps.spriteSheetSequences}
         onChange={({ oldIndex, newIndex }) => {
-          EProps.setSpriteSheetFrames(
-            arrayMove(EProps.spriteSheetFrames, oldIndex, newIndex)
+          EProps.setSpriteSheetSequences(
+            arrayMove(EProps.spriteSheetSequences, oldIndex, newIndex)
           );
           EProps.setSelectedSequence(newIndex);
         }}
@@ -35,7 +35,7 @@ function SectionSequenceList(EProps: Props) {
             <CommonListItem
               {...props}
               objectURL={value.sequence[0]?.objectURL}
-              text={EProps.spriteSheetFrames[index || 0].name}
+              text={EProps.spriteSheetSequences[index || 0].name}
               alt={`Sequence ${(index || 0) + 1}`}
               highlighted={index === EProps.selectedSequence}
             />

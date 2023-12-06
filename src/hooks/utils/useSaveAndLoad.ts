@@ -26,7 +26,7 @@ function load(file: File, loadSettings: LoadSettings) {
       }
 
       try {
-        convertFramesToObjectURLs(data.spriteSheetFrames).then((result) => {
+        convertFramesToObjectURLs(data.spriteSheetSequences).then((result) => {
           loadSettings.setHeight(data.height);
           loadSettings.setWidth(data.width);
           loadSettings.setNumberOfSequences(data.numberOfSequences);
@@ -34,7 +34,7 @@ function load(file: File, loadSettings: LoadSettings) {
           loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
           loadSettings.setImageCompressionRatio(data.imageCompressionRatio);
           loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
-          loadSettings.setSpriteSheetFrames(result);
+          loadSettings.setSpriteSheetSequences(result);
         });
         alert('Project loaded');
       } catch (e) {
@@ -59,7 +59,7 @@ function load(file: File, loadSettings: LoadSettings) {
  * Saves a FruityDancitor JSON file.
  */
 function save(saveSettings: SaveSettings) {
-  convertFramesToBase64(saveSettings.spriteSheetFrames).then((result) => {
+  convertFramesToBase64(saveSettings.spriteSheetSequences).then((result) => {
     const json: SaveSettings = {
         height: saveSettings.height,
         width: saveSettings.width,
@@ -67,7 +67,7 @@ function save(saveSettings: SaveSettings) {
         customBackgroundSrc: saveSettings.customBackgroundSrc,
         customBackgroundDarkness: saveSettings.customBackgroundDarkness,
         imageCompressionRatio: saveSettings.imageCompressionRatio,
-        spriteSheetFrames: result,
+        spriteSheetSequences: result,
       },
       blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
 

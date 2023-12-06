@@ -22,8 +22,8 @@ export type EditorSettings = {
 };
 
 export type EditorData = {
-  spriteSheetFrames: SpriteSheetFrame[];
-  setSpriteSheetFrames: Setter<SpriteSheetFrame[]>;
+  spriteSheetSequences: SpriteSheetSequences[];
+  setSpriteSheetSequences: Setter<SpriteSheetSequences[]>;
   selectedSequence: number;
   setSelectedSequence: Setter<number>;
   selectedFrame: number;
@@ -39,20 +39,20 @@ export type PickDialogFrames = {
   selectedDialogFrames: number[];
   setSelectedDialogFrames: Setter<number[]>;
   callback: (base64: string) => void;
-  spriteSheetFrames: EditorData['spriteSheetFrames'];
+  spriteSheetSequences: EditorData['spriteSheetSequences'];
   selectedSequence: EditorData['selectedSequence'];
 };
 
-export type ExportSettings = Pick<EditorData, 'spriteSheetFrames' | 'viewport'>;
+export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
 
-export type LoadSettings = Pick<EditorData, 'setSpriteSheetFrames'> &
+export type LoadSettings = Pick<EditorData, 'setSpriteSheetSequences'> &
   Pick<
     AppSettings,
     'setImageCompressionRatio' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
   > &
   Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
 
-export type SaveSettings = Pick<EditorData, 'spriteSheetFrames'> &
+export type SaveSettings = Pick<EditorData, 'spriteSheetSequences'> &
   Pick<
     AppSettings,
     'imageCompressionRatio' | 'customBackgroundSrc' | 'customBackgroundDarkness'
@@ -65,12 +65,7 @@ export type Modifications = {
   scale: number;
 };
 
-export type SpriteSheetFrame = {
+export type SpriteSheetSequences = {
   sequence: Array<{ objectURL: string; modifications: Modifications }>;
-  name: string;
-};
-
-export type SavedFileSpriteSheetFrame = {
-  sequence: Array<{ base64: string; modifications: Modifications }>;
   name: string;
 };

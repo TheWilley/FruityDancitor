@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
-import { EditorData, SpriteSheetFrame } from '../../global/types.ts';
+import { EditorData, SpriteSheetSequences } from '../../global/types.ts';
 import { produce } from 'immer';
 
 /**
  * Custom hook which handles frame list interaction
  */
 export default function useFrameList(
-  spriteSheetFrames: EditorData['spriteSheetFrames'],
-  setSpriteSheetFrames: EditorData['setSpriteSheetFrames'],
+  spriteSheetSequences: EditorData['spriteSheetSequences'],
+  setSpriteSheetSequences: EditorData['setSpriteSheetSequences'],
   selectedSequence: EditorData['selectedSequence'],
   selectedFrame: EditorData['selectedFrame'],
   setSelectedFrame: EditorData['setSelectedFrame']
@@ -21,18 +21,18 @@ export default function useFrameList(
     // Checks if the form is enabled (>0) or disabled (-1)
     if (selectedFrame != -1) {
       // If the selected index is out of bounds, move it down one step
-      if (spriteSheetFrames[selectedSequence].sequence.length <= selectedFrame) {
+      if (spriteSheetSequences[selectedSequence].sequence.length <= selectedFrame) {
         setSelectedFrame(selectedFrame - 1);
       }
 
-      // If we have no spriteSheetFrames, disable form
-      else if (spriteSheetFrames[selectedSequence].sequence.length === 0) {
+      // If we have no spriteSheetSequences, disable form
+      else if (spriteSheetSequences[selectedSequence].sequence.length === 0) {
         setSelectedFrame(-1);
       }
     }
 
     // If we only have one frame, select it
-    else if (spriteSheetFrames[selectedSequence].sequence.length === 1) {
+    else if (spriteSheetSequences[selectedSequence].sequence.length === 1) {
       setSelectedFrame(0);
     }
   });
@@ -40,9 +40,9 @@ export default function useFrameList(
   /**
    * Modifies a sequence with a new value.
    */
-  const adjustSequence = (modifiedSequence: SpriteSheetFrame['sequence']) => {
-    setSpriteSheetFrames((prevFrames) => {
-      return produce(prevFrames, (draft) => {
+  const adjustSequence = (modifiedSequence: SpriteSheetSequences['sequence']) => {
+    setSpriteSheetSequences((prevSequences) => {
+      return produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence = modifiedSequence;
       });
     });
@@ -53,12 +53,12 @@ export default function useFrameList(
    */
   const callback = (targetFrame: number) => {
     adjustSequence(
-      spriteSheetFrames[selectedSequence].sequence.filter(
+      spriteSheetSequences[selectedSequence].sequence.filter(
         (_, index) => index !== targetFrame
       )
     );
     URL.revokeObjectURL(
-      spriteSheetFrames[selectedSequence].sequence[targetFrame].objectURL
+      spriteSheetSequences[selectedSequence].sequence[targetFrame].objectURL
     );
   };
 

@@ -1,5 +1,5 @@
 import { GifReader } from 'omggif';
-import { SpriteSheetFrame } from '../global/types.ts';
+import { SpriteSheetSequences } from '../global/types.ts';
 
 /**
  * EXPORTED
@@ -15,12 +15,14 @@ export async function b64toBlob(base64: string) {
  * EXPORTED
  * Converts a series of frames to base64
  */
-export async function convertFramesToBase64(spriteSheetFrames: SpriteSheetFrame[]) {
-  const updatedFrames: SpriteSheetFrame[] = [];
+export async function convertFramesToBase64(
+  spriteSheetSequences: SpriteSheetSequences[]
+) {
+  const updatedFrames: SpriteSheetSequences[] = [];
 
-  for (const frame of spriteSheetFrames) {
+  for (const sequence of spriteSheetSequences) {
     const updatedSequence = await Promise.all(
-      frame.sequence.map(async (sequenceItem) => {
+      sequence.sequence.map(async (sequenceItem) => {
         const base64 = await getBase64FromUrl(sequenceItem.objectURL);
         return {
           objectURL: base64 as string, // Ensure the type is string
@@ -29,9 +31,9 @@ export async function convertFramesToBase64(spriteSheetFrames: SpriteSheetFrame[
       })
     );
 
-    const updatedFrame: SpriteSheetFrame = {
+    const updatedFrame: SpriteSheetSequences = {
       sequence: updatedSequence,
-      name: frame.name,
+      name: sequence.name,
     };
 
     updatedFrames.push(updatedFrame);
@@ -45,13 +47,13 @@ export async function convertFramesToBase64(spriteSheetFrames: SpriteSheetFrame[
  * Converts a series of frames to baseURL
  */
 export async function convertFramesToObjectURLs(
-  spriteSheetFrames: SpriteSheetFrame[]
-): Promise<SpriteSheetFrame[]> {
-  const updatedFrames: SpriteSheetFrame[] = [];
+  spriteSheetSequences: SpriteSheetSequences[]
+): Promise<SpriteSheetSequences[]> {
+  const updatedFrames: SpriteSheetSequences[] = [];
 
-  for (const frame of spriteSheetFrames) {
+  for (const sequence of spriteSheetSequences) {
     const updatedSequence = await Promise.all(
-      frame.sequence.map(async (sequenceItem) => {
+      sequence.sequence.map(async (sequenceItem) => {
         const blob = await b64toBlob(sequenceItem.objectURL);
         const objectURL = URL.createObjectURL(blob);
         return {
@@ -61,9 +63,9 @@ export async function convertFramesToObjectURLs(
       })
     );
 
-    const updatedFrame: SpriteSheetFrame = {
+    const updatedFrame: SpriteSheetSequences = {
       sequence: updatedSequence,
-      name: frame.name,
+      name: sequence.name,
     };
 
     updatedFrames.push(updatedFrame);

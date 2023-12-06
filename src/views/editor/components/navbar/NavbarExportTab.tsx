@@ -23,7 +23,7 @@ function NavbarExportTab(props: Props) {
         onClick={() =>
           downloadFile({
             filename: fileName,
-            spriteSheetFrames: props.exportSettings.spriteSheetFrames,
+            spriteSheetSequences: props.exportSettings.spriteSheetSequences,
             viewport: props.exportSettings.viewport,
           })
         }

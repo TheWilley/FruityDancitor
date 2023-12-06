@@ -22,7 +22,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
           // Makes sure we don't upload too many frames
           if (
             draftDialogFrames.length >=
-            8 - props.spriteSheetFrames[props.selectedSequence].sequence.length
+            8 - props.spriteSheetSequences[props.selectedSequence].sequence.length
           ) {
             draftDialogFrames.pop();
           }
@@ -95,7 +95,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
 
 type Props = Pick<
   EditorData,
-  'spriteSheetFrames' | 'setSpriteSheetFrames' | 'selectedSequence'
+  'spriteSheetSequences' | 'setSpriteSheetSequences' | 'selectedSequence'
 > &
   Pick<AppSettings, 'imageCompressionRatio'>;
 
@@ -120,8 +120,8 @@ function InspectorFileUpload(props: Props) {
     selectedDialogFrames,
     setSelectedDialogFrames,
   } = useFileUpload(
-    props.spriteSheetFrames,
-    props.setSpriteSheetFrames,
+    props.spriteSheetSequences,
+    props.setSpriteSheetSequences,
     props.selectedSequence,
     props.imageCompressionRatio
   );
@@ -140,7 +140,7 @@ function InspectorFileUpload(props: Props) {
         showDialog={showDialog}
         setShowDialog={setShowDialog}
         selectedSequence={props.selectedSequence}
-        spriteSheetFrames={props.spriteSheetFrames}
+        spriteSheetSequences={props.spriteSheetSequences}
         callback={addNewFrame}
       />
     </>
