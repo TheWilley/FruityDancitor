@@ -1,4 +1,6 @@
-type Props = { children: React.ReactNode[] };
+import { ReactNode } from 'react';
+
+type Props = { children: ReactNode[] };
 
 /**
  * Component which represents the viewport (i.e, middle area).

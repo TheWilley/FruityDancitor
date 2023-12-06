@@ -1,5 +1,5 @@
 import { produce } from 'immer';
-import { useCallback, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { SpriteSheetSequences } from '../../global/types.ts';
 import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
@@ -14,7 +14,7 @@ import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
  */
 export default function useFileUpload(
   spriteSheetSequences: SpriteSheetSequences[],
-  setSpriteSheetSequences: React.Dispatch<React.SetStateAction<SpriteSheetSequences[]>>,
+  setSpriteSheetSequences: Dispatch<SetStateAction<SpriteSheetSequences[]>>,
   selectedSequence: number,
   compressionRatio: number
 ) {

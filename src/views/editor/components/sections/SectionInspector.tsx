@@ -1,6 +1,7 @@
 import Card from '../../../../components/Card';
+import { ReactNode } from 'react';
 
-type Props = { children: React.ReactNode[] };
+type Props = { children: ReactNode[] };
 
 /**
  * Component which displays the sprite sheet.

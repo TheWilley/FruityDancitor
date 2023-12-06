@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import { EditorData } from '../../global/types.ts';
+import { ChangeEvent } from 'react';
 
 /**
  * Custom hook which handles frame manupilaton
@@ -28,7 +29,7 @@ export default function useFrameMods(
     }
   };
 
-  const setScale = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setScale = (e: ChangeEvent<HTMLInputElement>) => {
     setSpriteSheetSequences((prevSequences) =>
       produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence[selectedFrame].modifications.scale = parseFloat(
@@ -38,7 +39,7 @@ export default function useFrameMods(
     );
   };
 
-  const setxoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setxoffset = (e: ChangeEvent<HTMLInputElement>) => {
     setSpriteSheetSequences((prevSequences) =>
       produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence[selectedFrame].modifications.xoffset = parseInt(
@@ -48,7 +49,7 @@ export default function useFrameMods(
     );
   };
 
-  const setyoffset = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const setyoffset = (e: ChangeEvent<HTMLInputElement>) => {
     setSpriteSheetSequences((prevSequences) =>
       produce(prevSequences, (draft) => {
         draft[selectedSequence].sequence[selectedFrame].modifications.yoffset = parseInt(
