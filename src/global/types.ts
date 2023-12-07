@@ -4,8 +4,8 @@ import { Dispatch, RefObject, SetStateAction } from 'react';
 export type Setter<T> = Dispatch<SetStateAction<T>>;
 
 export type AppSettings = {
-  imageCompressionRatio: number;
-  setImageCompressionRatio: Setter<number>;
+  useImageCompression: boolean;
+  setUseImageCompression: Setter<boolean>;
   customBackgroundSrc: string;
   setCustomBackgroundSrc: Setter<string>;
   customBackgroundDarkness: number;
@@ -48,14 +48,14 @@ export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport
 export type LoadSettings = Pick<EditorData, 'setSpriteSheetSequences'> &
   Pick<
     AppSettings,
-    'setImageCompressionRatio' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
+    'setUseImageCompression' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
   > &
   Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
 
 export type SaveSettings = Pick<EditorData, 'spriteSheetSequences'> &
   Pick<
     AppSettings,
-    'imageCompressionRatio' | 'customBackgroundSrc' | 'customBackgroundDarkness'
+    'useImageCompression' | 'customBackgroundSrc' | 'customBackgroundDarkness'
   > &
   Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
 

@@ -32,7 +32,7 @@ function load(file: File, loadSettings: LoadSettings) {
           loadSettings.setNumberOfSequences(data.numberOfSequences);
           loadSettings.setCustomBackgroundSrc(data.customBackgroundSrc);
           loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
-          loadSettings.setImageCompressionRatio(data.imageCompressionRatio);
+          loadSettings.setUseImageCompression(data.useImageCompression);
           loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
           loadSettings.setSpriteSheetSequences(result);
         });
@@ -66,7 +66,7 @@ function save(saveSettings: SaveSettings) {
         numberOfSequences: saveSettings.numberOfSequences,
         customBackgroundSrc: saveSettings.customBackgroundSrc,
         customBackgroundDarkness: saveSettings.customBackgroundDarkness,
-        imageCompressionRatio: saveSettings.imageCompressionRatio,
+        useImageCompression: saveSettings.useImageCompression,
         spriteSheetSequences: result,
       },
       blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });

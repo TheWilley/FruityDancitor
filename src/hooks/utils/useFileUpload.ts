@@ -16,7 +16,7 @@ export default function useFileUpload(
   spriteSheetSequences: SpriteSheetSequences[],
   setSpriteSheetSequences: Dispatch<SetStateAction<SpriteSheetSequences[]>>,
   selectedSequence: number,
-  compressionRatio: number
+  useImageCompression: boolean
 ) {
   const [dragOver, setDragOver] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
@@ -59,7 +59,7 @@ export default function useFileUpload(
           // Check if there is space for a new entry
           if (spriteSheetSequences[selectedSequence].sequence.length + index < 8) {
             // Get base64 for the file
-            const base64 = (await getBase64(file, compressionRatio)) as string | string[];
+            const base64 = (await getBase64(file)) as string | string[];
 
             // Check if it is a collection of images or a single one
             if (Array.isArray(base64)) {
@@ -81,7 +81,7 @@ export default function useFileUpload(
         }
       }
     },
-    [addNewFrame, compressionRatio, selectedSequence, spriteSheetSequences]
+    [addNewFrame, useImageCompression, selectedSequence, spriteSheetSequences]
   );
 
   // When hovering over

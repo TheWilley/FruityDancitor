@@ -97,7 +97,7 @@ type Props = Pick<
   EditorData,
   'spriteSheetSequences' | 'setSpriteSheetSequences' | 'selectedSequence'
 > &
-  Pick<AppSettings, 'imageCompressionRatio'>;
+  Pick<AppSettings, 'useImageCompression'>;
 
 /**
  * Represent a file upload area.
@@ -123,7 +123,7 @@ function InspectorFileUpload(props: Props) {
     props.spriteSheetSequences,
     props.setSpriteSheetSequences,
     props.selectedSequence,
-    props.imageCompressionRatio
+    props.useImageCompression
   );
 
   return (
