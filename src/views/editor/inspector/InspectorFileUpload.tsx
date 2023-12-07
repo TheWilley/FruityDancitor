@@ -1,4 +1,4 @@
-import { AppSettings, EditorData, PickDialogFrames } from '../../../global/types.ts';
+import { EditorData, PickDialogFrames } from '../../../global/types.ts';
 import useFileUpload from '../../../hooks/utils/useFileUpload.ts';
 import { produce } from 'immer';
 
@@ -96,8 +96,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
 type Props = Pick<
   EditorData,
   'spriteSheetSequences' | 'setSpriteSheetSequences' | 'selectedSequence'
-> &
-  Pick<AppSettings, 'useImageCompression'>;
+>;
 
 /**
  * Represent a file upload area.
@@ -122,8 +121,7 @@ function InspectorFileUpload(props: Props) {
   } = useFileUpload(
     props.spriteSheetSequences,
     props.setSpriteSheetSequences,
-    props.selectedSequence,
-    props.useImageCompression
+    props.selectedSequence
   );
 
   return (

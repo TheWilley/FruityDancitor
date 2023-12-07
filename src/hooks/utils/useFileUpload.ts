@@ -15,8 +15,7 @@ import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
 export default function useFileUpload(
   spriteSheetSequences: SpriteSheetSequences[],
   setSpriteSheetSequences: Dispatch<SetStateAction<SpriteSheetSequences[]>>,
-  selectedSequence: number,
-  useImageCompression: boolean
+  selectedSequence: number
 ) {
   const [dragOver, setDragOver] = useState(false);
   const [showDialog, setShowDialog] = useState(false);
@@ -81,7 +80,7 @@ export default function useFileUpload(
         }
       }
     },
-    [addNewFrame, useImageCompression, selectedSequence, spriteSheetSequences]
+    [addNewFrame, selectedSequence, spriteSheetSequences]
   );
 
   // When hovering over

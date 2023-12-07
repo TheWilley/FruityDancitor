@@ -4,8 +4,6 @@ import { Dispatch, RefObject, SetStateAction } from 'react';
 export type Setter<T> = Dispatch<SetStateAction<T>>;
 
 export type AppSettings = {
-  useImageCompression: boolean;
-  setUseImageCompression: Setter<boolean>;
   customBackgroundSrc: string;
   setCustomBackgroundSrc: Setter<string>;
   customBackgroundDarkness: number;
@@ -46,17 +44,11 @@ export type PickDialogFrames = {
 export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
 
 export type LoadSettings = Pick<EditorData, 'setSpriteSheetSequences'> &
-  Pick<
-    AppSettings,
-    'setUseImageCompression' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
-  > &
+  Pick<AppSettings, 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'> &
   Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
 
 export type SaveSettings = Pick<EditorData, 'spriteSheetSequences'> &
-  Pick<
-    AppSettings,
-    'useImageCompression' | 'customBackgroundSrc' | 'customBackgroundDarkness'
-  > &
+  Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness'> &
   Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
 
 export type Modifications = {

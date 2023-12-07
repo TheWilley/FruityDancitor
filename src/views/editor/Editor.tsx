@@ -52,7 +52,6 @@ function Editor() {
             setWidth: editorSettings.setWidth,
             setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
             setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
-            setUseImageCompression: appSettings.setUseImageCompression,
           }}
           saveSettings={{
             spriteSheetSequences: editorData.spriteSheetSequences,
@@ -61,7 +60,6 @@ function Editor() {
             width: editorSettings.width,
             customBackgroundSrc: appSettings.customBackgroundSrc,
             customBackgroundDarkness: appSettings.customBackgroundDarkness,
-            useImageCompression: appSettings.useImageCompression,
           }}
         />
         <SpriteSheetCanvas
@@ -100,7 +98,6 @@ function Editor() {
             spriteSheetSequences={editorData.spriteSheetSequences}
             setSpriteSheetSequences={editorData.setSpriteSheetSequences}
             selectedSequence={editorData.selectedSequence}
-            useImageCompression={appSettings.useImageCompression}
           />
           <InspectorFramesList
             spriteSheetSequences={editorData.spriteSheetSequences}
