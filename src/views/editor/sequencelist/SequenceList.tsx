@@ -1,5 +1,4 @@
 import { arrayMove, List } from 'react-movable';
-import Card from '../../../components/Card.tsx';
 import { EditorData } from '../../../global/types.ts';
 import CommonListItem from '../../../components/CommonListItem.tsx';
 
@@ -16,33 +15,31 @@ type Props = Pick<
  */
 function SequenceList(EProps: Props) {
   return (
-    <Card className='p-1'>
-      <List
-        values={EProps.spriteSheetSequences}
-        onChange={({ oldIndex, newIndex }) => {
-          EProps.setSpriteSheetSequences(
-            arrayMove(EProps.spriteSheetSequences, oldIndex, newIndex)
-          );
-          EProps.setSelectedSequence(newIndex);
-        }}
-        renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-        renderItem={({ value, props, index }) => (
-          <li
+    <List
+      values={EProps.spriteSheetSequences}
+      onChange={({ oldIndex, newIndex }) => {
+        EProps.setSpriteSheetSequences(
+          arrayMove(EProps.spriteSheetSequences, oldIndex, newIndex)
+        );
+        EProps.setSelectedSequence(newIndex);
+      }}
+      renderList={({ children, props }) => <ul {...props}>{children}</ul>}
+      renderItem={({ value, props, index }) => (
+        <li
+          {...props}
+          onMouseDown={() => EProps.setSelectedSequence(index || 0)}
+          className='z-30'
+        >
+          <CommonListItem
             {...props}
-            onMouseDown={() => EProps.setSelectedSequence(index || 0)}
-            className='z-30'
-          >
-            <CommonListItem
-              {...props}
-              objectURL={value.sequence[0]?.objectURL}
-              text={EProps.spriteSheetSequences[index || 0].name}
-              alt={`Sequence ${(index || 0) + 1}`}
-              highlighted={index === EProps.selectedSequence}
-            />
-          </li>
-        )}
-      />
-    </Card>
+            objectURL={value.sequence[0]?.objectURL}
+            text={EProps.spriteSheetSequences[index || 0].name}
+            alt={`Sequence ${(index || 0) + 1}`}
+            highlighted={index === EProps.selectedSequence}
+          />
+        </li>
+      )}
+    />
   );
 }
 

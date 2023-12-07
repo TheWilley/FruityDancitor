@@ -2,16 +2,18 @@ import useAppSettings from '../../hooks/state/useAppSettings.ts';
 import useEditorData from '../../hooks/state/useEditorData.ts';
 import useEditorSettings from '../../hooks/state/useEditorSettings.ts';
 import Navbar from './navbar/Navbar.tsx';
-import Inspector from './inspector/Inspector.tsx';
+import SectionRight from './sections/SectionRight.tsx';
 import InspectorFileUpload from './inspector/InspectorFileUpload';
 import InspectorFrameMods from './inspector/InspectorFrameMods';
 import InspectorFramesList from './inspector/InspectorFramesList';
 import InspectorPreview from './inspector/InspectorPreview';
 import InspectorSequenceName from './inspector/InspectorSequenceName.tsx';
 import SequenceList from './sequencelist/SequenceList.tsx';
-import Viewport from './viewport/Viewport.tsx';
-import SpriteSheetCanvas from './viewport/ViewportSpriteSheetCanvas';
+import SectionMiddle from './sections/SectionMiddle.tsx';
+import SpriteSheetCanvas from './viewport/Viewport.tsx';
 import useBackground from '../../hooks/utils/useBackground.ts';
+import SectionLeft from './sections/SectionLeft.tsx';
+import SectionContainer from './sections/SectionContainer.tsx';
 
 /**
  * Represents a sprite sheet Editor.
@@ -26,18 +28,17 @@ function Editor() {
   useBackground(appSettings.customBackgroundSrc, appSettings.customBackgroundDarkness);
 
   return (
-    <div
-      className='grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full'
-      style={{ height: 'calc(100vh - 40px)' }}
-    >
-      <SequenceList
-        spriteSheetSequences={editorData.spriteSheetSequences}
-        setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-        selectedSequence={editorData.selectedSequence}
-        setSelectedSequence={editorData.setSelectedSequence}
-      />
+    <SectionContainer>
+      <SectionLeft>
+        <SequenceList
+          spriteSheetSequences={editorData.spriteSheetSequences}
+          setSpriteSheetSequences={editorData.setSpriteSheetSequences}
+          selectedSequence={editorData.selectedSequence}
+          setSelectedSequence={editorData.setSelectedSequence}
+        />
+      </SectionLeft>
 
-      <Viewport>
+      <SectionMiddle>
         <Navbar
           appSettings={appSettings}
           editorSettings={editorSettings}
@@ -69,9 +70,9 @@ function Editor() {
           spriteSheetSequences={editorData.spriteSheetSequences}
           viewport={editorData.viewport}
         />
-      </Viewport>
+      </SectionMiddle>
 
-      <Inspector>
+      <SectionRight>
         {editorData.viewport && (
           <InspectorPreview
             viewport={editorData.viewport}
@@ -107,8 +108,8 @@ function Editor() {
             setSelectedFrame={editorData.setSelectedFrame}
           />
         </div>
-      </Inspector>
-    </div>
+      </SectionRight>
+    </SectionContainer>
   );
 }
 

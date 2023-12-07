@@ -4,10 +4,10 @@ import { ReactNode } from 'react';
 type Props = { children: ReactNode[] };
 
 /**
- * Component which displays settings for a selected sequence and frame.
+ * The right section of the editor.
  */
-function Inspector(props: Props) {
+function SectionRight(props: Props) {
   return <Card>{props.children}</Card>;
 }
 
-export default Inspector;
+export default SectionRight;
