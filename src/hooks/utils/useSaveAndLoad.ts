@@ -30,6 +30,7 @@ function load(file: File, loadSettings: LoadSettings) {
           loadSettings.setHeight(data.height);
           loadSettings.setWidth(data.width);
           loadSettings.setNumberOfSequences(data.numberOfSequences);
+          loadSettings.setPreviewFps(data.previewFps);
           loadSettings.setCustomBackgroundSrc(data.customBackgroundSrc);
           loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
           loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
@@ -63,6 +64,7 @@ function save(saveSettings: SaveSettings) {
         height: saveSettings.height,
         width: saveSettings.width,
         numberOfSequences: saveSettings.numberOfSequences,
+        previewFps: saveSettings.previewFps,
         customBackgroundSrc: saveSettings.customBackgroundSrc,
         customBackgroundDarkness: saveSettings.customBackgroundDarkness,
         spriteSheetSequences: result,

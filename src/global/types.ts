@@ -46,11 +46,14 @@ export type PickDialogFrames = {
 export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
 
 export type LoadSettings = Pick<EditorData, 'setSpriteSheetSequences'> &
-  Pick<AppSettings, 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'> &
+  Pick<
+    AppSettings,
+    'setPreviewFps' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
+  > &
   Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
 
 export type SaveSettings = Pick<EditorData, 'spriteSheetSequences'> &
-  Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness'> &
+  Pick<AppSettings, 'previewFps' | 'customBackgroundSrc' | 'customBackgroundDarkness'> &
   Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
 
 export type Modifications = {

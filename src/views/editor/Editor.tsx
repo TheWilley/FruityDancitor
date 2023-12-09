@@ -51,6 +51,7 @@ function Editor() {
             setNumberOfSequences: editorSettings.setNumberOfSequences,
             setHeight: editorSettings.setHeight,
             setWidth: editorSettings.setWidth,
+            setPreviewFps: appSettings.setPreviewFps,
             setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
             setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
           }}
@@ -59,6 +60,7 @@ function Editor() {
             numberOfSequences: editorSettings.numberOfSequences,
             height: editorSettings.height,
             width: editorSettings.width,
+            previewFps: appSettings.previewFps,
             customBackgroundSrc: appSettings.customBackgroundSrc,
             customBackgroundDarkness: appSettings.customBackgroundDarkness,
           }}
