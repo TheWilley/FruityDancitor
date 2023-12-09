@@ -79,6 +79,7 @@ function Editor() {
             height={editorSettings.height}
             width={editorSettings.width}
             selectedSequence={editorData.selectedSequence}
+            previewFps={appSettings.previewFps}
           />
         )}
         <div className='p-2'>

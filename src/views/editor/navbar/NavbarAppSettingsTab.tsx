@@ -1,4 +1,4 @@
-import { faImage, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faLightbulb, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppSettings } from '../../../global/types.ts';
 
@@ -12,6 +12,25 @@ type Props = { appSettings: AppSettings };
 function NavbarAppSettingsTab(props: Props) {
   return (
     <div className='grid grid-cols-3 gap-2'>
+      <div className='join'>
+        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+          <FontAwesomeIcon icon={faPlay} />
+        </div>
+        <div
+          className='w-full tooltip tooltip-bottom'
+          data-tip='Preview FPS - The sequence preview FPS'
+        >
+          <input
+            type='number'
+            className='input input-bordered join-item input-sm w-full'
+            placeholder='Preview FPS'
+            min={1}
+            max={12}
+            value={props.appSettings.previewFps}
+            onChange={(e) => props.appSettings.setPreviewFps(Number(e.target.value))}
+          />
+        </div>
+      </div>
       <div className='join'>
         <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
           <FontAwesomeIcon icon={faImage} />

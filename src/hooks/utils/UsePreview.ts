@@ -8,7 +8,8 @@ export default function usePreview(
   originalCanvas: HTMLCanvasElement | null,
   selectedSequence: number,
   width: number,
-  height: number
+  height: number,
+  previewFps: number
 ) {
   const [keepTimer, setKeepTimer] = useState(0);
   const [currentFrame, setCurrentFrame] = useState(0);
@@ -61,10 +62,13 @@ export default function usePreview(
       context.imageSmoothingEnabled = false;
 
       // Create a timer which keeps timer going and updates spriteSheetSequences
-      const timer = setTimeout(() => {
-        setKeepTimer(keepTimer + 1);
-        nextFrame(context);
-      }, 500);
+      const timer = setTimeout(
+        () => {
+          setKeepTimer(keepTimer + 1);
+          nextFrame(context);
+        },
+        (1 / previewFps) * 1000
+      );
 
       return () => clearTimeout(timer);
     }

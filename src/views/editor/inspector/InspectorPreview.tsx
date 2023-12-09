@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import usePreview from '../../../hooks/utils/UsePreview.ts';
-import { EditorData, EditorSettings } from '../../../global/types.ts';
+import { AppSettings, EditorData, EditorSettings } from '../../../global/types.ts';
 
 type Props = Pick<EditorData, 'viewport' | 'selectedSequence'> &
+  Pick<AppSettings, 'previewFps'> &
   Pick<EditorSettings, 'width' | 'height'>;
 
 /**
@@ -17,7 +18,8 @@ function InspectorPreview(props: Props) {
     props.viewport.current,
     props.selectedSequence,
     props.width,
-    props.height
+    props.height,
+    props.previewFps
   );
 
   return (

@@ -8,6 +8,8 @@ export type AppSettings = {
   setCustomBackgroundSrc: Setter<string>;
   customBackgroundDarkness: number;
   setCustomBackgroundDarkness: Setter<number>;
+  previewFps: number;
+  setPreviewFps: Setter<number>;
 };
 
 export type EditorSettings = {
