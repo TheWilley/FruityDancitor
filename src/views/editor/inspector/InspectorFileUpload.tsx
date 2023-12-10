@@ -57,7 +57,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
     <>
       <dialog
         id='my_modal_1'
-        className='modal'
+        className='modal backdrop-brightness-50'
         open={props.showDialog}
         onClose={() => hideDialog()}
       >
@@ -79,8 +79,9 @@ function InspectorPickFrames(props: PickDialogFrames) {
           </div>
           <div className='modal-action'>
             <form method='dialog'>
-              {/* if there is a button in form, it will close the modal */}
-              <button className='btn'>Close</button>
+              <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>
+                ✕
+              </button>
             </form>
             <button className='btn btn-success' onClick={() => uploadSelectedImages()}>
               {' '}
