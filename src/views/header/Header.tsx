@@ -1,12 +1,21 @@
 import logotype from '../../media/logotype.svg';
 import ThemeSwitcher from './ThemeSwitcher.tsx';
+import useHeader from '../../hooks/utils/useHeader.ts';
 
 /**
  * The header of the webpage.
  */
 function Header() {
+  const { showHeader } = useHeader();
+
   return (
-    <div className='navbar bg-base-100 rounded-md mb-2'>
+    <div
+      className='navbar bg-base-100 rounded-md mb-2 transition-all'
+      style={{
+        opacity: showHeader ? '100%' : '0%',
+        transform: showHeader ? 'translateY(0px)' : 'translateY(-120px)',
+      }}
+    >
       <div className='navbar-start'>
         <div className='dropdown'>
           <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
