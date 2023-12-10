@@ -26,14 +26,12 @@ function NavbarSaveAndLoadTab(props: Props) {
         className='btn btn-warning w-full'
         onClick={() => fileRef.current && fileRef.current.click()}
       >
-        {' '}
         Load Project
       </button>
       <button
         className='btn btn-success w-full mt-1'
         onClick={() => save(props.saveSettings)}
       >
-        {' '}
         Save Project
       </button>
     </div>

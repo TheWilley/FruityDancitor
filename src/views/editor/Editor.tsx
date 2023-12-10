@@ -14,6 +14,8 @@ import SpriteSheetCanvas from './viewport/Viewport.tsx';
 import useBackground from '../../hooks/utils/useBackground.ts';
 import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
+import useKeyPress from '../../hooks/utils/useKeyPress.tsx';
+import useExport from '../../hooks/utils/useExport.ts';
 
 /**
  * Represents a sprite sheet Editor.
@@ -21,10 +23,20 @@ import SectionContainer from './sections/SectionContainer.tsx';
  * frames, and various settings associated with the sprite sheet.
  */
 function Editor() {
+  // States
   const appSettings = useAppSettings();
   const editorSettings = useEditorSettings();
   const editorData = useEditorData(editorSettings.numberOfSequences);
 
+  // Custom hooks
+  const [, , download] = useExport();
+  useKeyPress(['shift', 'e'], () => {
+    download({
+      filename: '',
+      viewport: editorData.viewport,
+      spriteSheetSequences: editorData.spriteSheetSequences,
+    });
+  });
   useBackground(appSettings.customBackgroundSrc, appSettings.customBackgroundDarkness);
 
   return (
