@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
  * Custom hook which retuns a boolean value based on scroll direction.
  */
 export default function useHeader() {
-  const [showHeader, setShowHeader] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
   const { isScrollingUp, isScrollingDown } = useScrollDirection();
 
   useEffect(() => {
