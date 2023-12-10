@@ -1,17 +1,10 @@
-import {
-  faCog,
-  faFileExport,
-  faInfoCircle,
-  faPen,
-  faSave,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCog, faFileExport, faPen, faSave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import NavbarAppSettingsTab from './NavbarAppSettingsTab.tsx';
 import NavbarEditorSettingsTab from './NavbarEditorSettingsTab.tsx';
 import NavbarExportTab from './NavbarExportTab.tsx';
 import NavbarSaveAndLoadTab from './NavbarSaveAndLoadTab.tsx';
-import NavbarInfoTab from './NavbarInfoTab.tsx';
 import {
   AppSettings,
   EditorData,
@@ -60,11 +53,6 @@ function Navbar(props: Props) {
       name: 'Export',
       view: <NavbarExportTab exportSettings={props.exportSettings} />,
       icon: <FontAwesomeIcon icon={faFileExport} />,
-    },
-    {
-      name: 'Information',
-      view: <NavbarInfoTab />,
-      icon: <FontAwesomeIcon icon={faInfoCircle} />,
     },
   ];
 

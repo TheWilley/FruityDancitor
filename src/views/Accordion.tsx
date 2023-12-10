@@ -1,4 +1,5 @@
 import Editor from './editor/Editor';
+import Header from './header/Header.tsx';
 
 /**
  * Represents an Accordion component.
@@ -10,6 +11,7 @@ import Editor from './editor/Editor';
 function Accordion() {
   return (
     <div>
+      <Header />
       <Editor />
     </div>
   );
