@@ -12,7 +12,7 @@ export default {
     },
   },
   daisyui: {
-    themes: ['light', 'dark', 'cupcake'],
+    themes: ['light', 'dark', 'aqua', 'dracula', 'lofi'],
   },
   plugins: [daisyui],
 };
