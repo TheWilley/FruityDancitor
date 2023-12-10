@@ -19,7 +19,7 @@ function NavbarExportTab(props: Props) {
         placeholder='File Name...'
       />
       <button
-        className='btn btn-outline btn-success w-full'
+        className='btn btn-success w-full'
         onClick={() =>
           downloadFile({
             filename: fileName,

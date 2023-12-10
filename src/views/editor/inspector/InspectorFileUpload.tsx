@@ -71,7 +71,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
                 alt={`Frame ${index}`}
                 width={150}
                 className={`border cursor-pointer ${
-                  props.selectedDialogFrames.includes(index) ? 'border-primary' : ''
+                  props.selectedDialogFrames.includes(index) ? 'border-secondary' : ''
                 }`}
                 onClick={() => selectFrame(index)}
               />
