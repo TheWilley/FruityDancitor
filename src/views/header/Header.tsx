@@ -10,7 +10,7 @@ function Header() {
 
   return (
     <div
-      className='navbar bg-base-100 rounded-md mb-2 transition-all'
+      className='navbar bg-base-100 rounded-md mb-2 transition-all relative z-30'
       style={{
         opacity: showHeader ? '100%' : '0%',
         transform: showHeader ? 'translateY(0px)' : 'translateY(-120px)',
