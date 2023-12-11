@@ -1,6 +1,5 @@
-import { faGripVertical, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faGripVertical, faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import noimage from '../media/noimage.svg';
 
 type Props = {
   text: string;
@@ -24,12 +23,16 @@ function CommonListItem(props: Props) {
       <div className={'mr-2 text-2xl'}>
         <FontAwesomeIcon icon={faGripVertical} />
       </div>
-      <img
-        src={props.objectURL || noimage}
-        className={`inline mr-1 w-10 h-10 ${props.objectURL && 'border'}`}
-        width={40}
-        height={40}
-      />
+      {props.objectURL ? (
+        <img
+          src={props.objectURL}
+          className={`inline mr-1 w-10 h-10 ${props.objectURL && 'border'}`}
+          width={40}
+          height={40}
+        />
+      ) : (
+        <FontAwesomeIcon icon={faImage} className='text-4xl mr-2' />
+      )}
       <span className='overflow-hidden text-ellipsis'>
         {props.text || <i> {props.alt} </i>}
       </span>
