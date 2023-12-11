@@ -23,7 +23,7 @@ function NavbarSaveAndLoadTab(props: Props) {
         className='hidden'
       />
       <button
-        className='btn btn-warning w-full'
+        className='btn btn-info w-full'
         onClick={() => fileRef.current && fileRef.current.click()}
       >
         Load Project
