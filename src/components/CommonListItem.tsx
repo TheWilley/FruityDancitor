@@ -30,7 +30,9 @@ function CommonListItem(props: Props) {
         width={40}
         height={40}
       />
-      <span>{props.text || <i> {props.alt} </i>}</span>
+      <span className='overflow-hidden text-ellipsis'>
+        {props.text || <i> {props.alt} </i>}
+      </span>
       {props.includeTrash && (
         <span className='absolute right-3 top-3 cursor-pointer'>
           <FontAwesomeIcon
