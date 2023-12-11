@@ -24,7 +24,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
             draftDialogFrames.length >=
             8 - props.spriteSheetSequences[props.selectedSequence].sequence.length
           ) {
-            draftDialogFrames.pop();
+            draftDialogFrames.shift();
           }
 
           // Push clicked frame
@@ -62,7 +62,10 @@ function InspectorPickFrames(props: PickDialogFrames) {
         onClose={() => hideDialog()}
       >
         <div className='modal-box'>
-          <h1 className='text-2xl mb-2'> Select Frames </h1>
+          <h1 className='text-2xl mb-2'>
+            Select Frames ({props.selectedDialogFrames.length} /
+            {8 - props.spriteSheetSequences[props.selectedSequence].sequence.length})
+          </h1>
           <div className='grid grid-cols-5 gap-2'>
             {props.dialogFrames.map((frame, index) => (
               <img
@@ -70,8 +73,8 @@ function InspectorPickFrames(props: PickDialogFrames) {
                 src={frame}
                 alt={`Frame ${index}`}
                 width={150}
-                className={`border cursor-pointer ${
-                  props.selectedDialogFrames.includes(index) ? 'border-secondary' : ''
+                className={`cursor-pointer rounded bg-base-300 ${
+                  props.selectedDialogFrames.includes(index) ? 'border' : ''
                 }`}
                 onClick={() => selectFrame(index)}
               />
@@ -84,7 +87,6 @@ function InspectorPickFrames(props: PickDialogFrames) {
               </button>
             </form>
             <button className='btn btn-success' onClick={() => uploadSelectedImages()}>
-              {' '}
               Upload
             </button>
           </div>
