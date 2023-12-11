@@ -1,7 +1,7 @@
 /**
  * Displays a list of keyboard shorcuts.
  */
-function NavbarKeyboardShortcuts() {
+function NavbarKeyboardShortcutsTab() {
   return (
     <>
       <div>
@@ -12,4 +12,4 @@ function NavbarKeyboardShortcuts() {
   );
 }
 
-export default NavbarKeyboardShortcuts;
+export default NavbarKeyboardShortcutsTab;

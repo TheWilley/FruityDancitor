@@ -18,7 +18,7 @@ import {
   LoadSettings,
   SaveSettings,
 } from '../../../global/types.ts';
-import NavbarKeyboardShortcuts from './NavbarKeyboardShortcuts.tsx';
+import NavbarKeyboardShortcutsTab from './NavbarKeyboardShortcutsTab.tsx';
 
 type Props = {
   appSettings: AppSettings;
@@ -63,7 +63,7 @@ function Navbar(props: Props) {
     },
     {
       name: 'Keyboard Shortcuts',
-      view: <NavbarKeyboardShortcuts />,
+      view: <NavbarKeyboardShortcutsTab />,
       icon: <FontAwesomeIcon icon={faKeyboard} />,
     },
   ];
