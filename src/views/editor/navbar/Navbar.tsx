@@ -1,4 +1,10 @@
-import { faCog, faFileExport, faPen, faSave } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCog,
+  faFileExport,
+  faKeyboard,
+  faPen,
+  faSave,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import NavbarAppSettingsTab from './NavbarAppSettingsTab.tsx';
@@ -12,6 +18,7 @@ import {
   LoadSettings,
   SaveSettings,
 } from '../../../global/types.ts';
+import NavbarKeyboardShortcuts from './NavbarKeyboardShortcuts.tsx';
 
 type Props = {
   appSettings: AppSettings;
@@ -53,6 +60,11 @@ function Navbar(props: Props) {
       name: 'Export',
       view: <NavbarExportTab exportSettings={props.exportSettings} />,
       icon: <FontAwesomeIcon icon={faFileExport} />,
+    },
+    {
+      name: 'Keyboard Shortcuts',
+      view: <NavbarKeyboardShortcuts />,
+      icon: <FontAwesomeIcon icon={faKeyboard} />,
     },
   ];
 
