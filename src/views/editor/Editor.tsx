@@ -14,7 +14,7 @@ import SpriteSheetCanvas from './viewport/Viewport.tsx';
 import useBackground from '../../hooks/utils/useBackground.ts';
 import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
-import useKeyPress from '../../hooks/utils/useKeyPress.tsx';
+import useKeyPress from '../../hooks/utils/useKeyPress.ts';
 import useExport from '../../hooks/utils/useExport.ts';
 
 /**
