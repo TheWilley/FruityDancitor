@@ -1,5 +1,6 @@
 import { faGripVertical, faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useStyle from '../hooks/utils/useStyle.ts';
 
 type Props = {
   text: string;
@@ -14,6 +15,10 @@ type Props = {
  * A component which represent a list item within both SequenceList and InspectorFramesList.
  */
 function CommonListItem(props: Props) {
+  const [imageBorder] = useStyle('nline mr-1 w-10 h-10', undefined, [
+    { condition: props.objectURL !== undefined, result: 'border' },
+  ]);
+
   return (
     <div
       className={`flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move ${
@@ -24,12 +29,7 @@ function CommonListItem(props: Props) {
         <FontAwesomeIcon icon={faGripVertical} />
       </div>
       {props.objectURL ? (
-        <img
-          src={props.objectURL}
-          className={`inline mr-1 w-10 h-10 ${props.objectURL && 'border'}`}
-          width={40}
-          height={40}
-        />
+        <img src={props.objectURL} className={imageBorder} width={40} height={40} />
       ) : (
         <FontAwesomeIcon icon={faImage} className='text-4xl mr-2' />
       )}

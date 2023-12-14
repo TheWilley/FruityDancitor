@@ -100,25 +100,6 @@ export default function useFileUpload(
     onDragLeave,
   });
 
-  // Create a dynamic class to use below
-  const className = [
-    'border-2',
-    'border-dashed',
-    'rounded-md',
-    'w-full',
-    'mb-2',
-    'p-3',
-    'bg-base-200',
-    'opacity-60',
-    disabled
-      ? 'cursor-not-allowed'
-      : 'cursor-pointer hover:opacity-100 transition-opacity',
-  ].join(' ');
-
-  const style = {
-    borderColor: dragOver ? (disabled ? 'darkred' : 'darkgreen') : '',
-  };
-
   const placeholder = disabled
     ? "Can't upload more than 8 files"
     : isDragActive
@@ -133,8 +114,7 @@ export default function useFileUpload(
     setSelectedDialogFrames,
     placeholder,
     disabled,
-    className,
-    style,
+    dragOver,
     addNewFrame,
     showDialog,
     dialogFrames,

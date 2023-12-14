@@ -1,6 +1,7 @@
 import { EditorData, PickDialogFrames } from '../../../global/types.ts';
 import useFileUpload from '../../../hooks/utils/useFileUpload.ts';
 import { produce } from 'immer';
+import useStyle from '../../../hooks/utils/useStyle.ts';
 
 /**
  * Represents an image picker.
@@ -115,8 +116,7 @@ function InspectorFileUpload(props: Props) {
     setSelectedDialogFrames,
     placeholder,
     disabled,
-    className,
-    style,
+    dragOver,
     addNewFrame,
     showDialog,
     dialogFrames,
@@ -127,9 +127,35 @@ function InspectorFileUpload(props: Props) {
     props.selectedSequence
   );
 
+  const [classes, styles] = useStyle(
+    'border-2 border-dashed rounded-md w-full mb-2 p-3 bg-base-200 opacity-60',
+    undefined,
+    [
+      {
+        condition: disabled,
+        result: {
+          true: 'cursor-not-allowed',
+          false: 'cursor-pointer hover:opacity-100 transition-opacity',
+        },
+      },
+    ],
+    [
+      {
+        cssProperty: 'borderColor',
+        condition: dragOver && disabled,
+        result: { true: 'darkred' },
+      },
+      {
+        cssProperty: 'borderColor',
+        condition: dragOver && !disabled,
+        result: { true: 'darkgreen' },
+      },
+    ]
+  );
+
   return (
     <>
-      <div {...getRootProps()} className={className} style={style}>
+      <div {...getRootProps()} className={classes} style={styles}>
         <input {...getInputProps()} disabled={disabled} />
         <p>{placeholder}</p>
       </div>
