@@ -1,5 +1,6 @@
 import { EditorData } from '../../../global/types.ts';
 import useFrameMods from '../../../hooks/utils/useFrameMods.ts';
+import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
 
 type Props = Pick<
   EditorData,
@@ -13,6 +14,7 @@ type Props = Pick<
  * Component which represents settings for a selected frame.
  */
 function InspectorFrameMods(props: Props) {
+  const { validateNumberInput } = useInputValidation();
   const { mods, disabled, setxoffset, setyoffset, setScale, resetMods } = useFrameMods(
     props.spriteSheetSequences,
     props.setSpriteSheetSequences,
@@ -32,7 +34,7 @@ function InspectorFrameMods(props: Props) {
           step={0.1}
           min={0.1}
           value={mods.scale}
-          onChange={(e) => setScale(e)}
+          onChange={(e) => validateNumberInput('float', e, (value) => setScale(value))}
           disabled={disabled}
         />
       </div>
@@ -44,8 +46,11 @@ function InspectorFrameMods(props: Props) {
           <input
             type='number'
             className='input input-md input-bordered w-full'
+            min={0}
             value={mods.xoffset}
-            onChange={(e) => setxoffset(e)}
+            onChange={(e) =>
+              validateNumberInput('number', e, (value) => setxoffset(value))
+            }
             disabled={disabled}
           />
         </div>
@@ -56,8 +61,11 @@ function InspectorFrameMods(props: Props) {
           <input
             type='number'
             className='input input-md input-bordered w-full'
+            min={0}
             value={mods.yoffset}
-            onChange={(e) => setyoffset(e)}
+            onChange={(e) =>
+              validateNumberInput('number', e, (value) => setyoffset(value))
+            }
             disabled={disabled}
           />
         </div>

@@ -1,6 +1,7 @@
 import { faImage, faLightbulb, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppSettings } from '../../../global/types.ts';
+import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
 
 type Props = { appSettings: AppSettings };
 
@@ -10,6 +11,8 @@ type Props = { appSettings: AppSettings };
  * More specifically, settings which does not concern a specific section of the app.
  */
 function NavbarAppSettingsTab(props: Props) {
+  const { validateNumberInput } = useInputValidation();
+
   return (
     <div className='grid grid-cols-3 gap-2'>
       <div className='join'>
@@ -27,7 +30,11 @@ function NavbarAppSettingsTab(props: Props) {
             min={1}
             max={12}
             value={props.appSettings.previewFps}
-            onChange={(e) => props.appSettings.setPreviewFps(Number(e.target.value))}
+            onChange={(e) =>
+              validateNumberInput('number', e, (value) =>
+                props.appSettings.setPreviewFps(value)
+              )
+            }
           />
         </div>
       </div>
@@ -65,7 +72,9 @@ function NavbarAppSettingsTab(props: Props) {
             step={0.1}
             value={props.appSettings.customBackgroundDarkness}
             onChange={(e) =>
-              props.appSettings.setCustomBackgroundDarkness(Number(e.target.value))
+              validateNumberInput('float', e, (value) =>
+                props.appSettings.setCustomBackgroundDarkness(value)
+              )
             }
           />
         </div>

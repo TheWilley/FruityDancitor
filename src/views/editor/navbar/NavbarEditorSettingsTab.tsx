@@ -1,6 +1,7 @@
 import { faBars, faTextHeight, faTextWidth } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { EditorSettings } from '../../../global/types.ts';
+import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
 
 type Props = { editorSettings: EditorSettings };
 
@@ -10,6 +11,8 @@ type Props = { editorSettings: EditorSettings };
  * For example, the width and height of a tile (i.e, things you would change when editing the sprite sheet).
  */
 function NavbarEditorSettingsTab(props: Props) {
+  const { validateNumberInput } = useInputValidation();
+
   return (
     <div className='grid grid-cols-3 gap-2'>
       <div className='join'>
@@ -25,9 +28,12 @@ function NavbarEditorSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Sequences'
             min={1}
+            max={100}
             value={props.editorSettings.numberOfSequences}
             onChange={(e) =>
-              props.editorSettings.setNumberOfSequences(Number(e.target.value))
+              validateNumberInput('number', e, (value) =>
+                props.editorSettings.setNumberOfSequences(value)
+              )
             }
           />
         </div>
@@ -46,7 +52,11 @@ function NavbarEditorSettingsTab(props: Props) {
             placeholder='Width'
             min={50}
             value={props.editorSettings.width}
-            onChange={(e) => props.editorSettings.setWidth(Number(e.target.value))}
+            onChange={(e) =>
+              validateNumberInput('number', e, (value) =>
+                props.editorSettings.setWidth(value)
+              )
+            }
           />
         </div>
       </div>
@@ -64,7 +74,11 @@ function NavbarEditorSettingsTab(props: Props) {
             placeholder='Height'
             min={50}
             value={props.editorSettings.height}
-            onChange={(e) => props.editorSettings.setHeight(Number(e.target.value))}
+            onChange={(e) =>
+              validateNumberInput('number', e, (value) =>
+                props.editorSettings.setHeight(value)
+              )
+            }
           />
         </div>
       </div>
