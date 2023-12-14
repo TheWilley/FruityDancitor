@@ -15,16 +15,18 @@ type Props = {
  * A component which represent a list item within both SequenceList and InspectorFramesList.
  */
 function CommonListItem(props: Props) {
-  const [imageBorder] = useStyle('nline mr-1 w-10 h-10', undefined, [
+  const [imageBorder] = useStyle('inline mr-1 w-10 h-10', undefined, [
     { condition: props.objectURL !== undefined, result: 'border' },
   ]);
 
+  const [highlighted] = useStyle(
+    'flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move',
+    undefined,
+    [{ condition: props.highlighted === true, result: 'border border-base' }]
+  );
+
   return (
-    <div
-      className={`flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move ${
-        props.highlighted ? 'border border-base' : ''
-      }`}
-    >
+    <div className={highlighted}>
       <div className={'mr-2 text-2xl'}>
         <FontAwesomeIcon icon={faGripVertical} />
       </div>
