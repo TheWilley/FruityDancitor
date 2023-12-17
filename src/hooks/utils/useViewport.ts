@@ -19,14 +19,24 @@ function drawImageOnTile(
 
   // Wait for image to load before continuing as image otherwise won't be rendered until next rerender
   image.onload = () => {
-    // Draw the image clipped to the cell
-    ctx.drawImage(
+    // Create a temporary canvas and draw the image, then copy it over.
+    // Since this temporary canvas is the exact width and height of a cell, an image will
+    // never be able to go beyond its cell since any offset or size changes would draw the image outside
+    // its boundaries. Thus, when copying over, anything outside won't be visible.
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = width;
+    tempCanvas.height = height;
+    const tempCanvasContext = tempCanvas.getContext('2d');
+    tempCanvasContext?.drawImage(
       image,
-      x * width * scale + xoffset,
-      y * height * scale + yoffset,
+      xoffset * scale,
+      yoffset * scale,
       width * scale,
       height * scale
     );
+
+    // Draw the image clipped to the cell
+    ctx.drawImage(tempCanvas, x * width, y * height, width, height);
   };
 
   image.src = objectURL;
@@ -73,6 +83,8 @@ export default function useViewport(
           }
         }
       }
+
+      context.restore();
     }
   }, [height, spriteSheetSequences, viewport, width]);
 
