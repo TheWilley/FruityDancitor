@@ -2,6 +2,7 @@ import { memo } from 'react';
 import Card from '../../../components/Card.tsx';
 import { EditorData, EditorSettings } from '../../../global/types.ts';
 import useViewport from '../../../hooks/utils/useViewport.ts';
+import opaque from '../../../media/opaque.jpeg';
 
 type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
   Pick<EditorSettings, 'numberOfSequences' | 'height' | 'width'>;
@@ -10,7 +11,7 @@ type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
  * Component which show the sprite sheet.
  */
 function Viewport(props: Props) {
-  const [width, height, className] = useViewport(
+  const [width, height] = useViewport(
     props.viewport,
     props.numberOfSequences,
     props.height,
@@ -26,7 +27,7 @@ function Viewport(props: Props) {
             ref={props.viewport}
             width={width}
             height={height}
-            className={className}
+            style={{ background: `url(${opaque})` }}
           />
         </div>
       </Card>
