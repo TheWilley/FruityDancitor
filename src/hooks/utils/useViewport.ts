@@ -1,11 +1,11 @@
-import { RefObject, useEffect } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { SpriteSheetSequences } from '../../global/types.ts';
 
 /**
  * Draws an image on a given tile.
  */
 function drawImageOnTile(
-  ctx: CanvasRenderingContext2D,
+  context: CanvasRenderingContext2D,
   objectURL: string,
   y: number,
   x: number,
@@ -36,7 +36,7 @@ function drawImageOnTile(
     );
 
     // Draw the image clipped to the cell
-    ctx.drawImage(tempCanvas, x * width, y * height, width, height);
+    context.drawImage(tempCanvas, x * width, y * height, width, height);
   };
 
   image.src = objectURL;
@@ -46,47 +46,119 @@ function drawImageOnTile(
  * Custom hook to render sprite sheet.
  */
 export default function useViewport(
+  grid: RefObject<HTMLCanvasElement>,
   viewport: RefObject<HTMLCanvasElement>,
   numberOfSequences: number,
   height: number,
   width: number,
   spriteSheetSequences: SpriteSheetSequences[]
 ) {
+  const [dontHideGrid, setDontHideGrid] = useState(false);
+
+  const toggleDontHideGrid = () => {
+    setDontHideGrid(!dontHideGrid);
+  };
+
   useEffect(() => {
     // Return if the canvas context is not found
     if (!viewport.current) return;
+    const viewportCanvas = viewport.current;
 
     // Get the context
-    const context = viewport.current.getContext('2d');
+    const viewportContext = viewportCanvas.getContext('2d');
 
-    // Check if context exist
-    if (context) {
-      // Clear the canvas
-      context.clearRect(0, 0, viewport.current.width, viewport.current.height);
+    const drawFrames = () => {
+      // Check if context exist
+      if (viewportContext) {
+        // Clear the canvas
+        viewportContext.clearRect(0, 0, viewportCanvas.width, viewportCanvas.height);
 
-      for (const [y, sequence] of spriteSheetSequences.entries()) {
-        // Go through each spriteSheetFrame in the spriteSheetSequences array
-        for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
-          if (spriteSheetFrame?.objectURL) {
-            // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
-            drawImageOnTile(
-              context,
-              spriteSheetFrame.objectURL,
-              y,
-              x,
-              height,
-              width,
-              spriteSheetFrame.modifications.scale,
-              spriteSheetFrame.modifications.xoffset,
-              spriteSheetFrame.modifications.yoffset
-            );
+        for (const [y, sequence] of spriteSheetSequences.entries()) {
+          // Go through each spriteSheetFrame in the spriteSheetSequences array
+          for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
+            if (spriteSheetFrame?.objectURL) {
+              // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
+              drawImageOnTile(
+                viewportContext,
+                spriteSheetFrame.objectURL,
+                y,
+                x,
+                height,
+                width,
+                spriteSheetFrame.modifications.scale,
+                spriteSheetFrame.modifications.xoffset,
+                spriteSheetFrame.modifications.yoffset
+              );
+            }
           }
         }
       }
+    };
 
-      context.restore();
-    }
+    drawFrames();
   }, [height, spriteSheetSequences, viewport, width]);
 
-  return [width * 8, height * numberOfSequences] as const;
+  useEffect(() => {
+    if (!grid.current) return;
+    const gridCanvas = grid.current;
+    const gridContext = gridCanvas.getContext('2d');
+
+    // see https://stackoverflow.com/a/11736122/10223638
+    const drawGrid = () => {
+      if (gridContext) {
+        // Clear grid
+        gridContext.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+        gridContext.beginPath();
+
+        // Box width
+        const bw = gridCanvas.width;
+        // Box height
+        const bh = gridCanvas.height;
+        // Padding
+        const p = 0;
+
+        for (let x = 0; x <= bw; x += width) {
+          gridContext.moveTo(0.5 + x + p, p);
+          gridContext.lineTo(0.5 + x + p, bh + p);
+        }
+
+        for (let x = 0; x <= bh; x += height) {
+          gridContext.moveTo(p, 0.5 + x + p);
+          gridContext.lineTo(bw + p, 0.5 + x + p);
+        }
+        gridContext.strokeStyle = 'black';
+        gridContext.lineWidth = 2;
+        gridContext.stroke();
+      }
+    };
+
+    const showGrid = () => {
+      gridCanvas.style.opacity = '1';
+    };
+
+    const hideGrid = () => {
+      if (!dontHideGrid) {
+        gridCanvas.style.opacity = '0';
+      }
+    };
+
+    // Draw grid
+    drawGrid();
+
+    // Add event listeners
+    gridCanvas.addEventListener('mouseover', showGrid);
+    gridCanvas.addEventListener('mouseleave', hideGrid);
+
+    return () => {
+      gridCanvas.removeEventListener('mouseover', showGrid);
+      gridCanvas.removeEventListener('mouseleave', hideGrid);
+    };
+  }, [grid, height, width, spriteSheetSequences, dontHideGrid]);
+
+  return {
+    width: width * 8,
+    height: height * numberOfSequences,
+    toggleDontHideGrid,
+    dontHideGrid,
+  };
 }
