@@ -1,6 +1,7 @@
 import { ExportSettings } from '../../../global/types.ts';
 import useExport from '../../../hooks/utils/useExport.ts';
 import { useCallback } from 'react';
+import useKeyPress from '../../../hooks/utils/useKeyPress.ts';
 
 type Props = { exportSettings: ExportSettings };
 
@@ -16,6 +17,10 @@ function NavbarExportTab(props: Props) {
       viewport: props.exportSettings.viewport,
     });
   }, []);
+
+  useKeyPress(['shift', 'e'], () => {
+    download();
+  });
 
   return (
     <div>

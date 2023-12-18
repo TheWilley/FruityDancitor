@@ -14,8 +14,7 @@ import SpriteSheetCanvas from './viewport/Viewport.tsx';
 import useBackground from '../../hooks/utils/useBackground.ts';
 import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
-import useKeyPress from '../../hooks/utils/useKeyPress.ts';
-import useExport from '../../hooks/utils/useExport.ts';
+import { LoadSettings, SaveSettings } from '../../global/types.ts';
 
 /**
  * Represents a sprite sheet Editor.
@@ -27,16 +26,25 @@ function Editor() {
   const appSettings = useAppSettings();
   const editorSettings = useEditorSettings();
   const editorData = useEditorData(editorSettings.numberOfSequences);
+  const saveSettings: SaveSettings = {
+    spriteSheetSequences: editorData.spriteSheetSequences,
+    numberOfSequences: editorSettings.numberOfSequences,
+    height: editorSettings.height,
+    width: editorSettings.width,
+    previewFps: appSettings.previewFps,
+    customBackgroundSrc: appSettings.customBackgroundSrc,
+    customBackgroundDarkness: appSettings.customBackgroundDarkness,
+  };
+  const loadSettings: LoadSettings = {
+    setSpriteSheetSequences: editorData.setSpriteSheetSequences,
+    setNumberOfSequences: editorSettings.setNumberOfSequences,
+    setHeight: editorSettings.setHeight,
+    setWidth: editorSettings.setWidth,
+    setPreviewFps: appSettings.setPreviewFps,
+    setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
+    setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
+  };
 
-  // Custom hooks
-  const [, , download] = useExport();
-  useKeyPress(['shift', 'e'], () => {
-    download({
-      filename: '',
-      viewport: editorData.viewport,
-      spriteSheetSequences: editorData.spriteSheetSequences,
-    });
-  });
   useBackground(appSettings.customBackgroundSrc, appSettings.customBackgroundDarkness);
 
   return (
@@ -58,24 +66,8 @@ function Editor() {
             viewport: editorData.viewport,
             spriteSheetSequences: editorData.spriteSheetSequences,
           }}
-          loadSettings={{
-            setSpriteSheetSequences: editorData.setSpriteSheetSequences,
-            setNumberOfSequences: editorSettings.setNumberOfSequences,
-            setHeight: editorSettings.setHeight,
-            setWidth: editorSettings.setWidth,
-            setPreviewFps: appSettings.setPreviewFps,
-            setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
-            setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
-          }}
-          saveSettings={{
-            spriteSheetSequences: editorData.spriteSheetSequences,
-            numberOfSequences: editorSettings.numberOfSequences,
-            height: editorSettings.height,
-            width: editorSettings.width,
-            previewFps: appSettings.previewFps,
-            customBackgroundSrc: appSettings.customBackgroundSrc,
-            customBackgroundDarkness: appSettings.customBackgroundDarkness,
-          }}
+          loadSettings={loadSettings}
+          saveSettings={saveSettings}
         />
         <SpriteSheetCanvas
           numberOfSequences={editorSettings.numberOfSequences}
