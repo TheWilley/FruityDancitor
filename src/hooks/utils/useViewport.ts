@@ -53,10 +53,26 @@ export default function useViewport(
   width: number,
   spriteSheetSequences: SpriteSheetSequences[]
 ) {
-  const [dontHideGrid, setDontHideGrid] = useState(false);
+  const [permanentlyShowGrid, setPermanentlyShowGrid] = useState(false);
+  const [showGrid, setShowGrid] = useState(false);
 
-  const toggleDontHideGrid = () => {
-    setDontHideGrid(!dontHideGrid);
+  const togglePermanentlyShowGrid = () => {
+    setPermanentlyShowGrid(!permanentlyShowGrid);
+  };
+
+  const toggleShowGrid = (state: boolean) => {
+    // Return if the canvas context is not found
+    if (!grid.current) return;
+    const gridCanvas = grid.current;
+
+    if (state) {
+      gridCanvas.style.opacity = '1';
+    } else {
+      if (!permanentlyShowGrid) {
+        gridCanvas.style.opacity = '0';
+      }
+    }
+    setShowGrid(state);
   };
 
   useEffect(() => {
@@ -132,33 +148,16 @@ export default function useViewport(
       }
     };
 
-    const showGrid = () => {
-      gridCanvas.style.opacity = '1';
-    };
-
-    const hideGrid = () => {
-      if (!dontHideGrid) {
-        gridCanvas.style.opacity = '0';
-      }
-    };
-
     // Draw grid
     drawGrid();
-
-    // Add event listeners
-    gridCanvas.addEventListener('mouseover', showGrid);
-    gridCanvas.addEventListener('mouseleave', hideGrid);
-
-    return () => {
-      gridCanvas.removeEventListener('mouseover', showGrid);
-      gridCanvas.removeEventListener('mouseleave', hideGrid);
-    };
-  }, [grid, height, width, spriteSheetSequences, dontHideGrid]);
+  }, [grid, height, width, spriteSheetSequences, permanentlyShowGrid]);
 
   return {
     width: width * 8,
     height: height * numberOfSequences,
-    toggleDontHideGrid,
-    dontHideGrid,
+    togglePermanentlyShowGrid,
+    permanentlyShowGrid,
+    toggleShowGrid,
+    showGrid,
   };
 }

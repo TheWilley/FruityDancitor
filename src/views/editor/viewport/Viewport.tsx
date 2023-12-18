@@ -14,7 +14,14 @@ type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
  */
 function Viewport(props: Props) {
   const grid = useRef<HTMLCanvasElement>(null);
-  const { width, height, toggleDontHideGrid, dontHideGrid } = useViewport(
+  const {
+    width,
+    height,
+    togglePermanentlyShowGrid,
+    permanentlyShowGrid,
+    toggleShowGrid,
+    showGrid,
+  } = useViewport(
     grid,
     props.viewport,
     props.numberOfSequences,
@@ -26,20 +33,21 @@ function Viewport(props: Props) {
   return (
     <>
       <Card className='w-full h-full'>
-        <div className='overflow-auto m-auto relative group'>
-          <div>
-            {dontHideGrid ? (
+        <div>
+          {showGrid &&
+            (permanentlyShowGrid ? (
               <FontAwesomeIcon
                 icon={faLock}
-                className='absolute text-2xl left-0 right-0 top-3 m-auto z-10 opacity-0 group-hover:opacity-100 bg-base-300 p-3 rounded'
+                className='absolute text-2xl left-0 right-0 top-3 m-auto z-10 bg-base-300 p-3 rounded'
               />
             ) : (
               <FontAwesomeIcon
                 icon={faUnlock}
-                className='absolute text-2xl left-0 right-0 top-3 m-auto z-10 opacity-0 group-hover:opacity-100 bg-base-300 p-3 rounded'
+                className='absolute text-2xl left-0 right-0 top-3 m-auto z-10 bg-base-300 p-3 rounded'
               />
-            )}
-          </div>
+            ))}
+        </div>
+        <div className='overflow-auto m-auto relative'>
           <canvas
             ref={props.viewport}
             width={width}
@@ -50,8 +58,10 @@ function Viewport(props: Props) {
             ref={grid}
             width={width}
             height={height}
-            onClick={() => toggleDontHideGrid()}
-            className='top-0 absolute cursor-pointer'
+            onClick={() => togglePermanentlyShowGrid()}
+            onMouseOver={() => toggleShowGrid(true)}
+            onMouseLeave={() => toggleShowGrid(false)}
+            className='top-0 absolute cursor-pointer opacity-0'
           />
         </div>
       </Card>
