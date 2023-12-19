@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import useSaveAndLoad from '../../../hooks/utils/useSaveAndLoad.ts';
 import { LoadSettings, SaveSettings } from '../../../global/types.ts';
-import useKeyPress from '../../../hooks/utils/useKeyPress.ts';
 
 type Props = { saveSettings: SaveSettings; loadSettings: LoadSettings };
 
@@ -11,12 +10,6 @@ type Props = { saveSettings: SaveSettings; loadSettings: LoadSettings };
 function NavbarSaveAndLoadTab(props: Props) {
   const [save, load] = useSaveAndLoad();
   const fileRef = useRef<HTMLInputElement | null>(null);
-  useKeyPress(['shift', 's'], () => {
-    save(props.saveSettings);
-  });
-  useKeyPress(['shift', 'l'], () => {
-    fileRef.current && fileRef.current.click();
-  });
 
   return (
     <div>

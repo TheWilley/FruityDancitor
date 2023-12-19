@@ -3,6 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 /**
  * Custom hook to handle keyboard shortcuts.
  * @see https://devtrium.com/posts/how-keyboard-shortcut
+ * TODO: This does not track keys pressed correctly and its only active for open tabs
  */
 export default function useKeyPress(
   keys: string[],
