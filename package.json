@@ -16,6 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "array-move": "^4.0.0",
     "dexie": "^3.2.4",
     "dexie-react-hooks": "^1.1.7",
     "file-saver": "^2.0.5",

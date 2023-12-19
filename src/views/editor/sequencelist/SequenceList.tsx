@@ -1,6 +1,8 @@
-import { arrayMove, List } from 'react-movable';
+import { List } from 'react-movable';
 import { EditorData } from '../../../global/types.ts';
 import CommonListItem from '../../../components/CommonListItem.tsx';
+import { arrayMoveMutable } from 'array-move';
+import { produce } from 'immer';
 
 type Props = Pick<
   EditorData,
@@ -18,8 +20,10 @@ function SequenceList(EProps: Props) {
     <List
       values={EProps.spriteSheetSequences}
       onChange={({ oldIndex, newIndex }) => {
-        EProps.setSpriteSheetSequences(
-          arrayMove(EProps.spriteSheetSequences, oldIndex, newIndex)
+        EProps.setSpriteSheetSequences((prevSequences) =>
+          produce(prevSequences, (draft) => {
+            arrayMoveMutable(draft, oldIndex, newIndex);
+          })
         );
         EProps.setSelectedSequence(newIndex);
       }}
