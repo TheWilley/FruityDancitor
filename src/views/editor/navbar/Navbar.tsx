@@ -105,7 +105,7 @@ function Navbar(props: Props) {
         <nav>
           <div className='tabs tabs-boxed'>{renderTabs()}</div>
           <div
-            className='mt-3 w-full h-full'
+            className='mt-3 w-full h-full p-2 pt-0'
             style={{ display: hidden ? 'none' : 'block' }}
           >
             {tabs[tab].view}
