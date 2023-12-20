@@ -1,4 +1,4 @@
-import { LoadSettings, SaveSettings } from '../../global/types.ts';
+import { LoadSettings, SaveSettings, SpriteSheetSequences } from '../../global/types.ts';
 import saveAs from 'file-saver';
 import {
   convertFramesToBase64,
@@ -6,74 +6,104 @@ import {
 } from '../../utils/imageTools.ts';
 
 /**
- * Loads a FruityDancitor JSON file.
+ * Reads a file and returns is as JSON.
  */
-function load(file: File, loadSettings: LoadSettings) {
-  if (file.type === 'application/json') {
-    // Create a new reader to read JSON file
+function readFileAsJSON(file: File): Promise<SaveSettings> {
+  return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
-    // Define data variable here as we assign it later within the
-    let data = {} as SaveSettings;
-
-    reader.onloadend = function () {
+    reader.onload = (event) => {
       try {
-        data = JSON.parse(reader.result as string);
+        const result = event.target?.result as string;
+        const data = JSON.parse(result);
+        resolve(data);
       } catch (e) {
-        console.error('Parsing Error: ' + e);
-        alert('Error parsing project file');
-        return;
-      }
-
-      try {
-        convertFramesToObjectURLs(data.spriteSheetSequences).then((result) => {
-          loadSettings.setHeight(data.height);
-          loadSettings.setWidth(data.width);
-          loadSettings.setNumberOfSequences(data.numberOfSequences);
-          loadSettings.setPreviewFps(data.previewFps);
-          loadSettings.setCustomBackgroundSrc(data.customBackgroundSrc);
-          loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
-          loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness);
-          loadSettings.setSpriteSheetSequences(result);
-        });
-        alert('Project loaded');
-      } catch (e) {
-        console.error('Error: ' + e);
-        alert('Could not load project');
-        return;
+        reject(new Error('Error parsing project file'));
       }
     };
 
-    reader.onerror = function () {
-      new Error('Failed to read the file');
-      alert('Failed to read the file');
+    reader.onerror = () => {
+      reject(new Error('Failed to read the file'));
     };
 
     reader.readAsText(file);
-  } else {
+  });
+}
+
+/**
+ * Loads a FruityDancitor JSON file.
+ */
+async function load(file: File, loadSettings: LoadSettings) {
+  if (file.type !== 'application/json') {
     alert('Not a JSON file');
+    return;
+  }
+
+  try {
+    const data = await readFileAsJSON(file);
+
+    await Promise.all([
+      loadSettings.setHeight(data.height),
+      loadSettings.setWidth(data.width),
+      loadSettings.setNumberOfSequences(data.numberOfSequences),
+      loadSettings.setPreviewFps(data.previewFps),
+      loadSettings.setCustomBackgroundSrc(data.customBackgroundSrc),
+      loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness),
+      loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness),
+      convertFramesToObjectURLs(data.spriteSheetSequences).then((result) =>
+        loadSettings.setSpriteSheetSequences(result)
+      ),
+    ]);
+
+    alert('Project loaded');
+  } catch (error) {
+    console.error('Error:', error);
+    if (error instanceof Error) {
+      alert(error.message);
+    } else {
+      alert('Could not load project');
+    }
   }
 }
 
 /**
  * Saves a FruityDancitor JSON file.
  */
-function save(saveSettings: SaveSettings) {
-  convertFramesToBase64(saveSettings.spriteSheetSequences).then((result) => {
-    const json: SaveSettings = {
-        height: saveSettings.height,
-        width: saveSettings.width,
-        numberOfSequences: saveSettings.numberOfSequences,
-        previewFps: saveSettings.previewFps,
-        customBackgroundSrc: saveSettings.customBackgroundSrc,
-        customBackgroundDarkness: saveSettings.customBackgroundDarkness,
-        spriteSheetSequences: result,
-      },
-      blob = new Blob([JSON.stringify(json)], { type: 'text/plain;charset=utf-8' });
+async function save(saveSettings: SaveSettings) {
+  const transformValues = async (
+    key: keyof SaveSettings,
+    value: SaveSettings[keyof SaveSettings]
+  ) => {
+    if (key === 'spriteSheetSequences') {
+      return {
+        newKey: key,
+        newValue: await convertFramesToBase64(value as SpriteSheetSequences[]),
+      };
+    } else {
+      return { newKey: key, newValue: value };
+    }
+  };
 
-    // Save the blob (downloads file)
-    saveAs(blob, 'savedFruityDancitorProject.json');
+  // Dynamically create data from all entries
+  const transformedEntries = Object.fromEntries(
+    await Promise.all(
+      Object.entries(saveSettings).map(async ([oldKey, oldValue]) => {
+        const { newKey, newValue } = await transformValues(
+          oldKey as keyof SaveSettings,
+          oldValue
+        );
+        return [newKey, newValue];
+      })
+    )
+  );
+
+  // Create a blob which later can be downloaded
+  const blob = new Blob([JSON.stringify(transformedEntries)], {
+    type: 'text/plain;charset=utf-8',
   });
+
+  // Save the blob (downloads file)
+  saveAs(blob, 'savedFruityDancitorProject.json');
 }
 
 /**
