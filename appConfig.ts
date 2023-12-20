@@ -1,5 +1,5 @@
 const appConfig = {
-  maxWidth: '1500px',
+  maxWidth: '1700px',
   numberOfSequences: 1000,
 };
 
