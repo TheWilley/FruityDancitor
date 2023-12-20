@@ -11,7 +11,10 @@ function SectionLeft(props: Props) {
   const { incorporateKeyword } = useAnchorKeyword();
 
   return (
-    <Card className='p-1 max-md:carousel-item max-md:w-full' id={incorporateKeyword(0)}>
+    <Card
+      className='p-1 max-md:carousel-item max-md:w-full mr-2'
+      id={incorporateKeyword(0)}
+    >
       {props.children}
     </Card>
   );
