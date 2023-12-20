@@ -23,9 +23,7 @@ function InspectorSequenceName(props: Props) {
       <div className='items-center rounded mb-1'>
         <div
           className={formDisabledClass}
-          data-tip={
-            disabled && 'The name of this sequence cannot be renamed due to plugin rules'
-          }
+          data-tip={disabled && 'Cannot rename sequence due to plugin rules'}
         >
           <label className='label'>
             <span className='label-text'>Name</span>
