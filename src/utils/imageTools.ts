@@ -2,7 +2,6 @@ import { GifReader } from 'omggif';
 import { SpriteSheetSequences } from '../global/types.ts';
 
 /**
- * EXPORTED
  * Converts base64 to a blob
  * @see https://stackoverflow.com/a/36183085
  */
@@ -12,7 +11,6 @@ export async function b64toBlob(base64: string) {
 }
 
 /**
- * EXPORTED
  * Converts a series of frames to base64
  */
 export async function convertFramesToBase64(
@@ -23,7 +21,7 @@ export async function convertFramesToBase64(
   for (const sequence of spriteSheetSequences) {
     const updatedSequence = await Promise.all(
       sequence.sequence.map(async (sequenceItem) => {
-        const base64 = await getBase64FromUrl(sequenceItem.objectURL);
+        const base64 = await getBase64(sequenceItem.objectURL);
         return {
           objectURL: base64 as string, // Ensure the type is string
           modifications: sequenceItem.modifications,
@@ -43,7 +41,6 @@ export async function convertFramesToBase64(
 }
 
 /**
- * EXPORTED
  * Converts a series of frames to baseURL
  */
 export async function convertFramesToObjectURLs(
@@ -75,25 +72,28 @@ export async function convertFramesToObjectURLs(
 }
 
 /**
- * EXPORTED
  * Extract base64 from an image.
  */
-export function getBase64(file: File) {
-  return new Promise<string | string[]>((resolve, reject) => {
-    if (file.type === 'image/jpeg' || file.type === 'image/png') {
-      getBase64FromSource(file).then((result) => resolve(result));
-    } else if (file.type === 'image/gif') {
-      extractGifFrames(file).then((results) => resolve(results));
+export async function getBase64(source: File | string) {
+  if (typeof source === 'string') {
+    const data = await fetch(source);
+    const blob = await data.blob();
+    return await readFile(blob);
+  } else if (typeof source === 'object') {
+    if (source.type === 'image/jpeg' || source.type === 'image/png') {
+      return await readFile(source);
+    } else if (source.type === 'image/gif') {
+      return await extractGifFrames(source);
     } else {
-      reject(new Error('Unsupported file type'));
+      throw new Error('Unsupported file type');
     }
-  });
+  }
 }
 
 /**
  * Extract base64 from an either a file or a blob
  */
-function getBase64FromSource(source: File | Blob): Promise<string> {
+function readFile(source: File | Blob): Promise<string> {
   const reader = new FileReader();
   reader.readAsDataURL(source);
   return new Promise((resolve, reject) => {
@@ -105,16 +105,6 @@ function getBase64FromSource(source: File | Blob): Promise<string> {
       reject(error);
     };
   });
-}
-
-/**
- * Convert a objectURL to base64
- * @see https://stackoverflow.com/a/71869551
- */
-async function getBase64FromUrl(url: string) {
-  const data = await fetch(url);
-  const blob = await data.blob();
-  return await getBase64FromSource(blob);
 }
 
 /**
