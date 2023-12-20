@@ -1,4 +1,3 @@
-import { useScrollDirection } from 'react-use-scroll-direction';
 import { useEffect, useState } from 'react';
 
 /**
@@ -6,15 +5,18 @@ import { useEffect, useState } from 'react';
  */
 export default function useHeader() {
   const [showHeader, setShowHeader] = useState(true);
-  const { isScrollingUp, isScrollingDown } = useScrollDirection();
+
+  const handleScroll = () => {
+    setShowHeader(window.scrollY <= 75);
+  };
 
   useEffect(() => {
-    if (isScrollingDown && showHeader) {
-      setShowHeader(false);
-    } else if (isScrollingUp && !showHeader) {
-      setShowHeader(true);
-    }
-  }, [isScrollingUp, isScrollingDown, showHeader]);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return { showHeader };
 }
