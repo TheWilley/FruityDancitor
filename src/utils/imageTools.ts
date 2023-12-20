@@ -138,11 +138,11 @@ async function extractGifFrames(file: File) {
   const intArray = new Uint8Array(arrayBuffer);
   const reader = new GifReader(intArray);
   const numFrames = reader.numFrames();
+  const { width, height } = reader.frameInfo(0);
 
   const frames = [];
   for (let k = 0; k < numFrames; k++) {
-    const info = reader.frameInfo(k);
-    const image = new ImageData(info.width, info.height);
+    const image = new ImageData(width, height);
     reader.decodeAndBlitFrameRGBA(k, image.data);
     frames.push(imageDataToDataURL(image));
   }
