@@ -1,4 +1,5 @@
-import { ReactNode } from 'react';
+import { Children, ReactNode, useState } from 'react';
+import useAnchorKeyword from '../../../hooks/utils/useAnchorKeyword.ts';
 
 type Props = { children: ReactNode | ReactNode[] };
 
@@ -6,25 +7,36 @@ type Props = { children: ReactNode | ReactNode[] };
  * Container for all sections
  */
 function SectionContainer(props: Props) {
+  const { incorporateKeyword, getAnchorIndex } = useAnchorKeyword();
+  const [activeTab, setActiveTab] = useState(getAnchorIndex());
+
+  /**
+   * Generates tabs based on the amount of children passed.
+   */
+  const navigationLinks = Children.map(props.children, (_, index) => {
+    const sectionId = incorporateKeyword(index, true);
+
+    return (
+      <a
+        key={sectionId}
+        href={sectionId}
+        className={activeTab === index ? 'active' : ''}
+        onClick={() => setActiveTab(index)}
+      >
+        {index}
+      </a>
+    );
+  });
+
   return (
     <>
       <div
-        className='grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full h-[calc(100vh-40px)] max-md:h-[calc(100vh-70px)] max-md:carousel max-md:overflow-hidden '
+        className='grid grid-cols-[20%_60%_20%] gap-2 w-full [&>*]:min-h-full h-[calc(100vh-40px)] max-md:h-[calc(100vh-70px)] max-md:carousel max-md:overflow-hidden max-md:pb-10'
         style={{ height: '' }}
       >
         {props.children}
       </div>
-      <div className='flex justify-center w-full py-2 gap-2 md:hidden '>
-        <a href='#item1' className='btn btn-xs'>
-          1
-        </a>
-        <a href='#item2' className='btn btn-xs'>
-          2
-        </a>
-        <a href='#item3' className='btn btn-xs'>
-          3
-        </a>
-      </div>
+      <div className='btm-nav md:hidden'>{navigationLinks}</div>
     </>
   );
 }
