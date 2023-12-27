@@ -1,19 +1,21 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
+
+type ModifierKey = 'Alt' | 'Control' | 'Shift' | 'Meta';
 
 /**
  * Custom hook to handle keyboard shortcuts.
  * @param keys The key combination which triggers `callback`
  * @param callback A callback function which triggers based on `keys`.
+ * @param modifiers An array of modifier keys (ctrl, shift, alt, meta) to be pressed along with regular keys.
  * @param node The target element on which keystrokes will be checked.
  * @see https://devtrium.com/posts/how-keyboard-shortcut
- * TODO: This does not track keys pressed correctly and its only active for open tabs
  */
 export default function useKeyPress(
   keys: string[],
+  modifiers: ModifierKey[] = [],
   callback: (event: KeyboardEvent) => void,
   node: Node | null = null
 ) {
-  const [heldKeys, setHeldKeys] = useState<string[]>([]);
   // implement the callback ref pattern
   const callbackRef = useRef(callback);
   useLayoutEffect(() => {
@@ -23,22 +25,21 @@ export default function useKeyPress(
   // handle what happens on key press
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      setHeldKeys([...heldKeys, event.key.toLowerCase()]);
-      if (keys.every((key) => heldKeys.includes(key.toLowerCase()))) {
-        // check if one of the key is part of the ones we want
+      const normalKeys = keys.filter(
+        (key) => !modifiers.includes(<ModifierKey>key.toLowerCase())
+      );
+      const modifierKeysPressed = modifiers.every(
+        (modifier) => event[`${modifier.toLowerCase()}Key` as keyof KeyboardEvent]
+      );
+
+      if (
+        modifierKeysPressed &&
+        normalKeys.some((key) => event.key.toLowerCase() === key.toLowerCase())
+      ) {
         callbackRef.current(event);
-        handleKeyUp(event);
       }
     },
-    [keys]
-  );
-
-  const handleKeyUp = useCallback(
-    (event: KeyboardEvent) => {
-      const index = heldKeys.indexOf(event.key.toLowerCase());
-      index > -1 && setHeldKeys(heldKeys.splice(index, 1));
-    },
-    [keys]
+    [keys, modifiers]
   );
 
   useEffect(() => {
@@ -46,12 +47,10 @@ export default function useKeyPress(
     const targetNode = node ?? document;
     // attach the event listener
     targetNode && targetNode.addEventListener('keydown', handleKeyDown as EventListener);
-    targetNode && targetNode.addEventListener('keyup', handleKeyUp as EventListener);
     // remove the event listener
     return () => {
       if (targetNode) {
         targetNode.removeEventListener('keydown', handleKeyDown as EventListener);
-        targetNode.removeEventListener('keyup', handleKeyUp as EventListener);
       }
     };
   }, [handleKeyDown, node]);
