@@ -44,7 +44,37 @@ function InspectorFramesList(EProps: Props) {
   useKeyPress(['6'], ['Control'], () => selectFrame(5));
   useKeyPress(['7'], ['Control'], () => selectFrame(6));
   useKeyPress(['8'], ['Control'], () => selectFrame(7));
+
+  // Deletes the selected frame
   useKeyPress(['Delete'], undefined, () => callback(EProps.selectedFrame));
+
+  // Moves the selected frame down
+  useKeyPress(['ArrowDown'], ['Control', 'Shift'], () => {
+    if (EProps.selectedFrame + 1 < 7) {
+      adjustSequence(
+        arrayMove(
+          EProps.spriteSheetSequences[EProps.selectedSequence].sequence,
+          EProps.selectedFrame,
+          EProps.selectedFrame + 1
+        )
+      );
+      EProps.setSelectedFrame(EProps.selectedFrame + 1);
+    }
+  });
+
+  // Moves the selected frame up
+  useKeyPress(['ArrowUp'], ['Control', 'Shift'], () => {
+    if (EProps.selectedFrame - 1 >= 0) {
+      adjustSequence(
+        arrayMove(
+          EProps.spriteSheetSequences[EProps.selectedSequence].sequence,
+          EProps.selectedFrame,
+          EProps.selectedFrame - 1
+        )
+      );
+      EProps.setSelectedFrame(EProps.selectedFrame - 1);
+    }
+  });
 
   return (
     <List

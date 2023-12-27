@@ -32,6 +32,30 @@ function SequenceList(EProps: Props) {
     }
   });
 
+  // Moves the selected sequence up
+  useKeyPress(['ArrowRight'], ['Control', 'Shift'], () => {
+    if (EProps.selectedSequence < EProps.spriteSheetSequences.length) {
+      EProps.setSpriteSheetSequences((prevSequences) =>
+        produce(prevSequences, (draft) => {
+          arrayMoveMutable(draft, EProps.selectedSequence, EProps.selectedSequence + 1);
+        })
+      );
+      EProps.setSelectedSequence(EProps.selectedSequence + 1);
+    }
+  });
+
+  // Moves the selected sequence up
+  useKeyPress(['ArrowLeft'], ['Control', 'Shift'], () => {
+    if (EProps.selectedSequence > 0) {
+      EProps.setSpriteSheetSequences((prevSequences) =>
+        produce(prevSequences, (draft) => {
+          arrayMoveMutable(draft, EProps.selectedSequence, EProps.selectedSequence - 1);
+        })
+      );
+      EProps.setSelectedSequence(EProps.selectedSequence - 1);
+    }
+  });
+
   return (
     <List
       values={EProps.spriteSheetSequences}
