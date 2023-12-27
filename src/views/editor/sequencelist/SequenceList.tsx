@@ -3,6 +3,7 @@ import { EditorData } from '../../../global/types.ts';
 import CommonListItem from '../../../components/CommonListItem.tsx';
 import { arrayMoveMutable } from 'array-move';
 import { produce } from 'immer';
+import useKeyPress from '../../../hooks/utils/useKeyPress.ts';
 
 type Props = Pick<
   EditorData,
@@ -17,6 +18,20 @@ type Props = Pick<
  * @param EProps A object containing component properties.
  */
 function SequenceList(EProps: Props) {
+  // Keyboard shortcut to move to the next sequence
+  useKeyPress(['0'], ['Control'], () => {
+    if (EProps.selectedSequence < EProps.spriteSheetSequences.length) {
+      EProps.setSelectedSequence(EProps.selectedSequence + 1);
+    }
+  });
+
+  // Keyboard shortcut to move to the previous sequence
+  useKeyPress(['9'], ['Control'], () => {
+    if (EProps.selectedSequence > 0) {
+      EProps.setSelectedSequence(EProps.selectedSequence - 1);
+    }
+  });
+
   return (
     <List
       values={EProps.spriteSheetSequences}
