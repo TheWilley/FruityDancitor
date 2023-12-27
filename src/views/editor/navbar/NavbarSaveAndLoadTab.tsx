@@ -6,6 +6,7 @@ type Props = { saveSettings: SaveSettings; loadSettings: LoadSettings };
 
 /**
  * Component used to save and load a FruityDancitor project.
+ * @param props A object containing component properties.
  */
 function NavbarSaveAndLoadTab(props: Props) {
   const [save, load] = useSaveAndLoad();

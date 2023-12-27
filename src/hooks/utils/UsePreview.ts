@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Custom hook for previewing a sequence of frames.
+ * Custom hook designed for previewing a sequence of frames.
+ * @param previewCanvas - The canvas element where the preview will be rendered.
+ * @param originalCanvas - The source canvas containing the frames to be fetched.
+ * @param selectedSequence - The currently chosen sequence to preview.
+ * @param frameWidth - The desired width for each frame in the preview.
+ * @param frameHeight - The desired height for each frame in the preview.
+ * @param previewFps - The playback frames per second (FPS) for the preview.
  */
 export default function usePreview(
   previewCanvas: HTMLCanvasElement | null,
   originalCanvas: HTMLCanvasElement | null,
   selectedSequence: number,
-  width: number,
-  height: number,
+  frameWidth: number,
+  frameHeight: number,
   previewFps: number
 ) {
   const [keepTimer, setKeepTimer] = useState(0);
@@ -20,9 +26,9 @@ export default function usePreview(
     // Create params
     const drawParams = {
       sourceX: sx,
-      sourceY: height * (selectedSequence + 1) - height,
-      sourceWidth: width,
-      sourceHeight: height,
+      sourceY: frameHeight * (selectedSequence + 1) - frameHeight,
+      sourceWidth: frameWidth,
+      sourceHeight: frameHeight,
       destX: 0,
       destY: 0,
       destWidth: 100,
@@ -45,8 +51,8 @@ export default function usePreview(
       );
     }
 
-    setSx(sx + width > width * 7 ? 0 : sx + width);
-    setCurrentFrame(Math.floor(sx / width + 1));
+    setSx(sx + frameWidth > frameWidth * 7 ? 0 : sx + frameWidth);
+    setCurrentFrame(Math.floor(sx / frameWidth + 1));
   };
 
   useEffect(() => {

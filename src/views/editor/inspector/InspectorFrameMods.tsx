@@ -12,6 +12,7 @@ type Props = Pick<
 
 /**
  * Component which represents settings for a selected frame.
+ * @param props A object containing component properties.
  */
 function InspectorFrameMods(props: Props) {
   const { validateNumberInput } = useInputValidation();

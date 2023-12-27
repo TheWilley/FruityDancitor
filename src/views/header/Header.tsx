@@ -3,7 +3,7 @@ import ThemeSwitcher from './ThemeSwitcher.tsx';
 import useHeader from '../../hooks/utils/useHeader.ts';
 
 /**
- * The header of the webpage.
+ * Component representing the header of the webpage.
  */
 function Header() {
   const { showHeader } = useHeader();

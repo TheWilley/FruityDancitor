@@ -1,4 +1,3 @@
-// Generic type for setters and getters of useState
 import { Dispatch, RefObject, SetStateAction } from 'react';
 
 export type Setter<T> = Dispatch<SetStateAction<T>>;
@@ -38,7 +37,7 @@ export type PickDialogFrames = {
   setDialogFrames: Setter<string[]>;
   selectedDialogFrames: number[];
   setSelectedDialogFrames: Setter<number[]>;
-  callback: (base64: string) => void;
+  ck: (base64: string) => void;
   spriteSheetSequences: EditorData['spriteSheetSequences'];
   selectedSequence: EditorData['selectedSequence'];
 };

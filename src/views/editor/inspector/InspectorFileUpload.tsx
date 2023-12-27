@@ -4,13 +4,15 @@ import { produce } from 'immer';
 import useStyle from '../../../hooks/utils/useStyle.ts';
 
 /**
- * Represents an image picker.
+ * Component which represents an image picker.
  *
  * The user picks which frames to extract from the GIF, which is then subsequently uploaded.
+ * @param props
  */
 function InspectorPickFrames(props: PickDialogFrames) {
   /**
    * Handles logic of selecting frames.
+   * @param index The frame within the sequence to select.
    */
   const selectFrame = (index: number) => {
     props.setSelectedDialogFrames(
@@ -106,6 +108,7 @@ type Props = Pick<
  * Represent a file upload area.
  *
  * This area can be clicked, or files can be dragged and dropped over it. It's purpose it to upload images (i.e, frames).
+ * @param props A object containing component properties.
  */
 function InspectorFileUpload(props: Props) {
   const {

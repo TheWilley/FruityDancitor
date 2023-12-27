@@ -7,6 +7,7 @@ import {
 
 /**
  * Reads a file and returns is as JSON.
+ * @param file The JSON file to parse.
  */
 function readFileAsJSON(file: File): Promise<SaveSettings> {
   return new Promise((resolve, reject) => {
@@ -32,6 +33,8 @@ function readFileAsJSON(file: File): Promise<SaveSettings> {
 
 /**
  * Loads a FruityDancitor JSON file.
+ * @param file The project JSON file.
+ * @param loadSettings A object adhering to the structure of {@link LoadSettings}.
  */
 async function load(file: File, loadSettings: LoadSettings) {
   if (file.type !== 'application/json') {
@@ -68,6 +71,7 @@ async function load(file: File, loadSettings: LoadSettings) {
 
 /**
  * Saves a FruityDancitor JSON file.
+ * @param saveSettings A object adhering to the structure of {@link SaveSettings}.
  */
 async function save(saveSettings: SaveSettings) {
   const transformValues = async (

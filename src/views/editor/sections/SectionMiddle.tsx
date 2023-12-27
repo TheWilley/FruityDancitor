@@ -4,7 +4,8 @@ import useAnchorKeyword from '../../../hooks/utils/useAnchorKeyword.ts';
 type Props = { children: ReactNode[] };
 
 /**
- * The middle section of the editor.
+ * Component for the middle section of the editor.
+ * @param props A object containing component properties.
  */
 function SectionMiddle(props: Props) {
   const { incorporateKeyword } = useAnchorKeyword();

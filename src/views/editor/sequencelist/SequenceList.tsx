@@ -14,6 +14,7 @@ type Props = Pick<
 
 /**
  * Component which represents a list of all sequences in a reordable list.
+ * @param EProps A object containing component properties.
  */
 function SequenceList(EProps: Props) {
   return (

@@ -3,16 +3,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useStyle from '../hooks/utils/useStyle.ts';
 
 type Props = {
+  /**
+   * The text to display on the list item.
+   */
   text: string;
+  /**
+   * The alternative text to display if `objectURL` is falsy (i.e, the image cannot be rendered).
+   */
   alt: string;
+  /**
+   * The object URL leading to the image to render.
+   */
   objectURL: string;
+  /**
+   * Whether to highlight the list item with a border.
+   */
   highlighted?: boolean;
-  callback?: () => void; //FIXME: Callback is a bad name since it does not say what it does
+  /**
+   * Callback function to run if trash icon is clicked.
+   */
+  trashClickedCallback?: () => void;
+  /**
+   * Whether to include a trash icon.
+   */
   includeTrash?: boolean;
 };
 
 /**
- * A component which represent a list item within both SequenceList and InspectorFramesList.
+ * Component which represent a list item within SequenceList and InspectorFramesList.
+ * @param props A object containing component properties.
  */
 function CommonListItem(props: Props) {
   const [imageBorder] = useStyle('inline mr-1 w-10 h-10', undefined, [
@@ -43,7 +62,7 @@ function CommonListItem(props: Props) {
           <FontAwesomeIcon
             icon={faTrash}
             className='hover:text-error'
-            onMouseDown={props.callback}
+            onMouseDown={props.trashClickedCallback}
           />
         </span>
       )}

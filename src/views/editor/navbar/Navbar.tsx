@@ -30,6 +30,7 @@ type Props = {
 
 /**
  * Component which represents a navbar which the user can use to navigate to different tabs.
+ * @param props A object containing component properties.
  */
 function Navbar(props: Props) {
   const [tab, setTab] = useState(0);
@@ -74,6 +75,7 @@ function Navbar(props: Props) {
   const renderTabs = () => {
     /**
      * Shows a given tab depending on which tab the user clicks.
+     * @param index The index of the tab to display.
      */
     const showTab = (index: number) => {
       if (tab === index) {

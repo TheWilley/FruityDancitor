@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Custom hook which retuns a boolean value based on scroll direction.
+ * Custom hook which retuns a boolean value based on scroll position.
  */
 export default function useHeader() {
   const [showHeader, setShowHeader] = useState(true);

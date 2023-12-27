@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { ExportSettings } from '../../global/types.ts';
 
 /**
- * Zips both the sprite sheet and sequence names, then downloads them.
+ * Custom hook which zips the sprite sheet and sequence names, then downloads them.
+ * @param exportSettings An object adhering to the strucutre of {@link ExportSettings}, along with a designated file name.
  */
 function downloadFile(exportSettings: ExportSettings & { filename: string }) {
   // If a filename is not entered, use default name

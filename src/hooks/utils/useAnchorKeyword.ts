@@ -1,7 +1,7 @@
 /**
- * Utilizes a keyword to generate anchors consiting of the keyword + a given index.
+ * Custom hook which utilizes a keyword to generate anchors consiting of the keyword + a given index.
  * The anchor can also be extracted from the current URL, and return an index based on its value.
- * This is used to navigate to the different app sections by clicking links in the bottom navbar when the screen is small.
+ * This is used to navigate to the different app sections when the screen is small by clicking links in the bottom navbar.
  */
 export default function useAnchorKeyword() {
   const keyword = 'tab';

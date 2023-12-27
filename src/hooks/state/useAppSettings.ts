@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { AppSettings } from '../../global/types.ts';
 
 /**
- * Custom hook which returns navbar app-settings.
+ * Custom hook which orchestrates user-modifiable application settings.
+ * It specifically handles aspects of the application not directly tied to the editor functionality.
  */
 export default function useAppSettings(): AppSettings {
   const [customBackgroundSrc, setCustomBackgroundSrc] = useState('');

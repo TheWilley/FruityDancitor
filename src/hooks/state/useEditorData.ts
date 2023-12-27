@@ -10,9 +10,8 @@ const initialFrames = new Array(appConfig.numberOfSequences).fill({
 });
 
 /**
- * Custom hook which serves as a complementary to useEditorData.
- *
- * Modifies sprite sheet frames before returning data.
+ * Custom hook which modifies sprite sheet frames before returning them.
+ * @param numberOfSequences User-set number of X sequences.
  */
 function useSpriteSheetSequences(numberOfSequences: number) {
   // Initiate empty array containing SpriteSheetSequences objects
@@ -44,9 +43,8 @@ function useSpriteSheetSequences(numberOfSequences: number) {
 }
 
 /**
- * Custom hook which serves as a complementary to useEditorData.
- *
- * Modifies the number of sequences before returning data
+ * Custom hook which modifies the number of sequences before returning data.
+ * @param numberOfSequences User-set number of X sequences.
  */
 function useSelectedSequence(numberOfSequences: number) {
   const [selectedSequence, setSelectedSequence] = useState(0);
@@ -61,6 +59,7 @@ function useSelectedSequence(numberOfSequences: number) {
 
 /**
  * Custom hook which consolidates and manages the crucial data utilized across the application, not directly mutable by the user.
+ * @param numberOfSequences User-set number of X sequences.
  */
 export default function useEditorData(
   numberOfSequences: EditorSettings['numberOfSequences']

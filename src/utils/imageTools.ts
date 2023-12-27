@@ -2,8 +2,8 @@ import { GifReader } from 'omggif';
 import { SpriteSheetSequences } from '../global/types.ts';
 
 /**
- * Converts base64 to a blob
- * @see https://stackoverflow.com/a/36183085
+ * Converts base64 to a blob.
+ * @see https://stackoverflow.com/a/36183085.
  */
 export async function b64toBlob(base64: string) {
   const res = await fetch(base64);
@@ -23,7 +23,7 @@ export async function convertFramesToBase64(
       sequence.sequence.map(async (sequenceItem) => {
         const base64 = await getBase64(sequenceItem.objectURL);
         return {
-          objectURL: base64 as string, // Ensure the type is string
+          objectURL: base64 as string,
           modifications: sequenceItem.modifications,
         };
       })

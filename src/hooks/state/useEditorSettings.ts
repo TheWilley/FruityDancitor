@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { EditorSettings } from '../../global/types.ts';
 
 /**
- * Custom hook which returns navbar editor-settings.
+ * Custom hook which orchestrates user-modifiable editor settings.
  */
 export default function useEditorSettings(): EditorSettings {
   const [numberOfSequences, setNumberOfSequences] = useState(1);

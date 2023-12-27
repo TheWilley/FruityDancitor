@@ -9,6 +9,7 @@ type Props = { appSettings: AppSettings };
  * Component which represents settings concerning the app.
  *
  * More specifically, settings which does not concern a specific section of the app.
+ * @param props A object containing component properties.
  */
 function NavbarAppSettingsTab(props: Props) {
   const { validateNumberInput } = useInputValidation();

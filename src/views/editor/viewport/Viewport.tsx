@@ -11,6 +11,7 @@ type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
 
 /**
  * Component which show the sprite sheet.
+ * @param props A object containing component properties.
  */
 function Viewport(props: Props) {
   const grid = useRef<HTMLCanvasElement>(null);

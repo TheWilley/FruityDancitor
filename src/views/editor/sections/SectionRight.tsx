@@ -5,7 +5,8 @@ import useAnchorKeyword from '../../../hooks/utils/useAnchorKeyword.ts';
 type Props = { children: ReactNode[] };
 
 /**
- * The right section of the editor.
+ * Component for the right section of the editor.
+ * @param props A object containing component properties.
  */
 function SectionRight(props: Props) {
   const { incorporateKeyword } = useAnchorKeyword();

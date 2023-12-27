@@ -17,7 +17,7 @@ import SectionContainer from './sections/SectionContainer.tsx';
 import { LoadSettings, SaveSettings } from '../../global/types.ts';
 
 /**
- * Represents a sprite sheet Editor.
+ * Component which represents a sprite sheet Editor.
  * This component serves as a comprehensive editor interface for managing sequences,
  * frames, and various settings associated with the sprite sheet.
  */

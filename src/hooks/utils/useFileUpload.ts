@@ -5,12 +5,10 @@ import { SpriteSheetSequences } from '../../global/types.ts';
 import { b64toBlob, getBase64 } from '../../utils/imageTools.ts';
 
 /**
- * Custom hooks which handles file uploads.
- *
- * This includes:
- * - Drag and drop detection and logic
- * - File upload logic
- * - etc.
+ * Custom hook which handles file uploads.
+ * @param spriteSheetSequences An array of objects adhering to the strucutre of {@link SpriteSheetSequences}.
+ * @param setSpriteSheetSequences Dispatch function to set a new state of `spriteSheetSequences`.
+ * @param selectedSequence The currently selected sequence.
  */
 export default function useFileUpload(
   spriteSheetSequences: SpriteSheetSequences[],

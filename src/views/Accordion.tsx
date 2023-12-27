@@ -2,7 +2,7 @@ import Editor from './editor/Editor';
 import Header from './header/Header.tsx';
 
 /**
- * Represents an Accordion component.
+ * Component which represents an accordion.
  *
  * An accordion is a user interface element that organizes content into collapsible sections,
  * allowing users to expand or collapse individual sections to view or hide their content.

@@ -8,9 +8,10 @@ type Props = Pick<
 >;
 
 /**
- * Represents the name of a sequence.
+ * Component which represents the name of a sequence.
  *
  * This is used later within FL Studio as a unique identifier for a given sequence.
+ * @param props A object containing component properties.
  */
 function InspectorSequenceName(props: Props) {
   const disabled = props.spriteSheetSequences.length - 1 === props.selectedSequence;

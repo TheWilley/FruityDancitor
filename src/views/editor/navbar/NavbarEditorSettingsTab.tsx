@@ -9,6 +9,7 @@ type Props = { editorSettings: EditorSettings };
  * Component which represents settings concerning the editor.
  *
  * For example, the width and height of a tile (i.e, things you would change when editing the sprite sheet).
+ * @param props A object containing component properties.
  */
 function NavbarEditorSettingsTab(props: Props) {
   const { validateNumberInput } = useInputValidation();

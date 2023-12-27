@@ -7,6 +7,7 @@ type Props = { exportSettings: ExportSettings };
 
 /**
  * Component which allows user to export their FruityDancitor project.
+ * @param props A object containing component properties.
  */
 function NavbarExportTab(props: Props) {
   const [fileName, setFileName, downloadFile] = useExport();

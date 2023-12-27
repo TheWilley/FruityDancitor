@@ -22,11 +22,13 @@
     "file-saver": "^2.0.5",
     "immer": "^10.0.3",
     "jszip": "^3.10.1",
+    "lz-string": "^1.5.0",
     "omggif": "^1.0.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
-    "react-movable": "^3.0.4"
+    "react-movable": "^3.0.4",
+    "remove": "^0.1.5"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.6",

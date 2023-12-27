@@ -11,6 +11,7 @@ type Props = Pick<EditorData, 'viewport' | 'selectedSequence'> &
  * Component which represents a preview of a given sequence.
  *
  * Goes through all frames in the sequence one by one, showing what the sprite sheet will look like within FL Studio.
+ * @param props A object containing component properties.
  */
 function InspectorPreview(props: Props) {
   const previewRef = useRef(null);

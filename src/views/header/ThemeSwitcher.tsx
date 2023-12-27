@@ -1,7 +1,7 @@
 import useTheme from '../../hooks/utils/useTheme.ts';
 
 /**
- *
+ * Component which handles theme switching.
  */
 function ThemeSwitcher() {
   const { changeTheme } = useTheme();

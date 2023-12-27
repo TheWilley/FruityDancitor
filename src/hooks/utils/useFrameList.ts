@@ -3,7 +3,12 @@ import { EditorData, SpriteSheetSequences } from '../../global/types.ts';
 import { produce } from 'immer';
 
 /**
- * Custom hook which handles frame list interaction
+ * Custom hook which handles frame list interaction.
+ * @param spriteSheetSequences An array of objects adhering to the strucutre of {@link SpriteSheetSequences}.
+ * @param setSpriteSheetSequences Dispatch function to set a new state of `spriteSheetSequences`.
+ * @param selectedSequence The currently selected sequence.
+ * @param selectedFrame The currently selected frame of  a sequence.
+ * @param setSelectedFrame Dispatch function to set a new state of `selectedFrame`.
  */
 export default function useFrameList(
   spriteSheetSequences: EditorData['spriteSheetSequences'],
@@ -39,6 +44,7 @@ export default function useFrameList(
 
   /**
    * Modifies a sequence with a new value.
+   * @param modifiedSequence A modified {@link SpriteSheetSequences.sequence} instance.
    */
   const adjustSequence = (modifiedSequence: SpriteSheetSequences['sequence']) => {
     setSpriteSheetSequences((prevSequences) => {
@@ -49,7 +55,8 @@ export default function useFrameList(
   };
 
   /**
-   * Callback when removing a frame.
+   * Callback which removes a frame from a sequence.
+   * @param targetFrame The frame to remove.
    */
   const callback = (targetFrame: number) => {
     adjustSequence(

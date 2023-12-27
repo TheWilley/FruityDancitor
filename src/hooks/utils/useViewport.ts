@@ -3,6 +3,15 @@ import { SpriteSheetSequences } from '../../global/types.ts';
 
 /**
  * Draws an image on a given tile.
+ * @param context The canvas context on which the image will drawn.
+ * @param objectURL The objectURL leading the image to be drawn.
+ * @param y The y position within the grid.
+ * @param x The x position within the grid.
+ * @param height The height of a cell.
+ * @param width The width of a cell.
+ * @param scale The scale multipler of the image.
+ * @param xoffset The xoffset of the image.
+ * @param yoffset The yoffset of the image.
  */
 function drawImageOnTile(
   context: CanvasRenderingContext2D,
@@ -44,6 +53,12 @@ function drawImageOnTile(
 
 /**
  * Custom hook to render sprite sheet.
+ * @param grid
+ * @param viewport
+ * @param numberOfSequences
+ * @param height
+ * @param width
+ * @param spriteSheetSequences
  */
 export default function useViewport(
   grid: RefObject<HTMLCanvasElement>,

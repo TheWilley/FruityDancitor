@@ -2,6 +2,9 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 
 /**
  * Custom hook to handle keyboard shortcuts.
+ * @param keys The key combination which triggers `callback`
+ * @param callback A callback function which triggers based on `keys`.
+ * @param node The target element on which keystrokes will be checked.
  * @see https://devtrium.com/posts/how-keyboard-shortcut
  * TODO: This does not track keys pressed correctly and its only active for open tabs
  */

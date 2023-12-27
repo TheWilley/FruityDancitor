@@ -18,6 +18,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-uses-react': 'off',
     'jsdoc/require-returns': 'off',
-    "jsdoc/require-param": 'off',
+    'jsdoc/require-param': 1,
+    'jsdoc/require-param-type': 'off',
   },
 };

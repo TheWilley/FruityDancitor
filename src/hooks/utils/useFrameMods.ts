@@ -1,8 +1,12 @@
 import { produce } from 'immer';
-import { EditorData } from '../../global/types.ts';
+import { EditorData, SpriteSheetSequences } from '../../global/types.ts';
 
 /**
- * Custom hook which handles frame manupilaton
+ * Custom hook which handles frame manupilaton.
+ * @param spriteSheetSequences An array of objects adhering to the strucutre of {@link SpriteSheetSequences}.
+ * @param setSpriteSheetSequences Dispatch function to set a new state of `spriteSheetSequences`.
+ * @param selectedSequence The currently selected sequence.
+ * @param selectedFrame The currently selected frame of  a sequence.
  */
 export default function useFrameMods(
   spriteSheetSequences: EditorData['spriteSheetSequences'],

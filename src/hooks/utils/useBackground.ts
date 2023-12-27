@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 
 /**
  * Custom hook to adjust the background image of the app.
- * @param backgroundSrc - URL of the background image.
- * @param darkness - Darkness level (0 to 1).
+ * @param backgroundSrc An image URL.
+ * @param darkness How much to darken the image (0 = brighter, 1 = darker).
  */
 export default function useBackground(backgroundSrc: string, darkness: number) {
   useEffect(() => {

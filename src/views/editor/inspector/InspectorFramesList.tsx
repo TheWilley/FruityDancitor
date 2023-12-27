@@ -14,6 +14,7 @@ type Props = Pick<
 
 /**
  * Component which represents the list of frames for a given sequence.
+ * @param EProps A object containing component properties.
  */
 function InspectorFramesList(EProps: Props) {
   const { callback, adjustSequence } = useFrameList(
@@ -49,7 +50,7 @@ function InspectorFramesList(EProps: Props) {
             objectURL={value.objectURL}
             text={`Frame ${(index || 0) + 1}`}
             alt=''
-            callback={() => callback(index || 0)}
+            trashClickedCallback={() => callback(index || 0)}
             highlighted={EProps.selectedFrame === index}
             includeTrash
           />

@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
 /**
- * Checks input validation before running callback.
+ * Custom hook which validates the value from an input element before running callback.
  */
 export default function useInputValidation() {
   const validateNumberInput = (

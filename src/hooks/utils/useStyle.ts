@@ -2,6 +2,20 @@ import { CSSProperties, useMemo } from 'react';
 
 /**
  * Custom hook to create dynamic styling using Tailwind and CSS.
+ * @param initialClasses Initial TailwindCSS styling to include.
+ * @param initialStyles Initial CSS styling to include.
+ * @param tailwindDynamics An array of objects containing conditions and results for TailwindCSS classes.
+ * @param tailwindDynamics.condition The condition to evaluate for applying TailwindCSS classes.
+ * @param tailwindDynamics.result The result to apply if the condition is true.
+ * @param [tailwindDynamics.result.true] The TailwindCSS classes to apply when the condition is true.
+ * @param [tailwindDynamics.result.false] Optional TailwindCSS classes to apply when the condition is false (if result is an object).
+ * @param cssDynamics An array of objects containing conditions and results for CSS properties.
+ * @param cssDynamics.cssProperty The CSS property to modify based on conditions.
+ * @param cssDynamics.condition The condition to evaluate for applying CSS properties.
+ * @param cssDynamics.result The result to apply if the condition is true.
+ * @param [cssDynamics.result.true] The CSS value to apply when the condition is true.
+ * @param [cssDynamics.result.false] Optional CSS value to apply when the condition is false (if result is an object).
+ * @returns An array containing TailwindCSS classes and CSS properties based on conditions.
  */
 export default function useStyle(
   initialClasses?: string,

@@ -4,7 +4,8 @@ import useAnchorKeyword from '../../../hooks/utils/useAnchorKeyword.ts';
 type Props = { children: ReactNode | ReactNode[] };
 
 /**
- * Container for all sections
+ * Component acting as a container for all sections.
+ * @param props A object containing component properties.
  */
 function SectionContainer(props: Props) {
   const { incorporateKeyword, getAnchorIndex } = useAnchorKeyword();
