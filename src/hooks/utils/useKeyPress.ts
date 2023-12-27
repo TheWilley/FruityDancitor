@@ -18,18 +18,40 @@ export default function useKeyPress(
 ) {
   // implement the callback ref pattern
   const callbackRef = useRef(callback);
+
+  // Set callback upon load
   useLayoutEffect(() => {
     callbackRef.current = callback;
   });
 
+  // To prevent special keys to be registered
+  const normalKeys = keys.filter(
+    (key) => !modifiers.includes(<ModifierKey>key.toLowerCase())
+  );
+
+  // To get the correct key
+  const getEventKey = (key: ModifierKey) => {
+    switch (key) {
+      case 'Alt': {
+        return 'altKey';
+      }
+      case 'Control': {
+        return 'ctrlKey';
+      }
+      case 'Shift': {
+        return 'shiftKey';
+      }
+      case 'Meta': {
+        return 'metaKey';
+      }
+    }
+  };
+
   // handle what happens on key press
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
-      const normalKeys = keys.filter(
-        (key) => !modifiers.includes(<ModifierKey>key.toLowerCase())
-      );
       const modifierKeysPressed = modifiers.every(
-        (modifier) => event[`${modifier.toLowerCase()}Key` as keyof KeyboardEvent]
+        (modifier) => event[getEventKey(modifier) as keyof KeyboardEvent]
       );
 
       if (
