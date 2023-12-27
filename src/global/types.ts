@@ -37,7 +37,7 @@ export type PickDialogFrames = {
   setDialogFrames: Setter<string[]>;
   selectedDialogFrames: number[];
   setSelectedDialogFrames: Setter<number[]>;
-  ck: (base64: string) => void;
+  callback: (base64: string) => void;
   spriteSheetSequences: EditorData['spriteSheetSequences'];
   selectedSequence: EditorData['selectedSequence'];
 };
