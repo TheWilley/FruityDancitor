@@ -34,7 +34,7 @@ function SequenceList(EProps: Props) {
 
   // Moves the selected sequence up
   useKeyPress(['ArrowRight'], ['Control', 'Shift'], () => {
-    if (EProps.selectedSequence < EProps.spriteSheetSequences.length) {
+    if (EProps.selectedSequence < EProps.spriteSheetSequences.length - 1) {
       EProps.setSpriteSheetSequences((prevSequences) =>
         produce(prevSequences, (draft) => {
           arrayMoveMutable(draft, EProps.selectedSequence, EProps.selectedSequence + 1);
