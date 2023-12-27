@@ -44,6 +44,7 @@ function InspectorFramesList(EProps: Props) {
   useKeyPress(['6'], ['Control'], () => selectFrame(5));
   useKeyPress(['7'], ['Control'], () => selectFrame(6));
   useKeyPress(['8'], ['Control'], () => selectFrame(7));
+  useKeyPress(['Delete'], undefined, () => callback(EProps.selectedFrame));
 
   return (
     <List
