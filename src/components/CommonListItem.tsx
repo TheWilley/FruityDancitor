@@ -58,7 +58,7 @@ function CommonListItem(props: Props) {
         {props.text || <i> {props.alt} </i>}
       </span>
       {props.includeTrash && (
-        <span className='absolute right-3 top-3 cursor-pointer'>
+        <span className='absolute right-3 top-[15px] text-lg cursor-pointer'>
           <FontAwesomeIcon
             icon={faTrash}
             className='hover:text-error'
