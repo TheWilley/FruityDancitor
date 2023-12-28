@@ -1,8 +1,8 @@
 /**
- *
- * @param props
- * @param props.keys
- * @param props.text
+ * Component which lists all keyboard shortcuts.
+ * @param props A object containing component properties.
+ * @param props.keys The keys to display.
+ * @param props.text The text to show above the keys.
  */
 function KeyboardShortcut(props: { text: string; keys: string[] }) {
   return (
