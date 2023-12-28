@@ -15,6 +15,8 @@ import useBackground from '../../hooks/utils/useBackground.ts';
 import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
 import { LoadSettings, SaveSettings } from '../../global/types.ts';
+import useKeyPress from '../../hooks/utils/useKeyPress.ts';
+import useExport from '../../hooks/utils/useExport.ts';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -45,7 +47,18 @@ function Editor() {
     setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
   };
 
+  // Hook to adjust background
   useBackground(appSettings.customBackgroundSrc, appSettings.customBackgroundDarkness);
+
+  // Keyboard shortcut to export
+  const { downloadFile } = useExport();
+  useKeyPress(['e'], ['Shift'], () => {
+    downloadFile({
+      filename: '',
+      spriteSheetSequences: editorData.spriteSheetSequences,
+      viewport: editorData.viewport,
+    });
+  });
 
   return (
     <SectionContainer>
