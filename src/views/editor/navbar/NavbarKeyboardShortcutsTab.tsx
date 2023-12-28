@@ -6,14 +6,16 @@
  */
 function KeyboardShortcut(props: { text: string; keys: string[] }) {
   return (
-    <div className='text-center bg-base-200 p-2 rounded-md'>
-      <div className='mb-2 font-bold'> {props.text} </div>
-      {props.keys.map((key, index) => (
-        <>
-          <kbd className='kbd m-1'> {key} </kbd>
-          {index !== props.keys.length - 1 && ' + '}
-        </>
-      ))}
+    <div className='flex bg-base-200 p-2 w-full rounded-md'>
+      <div className='text-center m-auto'>
+        <div className='mb-2 font-bold'> {props.text} </div>
+        {props.keys.map((key, index) => (
+          <>
+            <kbd className='kbd m-1'> {key} </kbd>
+            {index !== props.keys.length - 1 && <span className='basis-full'> + </span>}
+          </>
+        ))}
+      </div>
     </div>
   );
 }
@@ -24,7 +26,7 @@ function KeyboardShortcut(props: { text: string; keys: string[] }) {
 function NavbarKeyboardShortcutsTab() {
   return (
     <>
-      <div className='grid grid-cols-4 gap-2'>
+      <div className='flex lg:grid md:grid-cols-2 xl:grid-cols-4 gap-2 overflow-auto'>
         <KeyboardShortcut text='Switch Frame' keys={['Ctrl', '1-8']} />
         <KeyboardShortcut text='Delete selected frame' keys={['Delete']} />
         <KeyboardShortcut text='Reset frame mods' keys={['Shift', 'r']} />
