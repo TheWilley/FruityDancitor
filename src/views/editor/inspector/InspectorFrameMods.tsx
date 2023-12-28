@@ -1,7 +1,6 @@
 import { EditorData } from '../../../global/types.ts';
 import useFrameMods from '../../../hooks/utils/useFrameMods.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
-import useKeyPress from '../../../hooks/utils/useKeyPress.ts';
 
 type Props = Pick<
   EditorData,
@@ -23,10 +22,6 @@ function InspectorFrameMods(props: Props) {
     props.selectedSequence,
     props.selectedFrame
   );
-
-  useKeyPress(['r'], ['Shift'], () => {
-    resetMods();
-  });
 
   return (
     <>
