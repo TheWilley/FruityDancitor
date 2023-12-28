@@ -9,7 +9,7 @@ type Props = { exportSettings: ExportSettings };
  * @param props A object containing component properties.
  */
 function NavbarExportTab(props: Props) {
-  const [fileName, setFileName, downloadFile] = useExport();
+  const { fileName, setFileName, downloadFile } = useExport();
   const download = useCallback(() => {
     downloadFile({
       filename: fileName,
@@ -28,7 +28,6 @@ function NavbarExportTab(props: Props) {
         placeholder='File Name...'
       />
       <button className='btn btn-success w-full' onClick={download}>
-        {' '}
         Download
       </button>
     </div>

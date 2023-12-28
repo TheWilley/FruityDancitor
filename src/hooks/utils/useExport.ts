@@ -53,5 +53,5 @@ function downloadFile(exportSettings: ExportSettings & { filename: string }) {
 export default function useExport() {
   const [fileName, setFileName] = useState('');
 
-  return [fileName, setFileName, downloadFile] as const;
+  return { fileName, setFileName, downloadFile };
 }
