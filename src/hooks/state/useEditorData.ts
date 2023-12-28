@@ -22,7 +22,7 @@ function useSpriteSheetSequences(numberOfSequences: number) {
    * Function to modify frames before returning the result.
    * Used here to:
    * 1. Splice the sequences so that we don't return an unnecessary amount (i.e, more than the amount of sequences).
-   * 2. Sets the last sequence name to "held" per the requirements of Fruity Dance.
+   * 2. Sets the last sequence name to "Held" per the requirements of Fruity Dance.
    */
   const modifiedFrames = useMemo(() => {
     return produce(spriteSheetSequences, (draftFrames) => {
@@ -31,11 +31,11 @@ function useSpriteSheetSequences(numberOfSequences: number) {
 
       // Make sure there is only one held sequence
       for (let i = 0; i < draftFrames.length; i++) {
-        if (draftFrames[i].name === 'held') draftFrames[i].name = '';
+        if (draftFrames[i].name === 'Held') draftFrames[i].name = '';
       }
 
       // Modify the 'name' property of the last sequence
-      draftFrames[draftFrames.length - 1].name = 'held';
+      draftFrames[draftFrames.length - 1].name = 'Held';
     });
   }, [numberOfSequences, spriteSheetSequences]);
 
