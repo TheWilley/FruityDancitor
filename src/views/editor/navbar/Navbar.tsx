@@ -63,7 +63,7 @@ function Navbar(props: Props) {
       icon: <FontAwesomeIcon icon={faFileExport} />,
     },
     {
-      name: 'Keyboard Shortcuts',
+      name: 'Shortcuts',
       view: <NavbarKeyboardShortcutsTab />,
       icon: <FontAwesomeIcon icon={faKeyboard} />,
     },
