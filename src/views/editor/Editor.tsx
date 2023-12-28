@@ -57,6 +57,8 @@ function Editor() {
         viewport={editorData.viewport}
         customBackgroundSrc={appSettings.customBackgroundSrc}
         customBackgroundDarkness={appSettings.customBackgroundDarkness}
+        loadSettings={loadSettings}
+        saveSettings={saveSettings}
       />
       <SectionContainer>
         <SectionLeft>

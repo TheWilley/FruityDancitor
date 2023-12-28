@@ -1,12 +1,19 @@
 import useExport from '../../hooks/utils/useExport.ts';
 import useKeyPress from '../../hooks/utils/useKeyPress.ts';
-import { AppSettings, EditorData } from '../../global/types.ts';
+import {
+  AppSettings,
+  EditorData,
+  LoadSettings,
+  SaveSettings,
+} from '../../global/types.ts';
 import useBackground from '../../hooks/utils/useBackground.ts';
 import { produce } from 'immer';
 import { arrayMoveMutable } from 'array-move';
 import useFrameMods from '../../hooks/utils/useFrameMods.ts';
 import { arrayMove } from 'react-movable';
 import useFrameList from '../../hooks/utils/useFrameList.ts';
+import useSaveAndLoad from '../../hooks/utils/useSaveAndLoad.ts';
+import { useRef } from 'react';
 
 type Props = Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness'> &
   Pick<
@@ -18,7 +25,7 @@ type Props = Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness
     | 'selectedFrame'
     | 'setSelectedFrame'
     | 'viewport'
-  >;
+  > & { saveSettings: SaveSettings; loadSettings: LoadSettings };
 
 /**
  * Component which contains editor utils nicely collected in a single place.
@@ -146,7 +153,26 @@ function EditorUtils(props: Props) {
     }
   });
 
-  return '';
+  // Keyboard shortcut for saving and loading
+  const [save, load] = useSaveAndLoad();
+  const fileRef = useRef<HTMLInputElement | null>(null);
+  useKeyPress(['s'], ['Shift'], () => {
+    save(props.saveSettings);
+  });
+  useKeyPress(['l'], ['Shift'], () => {
+    fileRef.current?.click();
+  });
+
+  return (
+    <input
+      type='file'
+      onChange={(e) => {
+        e.target.files && load(e.target.files[0], props.loadSettings);
+      }}
+      ref={fileRef}
+      className='hidden'
+    />
+  );
 }
 
 export default EditorUtils;
