@@ -47,7 +47,7 @@ function InspectorFrameMods(props: Props) {
           <input
             type='number'
             className='input input-md input-bordered w-full'
-            min={0}
+            min={-500}
             value={mods.xoffset}
             onChange={(e) =>
               validateNumberInput('number', e, (value) => setxoffset(value))
@@ -62,7 +62,7 @@ function InspectorFrameMods(props: Props) {
           <input
             type='number'
             className='input input-md input-bordered w-full'
-            min={0}
+            min={-500}
             value={mods.yoffset}
             onChange={(e) =>
               validateNumberInput('number', e, (value) => setyoffset(value))
