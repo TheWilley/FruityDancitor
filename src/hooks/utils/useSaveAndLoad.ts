@@ -4,6 +4,7 @@ import {
   convertFramesToBase64,
   convertFramesToObjectURLs,
 } from '../../utils/imageTools.ts';
+import { toast } from 'react-toastify';
 
 /**
  * Reads a file and returns is as JSON.
@@ -38,7 +39,7 @@ function readFileAsJSON(file: File): Promise<SaveSettings> {
  */
 async function load(file: File, loadSettings: LoadSettings) {
   if (file.type !== 'application/json') {
-    alert('Not a JSON file');
+    toast.error('Not a JSON file');
     return;
   }
 
@@ -58,13 +59,13 @@ async function load(file: File, loadSettings: LoadSettings) {
       ),
     ]);
 
-    alert('Project loaded');
+    toast.success('Project Loaded');
   } catch (error) {
     console.error('Error:', error);
     if (error instanceof Error) {
-      alert(error.message);
+      toast.error(error.message);
     } else {
-      alert('Could not load project');
+      toast.error('Could not load project');
     }
   }
 }
@@ -108,6 +109,9 @@ async function save(saveSettings: SaveSettings) {
 
   // Save the blob (downloads file)
   saveAs(blob, 'savedFruityDancitorProject.json');
+
+  // Alert user
+  toast.success('Project Saved');
 }
 
 /**
