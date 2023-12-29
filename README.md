@@ -84,11 +84,6 @@ This project would not be possible without these open source packages:
   by [electron-markdownify](https://github.com/amitmerchant1990/electron-markdownify/tree/master), initially found
   at [awesome-readme](https://github.com/matiassingers/awesome-readme)
 
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
 ## Disclamer
 
 FruityDancitor is an independent project and is not affiliated with, endorsed by, or connected to Image-Line® or FL
