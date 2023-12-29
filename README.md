@@ -1,15 +1,13 @@
 <h1 align="center">
   <br>
-  <a href="linkToWebpage"><img src="linkToLogo" alt="FruityDancitor" width="200"></a>
+  <a href="linkToWebpage"><img src="https://github.com/TheWilley/FruityDancitor/assets/89783791/d139e8bb-9124-495c-88da-cf76706e204a" alt="FruityDancitor" width="200"></a>
   <br>
   FruityDancitor
   <br>
 </h1>
 
----
-
-<h4 align="center">An sprite sheet editor to easily edit and export sprite sheets compatible
-with [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm).
+<h4 align="center">A sprite sheet editor to easily edit and export sprite sheets compatible
+with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm' alt='Fruity Dance'> Fruity Dance</a>.
 </h4>
 
 <p align="center">
@@ -30,18 +28,22 @@ with [Fruity Dance](https://www.image-line.com/fl-studio-learning/fl-studio-onli
 
 1. **Frame Management:**
   - Uploading frames from a GIF file
+    
     ![Uploading a gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDZ0ZXg5enZrNG5vYW5tenFhd2FrbHRxeHgwYXJhajlsamp1Ym5xZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iMa0LjyxhMIGQ3xwQ3/source.gif)
 
   - Editing individual frames
+    
     ![Editing individual frames](https://media2.giphy.com/media/xb3BU7GvZlDTwtl0t3/giphy.gif)
 
   - Rearranging sequences and frames
+    
     ![Moving sequences and frames](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWhrb29scHl3ZmM5Mmd6Z3dqZzJ6cjJxeTdqZ3dtZWpqcGdiNmZidyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iakRGT2mkOmmHdoL2p/source.gif)
 
 2. **Functionality:**
   - Save and Load
   - Live Preview
   - One-click export
+  - Custom background image
 
 3. **And More!**
 
