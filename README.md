@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="linkToWebpage"><img src="https://github.com/TheWilley/FruityDancitor/assets/89783791/d139e8bb-9124-495c-88da-cf76706e204a" alt="FruityDancitor" width="200"></a>
+  <a href="https://thewilley.github.io/FruityDancitor/"><img src="https://github.com/TheWilley/FruityDancitor/assets/89783791/d139e8bb-9124-495c-88da-cf76706e204a" alt="FruityDancitor" width="200"></a>
   <br>
   FruityDancitor
   <br>
@@ -55,7 +55,7 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
 
 ## How To Use
 
-Simply go to the [official webpage](linkToWebpage) to get started, or run the app yourself by following these steps:
+Simply go to the [official webpage](https://thewilley.github.io/FruityDancitor/) to get started, or run the app yourself by following these steps:
 
 ```bash
 # Clone this repository
