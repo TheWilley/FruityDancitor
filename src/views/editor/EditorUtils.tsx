@@ -14,6 +14,7 @@ import { arrayMove } from 'react-movable';
 import useFrameList from '../../hooks/utils/useFrameList.ts';
 import useSaveAndLoad from '../../hooks/utils/useSaveAndLoad.ts';
 import { useRef } from 'react';
+import useOnUnload from '../../hooks/utils/useOnUnload.ts';
 
 type Props = Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness'> &
   Pick<
@@ -34,6 +35,11 @@ type Props = Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness
 function EditorUtils(props: Props) {
   // Hook to adjust background
   useBackground(props.customBackgroundSrc, props.customBackgroundDarkness);
+
+  console.log(props.spriteSheetSequences[0].sequence.length);
+
+  // Hook to prevent
+  useOnUnload(props.spriteSheetSequences[0].sequence.length > 0);
 
   // Keyboard shortcut to export
   const { downloadFile } = useExport();
