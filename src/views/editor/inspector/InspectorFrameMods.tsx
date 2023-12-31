@@ -30,10 +30,11 @@ function InspectorFrameMods(props: Props) {
           <span className='label-text'>Scale</span>
         </label>
         <input
-          type='number'
-          className='input input-md input-bordered w-full'
+          type='range'
+          className='range w-full'
           step={0.1}
           min={0.1}
+          max={3}
           value={mods.scale}
           onChange={(e) => validateNumberInput('float', e, (value) => setScale(value))}
           disabled={disabled}
