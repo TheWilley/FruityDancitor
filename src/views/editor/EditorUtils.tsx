@@ -36,8 +36,6 @@ function EditorUtils(props: Props) {
   // Hook to adjust background
   useBackground(props.customBackgroundSrc, props.customBackgroundDarkness);
 
-  console.log(props.spriteSheetSequences[0].sequence.length);
-
   // Hook to prevent
   useOnUnload(props.spriteSheetSequences[0].sequence.length > 0);
 
