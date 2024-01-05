@@ -41,17 +41,20 @@ function InspectorUpload(props: Upload) {
    * Compnent which displays a text box where a URL can be entered.
    */
   const LinkUpload = () => {
-    const { handleSubmit, link, handleChange, borderStyling } =
+    const { handleSubmit, link, handleChange, borderStyling, enterStyling } =
       useLinkUpload(handleURLUpload);
     return (
       <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          value={link}
-          onChange={handleChange}
-          className={borderStyling}
-          placeholder='Image URL'
-        />
+        <div className='join w-full'>
+          <div className={enterStyling}>↵</div>
+          <input
+            type='text'
+            value={link}
+            onChange={handleChange}
+            className={borderStyling}
+            placeholder='Image URL'
+          />
+        </div>
         <button type='submit' className='hidden' />
       </form>
     );
@@ -60,6 +63,7 @@ function InspectorUpload(props: Upload) {
   return (
     <>
       <LinkUpload />
+      <div className='m-2' />
       <FileUpload />
     </>
   );

@@ -39,7 +39,7 @@ export default function useLinkUpload(handleURLUpload: (url: string) => void) {
   }, []);
 
   const [borderStyling] = useStyle(
-    'input input-bordered w-full mb-2 text-center',
+    'input input-bordered join-item w-full text-center',
     undefined,
     [
       {
@@ -53,5 +53,20 @@ export default function useLinkUpload(handleURLUpload: (url: string) => void) {
     ]
   );
 
-  return { link, borderStyling, handleChange, handleSubmit };
+  const [enterStyling] = useStyle(
+    'bg-base-200 join-item p-1 pl-2 pr-2 text-xl align-middle flex items-center',
+    undefined,
+    [
+      {
+        condition: link !== '' && validURL,
+        result: 'text-success',
+      },
+      {
+        condition: link !== '' && !validURL,
+        result: 'text-error',
+      },
+    ]
+  );
+
+  return { link, borderStyling, enterStyling, handleChange, handleSubmit };
 }
