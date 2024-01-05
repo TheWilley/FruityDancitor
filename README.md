@@ -11,7 +11,7 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
 </h4>
 
 <p align="center">
-<img src="https://img.shields.io/badge/release-V3-blue" alt='release V3' />
+<img alt="GitHub release (with filter)" src="https://img.shields.io/github/v/release/TheWilley/FruityDancitor">
 <a href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'><img src="https://img.shields.io/badge/license-MIT-blue" alt='license MIT' /></a>
 <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm'> <img src="https://img.shields.io/badge/plugin_page-🌷-blue" alt='' /> </a>
 </p>
