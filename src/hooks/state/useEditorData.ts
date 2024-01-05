@@ -70,6 +70,11 @@ export default function useEditorData(
   const [selectedFrame, setSelectedFrame] = useState(0);
   const viewport = useRef<HTMLCanvasElement>(null);
 
+  // Gif extract hooks
+  const [dialogFrames, setDialogFrames] = useState<string[]>([]);
+  const [dialogIsShown, setDialogIsShown] = useState(false);
+  const [selectedDialogFrames, setSelectedDialogFrames] = useState<number[]>([]);
+
   return {
     spriteSheetSequences,
     setSpriteSheetSequences,
@@ -77,6 +82,13 @@ export default function useEditorData(
     setSelectedSequence,
     selectedFrame,
     setSelectedFrame,
+    dialogFrames,
+    setDialogFrames,
+    dialogIsShown,
+    setDialogIsShown,
+    selectedDialogFrames,
+    setSelectedDialogFrames,
+
     viewport,
   };
 }

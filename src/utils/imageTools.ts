@@ -3,6 +3,7 @@ import { SpriteSheetSequences } from '../global/types.ts';
 
 /**
  * Converts base64 to a blob.
+ * @param base64
  * @see https://stackoverflow.com/a/36183085.
  */
 export async function b64toBlob(base64: string) {
@@ -12,6 +13,7 @@ export async function b64toBlob(base64: string) {
 
 /**
  * Converts a series of frames to base64
+ * @param spriteSheetSequences
  */
 export async function convertFramesToBase64(
   spriteSheetSequences: SpriteSheetSequences[]
@@ -42,6 +44,7 @@ export async function convertFramesToBase64(
 
 /**
  * Converts a series of frames to baseURL
+ * @param spriteSheetSequences
  */
 export async function convertFramesToObjectURLs(
   spriteSheetSequences: SpriteSheetSequences[]
@@ -73,6 +76,7 @@ export async function convertFramesToObjectURLs(
 
 /**
  * Extract base64 from an image.
+ * @param source
  */
 export async function getBase64(source: File | string) {
   if (typeof source === 'string') {
@@ -92,6 +96,7 @@ export async function getBase64(source: File | string) {
 
 /**
  * Extract base64 from an either a file or a blob
+ * @param source
  */
 function readFile(source: File | Blob): Promise<string> {
   const reader = new FileReader();
@@ -101,7 +106,6 @@ function readFile(source: File | Blob): Promise<string> {
       resolve(reader.result as string);
     };
     reader.onerror = function (error) {
-      console.log('Error: ', error);
       reject(error);
     };
   });
@@ -109,6 +113,7 @@ function readFile(source: File | Blob): Promise<string> {
 
 /**
  * Convert canvas data the dataURL format.
+ * @param imageData
  */
 function imageDataToDataURL(imageData: ImageData) {
   const canvas = document.createElement('canvas');
@@ -121,6 +126,7 @@ function imageDataToDataURL(imageData: ImageData) {
 
 /**
  * Extracts frames from a gif file.
+ * @param file
  */
 async function extractGifFrames(file: File) {
   const blob = new Blob([file]);
@@ -138,4 +144,31 @@ async function extractGifFrames(file: File) {
   }
 
   return frames;
+}
+
+/**
+ * Fetches a image from a given URL and returns the base64 data.
+ * @param src
+ */
+export function getImageFromExternalUrl(src: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = 'anonymous';
+
+    image.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const ctx = canvas.getContext('2d');
+      ctx?.drawImage(image, 0, 0);
+      const dataURL = canvas.toDataURL('image/png');
+      resolve(dataURL); // Resolve with the data URL once it's created
+    };
+
+    image.onerror = (error) => {
+      reject(error);
+    };
+
+    image.src = src;
+  });
 }

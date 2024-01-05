@@ -1,5 +1,5 @@
-import { PickDialogFrames } from '../../../global/types.ts';
-import { produce } from 'immer';
+import { Upload } from '../../../global/types.ts';
+import useUpload from '../../../hooks/utils/useUpload.ts';
 
 /**
  * Component which represents an image picker.
@@ -7,66 +7,36 @@ import { produce } from 'immer';
  * The user picks which frames to extract from the GIF, which is then subsequently uploaded.
  * @param props A object containing component properties.
  */
-function InspectorPickFrames(props: PickDialogFrames) {
-  /**
-   * Handles logic of selecting frames.
-   * @param index The frame within the sequence to select.
-   */
-  const selectFrame = (index: number) => {
-    props.setSelectedDialogFrames(
-      produce(props.selectedDialogFrames, (draftDialogFrames) => {
-        const selectedIndex = draftDialogFrames.indexOf(index);
-        if (selectedIndex !== -1) {
-          // Remove frame
-          draftDialogFrames.splice(selectedIndex, 1);
-        } else {
-          // Makes sure we don't upload too many frames
-          if (
-            draftDialogFrames.length >=
-            8 - props.spriteSheetSequences[props.selectedSequence].sequence.length
-          ) {
-            draftDialogFrames.shift();
-          }
-
-          // Push clicked frame
-          draftDialogFrames.push(index);
-        }
-      })
-    );
-  };
-
-  /**
-   * Hides the gif frames dialog.
-   */
-  const hideDialog = () => {
-    props.setShowDialog(false);
-  };
-
-  /**
-   * Uploads the selected gif frames.
-   */
-  const uploadSelectedImages = () => {
-    //Since we don't need to show the dialog anymore, we close it
-    hideDialog();
-
-    return props.selectedDialogFrames.map((item) =>
-      props.callback(props.dialogFrames[item])
-    );
-  };
+function InspectorPickFrames(props: Upload) {
+  const {
+    dialogIsShown,
+    amountOfFramesPicked,
+    acceptUploadMultiple,
+    selectFrame,
+    hideGifDialog,
+    selectedDialogFrames,
+  } = useUpload(
+    props.spriteSheetSequences,
+    props.setSpriteSheetSequences,
+    props.selectedSequence,
+    props.dialogFrames,
+    props.setDialogFrames,
+    props.dialogIsShown,
+    props.setDialogIsShown,
+    props.selectedDialogFrames,
+    props.setSelectedDialogFrames
+  );
 
   return (
     <>
       <dialog
         id='my_modal_1'
         className='modal backdrop-brightness-50'
-        open={props.showDialog}
-        onClose={() => hideDialog()}
+        open={dialogIsShown}
+        onClose={hideGifDialog}
       >
         <div className='modal-box'>
-          <h1 className='text-2xl mb-2'>
-            Select Frames ({props.selectedDialogFrames.length} /
-            {8 - props.spriteSheetSequences[props.selectedSequence].sequence.length})
-          </h1>
+          <h1 className='text-2xl mb-2'>Select Frames ({amountOfFramesPicked})</h1>
           <div className='grid grid-cols-5 gap-2'>
             {props.dialogFrames.map((frame, index) => (
               <img
@@ -75,7 +45,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
                 alt={`Frame ${index}`}
                 width={150}
                 className={`cursor-pointer rounded bg-base-300 ${
-                  props.selectedDialogFrames.includes(index) ? 'border' : ''
+                  selectedDialogFrames.includes(index) ? 'border' : ''
                 }`}
                 onClick={() => selectFrame(index)}
               />
@@ -87,7 +57,7 @@ function InspectorPickFrames(props: PickDialogFrames) {
                 ✕
               </button>
             </form>
-            <button className='btn btn-success' onClick={() => uploadSelectedImages()}>
+            <button className='btn btn-success' onClick={acceptUploadMultiple}>
               Upload
             </button>
           </div>

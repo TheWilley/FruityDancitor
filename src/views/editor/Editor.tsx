@@ -3,7 +3,6 @@ import useEditorData from '../../hooks/state/useEditorData.ts';
 import useEditorSettings from '../../hooks/state/useEditorSettings.ts';
 import Navbar from './navbar/Navbar.tsx';
 import SectionRight from './sections/SectionRight.tsx';
-import InspectorFileUpload from './inspector/InspectorFileUpload';
 import InspectorFrameMods from './inspector/InspectorFrameMods';
 import InspectorFramesList from './inspector/InspectorFramesList';
 import InspectorPreview from './inspector/InspectorPreview';
@@ -15,6 +14,8 @@ import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
 import { LoadSettings, SaveSettings } from '../../global/types.ts';
 import EditorUtils from './EditorUtils.tsx';
+import InspectorPickFrames from './inspector/InspectorPickFrames.tsx';
+import InspectorUpload from './inspector/InspectorUpload.tsx';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -114,10 +115,16 @@ function Editor() {
               selectedFrame={editorData.selectedFrame}
             />
             <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-            <InspectorFileUpload
+            <InspectorUpload
               spriteSheetSequences={editorData.spriteSheetSequences}
               setSpriteSheetSequences={editorData.setSpriteSheetSequences}
               selectedSequence={editorData.selectedSequence}
+              dialogIsShown={editorData.dialogIsShown}
+              setDialogIsShown={editorData.setDialogIsShown}
+              selectedDialogFrames={editorData.selectedDialogFrames}
+              setSelectedDialogFrames={editorData.setSelectedDialogFrames}
+              dialogFrames={editorData.dialogFrames}
+              setDialogFrames={editorData.setDialogFrames}
             />
             <InspectorFramesList
               spriteSheetSequences={editorData.spriteSheetSequences}
@@ -128,6 +135,17 @@ function Editor() {
             />
           </div>
         </SectionRight>
+        <InspectorPickFrames
+          spriteSheetSequences={editorData.spriteSheetSequences}
+          setSpriteSheetSequences={editorData.setSpriteSheetSequences}
+          selectedSequence={editorData.selectedSequence}
+          dialogFrames={editorData.dialogFrames}
+          setDialogFrames={editorData.setDialogFrames}
+          selectedDialogFrames={editorData.selectedDialogFrames}
+          setSelectedDialogFrames={editorData.setSelectedDialogFrames}
+          dialogIsShown={editorData.dialogIsShown}
+          setDialogIsShown={editorData.setDialogIsShown}
+        />
       </SectionContainer>
     </>
   );

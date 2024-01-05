@@ -27,19 +27,13 @@ export type EditorData = {
   setSelectedSequence: Setter<number>;
   selectedFrame: number;
   setSelectedFrame: Setter<number>;
-  viewport: RefObject<HTMLCanvasElement>;
-};
-
-export type PickDialogFrames = {
-  showDialog: boolean;
-  setShowDialog: Setter<boolean>;
   dialogFrames: string[];
   setDialogFrames: Setter<string[]>;
+  dialogIsShown: boolean;
+  setDialogIsShown: Setter<boolean>;
   selectedDialogFrames: number[];
   setSelectedDialogFrames: Setter<number[]>;
-  callback: (base64: string) => void;
-  spriteSheetSequences: EditorData['spriteSheetSequences'];
-  selectedSequence: EditorData['selectedSequence'];
+  viewport: RefObject<HTMLCanvasElement>;
 };
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
@@ -65,3 +59,16 @@ export type SpriteSheetSequences = {
   sequence: Array<{ objectURL: string; modifications: Modifications }>;
   name: string;
 };
+
+export type Upload = Pick<
+  EditorData,
+  | 'spriteSheetSequences'
+  | 'setSpriteSheetSequences'
+  | 'selectedSequence'
+  | 'dialogFrames'
+  | 'setDialogFrames'
+  | 'dialogIsShown'
+  | 'setDialogIsShown'
+  | 'selectedDialogFrames'
+  | 'setSelectedDialogFrames'
+>;
