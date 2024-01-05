@@ -11,7 +11,8 @@
     "deploy": "npm run build && gh-pages -d dist",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lintfix": "eslint . --ext ts,tsx --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postversion": "git push && git push --tags && npm run deploy && echo 'Please create a new release at https://github.com/TheWilley/FruityDancitor/releases/new'"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
