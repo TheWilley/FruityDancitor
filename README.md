@@ -6,13 +6,14 @@
   <br>
 </h1>
 
-<h4 align="center">A sprite sheet editor to easily edit and export sprite sheets compatible
+<h4 align="center">A tool to easily edit and export sprite sheets compatible
 with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm' alt='Fruity Dance'> Fruity Dance</a>.
 </h4>
 
 <p align="center">
-<img alt="GitHub release (with filter)" src="https://img.shields.io/github/v/release/TheWilley/FruityDancitor">
+<a href='https://github.com/TheWilley/FruityDancitor/releases/latest'><img alt="GitHub release (with filter)" src="https://img.shields.io/github/v/release/TheWilley/FruityDancitor"></a>
 <a href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'><img src="https://img.shields.io/badge/license-MIT-blue" alt='license MIT' /></a>
+<a href='https://github.com/TheWilley/FruityDancitor/issues'> <img src='https://img.shields.io/github/issues/TheWilley/FruityDancitor.svg' alt='Github Issues'></a>
 <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm'> <img src="https://img.shields.io/badge/plugin_page-🌷-blue" alt='' /> </a>
 </p>
 
@@ -26,31 +27,27 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
 
 ## Key Features
 
-1. **Frame Management:**
-  - Uploading frames from a GIF file
-    
-    ![Uploading a gif](https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDZ0ZXg5enZrNG5vYW5tenFhd2FrbHRxeHgwYXJhajlsamp1Ym5xZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iMa0LjyxhMIGQ3xwQ3/source.gif)
+<table>
+<tr> 
+<td> <img src='https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDZ0ZXg5enZrNG5vYW5tenFhd2FrbHRxeHgwYXJhajlsamp1Ym5xZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iMa0LjyxhMIGQ3xwQ3/source.gif' alt='Uploading a GIF' /></td>
+<td> <img src='https://media2.giphy.com/media/xb3BU7GvZlDTwtl0t3/giphy.gif' alt='Editing induvidual frames' /> </td>
+<td> <img src='https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWhrb29scHl3ZmM5Mmd6Z3dqZzJ6cjJxeTdqZ3dtZWpqcGdiNmZidyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iakRGT2mkOmmHdoL2p/source.gif' alt='Rearranging sequences and frames' /></td>
+</tr>
+<tr>
+<td>Uploading frames from a GIF file</td>
+<td>Editing individual frames</td>
+<td>Rearranging sequences and frames</td>
+</tr>
+</table>
 
-  - Editing individual frames
-    
-    ![Editing individual frames](https://media2.giphy.com/media/xb3BU7GvZlDTwtl0t3/giphy.gif)
-
-  - Rearranging sequences and frames
-    
-    ![Moving sequences and frames](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWhrb29scHl3ZmM5Mmd6Z3dqZzJ6cjJxeTdqZ3dtZWpqcGdiNmZidyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iakRGT2mkOmmHdoL2p/source.gif)
-
-2. **Functionality:**
-  - Save and Load
-  - Live Preview
-  - One-click export
-  - Keyboard Shortcuts
-
-
-3.  **Other**:
-   - Custom background image
-   - Custom background darkness
-   - Preview FPS
-   - **And More!**
+- Save and Load
+- Live Preview
+- One-click export
+- Keyboard Shortcuts
+- Custom background image
+- Custom background darkness
+- Preview FPS
+- And More!
 
 
 ## How To Use
@@ -107,4 +104,4 @@ responsibility of the users. I do not claim ownership or rights over the content
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE)
