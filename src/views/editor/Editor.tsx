@@ -68,6 +68,8 @@ function Editor() {
             setSpriteSheetSequences={editorData.setSpriteSheetSequences}
             selectedSequence={editorData.selectedSequence}
             setSelectedSequence={editorData.setSelectedSequence}
+            numberOfSequences={editorSettings.numberOfSequences}
+            setNumberOfSequences={editorSettings.setNumberOfSequences}
           />
         </SectionLeft>
 
