@@ -1,5 +1,4 @@
 import useExport from '../../hooks/utils/useExport.ts';
-import useKeyPress from '../../hooks/utils/useKeyPress.ts';
 import {
   AppSettings,
   EditorData,
@@ -15,6 +14,7 @@ import useFrameList from '../../hooks/utils/useFrameList.ts';
 import useSaveAndLoad from '../../hooks/utils/useSaveAndLoad.ts';
 import { useRef } from 'react';
 import useOnUnload from '../../hooks/utils/useOnUnload.ts';
+import { useHotkeys } from 'react-hotkeys-hook';
 
 type Props = Pick<AppSettings, 'customBackgroundSrc' | 'customBackgroundDarkness'> &
   Pick<
@@ -41,7 +41,7 @@ function EditorUtils(props: Props) {
 
   // Keyboard shortcut to export
   const { downloadFile } = useExport();
-  useKeyPress(['e'], ['Shift'], () => {
+  useHotkeys('shift+e', () => {
     downloadFile({
       filename: '',
       spriteSheetSequences: props.spriteSheetSequences,
@@ -50,21 +50,21 @@ function EditorUtils(props: Props) {
   });
 
   // Keyboard shortcut to move to the next sequence
-  useKeyPress(['0'], ['Control'], () => {
+  useHotkeys('control+0', () => {
     if (props.selectedSequence < props.spriteSheetSequences.length) {
       props.setSelectedSequence(props.selectedSequence + 1);
     }
   });
 
   // Keyboard shortcut to move to the previous sequence
-  useKeyPress(['9'], ['Control'], () => {
+  useHotkeys('control+9', () => {
     if (props.selectedSequence > 0) {
       props.setSelectedSequence(props.selectedSequence - 1);
     }
   });
 
   // Moves the selected sequence up
-  useKeyPress(['ArrowRight'], ['Control', 'Shift'], () => {
+  useHotkeys('control+shift+arrowright ', () => {
     if (props.selectedSequence < props.spriteSheetSequences.length - 1) {
       props.setSpriteSheetSequences((prevSequences) =>
         produce(prevSequences, (draft) => {
@@ -76,7 +76,7 @@ function EditorUtils(props: Props) {
   });
 
   // Moves the selected sequence up
-  useKeyPress(['ArrowLeft'], ['Control', 'Shift'], () => {
+  useHotkeys('control+shift+arrowleft', () => {
     if (props.selectedSequence > 0) {
       props.setSpriteSheetSequences((prevSequences) =>
         produce(prevSequences, (draft) => {
@@ -94,7 +94,7 @@ function EditorUtils(props: Props) {
     props.selectedSequence,
     props.selectedFrame
   );
-  useKeyPress(['r'], ['Shift'], () => {
+  useHotkeys('shift+r', () => {
     resetMods();
   });
 
@@ -117,20 +117,20 @@ function EditorUtils(props: Props) {
   };
 
   // Multiple handlers to select a certain frame
-  useKeyPress(['1'], ['Control'], () => selectFrame(0));
-  useKeyPress(['2'], ['Control'], () => selectFrame(1));
-  useKeyPress(['3'], ['Control'], () => selectFrame(2));
-  useKeyPress(['4'], ['Control'], () => selectFrame(3));
-  useKeyPress(['5'], ['Control'], () => selectFrame(4));
-  useKeyPress(['6'], ['Control'], () => selectFrame(5));
-  useKeyPress(['7'], ['Control'], () => selectFrame(6));
-  useKeyPress(['8'], ['Control'], () => selectFrame(7));
+  useHotkeys('control+1', () => selectFrame(0));
+  useHotkeys('control+2', () => selectFrame(1));
+  useHotkeys('control+3', () => selectFrame(2));
+  useHotkeys('control+4', () => selectFrame(3));
+  useHotkeys('control+5', () => selectFrame(4));
+  useHotkeys('control+6', () => selectFrame(5));
+  useHotkeys('control+7', () => selectFrame(6));
+  useHotkeys('control+8', () => selectFrame(7));
 
   // Deletes the selected frame
-  useKeyPress(['Delete'], undefined, () => callback(props.selectedFrame));
+  useHotkeys('delete', () => callback(props.selectedFrame));
 
   // Moves the selected frame down
-  useKeyPress(['ArrowDown'], ['Control', 'Shift'], () => {
+  useHotkeys('control+shift+arrowdown', () => {
     if (props.selectedFrame + 1 < 7) {
       adjustSequence(
         arrayMove(
@@ -144,7 +144,7 @@ function EditorUtils(props: Props) {
   });
 
   // Moves the selected frame up
-  useKeyPress(['ArrowUp'], ['Control', 'Shift'], () => {
+  useHotkeys('control+shift+arrowup', () => {
     if (props.selectedFrame - 1 >= 0) {
       adjustSequence(
         arrayMove(
@@ -160,10 +160,10 @@ function EditorUtils(props: Props) {
   // Keyboard shortcut for saving and loading
   const [save, load] = useSaveAndLoad();
   const fileRef = useRef<HTMLInputElement | null>(null);
-  useKeyPress(['s'], ['Shift'], () => {
+  useHotkeys('shift+s', () => {
     save(props.saveSettings);
   });
-  useKeyPress(['l'], ['Shift'], () => {
+  useHotkeys('shift+l', () => {
     fileRef.current?.click();
   });
 
