@@ -14,6 +14,7 @@ import {
   LoadSettings,
   SaveSettings,
 } from '../../global/types.ts';
+import { getKeyboardShortcuts } from '../../utils/getKeyboardShortcuts.ts';
 
 /**
  *
@@ -48,6 +49,8 @@ export default function useUtils(
   // Hook to prevent
   useOnUnload(spriteSheetSequences[0].sequence.length > 0);
 
+  // Define a function that extracts and combines functionalShortcut values into a union type
+
   // Deps for shortcuts
   const [save, load] = useSaveAndLoad();
   const { downloadFile } = useExport();
@@ -65,40 +68,25 @@ export default function useUtils(
     setSelectedFrame
   );
 
-  // Keyboard shortcut to adjust frame list
-  const selectFrame = (index: number) => {
-    if (
-      selectedFrame !== index &&
-      spriteSheetSequences[selectedSequence].sequence.length > index
-    ) {
-      setSelectedFrame(index);
-    }
-  };
-
-  const shortcuts = [
-    {
-      shortcut: 'Ctrl + 0',
-      // Keyboard shortcut to move to the next sequence
-      hook: useHotkeys('control+0', () => {
+  // TODO: Replace string with a type which lists valid keyboard shortcuts
+  const handleKeyDown = (key: string) => {
+    switch (key) {
+      case 'control+0': {
         if (selectedSequence < spriteSheetSequences.length) {
           setSelectedSequence(selectedSequence + 1);
         }
-      }),
-      description: 'Select the next sequence',
-    },
-    {
-      shortcut: 'Ctrl + 9',
-      // Keyboard shortcut to move to the next sequence
-      hook: useHotkeys('control+9', () => {
+        break;
+      }
+
+      case 'control+9': {
         if (selectedSequence > 0) {
           setSelectedSequence(selectedSequence - 1);
         }
-      }),
-      description: 'Select the previos sequence',
-    },
-    {
-      shortcut: 'Ctrl + Shift + ▶︎',
-      hook: useHotkeys('control+shift+arrowright ', () => {
+        break;
+      }
+
+      case 'control+shift+arrowright': {
+        console.log('sdgsdg');
         if (selectedSequence < spriteSheetSequences.length - 1) {
           setSpriteSheetSequences((prevSequences) =>
             produce(prevSequences, (draft) => {
@@ -107,12 +95,10 @@ export default function useUtils(
           );
           setSelectedSequence(selectedSequence + 1);
         }
-      }),
-      description: 'Move the selected sequence down',
-    },
-    {
-      shortcut: 'Ctrl + Shift + ◀︎',
-      hook: useHotkeys('control+shift+arrowleft', () => {
+        break;
+      }
+
+      case 'control+shift+arrowleft': {
         if (selectedSequence > 0) {
           setSpriteSheetSequences((prevSequences) =>
             produce(prevSequences, (draft) => {
@@ -121,43 +107,29 @@ export default function useUtils(
           );
           setSelectedSequence(selectedSequence - 1);
         }
-      }),
-      description: 'Move the selected sequence up',
-    },
-    {
-      shortcut: 'Shift + e',
-      hook: useHotkeys('shift+e', () => {
+        break;
+      }
+
+      case 'shift+e': {
         downloadFile({
           filename: '',
           spriteSheetSequences: spriteSheetSequences,
           viewport: viewport,
         });
-      }),
-      description: 'Quick export project',
-    },
-    {
-      shortcut: 'Shift + r',
-      hook: useHotkeys('shift+r', () => {
+        break;
+      }
+
+      case 'shift+r': {
         resetMods();
-      }),
-      description: 'Reset frame mods values',
-    },
-    {
-      shortcut: 'Shift + <1-8>',
-      hook: useHotkeys(
-        Array.from(Array(8).keys(), (x) => 'control+' + (x + 1)),
-        (e) => selectFrame(parseInt(e.key) - 1)
-      ),
-      description: 'Select frame on index',
-    },
-    {
-      shortcut: 'Delete',
-      hook: useHotkeys('delete', () => callback(selectedFrame)),
-      description: 'Delte selected frame',
-    },
-    {
-      shortcut: 'Ctrl + Shift + ▼',
-      hook: useHotkeys('control+shift+arrowdown', () => {
+        break;
+      }
+
+      case 'delete': {
+        callback(selectedFrame);
+        break;
+      }
+
+      case 'control+shift+arrowdown': {
         if (selectedFrame !== -1 && selectedFrame + 1 < 7) {
           adjustSequence(
             arrayMove(
@@ -168,12 +140,10 @@ export default function useUtils(
           );
           setSelectedFrame(selectedFrame + 1);
         }
-      }),
-      description: 'Move the select frame down',
-    },
-    {
-      shortcut: 'Ctrl + Shift + ▲',
-      hook: useHotkeys('control+shift+arrowup', () => {
+        break;
+      }
+
+      case 'control+shift+arrowup': {
         if (selectedFrame !== -1 && selectedFrame - 1 >= 0) {
           adjustSequence(
             arrayMove(
@@ -184,19 +154,15 @@ export default function useUtils(
           );
           setSelectedFrame(selectedFrame - 1);
         }
-      }),
-      description: 'Move the select frame up',
-    },
-    {
-      shortcut: 'Ctrl + s',
-      hook: useHotkeys('shift+s', () => {
+        break;
+      }
+
+      case 'shift+s': {
         save(saveSettings);
-      }),
-      description: 'Save the project',
-    },
-    {
-      shortcut: 'Ctrl + l',
-      hook: useHotkeys('shift+l', () => {
+        break;
+      }
+
+      case 'shift+l': {
         const input = document.createElement('input');
         input.type = 'file';
         input.onchange = (e) => {
@@ -204,10 +170,20 @@ export default function useUtils(
           target.files && load(target.files[0], loadSettings);
         };
         input.click();
-      }),
-      description: 'Load a project',
-    },
-  ];
+        break;
+      }
+    }
+  };
 
-  return { shortcuts };
+  useHotkeys(
+    getKeyboardShortcuts().map((item) => item.functionalShortcut),
+    (pressedKey, e) => {
+      const pressedKeys = [];
+      if (e.ctrl) pressedKeys.push('control');
+      if (e.shift) pressedKeys.push('shift');
+      pressedKeys.push(pressedKey.key.toLowerCase());
+      console.log(pressedKeys.join('+'));
+      handleKeyDown(pressedKeys.join('+'));
+    }
+  );
 }
