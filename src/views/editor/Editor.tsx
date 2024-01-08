@@ -13,9 +13,9 @@ import SpriteSheetCanvas from './viewport/Viewport.tsx';
 import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
 import { LoadSettings, SaveSettings } from '../../global/types.ts';
-import EditorUtils from './EditorUtils.tsx';
 import InspectorPickFrames from './inspector/InspectorPickFrames.tsx';
 import InspectorUpload from './inspector/InspectorUpload.tsx';
+import useUtils from '../../hooks/utils/useUtils.ts';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -45,22 +45,22 @@ function Editor() {
     setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
     setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
   };
+  useUtils(
+    editorData.spriteSheetSequences,
+    editorData.setSpriteSheetSequences,
+    editorData.selectedSequence,
+    editorData.setSelectedSequence,
+    editorData.selectedFrame,
+    editorData.setSelectedFrame,
+    editorData.viewport,
+    saveSettings,
+    loadSettings,
+    appSettings.customBackgroundSrc,
+    appSettings.customBackgroundDarkness
+  );
 
   return (
     <>
-      <EditorUtils
-        spriteSheetSequences={editorData.spriteSheetSequences}
-        setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-        selectedSequence={editorData.selectedSequence}
-        setSelectedSequence={editorData.setSelectedSequence}
-        selectedFrame={editorData.selectedFrame}
-        setSelectedFrame={editorData.setSelectedFrame}
-        viewport={editorData.viewport}
-        customBackgroundSrc={appSettings.customBackgroundSrc}
-        customBackgroundDarkness={appSettings.customBackgroundDarkness}
-        loadSettings={loadSettings}
-        saveSettings={saveSettings}
-      />
       <SectionContainer>
         <SectionLeft>
           <SequenceList
