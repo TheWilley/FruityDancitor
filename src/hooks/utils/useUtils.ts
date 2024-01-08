@@ -14,7 +14,7 @@ import {
   LoadSettings,
   SaveSettings,
 } from '../../global/types.ts';
-import { getKeyboardShortcuts } from '../../utils/getKeyboardShortcuts.ts';
+import keymap from '../../data/keybindings.json';
 
 /**
  *
@@ -176,7 +176,7 @@ export default function useUtils(
   };
 
   useHotkeys(
-    getKeyboardShortcuts().map((item) => item.functionalShortcut),
+    keymap.map((item) => item.functionalShortcut),
     (pressedKey, e) => {
       const pressedKeys = [];
       if (e.ctrl) pressedKeys.push('control');
