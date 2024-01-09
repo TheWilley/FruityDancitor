@@ -2,6 +2,7 @@ import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import { useState } from 'react';
 import { ExportSettings } from '../../global/types.ts';
+import { toast } from 'react-toastify';
 
 /**
  * Custom hook which zips the sprite sheet and sequence names, then downloads them.
@@ -45,6 +46,8 @@ function downloadFile(exportSettings: ExportSettings & { filename: string }) {
   zip.generateAsync({ type: 'blob' }).then(function (content) {
     saveAs(content, `${exportSettings.filename}.zip`);
   });
+
+  toast.success('Project Exported');
 }
 
 /**
