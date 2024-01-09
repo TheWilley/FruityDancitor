@@ -45,6 +45,11 @@
     "description": "Add new sequence"
   },
   {
+    "displayedShortcut": "d",
+    "functionalShortcut": "d",
+    "description": "Delete last sequence"
+  },
+  {
     "displayedShortcut": "u",
     "functionalShortcut": "u",
     "description": "Upload image file"

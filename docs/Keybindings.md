@@ -11,6 +11,7 @@
 <kbd>Ctrl + ▶</kbd>: Move the selected frame down
 <kbd>Ctrl + ◀</kbd>: Move the selected frame up
 <kbd>a</kbd>: Add new sequence
+<kbd>d</kbd>: Delete last sequence
 <kbd>u</kbd>: Upload image file
 <kbd>r</kbd>: Reset frame mods values
 <kbd>Delete</kbd>: Delete selected frame

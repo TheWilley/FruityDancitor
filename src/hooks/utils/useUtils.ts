@@ -163,6 +163,13 @@ export default function useUtils(
         break;
       }
 
+      case 'd': {
+        if (numberOfSequences > 1) {
+          setNumberOfSequences(numberOfSequences - 1);
+        }
+        break;
+      }
+
       case 'u': {
         fileUpload.current?.click();
         break;
