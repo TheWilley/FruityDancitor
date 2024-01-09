@@ -213,7 +213,6 @@ export default function useUtils(
       if (e.ctrl) pressedKeys.push('control');
       if (e.shift) pressedKeys.push('shift');
       pressedKeys.push(pressedKey.key.toLowerCase());
-      console.log(pressedKeys.join('+'));
       handleKeyDown(pressedKeys.join('+'));
     }
   );
