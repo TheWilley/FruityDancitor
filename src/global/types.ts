@@ -34,6 +34,7 @@ export type EditorData = {
   selectedDialogFrames: number[];
   setSelectedDialogFrames: Setter<number[]>;
   viewport: RefObject<HTMLCanvasElement>;
+  fileUpload: RefObject<HTMLInputElement>;
 };
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
@@ -71,4 +72,5 @@ export type Upload = Pick<
   | 'setDialogIsShown'
   | 'selectedDialogFrames'
   | 'setSelectedDialogFrames'
+  | 'fileUpload'
 >;

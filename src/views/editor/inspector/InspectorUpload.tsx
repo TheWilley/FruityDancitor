@@ -30,7 +30,8 @@ function InspectorUpload(props: Upload) {
     );
 
     return (
-      <div {...getRootProps()} className={classes} style={styles}>
+      /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
+      <div {...getRootProps()} className={classes} style={styles} ref={props.fileUpload}>
         <input {...getInputProps()} disabled={disabled} />
         <p>{placeholder}</p>
       </div>

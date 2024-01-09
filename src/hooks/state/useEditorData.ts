@@ -69,6 +69,7 @@ export default function useEditorData(
   const [selectedSequence, setSelectedSequence] = useSelectedSequence(numberOfSequences);
   const [selectedFrame, setSelectedFrame] = useState(0);
   const viewport = useRef<HTMLCanvasElement>(null);
+  const fileUpload = useRef<HTMLInputElement>(null);
 
   // Gif extract hooks
   const [dialogFrames, setDialogFrames] = useState<string[]>([]);
@@ -90,5 +91,6 @@ export default function useEditorData(
     setSelectedDialogFrames,
 
     viewport,
+    fileUpload,
   };
 }

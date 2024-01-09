@@ -53,8 +53,11 @@ function Editor() {
     editorData.selectedFrame,
     editorData.setSelectedFrame,
     editorData.viewport,
+    editorData.fileUpload,
     saveSettings,
     loadSettings,
+    editorSettings.numberOfSequences,
+    editorSettings.setNumberOfSequences,
     appSettings.customBackgroundSrc,
     appSettings.customBackgroundDarkness
   );
@@ -127,6 +130,7 @@ function Editor() {
               setSelectedDialogFrames={editorData.setSelectedDialogFrames}
               dialogFrames={editorData.dialogFrames}
               setDialogFrames={editorData.setDialogFrames}
+              fileUpload={editorData.fileUpload}
             />
             <InspectorFramesList
               spriteSheetSequences={editorData.spriteSheetSequences}
@@ -147,6 +151,7 @@ function Editor() {
           setSelectedDialogFrames={editorData.setSelectedDialogFrames}
           dialogIsShown={editorData.dialogIsShown}
           setDialogIsShown={editorData.setDialogIsShown}
+          fileUpload={editorData.fileUpload}
         />
       </SectionContainer>
     </>

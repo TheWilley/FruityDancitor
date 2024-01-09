@@ -11,6 +11,7 @@ import { arrayMove } from 'react-movable';
 import {
   AppSettings,
   EditorData,
+  EditorSettings,
   LoadSettings,
   SaveSettings,
 } from '../../global/types.ts';
@@ -25,8 +26,11 @@ import keymap from '../../data/keybindings.json';
  * @param selectedFrame
  * @param setSelectedFrame
  * @param viewport
+ * @param fileUpload
  * @param saveSettings
  * @param loadSettings
+ * @param numberOfSequences
+ * @param setNumberOfSequences
  * @param customBackgroundSrc
  * @param customBackgroundDarkness
  */
@@ -38,8 +42,11 @@ export default function useUtils(
   selectedFrame: EditorData['selectedFrame'],
   setSelectedFrame: EditorData['setSelectedFrame'],
   viewport: EditorData['viewport'],
+  fileUpload: EditorData['fileUpload'],
   saveSettings: SaveSettings,
   loadSettings: LoadSettings,
+  numberOfSequences: EditorSettings['numberOfSequences'],
+  setNumberOfSequences: EditorSettings['setNumberOfSequences'],
   customBackgroundSrc: AppSettings['customBackgroundSrc'],
   customBackgroundDarkness: AppSettings['customBackgroundDarkness']
 ) {
@@ -71,22 +78,21 @@ export default function useUtils(
   // TODO: Replace string with a type which lists valid keyboard shortcuts
   const handleKeyDown = (key: string) => {
     switch (key) {
-      case 'control+0': {
+      case 'arrowdown': {
         if (selectedSequence < spriteSheetSequences.length) {
           setSelectedSequence(selectedSequence + 1);
         }
         break;
       }
 
-      case 'control+9': {
+      case 'arrowup': {
         if (selectedSequence > 0) {
           setSelectedSequence(selectedSequence - 1);
         }
         break;
       }
 
-      case 'control+shift+arrowright': {
-        console.log('sdgsdg');
+      case 'control+arrowdown': {
         if (selectedSequence < spriteSheetSequences.length - 1) {
           setSpriteSheetSequences((prevSequences) =>
             produce(prevSequences, (draft) => {
@@ -98,7 +104,7 @@ export default function useUtils(
         break;
       }
 
-      case 'control+shift+arrowleft': {
+      case 'control+arrowup': {
         if (selectedSequence > 0) {
           setSpriteSheetSequences((prevSequences) =>
             produce(prevSequences, (draft) => {
@@ -110,27 +116,22 @@ export default function useUtils(
         break;
       }
 
-      case 'shift+e': {
-        downloadFile({
-          filename: '',
-          spriteSheetSequences: spriteSheetSequences,
-          viewport: viewport,
-        });
+      case 'arrowright': {
+        if (selectedFrame < 7) {
+          setSelectedFrame(selectedFrame + 1);
+        }
         break;
       }
 
-      case 'shift+r': {
-        resetMods();
+      case 'arrowleft': {
+        if (selectedFrame > 0) {
+          setSelectedFrame(selectedFrame - 1);
+        }
         break;
       }
 
-      case 'delete': {
-        callback(selectedFrame);
-        break;
-      }
-
-      case 'control+shift+arrowdown': {
-        if (selectedFrame !== -1 && selectedFrame + 1 < 7) {
+      case 'control+arrowright': {
+        if (selectedFrame !== -1 && selectedFrame < 7) {
           adjustSequence(
             arrayMove(
               spriteSheetSequences[selectedSequence].sequence,
@@ -143,8 +144,8 @@ export default function useUtils(
         break;
       }
 
-      case 'control+shift+arrowup': {
-        if (selectedFrame !== -1 && selectedFrame - 1 >= 0) {
+      case 'control+arrowleft': {
+        if (selectedFrame !== -1 && selectedFrame > 0) {
           adjustSequence(
             arrayMove(
               spriteSheetSequences[selectedSequence].sequence,
@@ -157,12 +158,41 @@ export default function useUtils(
         break;
       }
 
-      case 'shift+s': {
+      case 'a': {
+        setNumberOfSequences(numberOfSequences + 1);
+        break;
+      }
+
+      case 'u': {
+        fileUpload.current?.click();
+        break;
+      }
+
+      case 'e': {
+        downloadFile({
+          filename: '',
+          spriteSheetSequences: spriteSheetSequences,
+          viewport: viewport,
+        });
+        break;
+      }
+
+      case 'r': {
+        resetMods();
+        break;
+      }
+
+      case 'delete': {
+        callback(selectedFrame);
+        break;
+      }
+
+      case 's': {
         save(saveSettings);
         break;
       }
 
-      case 'shift+l': {
+      case 'l': {
         const input = document.createElement('input');
         input.type = 'file';
         input.onchange = (e) => {
@@ -178,6 +208,7 @@ export default function useUtils(
   useHotkeys(
     keymap.map((item) => item.functionalShortcut),
     (pressedKey, e) => {
+      pressedKey.preventDefault();
       const pressedKeys = [];
       if (e.ctrl) pressedKeys.push('control');
       if (e.shift) pressedKeys.push('shift');

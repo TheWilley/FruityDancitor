@@ -1,32 +1,57 @@
 [
   {
-    "displayedShortcut": "Ctrl + 0",
-    "functionalShortcut": "control+0",
+    "displayedShortcut": "▼",
+    "functionalShortcut": "arrowdown",
     "description": "Select the next sequence"
   },
   {
-    "displayedShortcut": "Ctrl + 9",
-    "functionalShortcut": "control+9",
+    "displayedShortcut": "▲",
+    "functionalShortcut": "arrowup",
     "description": "Select the previous sequence"
   },
   {
-    "displayedShortcut": "Ctrl + Shift + ▶︎",
-    "functionalShortcut": "control+shift+arrowright",
+    "displayedShortcut": "Ctrl + ▼",
+    "functionalShortcut": "control+arrowdown",
     "description": "Move the selected sequence down"
   },
   {
-    "displayedShortcut": "Ctrl + Shift + ◀︎",
-    "functionalShortcut": "control+shift+arrowleft",
+    "displayedShortcut": "Ctrl + ▲",
+    "functionalShortcut": "control+arrowup",
     "description": "Move the selected sequence up"
   },
   {
-    "displayedShortcut": "Shift + e",
-    "functionalShortcut": "shift+e",
-    "description": "Quick export project"
+    "displayedShortcut": "▶",
+    "functionalShortcut": "arrowright",
+    "description": "Select the next frame"
   },
   {
-    "displayedShortcut": "Shift + r",
-    "functionalShortcut": "shift+r",
+    "displayedShortcut": "◀",
+    "functionalShortcut": "arrowleft",
+    "description": "Select the previous frame"
+  },
+  {
+    "displayedShortcut": "Ctrl + ▶",
+    "functionalShortcut": "control+arrowright",
+    "description": "Move the selected frame down"
+  },
+  {
+    "displayedShortcut": "Ctrl + ◀",
+    "functionalShortcut": "control+arrowleft",
+    "description": "Move the selected frame up"
+  },
+  {
+    "displayedShortcut": "a",
+    "functionalShortcut": "a",
+    "description": "Add new sequence"
+  },
+  {
+    "displayedShortcut": "u",
+    "functionalShortcut": "u",
+    "description": "Upload image file"
+  },
+  {
+    "displayedShortcut": "r",
+    "functionalShortcut": "r",
     "description": "Reset frame mods values"
   },
   {
@@ -35,24 +60,19 @@
     "description": "Delete selected frame"
   },
   {
-    "displayedShortcut": "Ctrl + Shift + ▼",
-    "functionalShortcut": "control+shift+arrowdown",
-    "description": "Move the selected frame down"
+    "displayedShortcut": "e",
+    "functionalShortcut": "e",
+    "description": "Quick export project"
   },
   {
-    "displayedShortcut": "Ctrl + Shift + ▲",
-    "functionalShortcut": "control+shift+arrowup",
-    "description": "Move the selected frame up"
-  },
-  {
-    "displayedShortcut": "shift + s",
-    "functionalShortcut": "shift+s",
-    "description": "Save the project"
-  },
-  {
-    "displayedShortcut": "shift + l",
-    "functionalShortcut": "shift+l",
+    "displayedShortcut": "l",
+    "functionalShortcut": "l",
     "description": "Load a project"
+  },
+  {
+    "displayedShortcut": "s",
+    "functionalShortcut": "s",
+    "description": "Save the project"
   }
 ]
 
