@@ -1,7 +1,6 @@
 import { EditorData } from '../../../global/types.ts';
 import useFrameMods from '../../../hooks/utils/useFrameMods.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
-import useStyle from '../../../hooks/utils/useStyle.ts';
 
 type Props = Pick<
   EditorData,
@@ -24,11 +23,6 @@ function InspectorFrameMods(props: Props) {
     props.selectedFrame
   );
 
-  // Style for range
-  const [disabledRange] = useStyle('range w-full', undefined, [
-    { condition: disabled, result: 'cursor-not-allowed opacity-30' },
-  ]);
-
   return (
     <>
       <div>
@@ -36,8 +30,8 @@ function InspectorFrameMods(props: Props) {
           <span className='label-text'>Scale</span>
         </label>
         <input
-          type='range'
-          className={disabledRange}
+          type='number'
+          className='input input-md input-bordered w-full'
           step={0.1}
           min={0.1}
           max={3}
