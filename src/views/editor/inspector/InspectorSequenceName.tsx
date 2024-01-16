@@ -32,8 +32,8 @@ function InspectorSequenceName(props: Props) {
             placeholder='Type here'
             className='input input-bordered w-full tooltip'
             onChange={(e) => {
-              props.setSpriteSheetSequences(
-                produce(props.spriteSheetSequences, (draft) => {
+              props.setSpriteSheetSequences((prevSequences) =>
+                produce(prevSequences, (draft) => {
                   draft[props.selectedSequence].name = e.target.value;
                 })
               );
