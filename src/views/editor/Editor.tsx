@@ -16,6 +16,7 @@ import { LoadSettings, SaveSettings } from '../../global/types.ts';
 import InspectorPickFrames from './inspector/InspectorPickFrames.tsx';
 import InspectorUpload from './inspector/InspectorUpload.tsx';
 import useUtils from '../../hooks/utils/useUtils.ts';
+import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -154,6 +155,7 @@ function Editor() {
           fileUpload={editorData.fileUpload}
         />
       </SectionContainer>
+      <PopupKeyboardBindings />
     </>
   );
 }

@@ -78,6 +78,11 @@
     "displayedShortcut": "s",
     "functionalShortcut": "s",
     "description": "Save the project"
+  },
+  {
+    "displayedShortcut": "h",
+    "functionalShortcut": "h",
+    "description": "Display keyboard bindings"
   }
 ]
 

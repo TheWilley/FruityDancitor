@@ -209,6 +209,14 @@ export default function useUtils(
         input.click();
         break;
       }
+
+      case 'h': {
+        const keyboardBindingsDialog = document.getElementById(
+          'keyboardBindingsDialog'
+        ) as HTMLDialogElement | null;
+
+        keyboardBindingsDialog?.showModal();
+      }
     }
   };
 
@@ -218,8 +226,8 @@ export default function useUtils(
       pressedKey.preventDefault();
       const pressedKeys = [];
       if (e.ctrl) pressedKeys.push('control');
-      if (e.shift) pressedKeys.push('shift');
       pressedKeys.push(pressedKey.key.toLowerCase());
+
       handleKeyDown(pressedKeys.join('+'));
     }
   );

@@ -43,7 +43,7 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
 - Save and Load
 - Live Preview
 - One-click export
-- Keyboard Shortcuts
+- Keyboard Shortcuts (press `h` for list)
 - Custom background image
 - Custom background darkness
 - Preview FPS

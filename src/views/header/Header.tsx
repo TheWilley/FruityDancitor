@@ -74,15 +74,6 @@ function Header() {
           </li>
           <li>
             <a
-              href='https://github.com/TheWilley/FruityDancitor/tree/main/docs/Keybindings.md'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Keybindings
-            </a>
-          </li>
-          <li>
-            <a
               href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm'
               target='_blank'
               rel='noreferrer'
