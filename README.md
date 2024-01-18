@@ -74,6 +74,15 @@ $ npm run preview
 $ npm run dev
 ```
 
+## Docker
+You can also use docker to run the app by using the following command:
+
+```
+docker compose up --build -d
+```
+
+Your application will be available at http://localhost:3000.
+
 ## Credits
 
 This project would not be possible without these open source packages:

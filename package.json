@@ -5,9 +5,11 @@
   "version": "3.2.0",
   "type": "module",
   "scripts": {
+    "start": "serve dist",
     "dev": "vite",
     "devspose": "vite --host",
     "build": "tsc && vite build",
+    "build-docker": "tsc && vite build --base=/",
     "deploy": "npm run build && gh-pages -d dist",
     "generate": "node scripts/generateKeybindings.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -32,7 +34,8 @@
     "react-hotkeys-hook": "^4.4.3",
     "react-movable": "^3.0.4",
     "react-toastify": "^9.1.3",
-    "remove": "^0.1.5"
+    "remove": "^0.1.5",
+    "serve": "^14.2.1"
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.6",
