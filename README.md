@@ -10,6 +10,8 @@
 with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm' alt='Fruity Dance'> Fruity Dance</a>.
 </h4>
 
+
+
 <p align="center">
 <a href='https://github.com/TheWilley/FruityDancitor/releases/latest'><img alt="GitHub release (with filter)" src="https://img.shields.io/github/v/release/TheWilley/FruityDancitor"></a>
 <a href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'><img src="https://img.shields.io/badge/license-MIT-blue" alt='license MIT' /></a>
@@ -25,21 +27,13 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
   <a href="#license">License</a>
 </p>
 
+![image](https://github.com/TheWilley/FruityDancitor/assets/89783791/3d0e323a-fcb0-4432-b245-639855a0aaa7)
+
 ## Key Features
 
-<table>
-<tr> 
-<td> <img src='https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbDZ0ZXg5enZrNG5vYW5tenFhd2FrbHRxeHgwYXJhajlsamp1Ym5xZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iMa0LjyxhMIGQ3xwQ3/source.gif' alt='Uploading a GIF' /></td>
-<td> <img src='https://media2.giphy.com/media/xb3BU7GvZlDTwtl0t3/giphy.gif' alt='Editing induvidual frames' /> </td>
-<td> <img src='https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNWhrb29scHl3ZmM5Mmd6Z3dqZzJ6cjJxeTdqZ3dtZWpqcGdiNmZidyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/iakRGT2mkOmmHdoL2p/source.gif' alt='Rearranging sequences and frames' /></td>
-</tr>
-<tr>
-<td>Uploading frames from a GIF file</td>
-<td>Editing individual frames</td>
-<td>Rearranging sequences and frames</td>
-</tr>
-</table>
-
+- Uploading frames from a GIF file
+- Editing induvidual frames
+- Rearranging sequences and frames
 - Save and Load
 - Live Preview
 - One-click export
@@ -48,7 +42,6 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
 - Custom background darkness
 - Preview FPS
 - And More!
-
 
 ## How To Use
 
