@@ -4,8 +4,8 @@ import { AppSettings } from '../../../global/types.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  adjustedBackgroundDarkness,
-  adjustedBackgroundSrc,
+  backgroundDarknessUpdate,
+  backgroundSrcUpdate,
 } from '../../../redux/backgroundSlice.ts';
 import { IRootState } from '../../../redux/store.ts';
 
@@ -60,7 +60,7 @@ function NavbarAppSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Custom Background URL'
             value={background.backgroundSrc}
-            onChange={(e) => dispatch(adjustedBackgroundSrc(e.target.value))}
+            onChange={(e) => dispatch(backgroundSrcUpdate(e.target.value))}
           />
         </div>
       </div>
@@ -82,7 +82,7 @@ function NavbarAppSettingsTab(props: Props) {
             value={background.backgroundDarkness}
             onChange={(e) =>
               validateNumberInput('float', e, (value) =>
-                dispatch(adjustedBackgroundDarkness(value))
+                dispatch(backgroundDarknessUpdate(value))
               )
             }
           />

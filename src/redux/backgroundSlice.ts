@@ -7,15 +7,14 @@ const backgroundSlice = createSlice({
     backgroundDarkness: 0,
   },
   reducers: {
-    adjustedBackgroundSrc(state, action) {
+    backgroundSrcUpdate(state, action) {
       state.backgroundSrc = action.payload;
     },
-    adjustedBackgroundDarkness(state, action) {
+    backgroundDarknessUpdate(state, action) {
       state.backgroundDarkness = action.payload;
     },
   },
 });
-export const { adjustedBackgroundDarkness, adjustedBackgroundSrc } =
-  backgroundSlice.actions;
+export const { backgroundDarknessUpdate, backgroundSrcUpdate } = backgroundSlice.actions;
 
 export default backgroundSlice.reducer;
