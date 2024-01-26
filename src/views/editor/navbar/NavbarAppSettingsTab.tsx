@@ -2,12 +2,11 @@ import { faImage, faLightbulb, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppSettings } from '../../../global/types.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   backgroundDarknessUpdate,
   backgroundSrcUpdate,
 } from '../../../redux/backgroundSlice.ts';
-import { IRootState } from '../../../redux/store.ts';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 
 type Props = { appSettings: AppSettings };
 
@@ -18,8 +17,8 @@ type Props = { appSettings: AppSettings };
  * @param props A object containing component properties.
  */
 function NavbarAppSettingsTab(props: Props) {
-  const dispatch = useDispatch();
-  const background = useSelector((state: IRootState) => state.background);
+  const dispatch = useAppDispatch();
+  const background = useAppSelector((state) => state.background);
   const { validateNumberInput } = useInputValidation();
 
   return (

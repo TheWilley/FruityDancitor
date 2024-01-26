@@ -15,8 +15,7 @@ import {
   SaveSettings,
 } from '../../global/types.ts';
 import keymap from '../../data/keybindings.json';
-import { useSelector } from 'react-redux';
-import { IRootState } from '../../redux/store.ts';
+import { useAppSelector } from '../../redux/hooks.ts';
 
 /**
  *
@@ -47,7 +46,7 @@ export default function useUtils(
   numberOfSequences: EditorSettings['numberOfSequences'],
   setNumberOfSequences: EditorSettings['setNumberOfSequences']
 ) {
-  const background = useSelector((state: IRootState) => state.background);
+  const background = useAppSelector((state) => state.background);
   // Hook to adjust background
   useBackground(background.backgroundSrc, background.backgroundDarkness);
 
