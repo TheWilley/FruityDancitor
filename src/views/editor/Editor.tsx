@@ -58,9 +58,7 @@ function Editor() {
     saveSettings,
     loadSettings,
     editorSettings.numberOfSequences,
-    editorSettings.setNumberOfSequences,
-    appSettings.customBackgroundSrc,
-    appSettings.customBackgroundDarkness
+    editorSettings.setNumberOfSequences
   );
 
   return (

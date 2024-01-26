@@ -2,6 +2,12 @@ import { faImage, faLightbulb, faPlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AppSettings } from '../../../global/types.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  adjustedBackgroundDarkness,
+  adjustedBackgroundSrc,
+} from '../../../redux/backgroundSlice.ts';
+import { IRootState } from '../../../redux/store.ts';
 
 type Props = { appSettings: AppSettings };
 
@@ -12,6 +18,8 @@ type Props = { appSettings: AppSettings };
  * @param props A object containing component properties.
  */
 function NavbarAppSettingsTab(props: Props) {
+  const dispatch = useDispatch();
+  const background = useSelector((state: IRootState) => state.background);
   const { validateNumberInput } = useInputValidation();
 
   return (
@@ -51,8 +59,8 @@ function NavbarAppSettingsTab(props: Props) {
             type='text'
             className='input input-bordered join-item input-sm w-full'
             placeholder='Custom Background URL'
-            value={props.appSettings.customBackgroundSrc}
-            onChange={(e) => props.appSettings.setCustomBackgroundSrc(e.target.value)}
+            value={background.backgroundSrc}
+            onChange={(e) => dispatch(adjustedBackgroundSrc(e.target.value))}
           />
         </div>
       </div>
@@ -71,10 +79,10 @@ function NavbarAppSettingsTab(props: Props) {
             min={0.1}
             max={1}
             step={0.1}
-            value={props.appSettings.customBackgroundDarkness}
+            value={background.backgroundDarkness}
             onChange={(e) =>
               validateNumberInput('float', e, (value) =>
-                props.appSettings.setCustomBackgroundDarkness(value)
+                dispatch(adjustedBackgroundDarkness(value))
               )
             }
           />

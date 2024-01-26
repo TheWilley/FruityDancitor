@@ -9,13 +9,14 @@ import { produce } from 'immer';
 import { arrayMoveMutable } from 'array-move';
 import { arrayMove } from 'react-movable';
 import {
-  AppSettings,
   EditorData,
   EditorSettings,
   LoadSettings,
   SaveSettings,
 } from '../../global/types.ts';
 import keymap from '../../data/keybindings.json';
+import { useSelector } from 'react-redux';
+import { IRootState } from '../../redux/store.ts';
 
 /**
  *
@@ -31,8 +32,6 @@ import keymap from '../../data/keybindings.json';
  * @param loadSettings
  * @param numberOfSequences
  * @param setNumberOfSequences
- * @param customBackgroundSrc
- * @param customBackgroundDarkness
  */
 export default function useUtils(
   spriteSheetSequences: EditorData['spriteSheetSequences'],
@@ -46,12 +45,11 @@ export default function useUtils(
   saveSettings: SaveSettings,
   loadSettings: LoadSettings,
   numberOfSequences: EditorSettings['numberOfSequences'],
-  setNumberOfSequences: EditorSettings['setNumberOfSequences'],
-  customBackgroundSrc: AppSettings['customBackgroundSrc'],
-  customBackgroundDarkness: AppSettings['customBackgroundDarkness']
+  setNumberOfSequences: EditorSettings['setNumberOfSequences']
 ) {
+  const background = useSelector((state: IRootState) => state.background);
   // Hook to adjust background
-  useBackground(customBackgroundSrc, customBackgroundDarkness);
+  useBackground(background.backgroundSrc, background.backgroundDarkness);
 
   // Hook to prevent
   useOnUnload(spriteSheetSequences[0].sequence.length > 0);
