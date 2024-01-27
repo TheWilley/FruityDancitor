@@ -5,13 +5,12 @@ import { useAppSelector } from '../../redux/hooks.ts';
  * Custom hook designed for previewing a sequence of frames.
  * @param previewCanvas - The canvas element where the preview will be rendered.
  * @param originalCanvas - The source canvas containing the frames to be fetched.
- * @param previewFps - The playback frames per second (FPS) for the preview.
  */
 export default function usePreview(
   previewCanvas: HTMLCanvasElement | null,
-  originalCanvas: HTMLCanvasElement | null,
-  previewFps: number
+  originalCanvas: HTMLCanvasElement | null
 ) {
+  const fps = useAppSelector((state) => state.preview.fps);
   const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
   const { width, height } = useAppSelector((state) => state.viewport);
   const [keepTimer, setKeepTimer] = useState(0);
@@ -70,7 +69,7 @@ export default function usePreview(
           setKeepTimer(keepTimer + 1);
           nextFrame(context);
         },
-        (1 / previewFps) * 1000
+        (1 / fps) * 1000
       );
 
       return () => clearTimeout(timer);

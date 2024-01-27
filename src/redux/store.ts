@@ -3,6 +3,7 @@ import backgroundReducer from './backgroundSlice.ts';
 import spriteSheetReducer from './spriteSheetSlice.ts';
 import viewportReducer from './viewportSlice.ts';
 import dialogReducer from './dialogSlice.ts';
+import previewReducer from './previewSlice.ts';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     spriteSheet: spriteSheetReducer,
     viewport: viewportReducer,
     dialog: dialogReducer,
+    preview: previewReducer,
   },
 });
 

@@ -70,12 +70,7 @@ function Editor() {
         </SectionMiddle>
 
         <SectionRight>
-          {editorData.viewport && (
-            <InspectorPreview
-              viewport={editorData.viewport}
-              previewFps={appSettings.previewFps}
-            />
-          )}
+          {editorData.viewport && <InspectorPreview viewport={editorData.viewport} />}
           <div className='p-2'>
             <InspectorSequenceName />
             <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>

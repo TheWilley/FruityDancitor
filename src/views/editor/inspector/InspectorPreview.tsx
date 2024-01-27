@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import usePreview from '../../../hooks/utils/UsePreview.ts';
-import { AppSettings, EditorData } from '../../../global/types.ts';
+import { EditorData } from '../../../global/types.ts';
 import opaque from '../../../media/opaque.jpeg';
 
-type Props = Pick<EditorData, 'viewport'> & Pick<AppSettings, 'previewFps'>;
+type Props = Pick<EditorData, 'viewport'>;
 /**
  * Component which represents a preview of a given sequence.
  *
@@ -12,11 +12,7 @@ type Props = Pick<EditorData, 'viewport'> & Pick<AppSettings, 'previewFps'>;
  */
 function InspectorPreview(props: Props) {
   const previewRef = useRef(null);
-  const [currentFrame] = usePreview(
-    previewRef.current,
-    props.viewport.current,
-    props.previewFps
-  );
+  const [currentFrame] = usePreview(previewRef.current, props.viewport.current);
 
   return (
     <div className='flex justify-center bg-base-300'>
