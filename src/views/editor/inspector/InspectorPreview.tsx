@@ -1,12 +1,9 @@
 import { useRef } from 'react';
 import usePreview from '../../../hooks/utils/UsePreview.ts';
-import { AppSettings, EditorData, EditorSettings } from '../../../global/types.ts';
+import { AppSettings, EditorData } from '../../../global/types.ts';
 import opaque from '../../../media/opaque.jpeg';
 
-type Props = Pick<EditorData, 'viewport'> &
-  Pick<AppSettings, 'previewFps'> &
-  Pick<EditorSettings, 'width' | 'height'>;
-
+type Props = Pick<EditorData, 'viewport'> & Pick<AppSettings, 'previewFps'>;
 /**
  * Component which represents a preview of a given sequence.
  *
@@ -18,8 +15,6 @@ function InspectorPreview(props: Props) {
   const [currentFrame] = usePreview(
     previewRef.current,
     props.viewport.current,
-    props.width,
-    props.height,
     props.previewFps
   );
 

@@ -66,19 +66,13 @@ function Editor() {
             loadSettings={loadSettings}
             saveSettings={saveSettings}
           />
-          <SpriteSheetCanvas
-            height={editorSettings.height}
-            width={editorSettings.width}
-            viewport={editorData.viewport}
-          />
+          <SpriteSheetCanvas viewport={editorData.viewport} />
         </SectionMiddle>
 
         <SectionRight>
           {editorData.viewport && (
             <InspectorPreview
               viewport={editorData.viewport}
-              height={editorSettings.height}
-              width={editorSettings.width}
               previewFps={appSettings.previewFps}
             />
           )}

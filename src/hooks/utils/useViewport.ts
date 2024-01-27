@@ -55,15 +55,12 @@ function drawImageOnTile(
  * Custom hook to render sprite sheet.
  * @param grid
  * @param viewport
- * @param height
- * @param width
  */
 export default function useViewport(
   grid: RefObject<HTMLCanvasElement>,
-  viewport: RefObject<HTMLCanvasElement>,
-  height: number,
-  width: number
+  viewport: RefObject<HTMLCanvasElement>
 ) {
+  const { width, height } = useAppSelector((state) => state.viewport);
   const numberOfSequences = useAppSelector(
     (state) => state.spriteSheet.numberOfSequences
   );
