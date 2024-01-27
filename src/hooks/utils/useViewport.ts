@@ -1,5 +1,5 @@
 import { RefObject, useEffect, useState } from 'react';
-import { SpriteSheetSequences } from '../../global/types.ts';
+import { useAppSelector } from '../../redux/hooks.ts';
 
 /**
  * Draws an image on a given tile.
@@ -55,19 +55,21 @@ function drawImageOnTile(
  * Custom hook to render sprite sheet.
  * @param grid
  * @param viewport
- * @param numberOfSequences
  * @param height
  * @param width
- * @param spriteSheetSequences
  */
 export default function useViewport(
   grid: RefObject<HTMLCanvasElement>,
   viewport: RefObject<HTMLCanvasElement>,
-  numberOfSequences: number,
   height: number,
-  width: number,
-  spriteSheetSequences: SpriteSheetSequences[]
+  width: number
 ) {
+  const numberOfSequences = useAppSelector(
+    (state) => state.spriteSheet.numberOfSequences
+  );
+  const spriteSheetSequences = useAppSelector(
+    (state) => state.spriteSheet.spriteSheetSequences
+  );
   const [permanentlyShowGrid, setPermanentlyShowGrid] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
 

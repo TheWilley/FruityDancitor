@@ -1,20 +1,19 @@
-import { produce } from 'immer';
-import { EditorData } from '../../../global/types.ts';
 import useStyle from '../../../hooks/utils/useStyle.ts';
-
-type Props = Pick<
-  EditorData,
-  'spriteSheetSequences' | 'setSpriteSheetSequences' | 'selectedSequence'
->;
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
+import { sequenceChangeName } from '../../../redux/spriteSheetSlice.ts';
 
 /**
  * Component which represents the name of a sequence.
  *
  * This is used later within FL Studio as a unique identifier for a given sequence.
- * @param props A object containing component properties.
  */
-function InspectorSequenceName(props: Props) {
-  const disabled = props.spriteSheetSequences.length - 1 === props.selectedSequence;
+function InspectorSequenceName() {
+  const { spriteSheetSequences, selectedSequence } = useAppSelector(
+    (state) => state.spriteSheet
+  );
+  const dispatch = useAppDispatch();
+
+  const disabled = spriteSheetSequences.length - 1 === selectedSequence;
   const [formDisabledClass] = useStyle('form-control w-full', undefined, [
     { condition: disabled, result: 'tooltip tooltip-bottom' },
   ]);
@@ -27,16 +26,12 @@ function InspectorSequenceName(props: Props) {
             <span className='label-text'>Name</span>
           </label>
           <input
-            value={props.spriteSheetSequences[props.selectedSequence].name}
+            value={spriteSheetSequences[selectedSequence].name}
             type='text'
             placeholder='Type here'
             className='input input-bordered w-full tooltip'
             onChange={(e) => {
-              props.setSpriteSheetSequences((prevSequences) =>
-                produce(prevSequences, (draft) => {
-                  draft[props.selectedSequence].name = e.target.value;
-                })
-              );
+              dispatch(sequenceChangeName(e.target.value));
             }}
             disabled={disabled}
           />

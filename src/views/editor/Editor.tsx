@@ -46,33 +46,13 @@ function Editor() {
     setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
     setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
   };
-  useUtils(
-    editorData.spriteSheetSequences,
-    editorData.setSpriteSheetSequences,
-    editorData.selectedSequence,
-    editorData.setSelectedSequence,
-    editorData.selectedFrame,
-    editorData.setSelectedFrame,
-    editorData.viewport,
-    editorData.fileUpload,
-    saveSettings,
-    loadSettings,
-    editorSettings.numberOfSequences,
-    editorSettings.setNumberOfSequences
-  );
+  useUtils(editorData.viewport, editorData.fileUpload, saveSettings, loadSettings);
 
   return (
     <>
       <SectionContainer>
         <SectionLeft>
-          <SequenceList
-            spriteSheetSequences={editorData.spriteSheetSequences}
-            setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-            selectedSequence={editorData.selectedSequence}
-            setSelectedSequence={editorData.setSelectedSequence}
-            numberOfSequences={editorSettings.numberOfSequences}
-            setNumberOfSequences={editorSettings.setNumberOfSequences}
-          />
+          <SequenceList />
         </SectionLeft>
 
         <SectionMiddle>
@@ -87,10 +67,8 @@ function Editor() {
             saveSettings={saveSettings}
           />
           <SpriteSheetCanvas
-            numberOfSequences={editorSettings.numberOfSequences}
             height={editorSettings.height}
             width={editorSettings.width}
-            spriteSheetSequences={editorData.spriteSheetSequences}
             viewport={editorData.viewport}
           />
         </SectionMiddle>
@@ -101,28 +79,15 @@ function Editor() {
               viewport={editorData.viewport}
               height={editorSettings.height}
               width={editorSettings.width}
-              selectedSequence={editorData.selectedSequence}
               previewFps={appSettings.previewFps}
             />
           )}
           <div className='p-2'>
-            <InspectorSequenceName
-              spriteSheetSequences={editorData.spriteSheetSequences}
-              setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-              selectedSequence={editorData.selectedSequence}
-            />
+            <InspectorSequenceName />
             <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
-            <InspectorFrameMods
-              spriteSheetSequences={editorData.spriteSheetSequences}
-              setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-              selectedSequence={editorData.selectedSequence}
-              selectedFrame={editorData.selectedFrame}
-            />
+            <InspectorFrameMods />
             <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
             <InspectorUpload
-              spriteSheetSequences={editorData.spriteSheetSequences}
-              setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-              selectedSequence={editorData.selectedSequence}
               dialogIsShown={editorData.dialogIsShown}
               setDialogIsShown={editorData.setDialogIsShown}
               selectedDialogFrames={editorData.selectedDialogFrames}
@@ -131,19 +96,10 @@ function Editor() {
               setDialogFrames={editorData.setDialogFrames}
               fileUpload={editorData.fileUpload}
             />
-            <InspectorFramesList
-              spriteSheetSequences={editorData.spriteSheetSequences}
-              setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-              selectedSequence={editorData.selectedSequence}
-              selectedFrame={editorData.selectedFrame}
-              setSelectedFrame={editorData.setSelectedFrame}
-            />
+            <InspectorFramesList />
           </div>
         </SectionRight>
         <InspectorPickFrames
-          spriteSheetSequences={editorData.spriteSheetSequences}
-          setSpriteSheetSequences={editorData.setSpriteSheetSequences}
-          selectedSequence={editorData.selectedSequence}
           dialogFrames={editorData.dialogFrames}
           setDialogFrames={editorData.setDialogFrames}
           selectedDialogFrames={editorData.selectedDialogFrames}

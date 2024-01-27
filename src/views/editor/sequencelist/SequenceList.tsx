@@ -1,55 +1,49 @@
 import { List } from 'react-movable';
-import { EditorData, EditorSettings } from '../../../global/types.ts';
 import CommonListItem from '../../../components/CommonListItem.tsx';
-import { arrayMoveMutable } from 'array-move';
-import { produce } from 'immer';
 import SequencePlusButton from './SequencePlusButton.tsx';
-
-type Props = Pick<
-  EditorData,
-  | 'spriteSheetSequences'
-  | 'setSpriteSheetSequences'
-  | 'selectedSequence'
-  | 'setSelectedSequence'
-> &
-  Pick<EditorSettings, 'numberOfSequences' | 'setNumberOfSequences'>;
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
+import {
+  numberOfSequencesUpdate,
+  selectedSequenceUpdate,
+  sequenceMovePosition,
+} from '../../../redux/spriteSheetSlice.ts';
 
 /**
  * Component which represents a list of all sequences in a reordable list.
- * @param EProps A object containing component properties.
  */
-function SequenceList(EProps: Props) {
+function SequenceList() {
+  const { spriteSheetSequences, selectedSequence, numberOfSequences } = useAppSelector(
+    (state) => state.spriteSheet
+  );
+  const dispatch = useAppDispatch();
+
   return (
     <>
       <List
-        values={EProps.spriteSheetSequences}
+        values={spriteSheetSequences}
         onChange={({ oldIndex, newIndex }) => {
-          EProps.setSpriteSheetSequences((prevSequences) =>
-            produce(prevSequences, (draft) => {
-              arrayMoveMutable(draft, oldIndex, newIndex);
-            })
-          );
-          EProps.setSelectedSequence(newIndex);
+          dispatch(sequenceMovePosition({ from: oldIndex, to: newIndex }));
+          dispatch(selectedSequenceUpdate(newIndex));
         }}
         renderList={({ children, props }) => <ul {...props}>{children}</ul>}
         renderItem={({ value, props, index }) => (
           <li
             {...props}
-            onMouseDown={() => EProps.setSelectedSequence(index || 0)}
+            onMouseDown={() => dispatch(selectedSequenceUpdate(index || 0))}
             className='z-30'
           >
             <CommonListItem
               {...props}
               objectURL={value.sequence[0]?.objectURL}
-              text={EProps.spriteSheetSequences[index || 0].name}
+              text={spriteSheetSequences[index || 0].name}
               alt={`Sequence ${(index || 0) + 1}`}
-              highlighted={index === EProps.selectedSequence}
+              highlighted={index === selectedSequence}
             />
           </li>
         )}
       />
       <SequencePlusButton
-        onClick={() => EProps.setNumberOfSequences(EProps.numberOfSequences + 1)}
+        onClick={() => dispatch(numberOfSequencesUpdate(numberOfSequences + 1))}
       />
     </>
   );

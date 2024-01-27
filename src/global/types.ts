@@ -63,9 +63,6 @@ export type SpriteSheetSequences = {
 
 export type Upload = Pick<
   EditorData,
-  | 'spriteSheetSequences'
-  | 'setSpriteSheetSequences'
-  | 'selectedSequence'
   | 'dialogFrames'
   | 'setDialogFrames'
   | 'dialogIsShown'

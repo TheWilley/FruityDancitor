@@ -1,14 +1,12 @@
 import { produce } from 'immer';
 import { Dispatch, SetStateAction } from 'react';
-import { SpriteSheetSequences } from '../../global/types.ts';
 import { b64toBlob, getBase64, getImageFromExternalUrl } from '../../utils/imageTools.ts';
 import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
+import { sequenceAddFrame } from '../../redux/spriteSheetSlice.ts';
 
 /**
  * Custom hook which handles file uploads.
- * @param spriteSheetSequences An array of objects adhering to the strucutre of {@link SpriteSheetSequences}.
- * @param setSpriteSheetSequences Dispatch function to set a new state of `spriteSheetSequences`.
- * @param selectedSequence The currently selected sequence.
  * @param dialogFrames The frames to display in the gif frames picker.
  * @param setDialogFrames Dispatch function to set a new state of `dialogFrames`.
  * @param dialogIsShown Wether the gif frames picker is shown or not.
@@ -17,9 +15,6 @@ import { toast } from 'react-toastify';
  * @param setSelectedDialogFrames Dispatch function to set a new state of `selectedDialogFrames`.
  */
 export default function useUpload(
-  spriteSheetSequences: SpriteSheetSequences[],
-  setSpriteSheetSequences: Dispatch<SetStateAction<SpriteSheetSequences[]>>,
-  selectedSequence: number,
   dialogFrames: string[],
   setDialogFrames: Dispatch<SetStateAction<string[]>>,
   dialogIsShown: boolean,
@@ -27,6 +22,11 @@ export default function useUpload(
   selectedDialogFrames: number[],
   setSelectedDialogFrames: Dispatch<SetStateAction<number[]>>
 ) {
+  const { spriteSheetSequences, selectedSequence } = useAppSelector(
+    (state) => state.spriteSheet
+  );
+  const dispatch = useAppDispatch();
+
   const amountOfFramesPicked = `${selectedDialogFrames.length} /
     ${8 - spriteSheetSequences[selectedSequence].sequence.length}`;
   const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
@@ -115,14 +115,10 @@ export default function useUpload(
   const addNewFrame = (base64: string) => {
     b64toBlob(base64).then((result) => {
       // Update the state by appending the image to the first sequence
-      setSpriteSheetSequences((prevSequences) =>
-        produce(prevSequences, (draft) => {
-          if (draft[selectedSequence].sequence.length < 8) {
-            draft[selectedSequence].sequence.push({
-              objectURL: URL.createObjectURL(result),
-              modifications: { scale: 1, xoffset: 0, yoffset: 0 },
-            });
-          }
+      dispatch(
+        sequenceAddFrame({
+          objectURL: URL.createObjectURL(result),
+          modifications: { scale: 1, xoffset: 0, yoffset: 0 },
         })
       );
     });

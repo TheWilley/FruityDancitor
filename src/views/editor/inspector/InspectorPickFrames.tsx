@@ -16,9 +16,6 @@ function InspectorPickFrames(props: Upload) {
     hideGifDialog,
     selectedDialogFrames,
   } = useUpload(
-    props.spriteSheetSequences,
-    props.setSpriteSheetSequences,
-    props.selectedSequence,
     props.dialogFrames,
     props.setDialogFrames,
     props.dialogIsShown,

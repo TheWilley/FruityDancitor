@@ -9,9 +9,6 @@ import useLinkUpload from '../../../hooks/utils/useLinkUpload.ts';
  */
 function InspectorUpload(props: Upload) {
   const { disabled, handleFileUpload, handleURLUpload } = useUpload(
-    props.spriteSheetSequences,
-    props.setSpriteSheetSequences,
-    props.selectedSequence,
     props.dialogFrames,
     props.setDialogFrames,
     props.dialogIsShown,

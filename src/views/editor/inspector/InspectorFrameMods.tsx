@@ -1,27 +1,12 @@
-import { EditorData } from '../../../global/types.ts';
 import useFrameMods from '../../../hooks/utils/useFrameMods.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
 
-type Props = Pick<
-  EditorData,
-  | 'spriteSheetSequences'
-  | 'setSpriteSheetSequences'
-  | 'selectedSequence'
-  | 'selectedFrame'
->;
-
 /**
  * Component which represents settings for a selected frame.
- * @param props A object containing component properties.
  */
-function InspectorFrameMods(props: Props) {
+function InspectorFrameMods() {
   const { validateNumberInput } = useInputValidation();
-  const { mods, disabled, setxoffset, setyoffset, setScale, resetMods } = useFrameMods(
-    props.spriteSheetSequences,
-    props.setSpriteSheetSequences,
-    props.selectedSequence,
-    props.selectedFrame
-  );
+  const { mods, disabled, setxoffset, setyoffset, setScale, resetMods } = useFrameMods();
 
   return (
     <>

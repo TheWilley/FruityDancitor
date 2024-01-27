@@ -1,48 +1,34 @@
-import { arrayMove, List } from 'react-movable';
-import { EditorData } from '../../../global/types.ts';
+import { List } from 'react-movable';
 import CommonListItem from '../../../components/CommonListItem.tsx';
 import useFrameList from '../../../hooks/utils/useFrameList.ts';
-
-type Props = Pick<
-  EditorData,
-  | 'selectedFrame'
-  | 'setSelectedFrame'
-  | 'spriteSheetSequences'
-  | 'setSpriteSheetSequences'
-  | 'selectedSequence'
->;
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
+import {
+  frameMovePosition,
+  selectedFrameUpdate,
+} from '../../../redux/spriteSheetSlice.ts';
 
 /**
  * Component which represents the list of frames for a given sequence.
- * @param EProps A object containing component properties.
  */
-function InspectorFramesList(EProps: Props) {
-  const { callback, adjustSequence } = useFrameList(
-    EProps.spriteSheetSequences,
-    EProps.setSpriteSheetSequences,
-    EProps.selectedSequence,
-    EProps.selectedFrame,
-    EProps.setSelectedFrame
+function InspectorFramesList() {
+  const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
+    (state) => state.spriteSheet
   );
+  const dispatch = useAppDispatch();
+  const { callback } = useFrameList();
 
   return (
     <List
-      values={EProps.spriteSheetSequences[EProps.selectedSequence].sequence}
+      values={spriteSheetSequences[selectedSequence].sequence}
       onChange={({ oldIndex, newIndex }) => {
-        adjustSequence(
-          arrayMove(
-            EProps.spriteSheetSequences[EProps.selectedSequence].sequence,
-            oldIndex,
-            newIndex
-          )
-        );
-        EProps.setSelectedFrame(newIndex);
+        dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
+        dispatch(selectedFrameUpdate(newIndex));
       }}
       renderList={({ children, props }) => <ul {...props}>{children}</ul>}
       renderItem={({ value, props, index }) => (
         <li
           {...props}
-          onMouseDown={() => EProps.setSelectedFrame(index || 0)}
+          onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
           className='z-30'
         >
           <CommonListItem
@@ -51,7 +37,7 @@ function InspectorFramesList(EProps: Props) {
             text={`Frame ${(index || 0) + 1}`}
             alt=''
             trashClickedCallback={() => callback(index || 0)}
-            highlighted={EProps.selectedFrame === index}
+            highlighted={selectedFrame === index}
             includeTrash
           />
         </li>

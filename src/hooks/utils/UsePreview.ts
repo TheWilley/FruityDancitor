@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../redux/hooks.ts';
 
 /**
  * Custom hook designed for previewing a sequence of frames.
  * @param previewCanvas - The canvas element where the preview will be rendered.
  * @param originalCanvas - The source canvas containing the frames to be fetched.
- * @param selectedSequence - The currently chosen sequence to preview.
  * @param frameWidth - The desired width for each frame in the preview.
+ * @param frameWidth
  * @param frameHeight - The desired height for each frame in the preview.
  * @param previewFps - The playback frames per second (FPS) for the preview.
  */
 export default function usePreview(
   previewCanvas: HTMLCanvasElement | null,
   originalCanvas: HTMLCanvasElement | null,
-  selectedSequence: number,
   frameWidth: number,
   frameHeight: number,
   previewFps: number
 ) {
+  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
   const [keepTimer, setKeepTimer] = useState(0);
   const [currentFrame, setCurrentFrame] = useState(0);
   const [sx, setSx] = useState(0);

@@ -6,8 +6,7 @@ import opaque from '../../../media/opaque.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 
-type Props = Pick<EditorData, 'viewport' | 'spriteSheetSequences'> &
-  Pick<EditorSettings, 'numberOfSequences' | 'height' | 'width'>;
+type Props = Pick<EditorData, 'viewport'> & Pick<EditorSettings, 'height' | 'width'>;
 
 /**
  * Component which show the sprite sheet.
@@ -22,14 +21,7 @@ function Viewport(props: Props) {
     permanentlyShowGrid,
     toggleShowGrid,
     showGrid,
-  } = useViewport(
-    grid,
-    props.viewport,
-    props.numberOfSequences,
-    props.height,
-    props.width,
-    props.spriteSheetSequences
-  );
+  } = useViewport(grid, props.viewport, props.height, props.width);
 
   return (
     <>
