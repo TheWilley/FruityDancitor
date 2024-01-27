@@ -81,27 +81,11 @@ function Editor() {
             <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
             <InspectorFrameMods />
             <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-            <InspectorUpload
-              dialogIsShown={editorData.dialogIsShown}
-              setDialogIsShown={editorData.setDialogIsShown}
-              selectedDialogFrames={editorData.selectedDialogFrames}
-              setSelectedDialogFrames={editorData.setSelectedDialogFrames}
-              dialogFrames={editorData.dialogFrames}
-              setDialogFrames={editorData.setDialogFrames}
-              fileUpload={editorData.fileUpload}
-            />
+            <InspectorUpload fileUpload={editorData.fileUpload} />
             <InspectorFramesList />
           </div>
         </SectionRight>
-        <InspectorPickFrames
-          dialogFrames={editorData.dialogFrames}
-          setDialogFrames={editorData.setDialogFrames}
-          selectedDialogFrames={editorData.selectedDialogFrames}
-          setSelectedDialogFrames={editorData.setSelectedDialogFrames}
-          dialogIsShown={editorData.dialogIsShown}
-          setDialogIsShown={editorData.setDialogIsShown}
-          fileUpload={editorData.fileUpload}
-        />
+        <InspectorPickFrames />
       </SectionContainer>
       <PopupKeyboardBindings />
     </>

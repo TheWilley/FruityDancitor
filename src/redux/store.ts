@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import backgroundReducer from './backgroundSlice.ts';
 import spriteSheetReducer from './spriteSheetSlice.ts';
 import viewportReducer from './viewportSlice.ts';
+import dialogReducer from './dialogSlice.ts';
 
 const store = configureStore({
   reducer: {
     background: backgroundReducer,
     spriteSheet: spriteSheetReducer,
     viewport: viewportReducer,
+    dialog: dialogReducer,
   },
 });
 

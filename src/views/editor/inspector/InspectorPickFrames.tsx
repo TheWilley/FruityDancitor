@@ -1,13 +1,12 @@
-import { Upload } from '../../../global/types.ts';
 import useUpload from '../../../hooks/utils/useUpload.ts';
+import { useAppSelector } from '../../../redux/hooks.ts';
 
 /**
  * Component which represents an image picker.
  *
  * The user picks which frames to extract from the GIF, which is then subsequently uploaded.
- * @param props A object containing component properties.
  */
-function InspectorPickFrames(props: Upload) {
+function InspectorPickFrames() {
   const {
     dialogIsShown,
     amountOfFramesPicked,
@@ -15,14 +14,8 @@ function InspectorPickFrames(props: Upload) {
     selectFrame,
     hideGifDialog,
     selectedDialogFrames,
-  } = useUpload(
-    props.dialogFrames,
-    props.setDialogFrames,
-    props.dialogIsShown,
-    props.setDialogIsShown,
-    props.selectedDialogFrames,
-    props.setSelectedDialogFrames
-  );
+  } = useUpload();
+  const dialogFrames = useAppSelector((state) => state.dialog.dialogFrames);
 
   return (
     <>
@@ -35,7 +28,7 @@ function InspectorPickFrames(props: Upload) {
         <div className='modal-box'>
           <h1 className='text-2xl mb-2'>Select Frames ({amountOfFramesPicked})</h1>
           <div className='grid grid-cols-5 gap-2'>
-            {props.dialogFrames.map((frame, index) => (
+            {dialogFrames.map((frame, index) => (
               <img
                 key={index}
                 src={frame}

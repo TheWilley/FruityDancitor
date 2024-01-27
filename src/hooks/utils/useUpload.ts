@@ -1,29 +1,23 @@
-import { produce } from 'immer';
-import { Dispatch, SetStateAction } from 'react';
 import { b64toBlob, getBase64, getImageFromExternalUrl } from '../../utils/imageTools.ts';
 import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import { sequenceAddFrame } from '../../redux/spriteSheetSlice.ts';
+import {
+  adjustSelectedDialogFrame,
+  dialogFramesUpdate,
+  dialogIsShownToggle,
+  resetSelectedDialogFrames,
+} from '../../redux/dialogSlice.ts';
 
 /**
  * Custom hook which handles file uploads.
- * @param dialogFrames The frames to display in the gif frames picker.
- * @param setDialogFrames Dispatch function to set a new state of `dialogFrames`.
- * @param dialogIsShown Wether the gif frames picker is shown or not.
- * @param setDialogIsShown Dispatch function to set a new state of `dialogIsShown`.
- * @param selectedDialogFrames The selected frames within the gif frames picker.
- * @param setSelectedDialogFrames Dispatch function to set a new state of `selectedDialogFrames`.
  */
-export default function useUpload(
-  dialogFrames: string[],
-  setDialogFrames: Dispatch<SetStateAction<string[]>>,
-  dialogIsShown: boolean,
-  setDialogIsShown: Dispatch<SetStateAction<boolean>>,
-  selectedDialogFrames: number[],
-  setSelectedDialogFrames: Dispatch<SetStateAction<number[]>>
-) {
+export default function useUpload() {
   const { spriteSheetSequences, selectedSequence } = useAppSelector(
     (state) => state.spriteSheet
+  );
+  const { selectedDialogFrames, dialogIsShown, dialogFrames } = useAppSelector(
+    (state) => state.dialog
   );
   const dispatch = useAppDispatch();
 
@@ -72,24 +66,10 @@ export default function useUpload(
    * @param index The frame within the sequence to select.
    */
   const selectFrame = (index: number) => {
-    setSelectedDialogFrames(
-      produce(selectedDialogFrames, (draftDialogFrames) => {
-        const selectedIndex = draftDialogFrames.indexOf(index);
-        if (selectedIndex !== -1) {
-          // Remove frame
-          draftDialogFrames.splice(selectedIndex, 1);
-        } else {
-          // Makes sure we don't upload too many frames
-          if (
-            draftDialogFrames.length >=
-            8 - spriteSheetSequences[selectedSequence].sequence.length
-          ) {
-            draftDialogFrames.shift();
-          }
-
-          // Push clicked frame
-          draftDialogFrames.push(index);
-        }
+    dispatch(
+      adjustSelectedDialogFrame({
+        index,
+        cap: 8 - spriteSheetSequences[selectedSequence].sequence.length,
       })
     );
   };
@@ -98,14 +78,14 @@ export default function useUpload(
    * Hides the gif frames dialog.
    */
   const hideGifDialog = () => {
-    setDialogIsShown(false);
+    dispatch(dialogIsShownToggle());
   };
 
   /**
    * Shows the gif frames dialog.
    */
   const showGifDialog = () => {
-    setDialogIsShown(true);
+    dispatch(dialogIsShownToggle());
   };
 
   /**
@@ -130,13 +110,10 @@ export default function useUpload(
    */
   const handleUploadMultiple = (base64List: string[]) => {
     showGifDialog();
-    setDialogFrames(base64List.map((item) => item));
-    setSelectedDialogFrames(
-      Array.from(
-        {
-          length: 8 - (spriteSheetSequences[selectedSequence]?.sequence.length || 0),
-        },
-        (_, index) => index
+    dispatch(dialogFramesUpdate(base64List));
+    dispatch(
+      resetSelectedDialogFrames(
+        8 - spriteSheetSequences[selectedSequence]?.sequence.length
       )
     );
   };
@@ -157,8 +134,6 @@ export default function useUpload(
     handleUploadMultiple,
     selectFrame,
     acceptUploadMultiple,
-    setDialogFrames,
-    setSelectedDialogFrames,
     hideGifDialog,
     dialogFrames,
     selectedDialogFrames,

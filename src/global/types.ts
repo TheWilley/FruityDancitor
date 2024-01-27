@@ -61,13 +61,4 @@ export type SpriteSheetSequences = {
   name: string;
 };
 
-export type Upload = Pick<
-  EditorData,
-  | 'dialogFrames'
-  | 'setDialogFrames'
-  | 'dialogIsShown'
-  | 'setDialogIsShown'
-  | 'selectedDialogFrames'
-  | 'setSelectedDialogFrames'
-  | 'fileUpload'
->;
+export type Upload = Pick<EditorData, 'fileUpload'>;

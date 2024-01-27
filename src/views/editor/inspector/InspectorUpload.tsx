@@ -8,14 +8,7 @@ import useLinkUpload from '../../../hooks/utils/useLinkUpload.ts';
  * @param props A object containing component properties.
  */
 function InspectorUpload(props: Upload) {
-  const { disabled, handleFileUpload, handleURLUpload } = useUpload(
-    props.dialogFrames,
-    props.setDialogFrames,
-    props.dialogIsShown,
-    props.setDialogIsShown,
-    props.selectedDialogFrames,
-    props.setSelectedDialogFrames
-  );
+  const { disabled, handleFileUpload, handleURLUpload } = useUpload();
 
   /**
    * Component which displays a file upload box which can be clicked or file dropped.
