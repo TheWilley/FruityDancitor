@@ -1,16 +1,24 @@
-import { LoadSettings, SaveSettings, SpriteSheetSequences } from '../../global/types.ts';
-import saveAs from 'file-saver';
-import {
-  convertFramesToBase64,
-  convertFramesToObjectURLs,
-} from '../../utils/imageTools.ts';
+import { SaveAndLoad } from '../../global/types.ts';
 import { toast } from 'react-toastify';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
+import saveAs from 'file-saver';
+import { useCallback } from 'react';
+import { heightUpdate, widthUpdate } from '../../redux/viewportSlice.ts';
+import {
+  backgroundDarknessUpdate,
+  backgroundSrcUpdate,
+} from '../../redux/backgroundSlice.ts';
+import { fpsUpdate } from '../../redux/previewSlice.ts';
+import {
+  numberOfSequencesUpdate,
+  sequencesUpdate,
+} from '../../redux/spriteSheetSlice.ts';
 
 /**
  * Reads a file and returns is as JSON.
  * @param file The JSON file to parse.
  */
-function readFileAsJSON(file: File): Promise<SaveSettings> {
+function readFileAsJSON(file: File): Promise<SaveAndLoad> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -33,90 +41,66 @@ function readFileAsJSON(file: File): Promise<SaveSettings> {
 }
 
 /**
- * Loads a FruityDancitor JSON file.
- * @param file The project JSON file.
- * @param loadSettings A object adhering to the structure of {@link LoadSettings}.
- */
-async function load(file: File, loadSettings: LoadSettings) {
-  if (file.type !== 'application/json') {
-    toast.error('Not a JSON file');
-    return;
-  }
-
-  try {
-    const data = await readFileAsJSON(file);
-
-    await Promise.all([
-      loadSettings.setHeight(data.height),
-      loadSettings.setWidth(data.width),
-      loadSettings.setNumberOfSequences(data.numberOfSequences),
-      loadSettings.setPreviewFps(data.previewFps),
-      loadSettings.setCustomBackgroundSrc(data.customBackgroundSrc),
-      loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness),
-      loadSettings.setCustomBackgroundDarkness(data.customBackgroundDarkness),
-      convertFramesToObjectURLs(data.spriteSheetSequences).then((result) =>
-        loadSettings.setSpriteSheetSequences(result)
-      ),
-    ]);
-
-    toast.success('Project Loaded');
-  } catch (error) {
-    console.error('Error:', error);
-    if (error instanceof Error) {
-      toast.error(error.message);
-    } else {
-      toast.error('Could not load project');
-    }
-  }
-}
-
-/**
- * Saves a FruityDancitor JSON file.
- * @param saveSettings A object adhering to the structure of {@link SaveSettings}.
- */
-async function save(saveSettings: SaveSettings) {
-  const transformValues = async (
-    key: keyof SaveSettings,
-    value: SaveSettings[keyof SaveSettings]
-  ) => {
-    if (key === 'spriteSheetSequences') {
-      return {
-        newKey: key,
-        newValue: await convertFramesToBase64(value as SpriteSheetSequences[]),
-      };
-    } else {
-      return { newKey: key, newValue: value };
-    }
-  };
-
-  // Dynamically create data from all entries
-  const transformedEntries = Object.fromEntries(
-    await Promise.all(
-      Object.entries(saveSettings).map(async ([oldKey, oldValue]) => {
-        const { newKey, newValue } = await transformValues(
-          oldKey as keyof SaveSettings,
-          oldValue
-        );
-        return [newKey, newValue];
-      })
-    )
-  );
-
-  // Create a blob which later can be downloaded
-  const blob = new Blob([JSON.stringify(transformedEntries)], {
-    type: 'text/plain;charset=utf-8',
-  });
-
-  // Save the blob (downloads file)
-  saveAs(blob, 'savedFruityDancitorProject.json');
-
-  // Alert user
-  toast.success('Project Saved');
-}
-
-/**
  * Custom hook for saving and loading a project.
  */
 export default function useSaveAndLoad() {
+  const dispatch = useAppDispatch();
+
+  // Must be defined here as we use a hook to fetch data.
+  // This would throw an error if attempt to put it within the "save" function since
+  // is not a hook (even though it is within one?)
+  const saveState: SaveAndLoad = {
+    width: useAppSelector((state) => state.viewport.width),
+    height: useAppSelector((state) => state.viewport.height),
+    backgroundSrc: useAppSelector((state) => state.background.backgroundSrc),
+    backgroundDarkness: useAppSelector((state) => state.background.backgroundDarkness),
+    fps: useAppSelector((state) => state.preview.fps),
+    numberOfSequences: useAppSelector((state) => state.spriteSheet.numberOfSequences),
+    spriteSheetSequences: useAppSelector(
+      (state) => state.spriteSheet.spriteSheetSequences
+    ),
+  };
+
+  const save = () => {
+    // Create a blob which later can be downloaded
+    const blob = new Blob([JSON.stringify(saveState)], {
+      type: 'text/plain;charset=utf-8',
+    });
+
+    // Save the blob (downloads file)
+    saveAs(blob, 'savedFruityDancitorProject.json');
+
+    // Alert user
+    toast.success('Project Saved');
+  };
+
+  const load = useCallback((file: File) => {
+    try {
+      if (file.type !== 'application/json') {
+        toast.error('Not a JSON file');
+        return;
+      }
+
+      readFileAsJSON(file).then((result) => {
+        dispatch(widthUpdate(result.width));
+        dispatch(heightUpdate(result.height));
+        dispatch(backgroundSrcUpdate(result.backgroundSrc));
+        dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
+        dispatch(fpsUpdate(result.fps));
+        dispatch(numberOfSequencesUpdate(result.numberOfSequences));
+        dispatch(sequencesUpdate(result.spriteSheetSequences));
+      });
+
+      toast.success('Project Loaded');
+    } catch (error) {
+      console.error('Error:', error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error('Could not load project');
+      }
+    }
+  }, []);
+
   return [save, load] as const;
 }

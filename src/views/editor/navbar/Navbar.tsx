@@ -5,21 +5,9 @@ import NavbarAppSettingsTab from './NavbarAppSettingsTab.tsx';
 import NavbarEditorSettingsTab from './NavbarEditorSettingsTab.tsx';
 import NavbarExportTab from './NavbarExportTab.tsx';
 import NavbarSaveAndLoadTab from './NavbarSaveAndLoadTab.tsx';
-import {
-  AppSettings,
-  EditorData,
-  EditorSettings,
-  LoadSettings,
-  SaveSettings,
-} from '../../../global/types.ts';
+import { EditorData } from '../../../global/types.ts';
 
-type Props = {
-  appSettings: AppSettings;
-  editorSettings: EditorSettings;
-  exportSettings: Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
-  saveSettings: SaveSettings;
-  loadSettings: LoadSettings;
-};
+type Props = Pick<EditorData, 'viewport'>;
 
 /**
  * Component which represents a navbar which the user can use to navigate to different tabs.
@@ -32,27 +20,22 @@ function Navbar(props: Props) {
   const tabs = [
     {
       name: 'App Settings',
-      view: <NavbarAppSettingsTab appSettings={props.appSettings} />,
+      view: <NavbarAppSettingsTab />,
       icon: <FontAwesomeIcon icon={faCog} />,
     },
     {
       name: 'Editor Settings',
-      view: <NavbarEditorSettingsTab editorSettings={props.editorSettings} />,
+      view: <NavbarEditorSettingsTab />,
       icon: <FontAwesomeIcon icon={faPen} />,
     },
     {
       name: 'Save & Load',
-      view: (
-        <NavbarSaveAndLoadTab
-          saveSettings={props.saveSettings}
-          loadSettings={props.loadSettings}
-        />
-      ),
+      view: <NavbarSaveAndLoadTab />,
       icon: <FontAwesomeIcon icon={faSave} />,
     },
     {
       name: 'Export',
-      view: <NavbarExportTab exportSettings={props.exportSettings} />,
+      view: <NavbarExportTab viewport={props.viewport} />,
       icon: <FontAwesomeIcon icon={faFileExport} />,
     },
   ];

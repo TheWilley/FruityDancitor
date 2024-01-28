@@ -43,6 +43,9 @@ const spriteSheetSlice = createSlice({
   name: 'spriteSheet',
   initialState,
   reducers: {
+    sequencesUpdate(state, action) {
+      state.spriteSheetSequences = action.payload;
+    },
     numberOfSequencesUpdate(state, action) {
       state.numberOfSequences = action.payload;
     },
@@ -120,6 +123,7 @@ const spriteSheetSlice = createSlice({
 });
 
 export const {
+  sequencesUpdate,
   numberOfSequencesUpdate,
   sequenceMovePosition,
   sequenceChangeName,

@@ -1,23 +1,21 @@
 import { faImage, faLightbulb, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { AppSettings } from '../../../global/types.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
 import {
   backgroundDarknessUpdate,
   backgroundSrcUpdate,
 } from '../../../redux/backgroundSlice.ts';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
-
-type Props = { appSettings: AppSettings };
+import { fpsUpdate } from '../../../redux/previewSlice.ts';
 
 /**
  * Component which represents settings concerning the app.
  *
  * More specifically, settings which does not concern a specific section of the app.
- * @param props A object containing component properties.
  */
-function NavbarAppSettingsTab(props: Props) {
+function NavbarAppSettingsTab() {
   const dispatch = useAppDispatch();
+  const fps = useAppSelector((state) => state.preview.fps);
   const background = useAppSelector((state) => state.background);
   const { validateNumberInput } = useInputValidation();
 
@@ -37,11 +35,9 @@ function NavbarAppSettingsTab(props: Props) {
             placeholder='Preview FPS'
             min={1}
             max={12}
-            value={props.appSettings.previewFps}
+            value={fps}
             onChange={(e) =>
-              validateNumberInput('number', e, (value) =>
-                props.appSettings.setPreviewFps(value)
-              )
+              validateNumberInput('number', e, (value) => dispatch(fpsUpdate(value)))
             }
           />
         </div>

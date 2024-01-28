@@ -1,14 +1,10 @@
 import { useRef } from 'react';
 import useSaveAndLoad from '../../../hooks/utils/useSaveAndLoad.ts';
-import { LoadSettings, SaveSettings } from '../../../global/types.ts';
-
-type Props = { saveSettings: SaveSettings; loadSettings: LoadSettings };
 
 /**
  * Component used to save and load a FruityDancitor project.
- * @param props A object containing component properties.
  */
-function NavbarSaveAndLoadTab(props: Props) {
+function NavbarSaveAndLoadTab() {
   const [save, load] = useSaveAndLoad();
   const fileRef = useRef<HTMLInputElement | null>(null);
 
@@ -18,7 +14,7 @@ function NavbarSaveAndLoadTab(props: Props) {
         id='selectImage'
         type='file'
         onChange={(e) => {
-          e.target.files && load(e.target.files[0], props.loadSettings);
+          e.target.files && load(e.target.files[0]);
         }}
         ref={fileRef}
         className='hidden'
@@ -29,10 +25,7 @@ function NavbarSaveAndLoadTab(props: Props) {
       >
         Load Project
       </button>
-      <button
-        className='btn btn-success w-full mt-1'
-        onClick={() => save(props.saveSettings)}
-      >
+      <button className='btn btn-success w-full mt-1' onClick={() => save()}>
         Save Project
       </button>
     </div>

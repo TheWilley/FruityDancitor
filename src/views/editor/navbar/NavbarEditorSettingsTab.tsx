@@ -1,18 +1,22 @@
 import { faBars, faTextHeight, faTextWidth } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { EditorSettings } from '../../../global/types.ts';
 import useInputValidation from '../../../hooks/utils/useInputValidation.ts';
-
-type Props = { editorSettings: EditorSettings };
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
+import { heightUpdate, widthUpdate } from '../../../redux/viewportSlice.ts';
+import { numberOfSequencesUpdate } from '../../../redux/spriteSheetSlice.ts';
 
 /**
  * Component which represents settings concerning the editor.
  *
  * For example, the width and height of a tile (i.e, things you would change when editing the sprite sheet).
- * @param props A object containing component properties.
  */
-function NavbarEditorSettingsTab(props: Props) {
+function NavbarEditorSettingsTab() {
   const { validateNumberInput } = useInputValidation();
+  const dispatch = useAppDispatch();
+  const numberOfSequences = useAppSelector(
+    (state) => state.spriteSheet.numberOfSequences
+  );
+  const { height, width } = useAppSelector((state) => state.viewport);
 
   return (
     <div className='grid grid-cols-3 gap-2'>
@@ -30,10 +34,10 @@ function NavbarEditorSettingsTab(props: Props) {
             placeholder='Sequences'
             min={1}
             max={100}
-            value={props.editorSettings.numberOfSequences}
+            value={numberOfSequences}
             onChange={(e) =>
               validateNumberInput('number', e, (value) =>
-                props.editorSettings.setNumberOfSequences(value)
+                dispatch(numberOfSequencesUpdate(value))
               )
             }
           />
@@ -52,11 +56,9 @@ function NavbarEditorSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Width'
             min={50}
-            value={props.editorSettings.width}
+            value={width}
             onChange={(e) =>
-              validateNumberInput('number', e, (value) =>
-                props.editorSettings.setWidth(value)
-              )
+              validateNumberInput('number', e, (value) => dispatch(widthUpdate(value)))
             }
           />
         </div>
@@ -74,11 +76,9 @@ function NavbarEditorSettingsTab(props: Props) {
             className='input input-bordered join-item input-sm w-full'
             placeholder='Height'
             min={50}
-            value={props.editorSettings.height}
+            value={height}
             onChange={(e) =>
-              validateNumberInput('number', e, (value) =>
-                props.editorSettings.setHeight(value)
-              )
+              validateNumberInput('number', e, (value) => dispatch(heightUpdate(value)))
             }
           />
         </div>

@@ -1,6 +1,3 @@
-import useAppSettings from '../../hooks/state/useAppSettings.ts';
-import useEditorData from '../../hooks/state/useEditorData.ts';
-import useEditorSettings from '../../hooks/state/useEditorSettings.ts';
 import Navbar from './navbar/Navbar.tsx';
 import SectionRight from './sections/SectionRight.tsx';
 import InspectorFrameMods from './inspector/InspectorFrameMods';
@@ -12,11 +9,10 @@ import SectionMiddle from './sections/SectionMiddle.tsx';
 import SpriteSheetCanvas from './viewport/Viewport.tsx';
 import SectionLeft from './sections/SectionLeft.tsx';
 import SectionContainer from './sections/SectionContainer.tsx';
-import { LoadSettings, SaveSettings } from '../../global/types.ts';
 import InspectorPickFrames from './inspector/InspectorPickFrames.tsx';
 import InspectorUpload from './inspector/InspectorUpload.tsx';
-import useUtils from '../../hooks/utils/useUtils.ts';
 import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
+import useRefs from '../../hooks/state/useRefs.ts';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -25,28 +21,8 @@ import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
  */
 function Editor() {
   // States
-  const appSettings = useAppSettings();
-  const editorSettings = useEditorSettings();
-  const editorData = useEditorData(editorSettings.numberOfSequences);
-  const saveSettings: SaveSettings = {
-    spriteSheetSequences: editorData.spriteSheetSequences,
-    numberOfSequences: editorSettings.numberOfSequences,
-    height: editorSettings.height,
-    width: editorSettings.width,
-    previewFps: appSettings.previewFps,
-    customBackgroundSrc: appSettings.customBackgroundSrc,
-    customBackgroundDarkness: appSettings.customBackgroundDarkness,
-  };
-  const loadSettings: LoadSettings = {
-    setSpriteSheetSequences: editorData.setSpriteSheetSequences,
-    setNumberOfSequences: editorSettings.setNumberOfSequences,
-    setHeight: editorSettings.setHeight,
-    setWidth: editorSettings.setWidth,
-    setPreviewFps: appSettings.setPreviewFps,
-    setCustomBackgroundSrc: appSettings.setCustomBackgroundSrc,
-    setCustomBackgroundDarkness: appSettings.setCustomBackgroundDarkness,
-  };
-  useUtils(editorData.viewport, editorData.fileUpload, saveSettings, loadSettings);
+  const { viewport, fileUpload } = useRefs();
+  //useUtils(editorData.viewport, editorData.fileUpload);
 
   return (
     <>
@@ -56,27 +32,18 @@ function Editor() {
         </SectionLeft>
 
         <SectionMiddle>
-          <Navbar
-            appSettings={appSettings}
-            editorSettings={editorSettings}
-            exportSettings={{
-              viewport: editorData.viewport,
-              spriteSheetSequences: editorData.spriteSheetSequences,
-            }}
-            loadSettings={loadSettings}
-            saveSettings={saveSettings}
-          />
-          <SpriteSheetCanvas viewport={editorData.viewport} />
+          <Navbar viewport={viewport} />
+          <SpriteSheetCanvas viewport={viewport} />
         </SectionMiddle>
 
         <SectionRight>
-          {editorData.viewport && <InspectorPreview viewport={editorData.viewport} />}
+          {viewport && <InspectorPreview viewport={viewport} />}
           <div className='p-2'>
             <InspectorSequenceName />
             <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
             <InspectorFrameMods />
             <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
-            <InspectorUpload fileUpload={editorData.fileUpload} />
+            <InspectorUpload fileUpload={fileUpload} />
             <InspectorFramesList />
           </div>
         </SectionRight>

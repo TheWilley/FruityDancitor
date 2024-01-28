@@ -39,16 +39,15 @@ export type EditorData = {
 
 export type ExportSettings = Pick<EditorData, 'spriteSheetSequences' | 'viewport'>;
 
-export type LoadSettings = Pick<EditorData, 'setSpriteSheetSequences'> &
-  Pick<
-    AppSettings,
-    'setPreviewFps' | 'setCustomBackgroundSrc' | 'setCustomBackgroundDarkness'
-  > &
-  Pick<EditorSettings, 'setWidth' | 'setHeight' | 'setNumberOfSequences'>;
-
-export type SaveSettings = Pick<EditorData, 'spriteSheetSequences'> &
-  Pick<AppSettings, 'previewFps' | 'customBackgroundSrc' | 'customBackgroundDarkness'> &
-  Pick<EditorSettings, 'width' | 'height' | 'numberOfSequences'>;
+export type SaveAndLoad = {
+  width: number;
+  height: number;
+  backgroundSrc: string;
+  backgroundDarkness: number;
+  fps: number;
+  numberOfSequences: number;
+  spriteSheetSequences: SpriteSheetSequences[];
+};
 
 export type Modifications = {
   xoffset: number;

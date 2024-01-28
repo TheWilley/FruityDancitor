@@ -5,7 +5,7 @@ import useExport from './useExport.ts';
 import useFrameMods from './useFrameMods.ts';
 import useFrameList from './useFrameList.ts';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { EditorData, LoadSettings, SaveSettings } from '../../global/types.ts';
+import { EditorData } from '../../global/types.ts';
 import keymap from '../../data/keybindings.json';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import {
@@ -25,9 +25,7 @@ import {
  */
 export default function useUtils(
   viewport: EditorData['viewport'],
-  fileUpload: EditorData['fileUpload'],
-  saveSettings: SaveSettings,
-  loadSettings: LoadSettings
+  fileUpload: EditorData['fileUpload']
 ) {
   const { numberOfSequences, spriteSheetSequences, selectedSequence, selectedFrame } =
     useAppSelector((state) => state.spriteSheet);
