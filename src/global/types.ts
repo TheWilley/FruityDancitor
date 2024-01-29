@@ -7,7 +7,7 @@ export type SaveAndLoad = {
   backgroundDarkness: number;
   fps: number;
   numberOfSequences: number;
-  spriteSheetSequences: SpriteSheetSequences[];
+  spriteSheetSequences: SpriteSheetSequence[];
 };
 
 export type Modifications = {
@@ -16,7 +16,7 @@ export type Modifications = {
   scale: number;
 };
 
-export type SpriteSheetSequences = {
+export type SpriteSheetSequence = {
   sequence: Array<{ objectURL: string; modifications: Modifications }>;
   name: string;
 };
@@ -27,6 +27,6 @@ export type Refs = {
 };
 
 export type Export = Pick<Refs, 'viewport'> & {
-  sequencesRetail: SpriteSheetSequences[];
+  sequencesRetail: SpriteSheetSequence[];
   filename: string;
 };

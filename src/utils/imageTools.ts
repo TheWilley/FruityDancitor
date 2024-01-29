@@ -1,5 +1,5 @@
 import { GifReader } from 'omggif';
-import { SpriteSheetSequences } from '../global/types.ts';
+import { SpriteSheetSequence } from '../global/types.ts';
 
 /**
  * Converts base64 to a blob.
@@ -15,10 +15,8 @@ export async function b64toBlob(base64: string) {
  * Converts a series of frames to base64
  * @param spriteSheetSequences
  */
-export async function convertFramesToBase64(
-  spriteSheetSequences: SpriteSheetSequences[]
-) {
-  const updatedFrames: SpriteSheetSequences[] = [];
+export async function convertFramesToBase64(spriteSheetSequences: SpriteSheetSequence[]) {
+  const updatedFrames: SpriteSheetSequence[] = [];
 
   for (const sequence of spriteSheetSequences) {
     const updatedSequence = await Promise.all(
@@ -31,7 +29,7 @@ export async function convertFramesToBase64(
       })
     );
 
-    const updatedFrame: SpriteSheetSequences = {
+    const updatedFrame: SpriteSheetSequence = {
       sequence: updatedSequence,
       name: sequence.name,
     };
@@ -47,9 +45,9 @@ export async function convertFramesToBase64(
  * @param spriteSheetSequences
  */
 export async function convertFramesToObjectURLs(
-  spriteSheetSequences: SpriteSheetSequences[]
-): Promise<SpriteSheetSequences[]> {
-  const updatedFrames: SpriteSheetSequences[] = [];
+  spriteSheetSequences: SpriteSheetSequence[]
+): Promise<SpriteSheetSequence[]> {
+  const updatedFrames: SpriteSheetSequence[] = [];
 
   for (const sequence of spriteSheetSequences) {
     const updatedSequence = await Promise.all(
@@ -63,7 +61,7 @@ export async function convertFramesToObjectURLs(
       })
     );
 
-    const updatedFrame: SpriteSheetSequences = {
+    const updatedFrame: SpriteSheetSequence = {
       sequence: updatedSequence,
       name: sequence.name,
     };

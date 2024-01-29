@@ -1,12 +1,12 @@
 // spriteSheetSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { SpriteSheetSequences } from '../global/types.ts';
+import { SpriteSheetSequence } from '../global/types.ts';
 import appConfig from '../appConfig.ts';
 import { arrayMoveImmutable } from 'array-move';
 
 interface SpriteSheetSlice {
-  sequencesWarehouse: SpriteSheetSequences[];
-  spriteSheetSequences: SpriteSheetSequences[]; // TODO: Rename to sequencesRetail
+  sequencesWarehouse: SpriteSheetSequence[];
+  spriteSheetSequences: SpriteSheetSequence[]; // TODO: Rename to sequencesRetail
   selectedSequence: number;
   selectedFrame: number;
   numberOfSequences: number;
