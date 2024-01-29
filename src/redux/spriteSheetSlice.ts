@@ -5,15 +5,15 @@ import appConfig from '../appConfig.ts';
 import { arrayMoveImmutable } from 'array-move';
 
 interface SpriteSheetSlice {
-  sequenceWarehouse: SpriteSheetSequences[];
-  spriteSheetSequences: SpriteSheetSequences[]; // TODO: Rename to sequenceRetail
+  sequencesWarehouse: SpriteSheetSequences[];
+  spriteSheetSequences: SpriteSheetSequences[]; // TODO: Rename to sequencesRetail
   selectedSequence: number;
   selectedFrame: number;
   numberOfSequences: number;
 }
 
 const initialState: SpriteSheetSlice = {
-  sequenceWarehouse: new Array(appConfig.warehouseStorage).fill({
+  sequencesWarehouse: new Array(appConfig.warehouseStorage).fill({
     sequence: [],
     name: '',
   }),
@@ -31,7 +31,7 @@ const spriteSheetSlice = createSlice({
   initialState,
   reducers: {
     retailSequence(state) {
-      const copy = [...state.sequenceWarehouse];
+      const copy = [...state.sequencesWarehouse];
 
       // Splice according to the number of sequences
       copy.splice(state.numberOfSequences);
@@ -47,7 +47,7 @@ const spriteSheetSlice = createSlice({
       state.spriteSheetSequences = copy;
     },
     sequencesUpdate(state, action) {
-      state.sequenceWarehouse = action.payload;
+      state.sequencesWarehouse = action.payload;
       spriteSheetSlice.caseReducers.retailSequence(state);
     },
     numberOfSequencesUpdate(state, action) {
@@ -57,8 +57,8 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.retailSequence(state);
     },
     sequenceMovePosition(state, action) {
-      state.sequenceWarehouse = arrayMoveImmutable(
-        state.sequenceWarehouse,
+      state.sequencesWarehouse = arrayMoveImmutable(
+        state.sequencesWarehouse,
         action.payload.from,
         action.payload.to
       );
@@ -66,44 +66,46 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.retailSequence(state);
     },
     sequenceChangeName(state, action) {
-      state.sequenceWarehouse[state.selectedSequence].name = action.payload;
+      state.sequencesWarehouse[state.selectedSequence].name = action.payload;
     },
     sequenceAddFrame(state, action) {
-      if (state.sequenceWarehouse[state.selectedSequence].sequence.length < 8) {
-        state.sequenceWarehouse[state.selectedSequence].sequence.push(action.payload);
+      if (state.sequencesWarehouse[state.selectedSequence].sequence.length < 8) {
+        state.sequencesWarehouse[state.selectedSequence].sequence.push(action.payload);
       }
     },
     sequenceDeleteFrame(state, action) {
       URL.revokeObjectURL(
-        state.sequenceWarehouse[state.selectedSequence].sequence[action.payload].objectURL
+        state.sequencesWarehouse[state.selectedSequence].sequence[action.payload]
+          .objectURL
       );
-      state.sequenceWarehouse[state.selectedSequence].sequence = state.sequenceWarehouse[
-        state.selectedSequence
-      ].sequence.filter((_, index) => index !== action.payload);
+      state.sequencesWarehouse[state.selectedSequence].sequence =
+        state.sequencesWarehouse[state.selectedSequence].sequence.filter(
+          (_, index) => index !== action.payload
+        );
     },
     sequenceModsXoffsetUpdate(state, action) {
-      state.sequenceWarehouse[state.selectedSequence].sequence[
+      state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.xoffset = action.payload;
     },
     sequenceModsYoffsetUpdate(state, action) {
-      state.sequenceWarehouse[state.selectedSequence].sequence[
+      state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.yoffset = action.payload;
     },
     sequenceModsScaleUpdate(state, action) {
-      state.sequenceWarehouse[state.selectedSequence].sequence[
+      state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.scale = action.payload;
     },
     sequenceModsReset(state) {
-      state.sequenceWarehouse[state.selectedSequence].sequence[
+      state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.scale = 1;
-      state.sequenceWarehouse[state.selectedSequence].sequence[
+      state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.xoffset = 0;
-      state.sequenceWarehouse[state.selectedSequence].sequence[
+      state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.yoffset = 0;
     },
@@ -118,8 +120,8 @@ const spriteSheetSlice = createSlice({
       state.selectedFrame = action.payload;
     },
     frameMovePosition(state, action) {
-      state.sequenceWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
-        state.sequenceWarehouse[state.selectedSequence].sequence,
+      state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
+        state.sequencesWarehouse[state.selectedSequence].sequence,
         action.payload.from,
         action.payload.to
       );
