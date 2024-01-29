@@ -1,6 +1,6 @@
 const appConfig = {
   maxWidth: '1700px',
-  warehouseStorage: 10,
+  warehouseStorage: 100,
 };
 
 export default appConfig;
