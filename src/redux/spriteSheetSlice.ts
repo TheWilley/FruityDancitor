@@ -68,6 +68,10 @@ const spriteSheetSlice = createSlice({
         state.numberOfSequences = action.payload;
         spriteSheetSlice.caseReducers.transport(state);
       }
+
+      if (action.payload <= state.selectedSequence) {
+        state.selectedSequence = state.selectedSequence - 1;
+      }
     },
     sequenceMovePosition(state, action) {
       state.sequencesWarehouse = arrayMoveImmutable(
@@ -134,7 +138,7 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.transport(state);
     },
     selectedSequenceUpdate(state, action) {
-      if (action.payload >= state.numberOfSequences) {
+      if (action.payload > state.numberOfSequences) {
         state.selectedSequence = state.numberOfSequences - 1;
       } else {
         state.selectedSequence = action.payload;
