@@ -6,8 +6,6 @@ import NavbarEditorSettingsTab from './NavbarEditorSettingsTab.tsx';
 import NavbarExportTab from './NavbarExportTab.tsx';
 import NavbarSaveAndLoadTab from './NavbarSaveAndLoadTab.tsx';
 import { Refs } from '../../../global/types.ts';
-import { ActionCreators } from 'redux-undo';
-import store from '../../../redux/store.ts';
 
 type Props = Pick<Refs, 'viewport'>;
 
@@ -76,8 +74,6 @@ function Navbar(props: Props) {
 
   return (
     <>
-      <button onClick={() => store.dispatch(ActionCreators.undo())}> Undo</button>
-      <button onClick={() => store.dispatch(ActionCreators.redo())}> Redo</button>
       <div tabIndex={0} className='card border border-base-200 bg-base-100 p-2'>
         <nav>
           <div className='tabs tabs-boxed'>{renderTabs()}</div>
