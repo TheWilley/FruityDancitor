@@ -62,10 +62,10 @@ export default function useViewport(
 ) {
   const { width, height } = useAppSelector((state) => state.viewport);
   const numberOfSequences = useAppSelector(
-    (state) => state.spriteSheet.numberOfSequences
+    (state) => state.spriteSheet.present.numberOfSequences
   );
   const spriteSheetSequences = useAppSelector(
-    (state) => state.spriteSheet.spriteSheetSequences
+    (state) => state.spriteSheet.present.spriteSheetSequences
   );
   const [permanentlyShowGrid, setPermanentlyShowGrid] = useState(false);
   const [showGrid, setShowGrid] = useState(false);

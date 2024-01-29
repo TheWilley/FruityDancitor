@@ -55,9 +55,11 @@ export default function useSaveAndLoad() {
     backgroundSrc: useAppSelector((state) => state.background.backgroundSrc),
     backgroundDarkness: useAppSelector((state) => state.background.backgroundDarkness),
     fps: useAppSelector((state) => state.preview.fps),
-    numberOfSequences: useAppSelector((state) => state.spriteSheet.numberOfSequences),
+    numberOfSequences: useAppSelector(
+      (state) => state.spriteSheet.present.numberOfSequences
+    ),
     spriteSheetSequences: useAppSelector(
-      (state) => state.spriteSheet.spriteSheetSequences
+      (state) => state.spriteSheet.present.spriteSheetSequences
     ),
   };
 

@@ -10,9 +10,11 @@ import {
  */
 export default function useFrameList() {
   const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
-    (state) => state.spriteSheet
+    (state) => state.spriteSheet.present
   );
   const dispatch = useAppDispatch();
+
+  // TODO: Move this to the action innstead
 
   useEffect(() => {
     // Checks if the form is enabled (>0) or disabled (-1)
@@ -30,7 +32,7 @@ export default function useFrameList() {
 
     // If we frames, select it
     else if (spriteSheetSequences[selectedSequence].sequence.length > 0) {
-      dispatch(selectedFrameUpdate(0));
+      //dispatch(selectedFrameUpdate(0));
     }
   }, [selectedFrame, selectedSequence, spriteSheetSequences]);
 

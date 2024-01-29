@@ -11,7 +11,9 @@ export default function usePreview(
   originalCanvas: HTMLCanvasElement | null
 ) {
   const fps = useAppSelector((state) => state.preview.fps);
-  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const selectedSequence = useAppSelector(
+    (state) => state.spriteSheet.present.selectedSequence
+  );
   const { width, height } = useAppSelector((state) => state.viewport);
   const [keepTimer, setKeepTimer] = useState(0);
   const [currentFrame, setCurrentFrame] = useState(0);

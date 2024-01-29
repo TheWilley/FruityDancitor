@@ -14,7 +14,7 @@ function NavbarEditorSettingsTab() {
   const { validateNumberInput } = useInputValidation();
   const dispatch = useAppDispatch();
   const numberOfSequences = useAppSelector(
-    (state) => state.spriteSheet.numberOfSequences
+    (state) => state.spriteSheet.present.numberOfSequences
   );
   const { height, width } = useAppSelector((state) => state.viewport);
 

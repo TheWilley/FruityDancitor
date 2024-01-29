@@ -14,7 +14,7 @@ import {
  */
 export default function useUpload() {
   const { spriteSheetSequences, selectedSequence } = useAppSelector(
-    (state) => state.spriteSheet
+    (state) => state.spriteSheet.present
   );
   const { selectedDialogFrames, dialogIsShown, dialogFrames } = useAppSelector(
     (state) => state.dialog

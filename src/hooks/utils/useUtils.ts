@@ -28,7 +28,7 @@ export default function useUtils(
   fileUpload: EditorData['fileUpload']
 ) {
   const { numberOfSequences, spriteSheetSequences, selectedSequence, selectedFrame } =
-    useAppSelector((state) => state.spriteSheet);
+    useAppSelector((state) => state.spriteSheet.present);
   const dispatch = useAppDispatch();
   const background = useAppSelector((state) => state.background);
   // Hook to adjust background

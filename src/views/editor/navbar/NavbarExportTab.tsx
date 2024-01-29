@@ -12,7 +12,7 @@ type Props = Pick<Refs, 'viewport'>;
 function NavbarExportTab(props: Props) {
   const { fileName, setFileName, downloadFile } = useExport();
   const spriteSheetSequences = useAppSelector(
-    (state) => state.spriteSheet.spriteSheetSequences
+    (state) => state.spriteSheet.present.spriteSheetSequences
   );
 
   const download = useCallback(() => {
