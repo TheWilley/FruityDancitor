@@ -87,6 +87,10 @@ const spriteSheetSlice = createSlice({
         state.sequencesWarehouse[state.selectedSequence].sequence.push(action.payload);
         spriteSheetSlice.caseReducers.transport(state);
       }
+      spriteSheetSlice.caseReducers.selectedFrameUpdate(state, {
+        payload: 0,
+        type: action.type,
+      });
     },
     sequenceDeleteFrame(state, action) {
       URL.revokeObjectURL(
@@ -136,9 +140,27 @@ const spriteSheetSlice = createSlice({
         state.selectedSequence = action.payload;
       }
       spriteSheetSlice.caseReducers.transport(state);
+      spriteSheetSlice.caseReducers.selectedFrameUpdate(state, {
+        payload: 0,
+        type: action.type,
+      });
     },
     selectedFrameUpdate(state, action) {
-      state.selectedFrame = action.payload;
+      // Checks if the form is enabled (>0) or disabled (-1)
+      // If the selected index is out of bounds, move it down one step
+      if (
+        state.spriteSheetSequences[state.selectedSequence].sequence.length <=
+        action.payload
+      ) {
+        state.selectedFrame = action.payload - 1;
+      }
+
+      // If we have no spriteSheetSequences, disable form
+      else if (state.spriteSheetSequences[state.selectedSequence].sequence.length === 0) {
+        state.selectedFrame = -1;
+      } else {
+        state.selectedFrame = action.payload;
+      }
     },
     frameMovePosition(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
