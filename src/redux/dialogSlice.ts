@@ -23,7 +23,6 @@ const dialogSlice = createSlice({
       state.dialogIsShown = !state.dialogIsShown;
     },
     adjustSelectedDialogFrame(state, action) {
-      console.log(action.payload.index, action.payload.cap);
       const selectedIndex = state.dialogFrames.indexOf(action.payload.index);
 
       if (selectedIndex !== -1) {
