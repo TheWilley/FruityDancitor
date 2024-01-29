@@ -1,8 +1,19 @@
-// spriteSheetSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { SpriteSheetSequence } from '../global/types.ts';
 import appConfig from '../appConfig.ts';
 import { arrayMoveImmutable } from 'array-move';
+
+/*
+  - The "warehouse" array holds the original data used by the sprite sheet.
+  - The "retail" array also holds the same data as the "warehouse", but data is only modified within the "warehouse".
+  - Before transportation to retail, the "retail" array is populated or "transported" from the "warehouse" array with modifications applied.
+  - Modifications include trimming the array to match the number of sequences among other changes, and these modifications are applied only to the "retail" array.
+  - The "warehouse" array remains unaltered; only the "retail" array undergoes modifications for retail-specific purposes.
+  - This approach ensures that the original data in the warehouse is preserved while the retail-specific adjustments are made separately to the "retail" array.
+  - Thus, when the number of sequences are decreased, we still preserve all data in the warehouse, and such we can "add back" that data by increasing the number of sequences again.
+
+  Warehouse --> Transport --> Retail
+*/
 
 interface SpriteSheetSlice {
   sequencesWarehouse: SpriteSheetSequence[];
@@ -30,7 +41,9 @@ const spriteSheetSlice = createSlice({
   name: 'spriteSheet',
   initialState,
   reducers: {
-    retailSequence(state) {
+    // This MUST run after each change to "transport"
+    // data from the warehouse to retail
+    transport(state) {
       const copy = [...state.sequencesWarehouse];
 
       // Splice according to the number of sequences
@@ -48,13 +61,13 @@ const spriteSheetSlice = createSlice({
     },
     sequencesUpdate(state, action) {
       state.sequencesWarehouse = action.payload;
-      spriteSheetSlice.caseReducers.retailSequence(state);
+      spriteSheetSlice.caseReducers.transport(state);
     },
     numberOfSequencesUpdate(state, action) {
       if (action.payload <= appConfig.warehouseStorage) {
         state.numberOfSequences = action.payload;
       }
-      spriteSheetSlice.caseReducers.retailSequence(state);
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceMovePosition(state, action) {
       state.sequencesWarehouse = arrayMoveImmutable(
@@ -63,14 +76,16 @@ const spriteSheetSlice = createSlice({
         action.payload.to
       );
       state.selectedSequence = action.payload.to;
-      spriteSheetSlice.caseReducers.retailSequence(state);
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceChangeName(state, action) {
       state.sequencesWarehouse[state.selectedSequence].name = action.payload;
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceAddFrame(state, action) {
       if (state.sequencesWarehouse[state.selectedSequence].sequence.length < 8) {
         state.sequencesWarehouse[state.selectedSequence].sequence.push(action.payload);
+        spriteSheetSlice.caseReducers.transport(state);
       }
     },
     sequenceDeleteFrame(state, action) {
@@ -82,21 +97,25 @@ const spriteSheetSlice = createSlice({
         state.sequencesWarehouse[state.selectedSequence].sequence.filter(
           (_, index) => index !== action.payload
         );
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsXoffsetUpdate(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.xoffset = action.payload;
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsYoffsetUpdate(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.yoffset = action.payload;
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsScaleUpdate(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.scale = action.payload;
+      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsReset(state) {
       state.sequencesWarehouse[state.selectedSequence].sequence[
@@ -108,6 +127,7 @@ const spriteSheetSlice = createSlice({
       state.sequencesWarehouse[state.selectedSequence].sequence[
         state.selectedFrame
       ].modifications.yoffset = 0;
+      spriteSheetSlice.caseReducers.transport(state);
     },
     selectedSequenceUpdate(state, action) {
       if (action.payload >= state.numberOfSequences) {
@@ -115,9 +135,11 @@ const spriteSheetSlice = createSlice({
       } else {
         state.selectedSequence = action.payload;
       }
+      spriteSheetSlice.caseReducers.transport(state);
     },
     selectedFrameUpdate(state, action) {
       state.selectedFrame = action.payload;
+      spriteSheetSlice.caseReducers.transport(state);
     },
     frameMovePosition(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
@@ -126,6 +148,7 @@ const spriteSheetSlice = createSlice({
         action.payload.to
       );
       state.selectedFrame = action.payload.to;
+      spriteSheetSlice.caseReducers.transport(state);
     },
   },
 });
