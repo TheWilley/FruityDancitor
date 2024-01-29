@@ -1,7 +1,7 @@
 // spriteSheetSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { SpriteSheetSequences } from '../global/types.ts';
-import appConfig from '../../appConfig.ts';
+import appConfig from '../appConfig.ts';
 import { arrayMoveImmutable } from 'array-move';
 
 interface SpriteSheetSlice {

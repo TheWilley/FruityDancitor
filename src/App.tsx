@@ -1,4 +1,4 @@
-import appConfig from '../appConfig';
+import appConfig from './appConfig.ts';
 import Accordion from './views/Accordion';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
