@@ -1,13 +1,15 @@
 import useUpload from '../../../hooks/utils/useUpload.ts';
 import useFileUpload from '../../../hooks/utils/useFileUpload.ts';
-import { Upload } from '../../../global/types.ts';
 import useLinkUpload from '../../../hooks/utils/useLinkUpload.ts';
+import { Refs } from '../../../global/types.ts';
+
+type Props = Pick<Refs, 'fileUpload'>;
 
 /**
  *  Component which handles image uploads via file or URL.
  * @param props A object containing component properties.
  */
-function InspectorUpload(props: Upload) {
+function InspectorUpload(props: Props) {
   const { disabled, handleFileUpload, handleURLUpload } = useUpload();
 
   /**

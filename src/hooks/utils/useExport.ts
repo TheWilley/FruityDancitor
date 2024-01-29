@@ -1,25 +1,25 @@
 import JSZip from 'jszip';
 import saveAs from 'file-saver';
 import { useState } from 'react';
-import { ExportSettings } from '../../global/types.ts';
 import { toast } from 'react-toastify';
+import { Export } from '../../global/types.ts';
 
 /**
  * Custom hook which zips the sprite sheet and sequence names, then downloads them.
- * @param exportSettings An object adhering to the strucutre of {@link ExportSettings}, along with a designated file name.
+ * @param exportSettings An object adhering to the strucutre of {@link Export}.
  */
-function downloadFile(exportSettings: ExportSettings & { filename: string }) {
+function downloadFile(exportSettings: Export) {
   // If a filename is not entered, use default name
   if (!exportSettings.filename) exportSettings.filename = 'spiriteSheet';
 
   // Check that required settings exists before continue
-  if (!exportSettings.viewport || !exportSettings.spriteSheetSequences) return;
+  if (!exportSettings.viewport || !exportSettings.sequencesRetail) return;
 
   // Create new zip instance
   const zip = new JSZip();
 
   // Get sequence names
-  const sequenceNames = exportSettings.spriteSheetSequences.map(
+  const sequenceNames = exportSettings.sequencesRetail.map(
     (item, index) => item.name || `Sequence ${index}`
   );
 

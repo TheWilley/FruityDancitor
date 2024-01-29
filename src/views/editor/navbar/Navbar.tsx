@@ -5,9 +5,9 @@ import NavbarAppSettingsTab from './NavbarAppSettingsTab.tsx';
 import NavbarEditorSettingsTab from './NavbarEditorSettingsTab.tsx';
 import NavbarExportTab from './NavbarExportTab.tsx';
 import NavbarSaveAndLoadTab from './NavbarSaveAndLoadTab.tsx';
-import { EditorData } from '../../../global/types.ts';
+import { Refs } from '../../../global/types.ts';
 
-type Props = Pick<EditorData, 'viewport'>;
+type Props = Pick<Refs, 'viewport'>;
 
 /**
  * Component which represents a navbar which the user can use to navigate to different tabs.

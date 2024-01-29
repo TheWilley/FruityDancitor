@@ -1,9 +1,9 @@
-import { EditorData } from '../../../global/types.ts';
 import useExport from '../../../hooks/utils/useExport.ts';
 import { useCallback } from 'react';
 import { useAppSelector } from '../../../redux/hooks.ts';
+import { Refs } from '../../../global/types.ts';
 
-type Props = Pick<EditorData, 'viewport'>;
+type Props = Pick<Refs, 'viewport'>;
 
 /**
  * Component which allows user to export their FruityDancitor project.
@@ -18,7 +18,7 @@ function NavbarExportTab(props: Props) {
   const download = useCallback(() => {
     downloadFile({
       filename: fileName,
-      spriteSheetSequences: spriteSheetSequences,
+      sequencesRetail: spriteSheetSequences,
       viewport: props.viewport,
     });
   }, []);

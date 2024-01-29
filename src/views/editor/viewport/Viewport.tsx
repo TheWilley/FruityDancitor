@@ -1,12 +1,12 @@
 import { memo, useRef } from 'react';
 import Card from '../../../components/Card.tsx';
-import { EditorData } from '../../../global/types.ts';
 import useViewport from '../../../hooks/utils/useViewport.ts';
 import opaque from '../../../media/opaque.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
+import { Refs } from '../../../global/types.ts';
 
-type Props = Pick<EditorData, 'viewport'>;
+type Props = Pick<Refs, 'viewport'>;
 
 /**
  * Component which show the sprite sheet.

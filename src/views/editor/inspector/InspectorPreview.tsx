@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import usePreview from '../../../hooks/utils/UsePreview.ts';
-import { EditorData } from '../../../global/types.ts';
 import opaque from '../../../media/opaque.jpeg';
+import { Refs } from '../../../global/types.ts';
 
-type Props = Pick<EditorData, 'viewport'>;
+type Props = Pick<Refs, 'viewport'>;
 /**
  * Component which represents a preview of a given sequence.
  *
