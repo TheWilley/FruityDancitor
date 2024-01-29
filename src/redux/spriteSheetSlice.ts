@@ -33,7 +33,7 @@ const initialState: SpriteSheetSlice = {
     name: '',
   }),
   selectedSequence: 0,
-  selectedFrame: 0,
+  selectedFrame: -1,
   numberOfSequences: 1,
 };
 
@@ -66,8 +66,8 @@ const spriteSheetSlice = createSlice({
     numberOfSequencesUpdate(state, action) {
       if (action.payload <= appConfig.warehouseStorage) {
         state.numberOfSequences = action.payload;
+        spriteSheetSlice.caseReducers.transport(state);
       }
-      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceMovePosition(state, action) {
       state.sequencesWarehouse = arrayMoveImmutable(
@@ -139,7 +139,6 @@ const spriteSheetSlice = createSlice({
     },
     selectedFrameUpdate(state, action) {
       state.selectedFrame = action.payload;
-      spriteSheetSlice.caseReducers.transport(state);
     },
     frameMovePosition(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(

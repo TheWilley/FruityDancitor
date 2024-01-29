@@ -14,11 +14,6 @@ export default function useFrameList() {
   );
   const dispatch = useAppDispatch();
 
-  // Detects when a sequence is changed and sets a default value of 0
-  useEffect(() => {
-    dispatch(selectedFrameUpdate(0));
-  }, [selectedSequence]);
-
   useEffect(() => {
     // Checks if the form is enabled (>0) or disabled (-1)
     if (selectedFrame != -1) {
@@ -33,11 +28,11 @@ export default function useFrameList() {
       }
     }
 
-    // If we only have one frame, select it
-    else if (spriteSheetSequences[selectedSequence].sequence.length === 1) {
+    // If we frames, select it
+    else if (spriteSheetSequences[selectedSequence].sequence.length > 0) {
       dispatch(selectedFrameUpdate(0));
     }
-  });
+  }, [selectedFrame, selectedSequence, spriteSheetSequences]);
 
   /**
    * Callback which removes a frame from a sequence.
