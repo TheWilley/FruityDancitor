@@ -80,6 +80,16 @@
     "description": "Save the project"
   },
   {
+    "displayedShortcut": "Ctrl + z",
+    "functionalShortcut": "control+z",
+    "description": "Undo last action"
+  },
+  {
+    "displayedShortcut": "Ctrl + y",
+    "functionalShortcut": "control+y",
+    "description": "Redo last action"
+  },
+  {
     "displayedShortcut": "h",
     "functionalShortcut": "h",
     "description": "Display keyboard bindings"

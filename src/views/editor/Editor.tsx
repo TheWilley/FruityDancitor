@@ -13,6 +13,7 @@ import InspectorPickFrames from './inspector/InspectorPickFrames.tsx';
 import InspectorUpload from './inspector/InspectorUpload.tsx';
 import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
 import useRefs from '../../hooks/state/useRefs.ts';
+import useUtils from '../../hooks/utils/useUtils.ts';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -22,7 +23,7 @@ import useRefs from '../../hooks/state/useRefs.ts';
 function Editor() {
   // States
   const { viewport, fileUpload } = useRefs();
-  //useUtils(editorData.viewport, editorData.fileUpload);
+  useUtils(viewport, fileUpload);
 
   return (
     <>

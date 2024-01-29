@@ -5,7 +5,6 @@ import useExport from './useExport.ts';
 import useFrameMods from './useFrameMods.ts';
 import useFrameList from './useFrameList.ts';
 import { useHotkeys } from 'react-hotkeys-hook';
-import { EditorData } from '../../global/types.ts';
 import keymap from '../../data/keybindings.json';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import {
@@ -15,29 +14,29 @@ import {
   selectedSequenceUpdate,
   sequenceMovePosition,
 } from '../../redux/spriteSheetSlice.ts';
+import store from '../../redux/store.ts';
+import { ActionCreators } from 'redux-undo';
+import { Refs } from '../../global/types.ts';
 
 /**
- *
- * @param viewport
- * @param fileUpload
- * @param saveSettings
- * @param loadSettings
+ * Custom hook to handle utility functionality.
+ * @param viewport The viewport element, reresnts a canvas.
+ * @param fileUpload The fileUpload element, represents an input element.
  */
 export default function useUtils(
-  viewport: EditorData['viewport'],
-  fileUpload: EditorData['fileUpload']
+  viewport: Refs['viewport'],
+  fileUpload: Refs['fileUpload']
 ) {
   const { numberOfSequences, spriteSheetSequences, selectedSequence, selectedFrame } =
     useAppSelector((state) => state.spriteSheet.present);
   const dispatch = useAppDispatch();
   const background = useAppSelector((state) => state.background);
+
   // Hook to adjust background
   useBackground(background.backgroundSrc, background.backgroundDarkness);
 
   // Hook to prevent
   useOnUnload(spriteSheetSequences[0].sequence.length > 0);
-
-  // Define a function that extracts and combines functionalShortcut values into a union type
 
   // Deps for shortcuts
   const [save, load] = useSaveAndLoad();
@@ -74,7 +73,7 @@ export default function useUtils(
       case 'control+arrowup': {
         if (selectedSequence > 0) {
           dispatch(
-            sequenceMovePosition({ from: selectedSequence, to: selectedSequence + 1 })
+            sequenceMovePosition({ from: selectedSequence, to: selectedSequence - 1 })
           );
         }
         break;
@@ -128,7 +127,7 @@ export default function useUtils(
       case 'e': {
         downloadFile({
           filename: '',
-          spriteSheetSequences: spriteSheetSequences,
+          sequencesRetail: spriteSheetSequences,
           viewport: viewport,
         });
         break;
@@ -145,7 +144,7 @@ export default function useUtils(
       }
 
       case 's': {
-        save(saveSettings);
+        save();
         break;
       }
 
@@ -154,9 +153,19 @@ export default function useUtils(
         input.type = 'file';
         input.onchange = (e) => {
           const target = e.target as HTMLInputElement;
-          target.files && load(target.files[0], loadSettings);
+          target.files && load(target.files[0]);
         };
         input.click();
+        break;
+      }
+
+      case 'control+z': {
+        store.dispatch(ActionCreators.undo());
+        break;
+      }
+
+      case 'control+y': {
+        store.dispatch(ActionCreators.redo());
         break;
       }
 
