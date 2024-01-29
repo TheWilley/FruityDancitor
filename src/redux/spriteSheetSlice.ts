@@ -30,7 +30,7 @@ const initialState: SpriteSheetSlice = {
   }),
   spriteSheetSequences: new Array(1).fill({
     sequence: [],
-    name: '',
+    name: 'Held',
   }),
   selectedSequence: 0,
   selectedFrame: -1,
