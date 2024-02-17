@@ -20,7 +20,7 @@ function downloadFile(exportSettings: Export) {
 
   // Get sequence names
   const sequenceNames = exportSettings.sequencesRetail.map(
-    (item, index) => item.name || `Sequence ${index}`
+    (item, index) => item.name || `Sequence ${index + 1}`
   );
 
   // Convert canvas to image
