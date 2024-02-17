@@ -4,14 +4,11 @@ import spriteSheetReducer from './spriteSheetSlice.ts';
 import viewportReducer from './viewportSlice.ts';
 import dialogReducer from './dialogSlice.ts';
 import previewReducer from './previewSlice.ts';
-import undoable from 'redux-undo';
 
 const store = configureStore({
   reducer: {
     background: backgroundReducer,
-    spriteSheet: undoable(spriteSheetReducer, {
-      limit: 10,
-    }),
+    spriteSheet: spriteSheetReducer,
     viewport: viewportReducer,
     dialog: dialogReducer,
     preview: previewReducer,

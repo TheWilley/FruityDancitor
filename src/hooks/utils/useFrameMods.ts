@@ -11,7 +11,7 @@ import {
  */
 export default function useFrameMods() {
   const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
-    (state) => state.spriteSheet.present
+    (state) => state.spriteSheet
   );
   const dispatch = useAppDispatch();
 

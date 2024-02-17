@@ -69,8 +69,8 @@ export default function useSaveAndLoad() {
     useAppSelector((state) => state.background.backgroundSrc),
     useAppSelector((state) => state.background.backgroundDarkness),
     useAppSelector((state) => state.preview.fps),
-    useAppSelector((state) => state.spriteSheet.present.numberOfSequences),
-    convertFramesToBase64(useAppSelector((state) => state.spriteSheet.present.spriteSheetSequences))
+    useAppSelector((state) => state.spriteSheet.numberOfSequences),
+    convertFramesToBase64(useAppSelector((state) => state.spriteSheet.spriteSheetSequences))
   ]).then(([width, height, backgroundSrc, backgroundDarkness, fps, numberOfSequences, spriteSheetSequences]) => {
     saveState.width = width;
     saveState.height = height;

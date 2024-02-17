@@ -9,7 +9,7 @@ import { sequenceChangeName } from '../../../redux/spriteSheetSlice.ts';
  */
 function InspectorSequenceName() {
   const { spriteSheetSequences, selectedSequence } = useAppSelector(
-    (state) => state.spriteSheet.present
+    (state) => state.spriteSheet
   );
   const dispatch = useAppDispatch();
 

@@ -12,7 +12,7 @@ export default function usePreview(
 ) {
   const fps = useAppSelector((state) => state.preview.fps);
   const selectedSequence = useAppSelector(
-    (state) => state.spriteSheet.present.selectedSequence
+    (state) => state.spriteSheet.selectedSequence
   );
   const { width, height } = useAppSelector((state) => state.viewport);
   const [keepTimer, setKeepTimer] = useState(0);

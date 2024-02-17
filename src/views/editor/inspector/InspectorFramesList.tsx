@@ -12,7 +12,7 @@ import {
  */
 function InspectorFramesList() {
   const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
-    (state) => state.spriteSheet.present
+    (state) => state.spriteSheet
   );
   const dispatch = useAppDispatch();
   const { callback } = useFrameList();

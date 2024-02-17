@@ -13,7 +13,7 @@ import {
  */
 function SequenceList() {
   const { spriteSheetSequences, selectedSequence, numberOfSequences } = useAppSelector(
-    (state) => state.spriteSheet.present
+    (state) => state.spriteSheet
   );
   const dispatch = useAppDispatch();
 

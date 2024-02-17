@@ -14,8 +14,6 @@ import {
   selectedSequenceUpdate,
   sequenceMovePosition,
 } from '../../redux/spriteSheetSlice.ts';
-import store from '../../redux/store.ts';
-import { ActionCreators } from 'redux-undo';
 import { Refs } from '../../global/types.ts';
 
 /**
@@ -28,7 +26,7 @@ export default function useUtils(
   fileUpload: Refs['fileUpload']
 ) {
   const { numberOfSequences, spriteSheetSequences, selectedSequence, selectedFrame } =
-    useAppSelector((state) => state.spriteSheet.present);
+    useAppSelector((state) => state.spriteSheet);
   const dispatch = useAppDispatch();
   const background = useAppSelector((state) => state.background);
 
@@ -156,16 +154,6 @@ export default function useUtils(
           target.files && load(target.files[0]);
         };
         input.click();
-        break;
-      }
-
-      case 'control+z': {
-        store.dispatch(ActionCreators.undo());
-        break;
-      }
-
-      case 'control+y': {
-        store.dispatch(ActionCreators.redo());
         break;
       }
 
