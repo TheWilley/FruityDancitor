@@ -60,7 +60,9 @@ const spriteSheetSlice = createSlice({
       state.spriteSheetSequences = copy;
     },
     sequencesUpdate(state, action) {
-      state.sequencesWarehouse = action.payload;
+      action.payload.forEach((value: SpriteSheetSequence, index: number) => {
+        state.sequencesWarehouse[index] = value;
+      });
       spriteSheetSlice.caseReducers.transport(state);
     },
     numberOfSequencesUpdate(state, action) {
