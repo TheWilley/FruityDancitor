@@ -13,6 +13,7 @@ import {
   numberOfSequencesUpdate,
   sequencesUpdate,
 } from '../../redux/spriteSheetSlice.ts';
+import { convertFramesToBase64, convertFramesToObjectURLs } from '../../utils/imageTools.ts';
 
 /**
  * Reads a file and returns is as JSON.
@@ -50,18 +51,35 @@ export default function useSaveAndLoad() {
   // This would throw an error if attempt to put it within the "save" function since
   // is not a hook (even though it is within one?)
   const saveState: SaveAndLoad = {
-    width: useAppSelector((state) => state.viewport.width),
-    height: useAppSelector((state) => state.viewport.height),
-    backgroundSrc: useAppSelector((state) => state.background.backgroundSrc),
-    backgroundDarkness: useAppSelector((state) => state.background.backgroundDarkness),
-    fps: useAppSelector((state) => state.preview.fps),
-    numberOfSequences: useAppSelector(
-      (state) => state.spriteSheet.present.numberOfSequences
-    ),
-    spriteSheetSequences: useAppSelector(
-      (state) => state.spriteSheet.present.spriteSheetSequences
-    ),
+    width: 0,
+    height: 0,
+    backgroundSrc: '',
+    backgroundDarkness: 0,
+    fps: 0,
+    numberOfSequences: 0,
+    spriteSheetSequences: []
   };
+
+  // This does indeed look stupid but is required
+  // as dispatch techinically a hook, and thus we can't use
+  // async to convert the frames to base64
+  Promise.all([
+    useAppSelector((state) => state.viewport.width),
+    useAppSelector((state) => state.viewport.height),
+    useAppSelector((state) => state.background.backgroundSrc),
+    useAppSelector((state) => state.background.backgroundDarkness),
+    useAppSelector((state) => state.preview.fps),
+    useAppSelector((state) => state.spriteSheet.present.numberOfSequences),
+    convertFramesToBase64(useAppSelector((state) => state.spriteSheet.present.spriteSheetSequences))
+  ]).then(([width, height, backgroundSrc, backgroundDarkness, fps, numberOfSequences, spriteSheetSequences]) => {
+    saveState.width = width;
+    saveState.height = height;
+    saveState.backgroundSrc = backgroundSrc;
+    saveState.backgroundDarkness = backgroundDarkness;
+    saveState.fps = fps;
+    saveState.numberOfSequences = numberOfSequences;
+    saveState.spriteSheetSequences = spriteSheetSequences;
+  });
 
   const save = () => {
     // Create a blob which later can be downloaded
@@ -83,14 +101,14 @@ export default function useSaveAndLoad() {
         return;
       }
 
-      readFileAsJSON(file).then((result) => {
+      readFileAsJSON(file).then(async (result) => {
         dispatch(widthUpdate(result.width));
         dispatch(heightUpdate(result.height));
         dispatch(backgroundSrcUpdate(result.backgroundSrc));
         dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
         dispatch(fpsUpdate(result.fps));
         dispatch(numberOfSequencesUpdate(result.numberOfSequences));
-        dispatch(sequencesUpdate(result.spriteSheetSequences));
+        dispatch(sequencesUpdate(await convertFramesToObjectURLs(result.spriteSheetSequences)));
       });
 
       toast.success('Project Loaded');
