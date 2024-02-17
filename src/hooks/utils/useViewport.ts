@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks.ts';
 
 /**
@@ -89,7 +89,7 @@ export default function useViewport(
     setShowGrid(state);
   };
 
-  useEffect(() => {
+  useMemo(() => {
     // Return if the canvas context is not found
     if (!viewport.current) return;
     const viewportCanvas = viewport.current;
@@ -126,7 +126,7 @@ export default function useViewport(
     };
 
     drawFrames();
-  }, [height, spriteSheetSequences, viewport, width]);
+  }, [height, JSON.stringify(spriteSheetSequences), viewport, width]);
 
   useEffect(() => {
     if (!grid.current) return;
@@ -164,7 +164,7 @@ export default function useViewport(
 
     // Draw grid
     drawGrid();
-  }, [grid, height, width, spriteSheetSequences, permanentlyShowGrid]);
+  }, [grid, height, width, JSON.stringify(spriteSheetSequences), permanentlyShowGrid]);
 
   return {
     width: width * 8,
