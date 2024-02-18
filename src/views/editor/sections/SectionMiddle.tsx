@@ -12,7 +12,7 @@ function SectionMiddle(props: Props) {
 
   return (
     <div
-      className='flex flex-col gap-2 max-md:carousel-item max-md:w-full'
+      className='flex flex-col gap-2 max-md:carousel-item max-md:w-full overflow-auto'
       id={incorporateKeyword(1)}
     >
       {props.children}
