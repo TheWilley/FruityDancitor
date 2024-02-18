@@ -38,7 +38,7 @@ function Header() {
         <div className='flex items-center'>
           <img src={logotype} alt='logotype' width='60' height='60' className='mr-2' />
           <div>
-            <div className='text-xl font-bold'>FruityDancitor <sup className='font-light'> v{version}</sup></div>
+            <div className='text-xl font-bold'>FruityDancitor <sup className='font-light'> <a href='https://github.com/TheWilley/FruityDancitor/releases/latest'>{version}</a></sup></div>
             <div className='text-sm'>By TheWilley</div>
           </div>
         </div>
