@@ -53,8 +53,8 @@ function drawImageOnTile(
 
 /**
  * Custom hook to render sprite sheet.
- * @param grid
- * @param viewport
+ * @param grid A canvas element.
+ * @param viewport A canvas element.
  */
 export default function useViewport(
   grid: RefObject<HTMLCanvasElement>,
@@ -126,6 +126,7 @@ export default function useViewport(
     };
 
     drawFrames();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height, JSON.stringify(spriteSheetSequences.map(item => item.sequence)), viewport, width]);
 
   useEffect(() => {
@@ -164,6 +165,7 @@ export default function useViewport(
 
     // Draw grid
     drawGrid();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grid, height, width, JSON.stringify(spriteSheetSequences), permanentlyShowGrid]);
 
   return {

@@ -52,10 +52,10 @@ export default function useFileUpload(
   });
 
   const placeholder = disabled
-    ? "Can't upload more than 8 files"
+    ? 'Can\'t upload more than 8 files'
     : isDragActive
       ? 'Drop the files here...'
-      : "Drag 'n' drop some files here, or click to select files";
+      : 'Drag \'n\' drop some files here, or click to select files';
 
   const [classes, styles] = useStyle(
     'border-2 border-dashed rounded-md w-full mb-2 p-3 bg-base-200 opacity-60',

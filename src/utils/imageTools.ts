@@ -3,7 +3,7 @@ import { SpriteSheetSequence } from '../global/types.ts';
 
 /**
  * Converts base64 to a blob.
- * @param base64
+ * @param base64 A base64 string.
  * @see https://stackoverflow.com/a/36183085.
  */
 export async function b64toBlob(base64: string) {
@@ -13,7 +13,7 @@ export async function b64toBlob(base64: string) {
 
 /**
  * Converts a series of frames to base64
- * @param spriteSheetSequences
+ * @param spriteSheetSequences A spritesheet sequence
  */
 export async function convertFramesToBase64(spriteSheetSequences: SpriteSheetSequence[]) {
   const updatedFrames: SpriteSheetSequence[] = [];
@@ -42,7 +42,7 @@ export async function convertFramesToBase64(spriteSheetSequences: SpriteSheetSeq
 
 /**
  * Converts a series of frames to baseURL
- * @param spriteSheetSequences
+ * @param spriteSheetSequences A sprite sheet sequence.
  */
 export async function convertFramesToObjectURLs(
   spriteSheetSequences: SpriteSheetSequence[]
@@ -74,7 +74,7 @@ export async function convertFramesToObjectURLs(
 
 /**
  * Extract base64 from an image.
- * @param source
+ * @param source A File or Blob containing image data.
  */
 export async function getBase64(source: File | string) {
   if (typeof source === 'string') {
@@ -94,7 +94,7 @@ export async function getBase64(source: File | string) {
 
 /**
  * Extract base64 from an either a file or a blob
- * @param source
+ * @param source A File or a Blob containing image data.
  */
 function readFile(source: File | Blob): Promise<string> {
   const reader = new FileReader();
@@ -111,7 +111,7 @@ function readFile(source: File | Blob): Promise<string> {
 
 /**
  * Convert canvas data the dataURL format.
- * @param imageData
+ * @param imageData Imagedata from a canvas element.
  */
 function imageDataToDataURL(imageData: ImageData) {
   const canvas = document.createElement('canvas');
@@ -124,7 +124,7 @@ function imageDataToDataURL(imageData: ImageData) {
 
 /**
  * Extracts frames from a gif file.
- * @param file
+ * @param file A GIF file. 
  */
 async function extractGifFrames(file: File) {
   const blob = new Blob([file]);
@@ -146,7 +146,7 @@ async function extractGifFrames(file: File) {
 
 /**
  * Fetches a image from a given URL and returns the base64 data.
- * @param src
+ * @param src A image URL.
  */
 export function getImageFromExternalUrl(src: string): Promise<string> {
   return new Promise((resolve, reject) => {
