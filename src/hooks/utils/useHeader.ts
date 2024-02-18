@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
  */
 export default function useHeader() {
   const [showHeader, setShowHeader] = useState(true);
+  const [version, setVersion] = useState();
 
   const handleScroll = () => {
     setShowHeader(window.scrollY <= 75);
@@ -13,10 +14,13 @@ export default function useHeader() {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll, { passive: true });
 
+    const url = 'https://api.github.com/repos/mkdocs/mkdocs/tags';
+    fetch(url).then(_ => _.json()).then(tags => setVersion(tags[0]['name']));
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  return { showHeader };
+  return { showHeader, version };
 }
