@@ -126,7 +126,7 @@ export default function useViewport(
     };
 
     drawFrames();
-  }, [height, JSON.stringify(spriteSheetSequences), viewport, width]);
+  }, [height, JSON.stringify(spriteSheetSequences.map(item => item.sequence)), viewport, width]);
 
   useEffect(() => {
     if (!grid.current) return;
