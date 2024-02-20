@@ -164,6 +164,42 @@ export default function useViewport(
     });
   };
 
+  /**
+   * Draws the grid.
+   */
+  const drawGrid = () => {
+    if (!grid.current) return;
+    const gridCanvas = grid.current;
+    const gridContext = gridCanvas.getContext('2d');
+
+    // see https://stackoverflow.com/a/11736122/10223638
+    if (gridContext) {
+      // Clear grid
+      gridContext.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+      gridContext.beginPath();
+
+      // Box width
+      const bw = gridCanvas.width;
+      // Box height
+      const bh = gridCanvas.height;
+      // Padding
+      const p = 0;
+
+      for (let x = 0; x <= bw; x += width) {
+        gridContext.moveTo(0.5 + x + p, p);
+        gridContext.lineTo(0.5 + x + p, bh + p);
+      }
+
+      for (let x = 0; x <= bh; x += height) {
+        gridContext.moveTo(p, 0.5 + x + p);
+        gridContext.lineTo(bw + p, 0.5 + x + p);
+      }
+      gridContext.strokeStyle = 'black';
+      gridContext.lineWidth = 2;
+      gridContext.stroke();
+    }
+  };
+
   useEffect(() => {
     redrawViewport();
   }, [JSON.stringify(spriteSheetSequences.map((item) => item.sequence))]);
@@ -178,40 +214,6 @@ export default function useViewport(
   ]);
 
   useEffect(() => {
-    if (!grid.current) return;
-    const gridCanvas = grid.current;
-    const gridContext = gridCanvas.getContext('2d');
-
-    // see https://stackoverflow.com/a/11736122/10223638
-    const drawGrid = () => {
-      if (gridContext) {
-        // Clear grid
-        gridContext.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
-        gridContext.beginPath();
-
-        // Box width
-        const bw = gridCanvas.width;
-        // Box height
-        const bh = gridCanvas.height;
-        // Padding
-        const p = 0;
-
-        for (let x = 0; x <= bw; x += width) {
-          gridContext.moveTo(0.5 + x + p, p);
-          gridContext.lineTo(0.5 + x + p, bh + p);
-        }
-
-        for (let x = 0; x <= bh; x += height) {
-          gridContext.moveTo(p, 0.5 + x + p);
-          gridContext.lineTo(bw + p, 0.5 + x + p);
-        }
-        gridContext.strokeStyle = 'black';
-        gridContext.lineWidth = 2;
-        gridContext.stroke();
-      }
-    };
-
-    // Draw grid
     drawGrid();
   }, [grid, height, width, JSON.stringify(spriteSheetSequences), permanentlyShowGrid]);
 
