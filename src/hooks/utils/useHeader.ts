@@ -15,7 +15,12 @@ export default function useHeader() {
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     const url = 'https://api.github.com/repos/TheWilley/FruityDancitor/tags';
-    fetch(url).then(_ => _.json()).then(tags => {console.log(tags); setVersion(tags[0]['name']);});
+    fetch(url)
+      .then((_) => _.json())
+      .then((tags) => {
+        console.log(tags);
+        setVersion(tags[0]['name']);
+      });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);

@@ -126,8 +126,13 @@ export default function useViewport(
     };
 
     drawFrames();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [height, JSON.stringify(spriteSheetSequences.map(item => item.sequence)), viewport, width]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    height,
+    JSON.stringify(spriteSheetSequences.map((item) => item.sequence)),
+    viewport,
+    width,
+  ]);
 
   useEffect(() => {
     if (!grid.current) return;
@@ -165,7 +170,7 @@ export default function useViewport(
 
     // Draw grid
     drawGrid();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [grid, height, width, JSON.stringify(spriteSheetSequences), permanentlyShowGrid]);
 
   return {

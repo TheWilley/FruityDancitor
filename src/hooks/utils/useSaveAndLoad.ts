@@ -13,7 +13,10 @@ import {
   numberOfSequencesUpdate,
   sequencesUpdate,
 } from '../../redux/spriteSheetSlice.ts';
-import { convertFramesToBase64, convertFramesToObjectURLs } from '../../utils/imageTools.ts';
+import {
+  convertFramesToBase64,
+  convertFramesToObjectURLs,
+} from '../../utils/imageTools.ts';
 
 /**
  * Reads a file and returns is as JSON.
@@ -57,7 +60,7 @@ export default function useSaveAndLoad() {
     backgroundDarkness: 0,
     fps: 0,
     numberOfSequences: 0,
-    spriteSheetSequences: []
+    spriteSheetSequences: [],
   };
 
   // This does indeed look stupid but is required
@@ -70,16 +73,28 @@ export default function useSaveAndLoad() {
     useAppSelector((state) => state.background.backgroundDarkness),
     useAppSelector((state) => state.preview.fps),
     useAppSelector((state) => state.spriteSheet.numberOfSequences),
-    convertFramesToBase64(useAppSelector((state) => state.spriteSheet.spriteSheetSequences))
-  ]).then(([width, height, backgroundSrc, backgroundDarkness, fps, numberOfSequences, spriteSheetSequences]) => {
-    saveState.width = width;
-    saveState.height = height;
-    saveState.backgroundSrc = backgroundSrc;
-    saveState.backgroundDarkness = backgroundDarkness;
-    saveState.fps = fps;
-    saveState.numberOfSequences = numberOfSequences;
-    saveState.spriteSheetSequences = spriteSheetSequences;
-  });
+    convertFramesToBase64(
+      useAppSelector((state) => state.spriteSheet.spriteSheetSequences)
+    ),
+  ]).then(
+    ([
+      width,
+      height,
+      backgroundSrc,
+      backgroundDarkness,
+      fps,
+      numberOfSequences,
+      spriteSheetSequences,
+    ]) => {
+      saveState.width = width;
+      saveState.height = height;
+      saveState.backgroundSrc = backgroundSrc;
+      saveState.backgroundDarkness = backgroundDarkness;
+      saveState.fps = fps;
+      saveState.numberOfSequences = numberOfSequences;
+      saveState.spriteSheetSequences = spriteSheetSequences;
+    }
+  );
 
   const save = () => {
     // Create a blob which later can be downloaded
@@ -108,7 +123,9 @@ export default function useSaveAndLoad() {
         dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
         dispatch(fpsUpdate(result.fps));
         dispatch(numberOfSequencesUpdate(result.numberOfSequences));
-        dispatch(sequencesUpdate(await convertFramesToObjectURLs(result.spriteSheetSequences)));
+        dispatch(
+          sequencesUpdate(await convertFramesToObjectURLs(result.spriteSheetSequences))
+        );
       });
 
       toast.success('Project Loaded');

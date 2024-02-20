@@ -124,7 +124,7 @@ function imageDataToDataURL(imageData: ImageData) {
 
 /**
  * Extracts frames from a gif file.
- * @param file A GIF file. 
+ * @param file A GIF file.
  */
 async function extractGifFrames(file: File) {
   const blob = new Blob([file]);
