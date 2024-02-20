@@ -48,6 +48,11 @@ function Viewport(props: Props) {
             height={height}
             style={{ background: `url(${opaque})` }}
           />
+          <div
+            ref={overlay}
+            style={{ width, height, background: `url(${opaque})` }}
+            className='top-0 absolute cursor-pointer'
+          />
           <canvas
             ref={grid}
             width={width}
@@ -56,11 +61,6 @@ function Viewport(props: Props) {
             onMouseOver={() => toggleShowGrid(true)}
             onMouseLeave={() => toggleShowGrid(false)}
             className='top-0 absolute cursor-pointer opacity-0'
-          />
-          <div
-            ref={overlay}
-            style={{ width, height, background: `url(${opaque})` }}
-            className='top-0 absolute cursor-pointer'
           />
         </div>
       </Card>
