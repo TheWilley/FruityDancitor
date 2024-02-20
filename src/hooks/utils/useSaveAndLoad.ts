@@ -50,10 +50,10 @@ function readFileAsJSON(file: File): Promise<SaveAndLoad> {
 export default function useSaveAndLoad() {
   const dispatch = useAppDispatch();
 
-  // This is not sercret, its a unique identifier which
-  // makes sure we're loading a FruityDancitor project and not
+  // This is not secret, its a unique identifier which
+  // make sure we're loading a FruityDancitor project and not
   // a generic JSON file 
-  const identifier = 'c7d1e9a9-e3c1-4e40-ad81-eb384fdaaea0-9c8fa00f-3bb3-469a-974b-efdc39b7dad8-6cf23a63-b332-4826-a509-5903deca5cc2'
+  const identifier = 'c7d1e9a9-e3c1-4e40-ad81-eb384fdaaea0-9c8fa00f-3bb3-469a-974b-efdc39b7dad8-6cf23a63-b332-4826-a509-5903deca5cc2';
 
   // Must be defined here as we use a hook to fetch data.
   // This would throw an error if attempt to put it within the "save" function since
