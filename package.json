@@ -13,6 +13,7 @@
     "deploy": "npm run build && gh-pages -d dist",
     "generate": "node scripts/generateKeybindings.js",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "prettier": "prettier src --write",
     "lintfix": "eslint . --ext ts,tsx --fix",
     "preview": "vite preview",
     "postversion": "git push && git push --tags && npm run deploy && echo 'Please create a new release at https://github.com/TheWilley/FruityDancitor/releases/new'"
