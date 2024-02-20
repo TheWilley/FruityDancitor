@@ -14,6 +14,7 @@ type Props = Pick<Refs, 'viewport'>;
  */
 function Viewport(props: Props) {
   const grid = useRef<HTMLCanvasElement>(null);
+  const overlay = useRef<HTMLDivElement>(null);
   const {
     width,
     height,
@@ -21,7 +22,7 @@ function Viewport(props: Props) {
     permanentlyShowGrid,
     toggleShowGrid,
     showGrid,
-  } = useViewport(grid, props.viewport);
+  } = useViewport(grid, overlay, props.viewport);
 
   return (
     <>
@@ -55,6 +56,11 @@ function Viewport(props: Props) {
             onMouseOver={() => toggleShowGrid(true)}
             onMouseLeave={() => toggleShowGrid(false)}
             className='top-0 absolute cursor-pointer opacity-0'
+          />
+          <div
+            ref={overlay}
+            style={{ width, height, background: `url(${opaque})` }}
+            className='top-0 absolute cursor-pointer'
           />
         </div>
       </Card>

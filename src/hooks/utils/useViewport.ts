@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useMemo, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks.ts';
 
 /**
@@ -24,40 +24,45 @@ function drawImageOnTile(
   xoffset: number,
   yoffset: number
 ) {
-  const image = new Image();
+  return new Promise((resolve) => {
+    const image = new Image();
 
-  // Wait for image to load before continuing as image otherwise won't be rendered until next rerender
-  image.onload = () => {
-    // Create a temporary canvas and draw the image, then copy it over.
-    // Since this temporary canvas is the exact width and height of a cell, an image will
-    // never be able to go beyond its cell since any offset or size changes would draw the image outside
-    // its boundaries. Thus, when copying over, anything outside won't be visible.
-    const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = width;
-    tempCanvas.height = height;
-    const tempCanvasContext = tempCanvas.getContext('2d');
-    tempCanvasContext?.drawImage(
-      image,
-      xoffset * scale,
-      yoffset * scale,
-      width * scale,
-      height * scale
-    );
+    // Wait for image to load before continuing as image otherwise won't be rendered until next rerender
+    image.onload = () => {
+      // Create a temporary canvas and draw the image, then copy it over.
+      // Since this temporary canvas is the exact width and height of a cell, an image will
+      // never be able to go beyond its cell since any offset or size changes would draw the image outside
+      // its boundaries. Thus, when copying over, anything outside won't be visible.
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = width;
+      tempCanvas.height = height;
+      const tempCanvasContext = tempCanvas.getContext('2d');
+      tempCanvasContext?.drawImage(
+        image,
+        xoffset * scale,
+        yoffset * scale,
+        width * scale,
+        height * scale
+      );
 
-    // Draw the image clipped to the cell
-    context.drawImage(tempCanvas, x * width, y * height, width, height);
-  };
+      // Draw the image clipped to the cell
+      context.drawImage(tempCanvas, x * width, y * height, width, height);
+      resolve(true);
+    };
 
-  image.src = objectURL;
+    image.src = objectURL;
+  });
 }
 
 /**
  * Custom hook to render sprite sheet.
  * @param grid A canvas element.
+ * @param overlay A div element with a background.
  * @param viewport A canvas element.
  */
 export default function useViewport(
   grid: RefObject<HTMLCanvasElement>,
+  overlay: RefObject<HTMLDivElement>,
   viewport: RefObject<HTMLCanvasElement>
 ) {
   const { width, height } = useAppSelector((state) => state.viewport);
@@ -69,11 +74,33 @@ export default function useViewport(
   );
   const [permanentlyShowGrid, setPermanentlyShowGrid] = useState(false);
   const [showGrid, setShowGrid] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
 
+  const toggleOverlay = async () => {
+    // Return if the canvas context is not found
+    if (!overlay.current) return;
+    const overlayElement = overlay.current;
+
+    overlayElement.style.opacity = '1';
+    if (timeoutId) clearTimeout(timeoutId);
+    const newTimeOutId = setTimeout(() => {
+      overlayElement.style.opacity = '0';
+      setTimeoutId(null);
+    }, 300);
+    setTimeoutId(newTimeOutId);
+  };
+
+  /**
+   * Toggles permanent show of grid (when not hovering).
+   */
   const togglePermanentlyShowGrid = () => {
     setPermanentlyShowGrid(!permanentlyShowGrid);
   };
 
+  /**
+   * Toggles show of grid.
+   * @param state Wether to show the grid or not.
+   */
   const toggleShowGrid = (state: boolean) => {
     // Return if the canvas context is not found
     if (!grid.current) return;
@@ -89,27 +116,33 @@ export default function useViewport(
     setShowGrid(state);
   };
 
-  useMemo(() => {
+  /**
+   * Redraws the viewport
+   */
+  const redrawViewport = () => {
     // Return if the canvas context is not found
     if (!viewport.current) return;
     const viewportCanvas = viewport.current;
-
-    // Get the context
     const viewportContext = viewportCanvas.getContext('2d');
 
-    const drawFrames = () => {
+    const memory = document.createElement('canvas');
+    memory.width = viewportCanvas.width;
+    memory.height = viewportCanvas.height;
+    const memoryContext = memory.getContext('2d');
+
+    const drawFrames = async () => {
       // Check if context exist
-      if (viewportContext) {
+      if (memoryContext) {
         // Clear the canvas
-        viewportContext.clearRect(0, 0, viewportCanvas.width, viewportCanvas.height);
+        memoryContext.clearRect(0, 0, viewportCanvas.width, viewportCanvas.height);
 
         for (const [y, sequence] of spriteSheetSequences.entries()) {
           // Go through each spriteSheetFrame in the spriteSheetSequences array
           for (const [x, spriteSheetFrame] of sequence.sequence.entries()) {
             if (spriteSheetFrame?.objectURL) {
               // Draw image on the given tile, where x depends on spriteSheetFrame and y depends on group
-              drawImageOnTile(
-                viewportContext,
+              await drawImageOnTile(
+                memoryContext,
                 spriteSheetFrame.objectURL,
                 y,
                 x,
@@ -125,13 +158,23 @@ export default function useViewport(
       }
     };
 
-    drawFrames();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    drawFrames().then(() => {
+      const imgData = memoryContext?.getImageData(0, 0, memory.width, memory.height);
+      imgData && viewportContext?.putImageData(imgData, 0, 0);
+    });
+  };
+
+  useEffect(() => {
+    redrawViewport();
+  }, [JSON.stringify(spriteSheetSequences.map((item) => item.sequence))]);
+
+  useEffect(() => {
+    toggleOverlay();
+    redrawViewport();
   }, [
-    height,
-    JSON.stringify(spriteSheetSequences.map((item) => item.sequence)),
-    viewport,
     width,
+    height,
+    JSON.stringify(spriteSheetSequences.map((item) => item.sequence.length)).length,
   ]);
 
   useEffect(() => {
