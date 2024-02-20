@@ -6,7 +6,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:jsdoc/recommended'
+    'plugin:jsdoc/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -21,6 +21,7 @@ module.exports = {
     'jsdoc/require-param': 1,
     'jsdoc/require-param-type': 'off',
     "no-restricted-imports": "off",
+    "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/no-restricted-imports": [
       "warn",
       {
