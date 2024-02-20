@@ -50,10 +50,16 @@ function readFileAsJSON(file: File): Promise<SaveAndLoad> {
 export default function useSaveAndLoad() {
   const dispatch = useAppDispatch();
 
+  // This is not sercret, its a unique identifier which
+  // makes sure we're loading a FruityDancitor project and not
+  // a generic JSON file 
+  const identifier = 'c7d1e9a9-e3c1-4e40-ad81-eb384fdaaea0-9c8fa00f-3bb3-469a-974b-efdc39b7dad8-6cf23a63-b332-4826-a509-5903deca5cc2'
+
   // Must be defined here as we use a hook to fetch data.
   // This would throw an error if attempt to put it within the "save" function since
   // is not a hook (even though it is within one?)
   const saveState: SaveAndLoad = {
+    id: '',
     width: 0,
     height: 0,
     backgroundSrc: '',
@@ -86,7 +92,8 @@ export default function useSaveAndLoad() {
       numberOfSequences,
       spriteSheetSequences,
     ]) => {
-      saveState.width = width;
+      saveState.id = identifier,
+        saveState.width = width;
       saveState.height = height;
       saveState.backgroundSrc = backgroundSrc;
       saveState.backgroundDarkness = backgroundDarkness;
@@ -117,18 +124,22 @@ export default function useSaveAndLoad() {
       }
 
       readFileAsJSON(file).then(async (result) => {
-        dispatch(widthUpdate(result.width));
-        dispatch(heightUpdate(result.height));
-        dispatch(backgroundSrcUpdate(result.backgroundSrc));
-        dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
-        dispatch(fpsUpdate(result.fps));
-        dispatch(numberOfSequencesUpdate(result.numberOfSequences));
-        dispatch(
-          sequencesUpdate(await convertFramesToObjectURLs(result.spriteSheetSequences))
-        );
+        if (result.id === identifier) {
+          dispatch(widthUpdate(result.width));
+          dispatch(heightUpdate(result.height));
+          dispatch(backgroundSrcUpdate(result.backgroundSrc));
+          dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
+          dispatch(fpsUpdate(result.fps));
+          dispatch(numberOfSequencesUpdate(result.numberOfSequences));
+          dispatch(
+            sequencesUpdate(await convertFramesToObjectURLs(result.spriteSheetSequences))
+          );
+          toast.success('Project Loaded');
+        } else {
+          toast.error('Not a FruityDancitor project');
+        }
       });
 
-      toast.success('Project Loaded');
     } catch (error) {
       console.error('Error:', error);
       if (error instanceof Error) {
