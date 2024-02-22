@@ -1,4 +1,4 @@
-import { faGripVertical, faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useStyle from '../hooks/utils/useStyle.ts';
 
@@ -34,25 +34,25 @@ type Props = {
  * @param props A object containing component properties.
  */
 function CommonListItem(props: Props) {
-  const [imageBorder] = useStyle('inline mr-1 w-10 h-10', undefined, [
-    { condition: props.objectURL !== undefined, result: 'border' },
+  const [imageBorder] = useStyle('inline mr-2 w-10 h-10', undefined, [
+    {
+      condition: props.objectURL !== undefined,
+      result: 'bg-base-100 border border-base-100',
+    },
   ]);
 
   const [highlighted] = useStyle(
     'flex items-center p-2 m-1 relative bg-base-300 rounded cursor-move',
     undefined,
-    [{ condition: props.highlighted === true, result: 'border border-base' }]
+    [{ condition: props.highlighted === true, result: 'border border-primary' }]
   );
 
   return (
     <div className={highlighted}>
-      <div className={'mr-2 text-2xl'}>
-        <FontAwesomeIcon icon={faGripVertical} />
-      </div>
       {props.objectURL ? (
-        <img src={props.objectURL} className={imageBorder} width={40} height={40} />
+        <img src={props.objectURL} className={imageBorder} width='40px' height='40px' />
       ) : (
-        <FontAwesomeIcon icon={faImage} className='text-4xl mr-2' />
+        <FontAwesomeIcon icon={faImage} className='text-4xl mr-2 w-[40px] h-[40px]' />
       )}
       <span className='overflow-hidden text-ellipsis'>
         {props.text || <i> {props.alt} </i>}
