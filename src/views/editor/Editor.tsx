@@ -41,10 +41,11 @@ function Editor() {
           {viewport && <InspectorPreview viewport={viewport} />}
           <div className='p-2'>
             <InspectorSequenceName />
-            <h2 className='text-2xl font-bold mt-5'> Frame Mods </h2>
+            <div className='divider'>Frame Mods</div>
             <InspectorFrameMods />
-            <h2 className='text-2xl font-bold mt-5 mb-3'> Frames </h2>
+            <div className='divider'>Upload</div>
             <InspectorUpload fileUpload={fileUpload} />
+            <div className='divider'>Frames</div>
             <InspectorFramesList />
           </div>
         </SectionRight>
