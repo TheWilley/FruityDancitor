@@ -107,6 +107,10 @@ const spriteSheetSlice = createSlice({
         state.sequencesWarehouse[state.selectedSequence].sequence.filter(
           (_, index) => index !== action.payload
         );
+
+      if(state.sequencesWarehouse[state.selectedSequence].sequence.length === state.selectedFrame) {
+        state.selectedFrame -= 1;
+      }
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsXoffsetUpdate(state, action) {
