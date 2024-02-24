@@ -18,7 +18,6 @@ export default function useHeader() {
     fetch(url)
       .then((_) => _.json())
       .then((tags) => {
-        console.log(tags);
         setVersion(tags[0]['name']);
       });
 
