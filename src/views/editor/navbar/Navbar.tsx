@@ -62,13 +62,9 @@ function Navbar(props: Props) {
     };
 
     return tabs.map((item, index) => (
-      <div key={index}>
-        <div onClick={() => showTab(index)}>
-          <span className={`tab ${!hidden ? index === tab && 'tab-active' : ''}`}>
-            <span className='mr-1'> {item.icon} </span> {item.name}
-          </span>
-        </div>
-      </div>
+      <span className={`tab ${!hidden ? index === tab && 'tab-active' : ''}`} key={index} onClick={() => showTab(index)}>
+        <span className='mr-1'> {item.icon} </span> {item.name}
+      </span>
     ));
   };
 
