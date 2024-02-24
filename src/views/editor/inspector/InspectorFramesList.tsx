@@ -18,31 +18,39 @@ function InspectorFramesList() {
   const { callback } = useFrameList();
 
   return (
-    <List
-      values={spriteSheetSequences[selectedSequence].sequence}
-      onChange={({ oldIndex, newIndex }) => {
-        dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
-        dispatch(selectedFrameUpdate(newIndex));
-      }}
-      renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-      renderItem={({ value, props, index }) => (
-        <li
-          {...props}
-          onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
-          className='z-30'
-        >
-          <CommonListItem
-            {...props}
-            objectURL={value.objectURL}
-            text={`Frame ${(index || 0) + 1}`}
-            alt=''
-            trashClickedCallback={() => callback(index || 0)}
-            highlighted={selectedFrame === index}
-            includeTrash
-          />
-        </li>
-      )}
-    />
+    spriteSheetSequences[selectedSequence].sequence.length ?
+      (
+
+        <List
+          values={spriteSheetSequences[selectedSequence].sequence}
+          onChange={({ oldIndex, newIndex }) => {
+            dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
+            dispatch(selectedFrameUpdate(newIndex));
+          }}
+          renderList={({ children, props }) => <ul {...props}>{children}</ul>}
+          renderItem={({ value, props, index }) => (
+            <li
+              {...props}
+              onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
+              className='z-30'
+            >
+              <CommonListItem
+                {...props}
+                objectURL={value.objectURL}
+                text={`Frame ${(index || 0) + 1}`}
+                alt=''
+                trashClickedCallback={() => callback(index || 0)}
+                highlighted={selectedFrame === index}
+                includeTrash
+              />
+            </li>
+          )}
+        />
+      ) : (
+        <div className='text-center'>
+          <i> No uploaded frames </i>
+        </div>
+      )
   );
 }
 
