@@ -22,6 +22,12 @@ export default function useFileUpload(
         // If drag was accepted
         setDragOver(false);
 
+        // Removes all but the first occurence of uploaded GIFs
+        const gifIndex = acceptedFiles.findIndex(acceptedFile => acceptedFile.type === 'image/gif');
+        if (gifIndex !== -1) {
+          acceptedFiles = acceptedFiles.filter((acceptedFile, index) => acceptedFile.type !== 'image/gif' || index === gifIndex);
+        }
+
         // Go through all entries
         for (const [, file] of acceptedFiles.entries()) {
           // Don't accept too large images
