@@ -26,22 +26,22 @@ function Viewport(props: Props) {
 
   return (
     <>
-      <Card className='w-full h-full p-3'>
+      <Card className='h-full p-3'>
         <div>
           {showGrid &&
             (permanentlyShowGrid ? (
               <FontAwesomeIcon
                 icon={faLock}
-                className='absolute text-2xl left-0 right-0 top-3 m-auto z-10 bg-base-300 p-3 rounded'
+                className='absolute inset-x-0 top-3 z-10 m-auto rounded bg-base-300 p-3 text-2xl'
               />
             ) : (
               <FontAwesomeIcon
                 icon={faUnlock}
-                className='absolute text-2xl left-0 right-0 top-3 m-auto z-10 bg-base-300 p-3 rounded'
+                className='absolute inset-x-0 top-3 z-10 m-auto rounded bg-base-300 p-3 text-2xl'
               />
             ))}
         </div>
-        <div className='overflow-auto m-auto relative'>
+        <div className='relative m-auto overflow-auto'>
           <canvas
             ref={props.viewport}
             width={width}
@@ -51,7 +51,7 @@ function Viewport(props: Props) {
           <div
             ref={overlay}
             style={{ width, height, background: `url(${opaque})` }}
-            className='top-0 absolute cursor-pointer'
+            className='absolute top-0 cursor-pointer'
           />
           <canvas
             ref={grid}
@@ -60,7 +60,7 @@ function Viewport(props: Props) {
             onClick={() => togglePermanentlyShowGrid()}
             onMouseOver={() => toggleShowGrid(true)}
             onMouseLeave={() => toggleShowGrid(false)}
-            className='top-0 absolute cursor-pointer opacity-0'
+            className='absolute top-0 cursor-pointer opacity-0'
           />
         </div>
       </Card>

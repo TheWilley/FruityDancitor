@@ -10,7 +10,7 @@ import { ReactNode } from 'react';
  */
 function Card(props: { children: ReactNode; className?: string; id?: string }) {
   return (
-    <div className={`bg-base-100 card overflow-auto ${props.className}`} id={props.id}>
+    <div className={`card overflow-auto bg-base-100 ${props.className}`} id={props.id}>
       {props.children}
     </div>
   );

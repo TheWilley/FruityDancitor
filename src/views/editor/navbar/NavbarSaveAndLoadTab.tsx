@@ -25,7 +25,7 @@ function NavbarSaveAndLoadTab() {
       >
         Load Project
       </button>
-      <button className='btn btn-success w-full mt-1' onClick={() => save()}>
+      <button className='btn btn-success mt-1 w-full' onClick={() => save()}>
         Save Project
       </button>
     </div>

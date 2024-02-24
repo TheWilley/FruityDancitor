@@ -10,9 +10,9 @@ function App() {
   return (
     <>
       <ToastContainer />
-      <div id='customBackground' className='z-10 fixed w-screen h-screen bg-cover' />
-      <div className='bg-base-300/80 p-5 flex justify-center'>
-        <div style={{ maxWidth: appConfig.maxWidth }} className='w-full z-20'>
+      <div id='customBackground' className='fixed z-10 h-screen w-screen bg-cover' />
+      <div className='flex justify-center bg-base-300/80 p-5'>
+        <div style={{ maxWidth: appConfig.maxWidth }} className='z-20 w-full'>
           <Accordion />
         </div>
       </div>

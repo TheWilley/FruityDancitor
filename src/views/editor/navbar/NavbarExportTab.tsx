@@ -27,7 +27,7 @@ function NavbarExportTab(props: Props) {
     <div>
       <input
         type='text'
-        className='input input-bordered mb-1 input-sm w-full text-center'
+        className='input input-sm input-bordered mb-1 w-full text-center'
         value={fileName}
         onChange={(e) => setFileName(e.target.value)}
         placeholder='File Name...'

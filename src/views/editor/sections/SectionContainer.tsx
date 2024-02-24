@@ -32,7 +32,7 @@ function SectionContainer(props: Props) {
   return (
     <>
       <div
-        className='grid grid-cols-[20%_60%_20%] w-full h-[calc(100vh-40px)] max-md:h-[calc(100vh-70px)] max-md:carousel max-md:overflow-hidden max-md:pb-10'
+        className='grid h-[calc(100vh-40px)] w-full grid-cols-[20%_60%_20%] max-md:carousel max-md:h-[calc(100vh-70px)] max-md:overflow-hidden max-md:pb-10'
         style={{ height: '' }}
       >
         {props.children}

@@ -8,10 +8,10 @@ function PopupKeyboardBindings() {
     <>
       <dialog id='keyboardBindingsDialog' className='modal backdrop-brightness-50'>
         <div className='modal-box'>
-          <h3 className='font-bold text-lg'>Keyboard Bindings</h3>
+          <h3 className='text-lg font-bold'>Keyboard Bindings</h3>
           <ul>
             {keybindings.map((item, index) => (
-              <li key={index} className='mb-2 mt-2'>
+              <li key={index} className='my-2'>
                 <kbd className='kbd'> {item.displayedShortcut} </kbd> -{' '}
                 <span>{item.description} </span>
               </li>

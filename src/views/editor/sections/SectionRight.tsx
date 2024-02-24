@@ -13,7 +13,7 @@ function SectionRight(props: Props) {
 
   return (
     <Card
-      className='max-md:carousel-item max-md:w-full overflow-x-hidden ml-2'
+      className='ml-2 overflow-x-hidden max-md:carousel-item max-md:w-full'
       id={incorporateKeyword(2)}
     >
       {props.children}

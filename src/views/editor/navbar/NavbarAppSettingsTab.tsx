@@ -22,16 +22,16 @@ function NavbarAppSettingsTab() {
   return (
     <div className='grid grid-cols-3 gap-2'>
       <div className='join'>
-        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+        <div className='join-item bg-base-200 p-1 px-2'>
           <FontAwesomeIcon icon={faPlay} />
         </div>
         <div
-          className='w-full tooltip tooltip-bottom'
+          className='tooltip tooltip-bottom w-full'
           data-tip='Preview FPS - The sequence preview FPS'
         >
           <input
             type='number'
-            className='input input-bordered join-item input-sm w-full'
+            className='input input-sm join-item input-bordered w-full'
             placeholder='Preview FPS'
             min={1}
             max={12}
@@ -43,16 +43,16 @@ function NavbarAppSettingsTab() {
         </div>
       </div>
       <div className='join'>
-        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+        <div className='join-item bg-base-200 p-1 px-2'>
           <FontAwesomeIcon icon={faImage} />
         </div>
         <div
-          className='w-full tooltip tooltip-bottom'
+          className='tooltip tooltip-bottom w-full'
           data-tip='Custom Background - Enter a URL of a image to use it as the background of the app'
         >
           <input
             type='text'
-            className='input input-bordered join-item input-sm w-full'
+            className='input input-sm join-item input-bordered w-full'
             placeholder='Custom Background URL'
             value={background.backgroundSrc}
             onChange={(e) => dispatch(backgroundSrcUpdate(e.target.value))}
@@ -60,16 +60,16 @@ function NavbarAppSettingsTab() {
         </div>
       </div>
       <div className='join'>
-        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+        <div className='join-item bg-base-200 p-1 px-2'>
           <FontAwesomeIcon icon={faLightbulb} />
         </div>
         <div
-          className='w-full tooltip tooltip-bottom'
+          className='tooltip tooltip-bottom w-full'
           data-tip='Custom Background Darkness - How much to darken the custom background image'
         >
           <input
             type='number'
-            className='input input-bordered join-item input-sm w-full'
+            className='input input-sm join-item input-bordered w-full'
             placeholder='Custom Background Darkness'
             min={0.1}
             max={1}

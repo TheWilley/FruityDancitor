@@ -52,13 +52,13 @@ function CommonListItem(props: Props) {
       {props.objectURL ? (
         <img src={props.objectURL} className={imageBorder} width='40px' height='40px' />
       ) : (
-        <FontAwesomeIcon icon={faImage} className='text-4xl mr-2 w-[40px] h-[40px]' />
+        <FontAwesomeIcon icon={faImage} className='mr-2 size-[40px] text-4xl' />
       )}
       <span className='overflow-hidden text-ellipsis'>
         {props.text || <i> {props.alt} </i>}
       </span>
       {props.includeTrash && (
-        <span className='absolute right-3 top-[15px] text-lg cursor-pointer'>
+        <span className='absolute right-3 top-[15px] cursor-pointer text-lg'>
           <FontAwesomeIcon
             icon={faTrash}
             className='hover:text-error'

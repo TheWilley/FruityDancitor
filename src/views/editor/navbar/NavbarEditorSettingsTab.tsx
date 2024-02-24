@@ -21,16 +21,16 @@ function NavbarEditorSettingsTab() {
   return (
     <div className='grid grid-cols-3 gap-2'>
       <div className='join'>
-        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+        <div className='join-item bg-base-200 p-1 px-2'>
           <FontAwesomeIcon icon={faBars} />
         </div>
         <div
-          className='w-full tooltip tooltip-bottom'
+          className='tooltip tooltip-bottom w-full'
           data-tip='Sequences - The number of Sequences'
         >
           <input
             type='number'
-            className='input input-bordered join-item input-sm w-full'
+            className='input input-sm join-item input-bordered w-full'
             placeholder='Sequences'
             min={1}
             max={100}
@@ -44,16 +44,16 @@ function NavbarEditorSettingsTab() {
         </div>
       </div>
       <div className='join'>
-        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+        <div className='join-item bg-base-200 p-1 px-2'>
           <FontAwesomeIcon icon={faTextWidth} />
         </div>
         <div
-          className='w-full tooltip tooltip-bottom'
+          className='tooltip tooltip-bottom w-full'
           data-tip='Width - The width of every cell'
         >
           <input
             type='number'
-            className='input input-bordered join-item input-sm w-full'
+            className='input input-sm join-item input-bordered w-full'
             placeholder='Width'
             min={50}
             value={width}
@@ -64,16 +64,16 @@ function NavbarEditorSettingsTab() {
         </div>
       </div>
       <div className='join'>
-        <div className='bg-base-200 join-item p-1 pl-2 pr-2'>
+        <div className='join-item bg-base-200 p-1 px-2'>
           <FontAwesomeIcon icon={faTextHeight} />
         </div>
         <div
-          className='w-full tooltip tooltip-bottom'
+          className='tooltip tooltip-bottom w-full'
           data-tip='Height - The height of every cell'
         >
           <input
             type='number'
-            className='input input-bordered join-item input-sm w-full'
+            className='input input-sm join-item input-bordered w-full'
             placeholder='Height'
             min={50}
             value={height}

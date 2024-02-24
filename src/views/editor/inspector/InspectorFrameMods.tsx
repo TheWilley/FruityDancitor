@@ -25,7 +25,7 @@ function InspectorFrameMods() {
           disabled={disabled}
         />
       </div>
-      <div className='grid grid-cols-1 lg:grid-cols-2 gap-3'>
+      <div className='grid grid-cols-1 gap-3 lg:grid-cols-2'>
         <div>
           <label className='label'>
             <span className='label-text'>X-Offset</span>
@@ -57,7 +57,7 @@ function InspectorFrameMods() {
           />
         </div>
       </div>
-      <button className='btn btn-md w-full mt-4' onClick={resetMods} disabled={disabled}>
+      <button className='btn btn-md mt-4 w-full' onClick={resetMods} disabled={disabled}>
         Reset
       </button>
     </>

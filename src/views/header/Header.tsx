@@ -10,7 +10,7 @@ function Header() {
 
   return (
     <div
-      className='navbar bg-base-100 rounded-md mb-2 transition-all relative z-30 max-md:hidden'
+      className='navbar relative z-30 mb-2 rounded-md bg-base-100 transition-all max-md:hidden'
       style={{
         opacity: showHeader ? '100%' : '0%',
         transform: showHeader ? 'translateY(0px)' : 'translateY(-120px)',
@@ -21,7 +21,7 @@ function Header() {
           <div tabIndex={0} role='button' className='btn btn-ghost lg:hidden'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
-              className='h-5 w-5'
+              className='size-5'
               fill='none'
               viewBox='0 0 24 24'
               stroke='currentColor'

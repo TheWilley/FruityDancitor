@@ -26,7 +26,7 @@ function InspectorPickFrames() {
         onClose={hideGifDialog}
       >
         <div className='modal-box'>
-          <h1 className='text-2xl mb-2'>Select Frames ({amountOfFramesPicked})</h1>
+          <h1 className='mb-2 text-2xl'>Select Frames ({amountOfFramesPicked})</h1>
           <div className='grid grid-cols-5 gap-2'>
             {dialogFrames.map((frame, index) => (
               <img
@@ -43,7 +43,7 @@ function InspectorPickFrames() {
           </div>
           <div className='modal-action'>
             <form method='dialog'>
-              <button className='btn btn-sm btn-circle btn-ghost absolute right-2 top-2'>
+              <button className='btn btn-circle btn-ghost btn-sm absolute right-2 top-2'>
                 ✕
               </button>
             </form>

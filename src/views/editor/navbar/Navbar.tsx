@@ -76,9 +76,9 @@ function Navbar(props: Props) {
     <>
       <div tabIndex={0} className='card border border-base-200 bg-base-100 p-2'>
         <nav>
-          <div className='tabs tabs-boxed'>{renderTabs()}</div>
+          <div className='tabs-boxed tabs'>{renderTabs()}</div>
           <div
-            className='mt-3 w-full h-full p-2 pt-0'
+            className='mt-3 size-full p-2 pt-0'
             style={{ display: hidden ? 'none' : 'block' }}
           >
             {tabs[tab].view}

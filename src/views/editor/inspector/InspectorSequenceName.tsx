@@ -20,13 +20,13 @@ function InspectorSequenceName() {
 
   return (
     <div>
-      <div className='items-center rounded mb-1'>
+      <div className='mb-1 items-center rounded'>
         <div className={formDisabledClass}>
           <input
             value={spriteSheetSequences[selectedSequence].name}
             type='text'
             placeholder='Name'
-            className='input input-bordered w-full tooltip'
+            className='input input-bordered tooltip w-full'
             onChange={(e) => {
               dispatch(sequenceChangeName(e.target.value));
             }}

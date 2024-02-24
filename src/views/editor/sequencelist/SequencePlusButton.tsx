@@ -7,7 +7,7 @@ type Props = { onClick: () => void };
 function SequencePlusButton(props: Props) {
   return (
     <div
-      className='flex items-center justify-center text-3xl p-1 m-1 relative bg-base-300 rounded cursor-pointer hover:brightness-110 transition'
+      className='relative m-1 flex cursor-pointer items-center justify-center rounded bg-base-300 p-1 text-3xl transition hover:brightness-110'
       onClick={props.onClick}
     >
       +
