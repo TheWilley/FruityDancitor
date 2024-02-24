@@ -1,5 +1,4 @@
 import useUpload from '../../../hooks/utils/useUpload.ts';
-import { useAppSelector } from '../../../redux/hooks.ts';
 
 /**
  * Component which represents an image picker.
@@ -10,12 +9,16 @@ function InspectorPickFrames() {
   const {
     dialogIsShown,
     amountOfFramesPicked,
+    selectedDialogFrames,
+    page,
+    frameChunks,
     acceptUploadMultiple,
     selectFrame,
     hideGifDialog,
-    selectedDialogFrames,
+    nextPage,
+    previousPage
   } = useUpload();
-  const dialogFrames = useAppSelector((state) => state.dialog.dialogFrames);
+
 
   return (
     <>
@@ -28,26 +31,40 @@ function InspectorPickFrames() {
         <div className='modal-box'>
           <h1 className='mb-2 text-2xl'>Select Frames ({amountOfFramesPicked})</h1>
           <div className='grid grid-cols-5 gap-2'>
-            {dialogFrames.map((frame, index) => (
+            {frameChunks[page].map((frame) => (
               <img
-                key={index}
-                src={frame}
-                alt={`Frame ${index}`}
+                key={frame.index}
+                src={frame.base64}
+                alt={`Frame ${frame.index}`}
                 width={150}
-                className={`cursor-pointer rounded bg-base-300 ${
-                  selectedDialogFrames.includes(index) ? 'border border-primary' : ''
-                }`}
-                onClick={() => selectFrame(index)}
+                className={`cursor-pointer rounded bg-base-300 ${selectedDialogFrames.includes(frame.index) ? 'border border-primary' : ''
+                  }`}
+                onClick={() => selectFrame(frame.index)}
               />
             ))}
           </div>
+          {frameChunks.length > 1 && (
+            <>
+              <div className='mt-4 flex justify-center rounded'>
+                <button className='btn' onClick={() => previousPage()}>
+                  ←
+                </button>
+                <span className='text-xl bg-base-200 ml-2 mr-2 p-2 rounded'>
+                  {page}
+                </span>
+                <button className='btn' onClick={() => nextPage()}>
+                  →
+                </button>
+              </div>
+            </>
+          )}
           <div className='modal-action'>
             <form method='dialog'>
               <button className='btn btn-circle btn-ghost btn-sm absolute right-2 top-2'>
                 ✕
               </button>
             </form>
-            <button className='btn btn-success' onClick={acceptUploadMultiple}>
+            <button className='btn btn-success w-full' onClick={acceptUploadMultiple}>
               Upload
             </button>
           </div>

@@ -1,15 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface DialogSlice {
-  dialogFrames: string[];
+  dialogFrames: {base64: string, index: number}[];
   dialogIsShown: boolean;
   selectedDialogFrames: number[];
+  page: number
 }
 
 const initialState: DialogSlice = {
   dialogFrames: [],
   dialogIsShown: false,
   selectedDialogFrames: [],
+  page: 0,
 };
 
 const dialogSlice = createSlice({
@@ -38,6 +40,14 @@ const dialogSlice = createSlice({
         state.selectedDialogFrames.push(action.payload.index);
       }
     },
+    nextPage(state) {
+      state.page++;
+    },
+    previousPage(state) {
+      if(state.page > 0) {
+        state.page--;
+      }
+    },
     resetSelectedDialogFrames(state, action) {
       state.selectedDialogFrames = Array.from(
         {
@@ -45,6 +55,7 @@ const dialogSlice = createSlice({
         },
         (_, index) => index
       );
+      state.page = 0;
     },
   },
 });
@@ -54,6 +65,8 @@ export const {
   resetSelectedDialogFrames,
   dialogFramesUpdate,
   dialogIsShownToggle,
+  nextPage,
+  previousPage
 } = dialogSlice.actions;
 
 export default dialogSlice.reducer;

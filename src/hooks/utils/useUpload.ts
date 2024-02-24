@@ -6,8 +6,11 @@ import {
   adjustSelectedDialogFrame,
   dialogFramesUpdate,
   dialogIsShownToggle,
+  nextPage,
+  previousPage,
   resetSelectedDialogFrames,
 } from '../../redux/dialogSlice.ts';
+import { useEffect, useState } from 'react';
 
 /**
  * Custom hook which handles file uploads.
@@ -16,11 +19,11 @@ export default function useUpload() {
   const { spriteSheetSequences, selectedSequence } = useAppSelector(
     (state) => state.spriteSheet
   );
-  const { selectedDialogFrames, dialogIsShown, dialogFrames } = useAppSelector(
+  const { selectedDialogFrames, dialogIsShown, dialogFrames, page } = useAppSelector(
     (state) => state.dialog
   );
   const dispatch = useAppDispatch();
-
+  const [frameChunks, setFrameChunks] = useState<{ base64: string, index: number }[][]>([[]]);
   const amountOfFramesPicked = `${selectedDialogFrames.length} /
     ${8 - spriteSheetSequences[selectedSequence].sequence.length}`;
   const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
@@ -59,6 +62,23 @@ export default function useUpload() {
     } catch (e) {
       toast.error('Could not fetch image from URL');
     }
+  };
+
+  const createFrameChunks = () => {
+    // https://stackoverflow.com/a/7273717/10223638
+    const size = 15;
+    const arrayOfArrays = [];
+    for (let i = 0; i < dialogFrames.length; i += size) {
+      arrayOfArrays.push(dialogFrames.slice(i, i + size));
+    }
+
+    // This is to make sure the app does not crash
+    // upon startup as it depends on index 0 being defined
+    if (arrayOfArrays.length === 0) {
+      arrayOfArrays.push([]);
+    }
+
+    setFrameChunks(arrayOfArrays);
   };
 
   /**
@@ -110,7 +130,15 @@ export default function useUpload() {
    */
   const handleUploadMultiple = (base64List: string[]) => {
     showGifDialog();
-    dispatch(dialogFramesUpdate(base64List));
+
+    const newBase64List = base64List.map((base64, index) => {
+      return {
+        base64,
+        index
+      };
+    });
+
+    dispatch(dialogFramesUpdate(newBase64List));
     dispatch(
       resetSelectedDialogFrames(
         8 - spriteSheetSequences[selectedSequence]?.sequence.length
@@ -125,8 +153,28 @@ export default function useUpload() {
     //Since we don't need to show the dialog anymore, we close it
     hideGifDialog();
 
-    return selectedDialogFrames.map((item) => addNewFrame(dialogFrames[item]));
+    return selectedDialogFrames.map((item) => addNewFrame(dialogFrames[item].base64));
   };
+
+  /**
+   * Goes to the next page.
+   */
+  const goTonextPage = () => {
+    if (page < frameChunks.length - 1) {
+      dispatch(nextPage());
+    }
+  };
+
+  /**
+   * Goes to the previous page.
+   */
+  const goTopreviousPage = () => {
+    dispatch(previousPage());
+  };
+
+  useEffect(() => {
+    createFrameChunks();
+  }, [dialogFrames]);
 
   return {
     dialogIsShown,
@@ -137,8 +185,12 @@ export default function useUpload() {
     hideGifDialog,
     dialogFrames,
     selectedDialogFrames,
+    page,
     disabled,
+    frameChunks,
     handleFileUpload,
     handleURLUpload,
+    nextPage: goTonextPage,
+    previousPage: goTopreviousPage
   };
 }
