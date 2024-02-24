@@ -26,7 +26,7 @@ function Viewport(props: Props) {
 
   return (
     <>
-      <Card className='w-full h-full'>
+      <Card className='w-full h-full p-3'>
         <div>
           {showGrid &&
             (permanentlyShowGrid ? (
