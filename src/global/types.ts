@@ -1,7 +1,7 @@
 import { RefObject } from 'react';
 
 export type SaveAndLoad = {
-  id: string,
+  id: string;
   width: number;
   height: number;
   backgroundSrc: string;

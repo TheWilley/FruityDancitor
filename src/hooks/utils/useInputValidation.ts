@@ -16,7 +16,8 @@ export default function useInputValidation() {
     const parsedValue = type === 'float' ? parseFloat(value) : parseInt(value);
     const parsedMin = min ? (type === 'float' ? parseFloat(min) : parseInt(min)) : null;
     const parsedMax = max ? (type === 'float' ? parseFloat(max) : parseInt(max)) : null;
-    const parsedDefault = type === 'float' ? parseFloat(defaultValue) : parseInt(defaultValue);
+    const parsedDefault =
+      type === 'float' ? parseFloat(defaultValue) : parseInt(defaultValue);
 
     if (isNaN(parsedValue)) {
       callback(parsedDefault.toString());

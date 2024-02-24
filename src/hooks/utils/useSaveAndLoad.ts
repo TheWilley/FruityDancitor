@@ -52,8 +52,9 @@ export default function useSaveAndLoad() {
 
   // This is not secret, its a unique identifier which
   // make sure we're loading a FruityDancitor project and not
-  // a generic JSON file 
-  const identifier = 'c7d1e9a9-e3c1-4e40-ad81-eb384fdaaea0-9c8fa00f-3bb3-469a-974b-efdc39b7dad8-6cf23a63-b332-4826-a509-5903deca5cc2';
+  // a generic JSON file
+  const identifier =
+    'c7d1e9a9-e3c1-4e40-ad81-eb384fdaaea0-9c8fa00f-3bb3-469a-974b-efdc39b7dad8-6cf23a63-b332-4826-a509-5903deca5cc2';
 
   // Must be defined here as we use a hook to fetch data.
   // This would throw an error if attempt to put it within the "save" function since
@@ -92,8 +93,7 @@ export default function useSaveAndLoad() {
       numberOfSequences,
       spriteSheetSequences,
     ]) => {
-      saveState.id = identifier,
-        saveState.width = width;
+      (saveState.id = identifier), (saveState.width = width);
       saveState.height = height;
       saveState.backgroundSrc = backgroundSrc;
       saveState.backgroundDarkness = backgroundDarkness;
@@ -139,7 +139,6 @@ export default function useSaveAndLoad() {
           toast.error('Not a FruityDancitor project');
         }
       });
-
     } catch (error) {
       console.error('Error:', error);
       if (error instanceof Error) {
