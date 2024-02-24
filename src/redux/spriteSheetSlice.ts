@@ -99,22 +99,24 @@ const spriteSheetSlice = createSlice({
       });
     },
     sequenceDeleteFrame(state, action) {
-      URL.revokeObjectURL(
-        state.sequencesWarehouse[state.selectedSequence].sequence[action.payload]
-          .objectURL
-      );
-      state.sequencesWarehouse[state.selectedSequence].sequence =
-        state.sequencesWarehouse[state.selectedSequence].sequence.filter(
-          (_, index) => index !== action.payload
+      if (state.sequencesWarehouse[state.selectedSequence].sequence[action.payload]) {
+        URL.revokeObjectURL(
+          state.sequencesWarehouse[state.selectedSequence].sequence[action.payload]
+            .objectURL
         );
+        state.sequencesWarehouse[state.selectedSequence].sequence =
+          state.sequencesWarehouse[state.selectedSequence].sequence.filter(
+            (_, index) => index !== action.payload
+          );
 
-      if (
-        state.sequencesWarehouse[state.selectedSequence].sequence.length ===
-        state.selectedFrame
-      ) {
-        state.selectedFrame -= 1;
+        if (
+          state.sequencesWarehouse[state.selectedSequence].sequence.length ===
+          state.selectedFrame
+        ) {
+          state.selectedFrame -= 1;
+        }
+        spriteSheetSlice.caseReducers.transport(state);
       }
-      spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsXoffsetUpdate(state, action) {
       state.sequencesWarehouse[state.selectedSequence].sequence[
