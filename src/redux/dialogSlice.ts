@@ -23,10 +23,10 @@ const dialogSlice = createSlice({
       state.dialogIsShown = !state.dialogIsShown;
     },
     adjustSelectedDialogFrame(state, action) {
-      const selectedIndex = state.dialogFrames.indexOf(action.payload.index);
+      const payloadIndex = action.payload.index;
+      const selectedIndex = state.selectedDialogFrames.indexOf(action.payload.index);
 
-      if (selectedIndex !== -1) {
-        // Remove frame
+      if (state.selectedDialogFrames.includes(payloadIndex)) {
         state.selectedDialogFrames.splice(selectedIndex, 1);
       } else {
         // Makes sure we don't upload too many frames
