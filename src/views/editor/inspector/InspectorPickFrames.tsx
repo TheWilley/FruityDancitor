@@ -19,7 +19,6 @@ function InspectorPickFrames() {
     previousPage
   } = useUpload();
 
-
   return (
     <>
       <dialog

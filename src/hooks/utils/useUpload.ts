@@ -11,6 +11,7 @@ import {
   resetSelectedDialogFrames,
 } from '../../redux/dialogSlice.ts';
 import { useEffect, useState } from 'react';
+import useLoader from './useLoader.ts';
 
 /**
  * Custom hook which handles file uploads.
@@ -28,13 +29,22 @@ export default function useUpload() {
     ${8 - spriteSheetSequences[selectedSequence].sequence.length}`;
   const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
 
+  const { openLoader, closeLoader } = useLoader();
+
   /**
    * Handles file uploads by extracting base64 from the given image or gif and subseqently uploading the resulting data.
    * @param file The image file.
    */
   const handleFileUpload = async (file: File) => {
+    let fileIsGif = false;
+
     // Check if there is space for a new entry
     if (!disabled) {
+      // Check if file is gif as it can
+      // take a while to load
+      if (file.type === 'image/gif') fileIsGif = true;
+      if(fileIsGif) openLoader();
+
       // Get base64 for the file
       const base64 = (await getBase64(file)) as string | string[];
 
@@ -44,6 +54,7 @@ export default function useUpload() {
       } else {
         addNewFrame(base64);
       }
+      if(fileIsGif) closeLoader();
     }
   };
 
