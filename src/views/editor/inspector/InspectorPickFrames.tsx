@@ -35,7 +35,7 @@ function InspectorPickFrames() {
                 alt={`Frame ${index}`}
                 width={150}
                 className={`cursor-pointer rounded bg-base-300 ${
-                  selectedDialogFrames.includes(index) ? 'border' : ''
+                  selectedDialogFrames.includes(index) ? 'border border-primary' : ''
                 }`}
                 onClick={() => selectFrame(index)}
               />
