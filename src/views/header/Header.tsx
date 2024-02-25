@@ -10,6 +10,7 @@ function Header() {
 
   return (
     <div
+      id='header'
       className='navbar relative z-30 mb-2 rounded-md bg-base-100 transition-all max-md:hidden'
       style={{
         opacity: showHeader ? '100%' : '0%',

@@ -7,6 +7,9 @@ import {
 } from '../../../redux/backgroundSlice.ts';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 import { fpsUpdate } from '../../../redux/previewSlice.ts';
+import Input from '../../../components/Input.tsx';
+import { showHeaderUpdate } from '../../../redux/viewportSlice.ts';
+import { faDisplay } from '@fortawesome/free-solid-svg-icons/faDisplay';
 
 /**
  * Component which represents settings concerning the app.
@@ -17,6 +20,7 @@ function NavbarAppSettingsTab() {
   const dispatch = useAppDispatch();
   const fps = useAppSelector((state) => state.preview.fps);
   const background = useAppSelector((state) => state.background);
+  const showHeader = useAppSelector((state) => state.viewport.showHeader);
   const { validateNumberInput } = useInputValidation();
 
   return (
@@ -83,6 +87,9 @@ function NavbarAppSettingsTab() {
           />
         </div>
       </div>
+      <Input faIcon={faDisplay} tooltip='Hide Header'>
+      <input type='checkbox' className='join-item checkbox checkbox-lg h-full w-full' checked={showHeader} onClick={() => dispatch(showHeaderUpdate(!showHeader))}/>
+      </Input>
     </div>
   );
 }
