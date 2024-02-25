@@ -1,6 +1,5 @@
 import JSZip from 'jszip';
 import saveAs from 'file-saver';
-import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Export } from '../../global/types.ts';
 
@@ -54,7 +53,6 @@ function downloadFile(exportSettings: Export) {
  * Custom hook to export a project.
  */
 export default function useExport() {
-  const [fileName, setFileName] = useState('');
 
-  return { fileName, setFileName, downloadFile };
+  return { downloadFile };
 }
