@@ -21,6 +21,7 @@ interface SpriteSheetSlice {
   selectedSequence: number;
   selectedFrame: number;
   numberOfSequences: number;
+  modifyAllFrames: boolean;
 }
 
 const initialState: SpriteSheetSlice = {
@@ -35,6 +36,7 @@ const initialState: SpriteSheetSlice = {
   selectedSequence: 0,
   selectedFrame: -1,
   numberOfSequences: 1,
+  modifyAllFrames: false
 };
 
 const spriteSheetSlice = createSlice({
@@ -119,21 +121,39 @@ const spriteSheetSlice = createSlice({
       }
     },
     sequenceModsXoffsetUpdate(state, action) {
-      state.sequencesWarehouse[state.selectedSequence].sequence[
-        state.selectedFrame
-      ].modifications.xoffset = action.payload;
+      if (state.modifyAllFrames) {
+        state.sequencesWarehouse[state.selectedSequence].sequence.forEach(frame => {
+          frame.modifications.xoffset = action.payload;
+        });
+      } else {
+        state.sequencesWarehouse[state.selectedSequence].sequence[
+          state.selectedFrame
+        ].modifications.xoffset = action.payload;
+      }
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsYoffsetUpdate(state, action) {
-      state.sequencesWarehouse[state.selectedSequence].sequence[
-        state.selectedFrame
-      ].modifications.yoffset = action.payload;
+      if (state.modifyAllFrames) {
+        state.sequencesWarehouse[state.selectedSequence].sequence.forEach(frame => {
+          frame.modifications.yoffset = action.payload;
+        });
+      } else {
+        state.sequencesWarehouse[state.selectedSequence].sequence[
+          state.selectedFrame
+        ].modifications.yoffset = action.payload;
+      }
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsScaleUpdate(state, action) {
-      state.sequencesWarehouse[state.selectedSequence].sequence[
-        state.selectedFrame
-      ].modifications.scale = action.payload;
+      if (state.modifyAllFrames) {
+        state.sequencesWarehouse[state.selectedSequence].sequence.forEach(frame => {
+          frame.modifications.scale = action.payload;
+        });
+      } else {
+        state.sequencesWarehouse[state.selectedSequence].sequence[
+          state.selectedFrame
+        ].modifications.scale = action.payload;
+      }
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsReset(state) {
@@ -186,6 +206,9 @@ const spriteSheetSlice = createSlice({
       state.selectedFrame = action.payload.to;
       spriteSheetSlice.caseReducers.transport(state);
     },
+    modifyAllFramesUpdate(state, action) {
+      state.modifyAllFrames = action.payload;
+    }
   },
 });
 
@@ -203,6 +226,7 @@ export const {
   sequenceDeleteFrame,
   selectedSequenceUpdate,
   frameMovePosition,
+  modifyAllFramesUpdate
 } = spriteSheetSlice.actions;
 
 export default spriteSheetSlice.reducer;

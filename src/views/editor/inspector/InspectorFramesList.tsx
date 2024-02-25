@@ -11,7 +11,7 @@ import {
  * Component which represents the list of frames for a given sequence.
  */
 function InspectorFramesList() {
-  const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
+  const { selectedSequence, selectedFrame, spriteSheetSequences, modifyAllFrames } = useAppSelector(
     (state) => state.spriteSheet
   );
   const dispatch = useAppDispatch();
@@ -37,7 +37,7 @@ function InspectorFramesList() {
             text={`Frame ${(index || 0) + 1}`}
             alt=''
             trashClickedCallback={() => callback(index || 0)}
-            highlighted={selectedFrame === index}
+            highlighted={selectedFrame === index || modifyAllFrames === true}
             includeTrash
           />
         </li>
