@@ -92,7 +92,7 @@ function NavbarAppSettingsTab() {
           type='checkbox'
           className='checkbox join-item checkbox-lg !size-full'
           checked={showHeader}
-          onClick={() => dispatch(showHeaderUpdate(!showHeader))}
+          onChange={() => dispatch(showHeaderUpdate(!showHeader))}
         />
       </CheckboxInput>
     </div>
