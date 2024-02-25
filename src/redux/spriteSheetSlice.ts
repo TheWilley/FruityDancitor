@@ -157,15 +157,23 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceModsReset(state) {
-      state.sequencesWarehouse[state.selectedSequence].sequence[
-        state.selectedFrame
-      ].modifications.scale = 1;
-      state.sequencesWarehouse[state.selectedSequence].sequence[
-        state.selectedFrame
-      ].modifications.xoffset = 0;
-      state.sequencesWarehouse[state.selectedSequence].sequence[
-        state.selectedFrame
-      ].modifications.yoffset = 0;
+      if (state.modifyAllFrames) {
+        state.sequencesWarehouse[state.selectedSequence].sequence.forEach(frame => {
+          frame.modifications.scale = 1;
+          frame.modifications.xoffset = 0;
+          frame.modifications.yoffset = 0;
+        });
+      } else {
+        state.sequencesWarehouse[state.selectedSequence].sequence[
+          state.selectedFrame
+        ].modifications.scale = 1;
+        state.sequencesWarehouse[state.selectedSequence].sequence[
+          state.selectedFrame
+        ].modifications.xoffset = 0;
+        state.sequencesWarehouse[state.selectedSequence].sequence[
+          state.selectedFrame
+        ].modifications.yoffset = 0;
+      }
       spriteSheetSlice.caseReducers.transport(state);
     },
     selectedSequenceUpdate(state, action) {
