@@ -11,7 +11,7 @@ type Props = {
  * Component which represent a input with a label.
  * @param props A object containing component properties.
  */
-function Input(props: Props) {
+function TextInput(props: Props) {
   return (
     <div className='join mb-2 w-full'>
       <div className='join-item bg-base-200 p-1 px-2'>
@@ -26,4 +26,4 @@ function Input(props: Props) {
   );
 }
 
-export default Input;
+export default TextInput;

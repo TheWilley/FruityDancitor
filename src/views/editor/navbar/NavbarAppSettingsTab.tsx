@@ -7,9 +7,9 @@ import {
 } from '../../../redux/backgroundSlice.ts';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 import { fpsUpdate } from '../../../redux/previewSlice.ts';
-import Input from '../../../components/Input.tsx';
 import { showHeaderUpdate } from '../../../redux/viewportSlice.ts';
 import { faDisplay } from '@fortawesome/free-solid-svg-icons/faDisplay';
+import CheckboxInput from '../../../components/CheckboxInput.tsx';
 
 /**
  * Component which represents settings concerning the app.
@@ -87,14 +87,14 @@ function NavbarAppSettingsTab() {
           />
         </div>
       </div>
-      <Input faIcon={faDisplay} tooltip='Hide Header'>
+      <CheckboxInput faIcon={faDisplay} tooltip='Hide Header'>
         <input
           type='checkbox'
-          className='join-item checkbox checkbox-lg h-full w-full'
+          className='checkbox join-item checkbox-lg !size-full'
           checked={showHeader}
           onClick={() => dispatch(showHeaderUpdate(!showHeader))}
         />
-      </Input>
+      </CheckboxInput>
     </div>
   );
 }

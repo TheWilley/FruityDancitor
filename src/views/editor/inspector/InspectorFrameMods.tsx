@@ -5,7 +5,7 @@ import {
   faX,
   faY,
 } from '@fortawesome/free-solid-svg-icons';
-import Input from '../../../components/Input.tsx';
+import TextInput from '../../../components/TextInput.tsx';
 
 /**
  * Component which represents settings for a selected frame.
@@ -16,7 +16,7 @@ function InspectorFrameMods() {
 
   return (
     <>
-      <Input faIcon={faUpRightAndDownLeftFromCenter} tooltip='Scale Multiplier'>
+      <TextInput faIcon={faUpRightAndDownLeftFromCenter} tooltip='Scale Multiplier'>
         <input
           type='number'
           className='input join-item input-bordered w-full'
@@ -27,9 +27,9 @@ function InspectorFrameMods() {
           onChange={(e) => validateNumberInput('float', e, (value) => setScale(value))}
           disabled={disabled}
         />
-      </Input>
+      </TextInput>
 
-      <Input faIcon={faX} tooltip='X-Offset'>
+      <TextInput faIcon={faX} tooltip='X-Offset'>
         <input
           type='number'
           className='input join-item input-bordered w-full'
@@ -38,9 +38,9 @@ function InspectorFrameMods() {
           onChange={(e) => validateNumberInput('number', e, (value) => setxoffset(value))}
           disabled={disabled}
         />
-      </Input>
+      </TextInput>
 
-      <Input faIcon={faY} tooltip='Y-Offset'>
+      <TextInput faIcon={faY} tooltip='Y-Offset'>
         <input
           type='number'
           className='input join-item input-bordered w-full'
@@ -49,7 +49,7 @@ function InspectorFrameMods() {
           onChange={(e) => validateNumberInput('number', e, (value) => setyoffset(value))}
           disabled={disabled}
         />
-      </Input>
+      </TextInput>
 
       <button className='btn btn-md w-full disabled:bg-base-200' onClick={resetMods} disabled={disabled}>
         Reset
