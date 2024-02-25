@@ -1,3 +1,6 @@
+/**
+ * Component which represents a loader.
+ */
 function Loader() {
   return (
     <dialog className='modal' id='loader'>

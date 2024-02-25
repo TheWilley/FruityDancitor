@@ -1,3 +1,6 @@
+/**
+ * Custom hook which controls loader visibility.
+ */
 export default function useLoader() {
   const openLoader = () => {
     document.getElementById('loader')?.classList.add('modal-open');

@@ -51,7 +51,11 @@ function InspectorFrameMods() {
         />
       </TextInput>
 
-      <button className='btn btn-md w-full disabled:bg-base-200' onClick={resetMods} disabled={disabled}>
+      <button
+        className='btn btn-md w-full disabled:bg-base-200'
+        onClick={resetMods}
+        disabled={disabled}
+      >
         Reset
       </button>
     </>

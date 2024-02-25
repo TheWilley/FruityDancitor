@@ -51,7 +51,7 @@ function InspectorPickFrames() {
                 <button className='btn' onClick={() => previousPage()}>
                   ←
                 </button>
-                <span className='text-xl bg-base-200 ml-2 mr-2 p-2 rounded'>{page}</span>
+                <span className='mx-2 rounded bg-base-200 p-2 text-xl'>{page}</span>
                 <button className='btn' onClick={() => nextPage()}>
                   →
                 </button>
