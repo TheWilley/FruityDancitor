@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 type Props = {
   faIcon: IconProp;
   tooltip: string;
-  children: React.ReactNode;
+  checked: boolean;
+  onChange: () => void;
 };
 
 /**
@@ -20,7 +21,12 @@ function CheckboxInput(props: Props) {
         </div>
       </div>
       <div className='tooltip tooltip-bottom w-full' data-tip={props.tooltip}>
-        {props.children}
+        <input
+          type='checkbox'
+          className='checkbox join-item checkbox-lg !size-full'
+          checked={props.checked}
+          onChange={props.onChange}
+        />
       </div>
     </div>
   );

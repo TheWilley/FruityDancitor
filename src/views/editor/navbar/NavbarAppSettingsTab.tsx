@@ -87,14 +87,12 @@ function NavbarAppSettingsTab() {
           />
         </div>
       </div>
-      <CheckboxInput faIcon={faDisplay} tooltip='Hide Header'>
-        <input
-          type='checkbox'
-          className='checkbox join-item checkbox-lg !size-full'
-          checked={showHeader}
-          onChange={() => dispatch(showHeaderUpdate(!showHeader))}
-        />
-      </CheckboxInput>
+      <CheckboxInput
+        faIcon={faDisplay}
+        tooltip='Hide Header'
+        checked={showHeader}
+        onChange={() => dispatch(showHeaderUpdate(!showHeader))}
+      />
     </div>
   );
 }

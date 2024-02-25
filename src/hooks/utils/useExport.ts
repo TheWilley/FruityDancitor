@@ -53,6 +53,5 @@ function downloadFile(exportSettings: Export) {
  * Custom hook to export a project.
  */
 export default function useExport() {
-
   return { downloadFile };
 }
