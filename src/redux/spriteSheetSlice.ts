@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { SpriteSheetSequence } from '../global/types.ts';
+import { Modifications, SpriteSheetSequence } from '../global/types.ts';
 import appConfig from '../appConfig.ts';
 import { arrayMoveImmutable } from 'array-move';
 
@@ -22,6 +22,7 @@ interface SpriteSheetSlice {
   selectedFrame: number;
   numberOfSequences: number;
   modifyAllFrames: boolean;
+  copiedMods: Modifications[];
 }
 
 const initialState: SpriteSheetSlice = {
@@ -36,7 +37,8 @@ const initialState: SpriteSheetSlice = {
   selectedSequence: 0,
   selectedFrame: -1,
   numberOfSequences: 1,
-  modifyAllFrames: false
+  modifyAllFrames: false,
+  copiedMods: []
 };
 
 const spriteSheetSlice = createSlice({
@@ -216,6 +218,23 @@ const spriteSheetSlice = createSlice({
     },
     modifyAllFramesUpdate(state, action) {
       state.modifyAllFrames = action.payload;
+    },
+    copyMods(state) {
+      state.copiedMods = state.spriteSheetSequences[state.selectedSequence].sequence.map(frame => {
+        return {
+          scale: frame.modifications.scale,
+          xoffset: frame.modifications.xoffset,
+          yoffset: frame.modifications.yoffset
+        };
+      });
+    },
+    pasteMods(state) {
+      state.sequencesWarehouse[state.selectedSequence].sequence.forEach((frame, index) => {
+        frame.modifications.scale = state.copiedMods[index].scale;
+        frame.modifications.xoffset = state.copiedMods[index].xoffset;
+        frame.modifications.yoffset = state.copiedMods[index].yoffset;
+      });
+      spriteSheetSlice.caseReducers.transport(state);
     }
   },
 });
@@ -234,7 +253,9 @@ export const {
   sequenceDeleteFrame,
   selectedSequenceUpdate,
   frameMovePosition,
-  modifyAllFramesUpdate
+  modifyAllFramesUpdate,
+  copyMods,
+  pasteMods
 } = spriteSheetSlice.actions;
 
 export default spriteSheetSlice.reducer;
