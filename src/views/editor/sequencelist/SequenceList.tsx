@@ -1,5 +1,5 @@
 import { List } from 'react-movable';
-import CommonListItem from '../../../components/CommonListItem.tsx';
+import CommonListItem from '../../../components/ListItem.tsx';
 import SequencePlusButton from './SequencePlusButton.tsx';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 import {
