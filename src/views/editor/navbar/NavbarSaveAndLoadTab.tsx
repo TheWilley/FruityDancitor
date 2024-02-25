@@ -19,14 +19,14 @@ function NavbarSaveAndLoadTab() {
         ref={fileRef}
         className='hidden'
       />
+      <button className='btn btn-success mb-1 w-full' onClick={() => save()}>
+        Save Project
+      </button>
       <button
         className='btn btn-info w-full'
         onClick={() => fileRef.current && fileRef.current.click()}
       >
         Load Project
-      </button>
-      <button className='btn btn-success mt-1 w-full' onClick={() => save()}>
-        Save Project
       </button>
     </div>
   );
