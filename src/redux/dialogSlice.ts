@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 interface DialogSlice {
-  dialogFrames: {base64: string, index: number}[];
+  dialogFrames: { base64: string; index: number }[];
   dialogIsShown: boolean;
   selectedDialogFrames: number[];
-  page: number
+  page: number;
 }
 
 const initialState: DialogSlice = {
@@ -44,7 +44,7 @@ const dialogSlice = createSlice({
       state.page++;
     },
     previousPage(state) {
-      if(state.page > 0) {
+      if (state.page > 0) {
         state.page--;
       }
     },
@@ -66,7 +66,7 @@ export const {
   dialogFramesUpdate,
   dialogIsShownToggle,
   nextPage,
-  previousPage
+  previousPage,
 } = dialogSlice.actions;
 
 export default dialogSlice.reducer;

@@ -88,7 +88,12 @@ function NavbarAppSettingsTab() {
         </div>
       </div>
       <Input faIcon={faDisplay} tooltip='Hide Header'>
-      <input type='checkbox' className='join-item checkbox checkbox-lg h-full w-full' checked={showHeader} onClick={() => dispatch(showHeaderUpdate(!showHeader))}/>
+        <input
+          type='checkbox'
+          className='join-item checkbox checkbox-lg h-full w-full'
+          checked={showHeader}
+          onClick={() => dispatch(showHeaderUpdate(!showHeader))}
+        />
       </Input>
     </div>
   );

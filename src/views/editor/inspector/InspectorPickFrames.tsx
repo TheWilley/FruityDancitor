@@ -16,7 +16,7 @@ function InspectorPickFrames() {
     selectFrame,
     hideGifDialog,
     nextPage,
-    previousPage
+    previousPage,
   } = useUpload();
 
   return (
@@ -36,8 +36,11 @@ function InspectorPickFrames() {
                 src={frame.base64}
                 alt={`Frame ${frame.index}`}
                 width={150}
-                className={`cursor-pointer rounded bg-base-300 ${selectedDialogFrames.includes(frame.index) ? 'border border-primary' : ''
-                  }`}
+                className={`cursor-pointer rounded bg-base-300 ${
+                  selectedDialogFrames.includes(frame.index)
+                    ? 'border border-primary'
+                    : ''
+                }`}
                 onClick={() => selectFrame(frame.index)}
               />
             ))}
@@ -48,9 +51,7 @@ function InspectorPickFrames() {
                 <button className='btn' onClick={() => previousPage()}>
                   ←
                 </button>
-                <span className='text-xl bg-base-200 ml-2 mr-2 p-2 rounded'>
-                  {page}
-                </span>
+                <span className='text-xl bg-base-200 ml-2 mr-2 p-2 rounded'>{page}</span>
                 <button className='btn' onClick={() => nextPage()}>
                   →
                 </button>

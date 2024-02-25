@@ -23,9 +23,14 @@ export default function useFileUpload(
         setDragOver(false);
 
         // Removes all but the first occurence of uploaded GIFs
-        const gifIndex = acceptedFiles.findIndex(acceptedFile => acceptedFile.type === 'image/gif');
+        const gifIndex = acceptedFiles.findIndex(
+          (acceptedFile) => acceptedFile.type === 'image/gif'
+        );
         if (gifIndex !== -1) {
-          acceptedFiles = acceptedFiles.filter((acceptedFile, index) => acceptedFile.type !== 'image/gif' || index === gifIndex);
+          acceptedFiles = acceptedFiles.filter(
+            (acceptedFile, index) =>
+              acceptedFile.type !== 'image/gif' || index === gifIndex
+          );
         }
 
         // Go through all entries

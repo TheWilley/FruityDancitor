@@ -17,7 +17,6 @@ export default function useInputValidation() {
     const parsedMin = min ? (type === 'float' ? parseFloat(min) : parseInt(min)) : null;
     const parsedMax = max ? (type === 'float' ? parseFloat(max) : parseInt(max)) : null;
 
-
     // Makes sure we don't go over set values
     if (
       (parsedMin === null || parsedValue >= parsedMin) &&
@@ -26,7 +25,6 @@ export default function useInputValidation() {
       callback(parsedValue);
     }
   };
-
 
   return { validateNumberInput };
 }

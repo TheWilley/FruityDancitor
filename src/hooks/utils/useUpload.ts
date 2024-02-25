@@ -24,7 +24,9 @@ export default function useUpload() {
     (state) => state.dialog
   );
   const dispatch = useAppDispatch();
-  const [frameChunks, setFrameChunks] = useState<{ base64: string, index: number }[][]>([[]]);
+  const [frameChunks, setFrameChunks] = useState<{ base64: string; index: number }[][]>([
+    [],
+  ]);
   const amountOfFramesPicked = `${selectedDialogFrames.length} /
     ${8 - spriteSheetSequences[selectedSequence].sequence.length}`;
   const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
@@ -43,7 +45,7 @@ export default function useUpload() {
       // Check if file is gif as it can
       // take a while to load
       if (file.type === 'image/gif') fileIsGif = true;
-      if(fileIsGif) openLoader();
+      if (fileIsGif) openLoader();
 
       // Get base64 for the file
       const base64 = (await getBase64(file)) as string | string[];
@@ -54,7 +56,7 @@ export default function useUpload() {
       } else {
         addNewFrame(base64);
       }
-      if(fileIsGif) closeLoader();
+      if (fileIsGif) closeLoader();
     }
   };
 
@@ -145,7 +147,7 @@ export default function useUpload() {
     const newBase64List = base64List.map((base64, index) => {
       return {
         base64,
-        index
+        index,
       };
     });
 
@@ -202,6 +204,6 @@ export default function useUpload() {
     handleFileUpload,
     handleURLUpload,
     nextPage: goTonextPage,
-    previousPage: goTopreviousPage
+    previousPage: goTopreviousPage,
   };
 }
