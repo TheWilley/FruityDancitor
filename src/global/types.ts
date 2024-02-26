@@ -4,6 +4,7 @@ export type SaveAndLoad = {
   id: string;
   width: number;
   height: number;
+  showHeader: boolean;
   backgroundSrc: string;
   backgroundDarkness: number;
   fps: number;

@@ -3,7 +3,11 @@ import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import saveAs from 'file-saver';
 import { useCallback } from 'react';
-import { heightUpdate, widthUpdate } from '../../redux/viewportSlice.ts';
+import {
+  heightUpdate,
+  showHeaderUpdate,
+  widthUpdate,
+} from '../../redux/viewportSlice.ts';
 import {
   backgroundDarknessUpdate,
   backgroundSrcUpdate,
@@ -63,6 +67,7 @@ export default function useSaveAndLoad() {
     id: '',
     width: 0,
     height: 0,
+    showHeader: false,
     backgroundSrc: '',
     backgroundDarkness: 0,
     fps: 0,
@@ -76,6 +81,7 @@ export default function useSaveAndLoad() {
   Promise.all([
     useAppSelector((state) => state.viewport.width),
     useAppSelector((state) => state.viewport.height),
+    useAppSelector((state) => state.viewport.showHeader),
     useAppSelector((state) => state.background.backgroundSrc),
     useAppSelector((state) => state.background.backgroundDarkness),
     useAppSelector((state) => state.preview.fps),
@@ -87,14 +93,17 @@ export default function useSaveAndLoad() {
     ([
       width,
       height,
+      showHeader,
       backgroundSrc,
       backgroundDarkness,
       fps,
       numberOfSequences,
       spriteSheetSequences,
     ]) => {
-      (saveState.id = identifier), (saveState.width = width);
+      saveState.id = identifier;
+      saveState.width = width;
       saveState.height = height;
+      saveState.showHeader = showHeader;
       saveState.backgroundSrc = backgroundSrc;
       saveState.backgroundDarkness = backgroundDarkness;
       saveState.fps = fps;
@@ -127,6 +136,7 @@ export default function useSaveAndLoad() {
         if (result.id === identifier) {
           dispatch(widthUpdate(result.width));
           dispatch(heightUpdate(result.height));
+          dispatch(showHeaderUpdate(result.showHeader));
           dispatch(backgroundSrcUpdate(result.backgroundSrc));
           dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
           dispatch(fpsUpdate(result.fps));
