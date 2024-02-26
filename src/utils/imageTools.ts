@@ -1,5 +1,5 @@
 import { SpriteSheetSequence } from '../global/types.ts';
-import { extractGifFrames } from './extractFranes.ts';
+import { extractGifFrames } from './extractFrames.ts';
 
 /**
  * Converts base64 to a blob.
