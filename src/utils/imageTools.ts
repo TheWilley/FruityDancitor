@@ -1,5 +1,5 @@
-import { GifReader } from 'omggif';
 import { SpriteSheetSequence } from '../global/types.ts';
+import { extractGifFrames } from './extractFranes.ts';
 
 /**
  * Converts base64 to a blob.
@@ -113,35 +113,13 @@ function readFile(source: File | Blob): Promise<string> {
  * Convert canvas data the dataURL format.
  * @param imageData Imagedata from a canvas element.
  */
-function imageDataToDataURL(imageData: ImageData) {
+export function imageDataToDataURL(imageData: ImageData) {
   const canvas = document.createElement('canvas');
   canvas.width = imageData.width;
   canvas.height = imageData.height;
   const ctx = canvas.getContext('2d');
   ctx?.putImageData(imageData, 0, 0);
   return canvas.toDataURL(); // This will return the Data URL
-}
-
-/**
- * Extracts frames from a gif file.
- * @param file A GIF file.
- */
-async function extractGifFrames(file: File) {
-  const blob = new Blob([file]);
-  const arrayBuffer = await blob.arrayBuffer();
-  const intArray = new Uint8Array(arrayBuffer);
-  const reader = new GifReader(intArray);
-  const numFrames = reader.numFrames();
-  const { width, height } = reader.frameInfo(0);
-
-  const frames = [];
-  for (let k = 0; k < numFrames; k++) {
-    const image = new ImageData(width, height);
-    reader.decodeAndBlitFrameRGBA(k, image.data);
-    frames.push(imageDataToDataURL(image));
-  }
-
-  return frames;
 }
 
 /**
