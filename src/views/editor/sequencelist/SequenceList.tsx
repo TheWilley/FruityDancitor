@@ -7,6 +7,7 @@ import {
   selectedSequenceUpdate,
   sequenceMovePosition,
 } from '../../../redux/spriteSheetSlice.ts';
+import SequenceMinusButton from './SequenceMinusButton.tsx';
 
 /**
  * Component which represents a list of all sequences in a reordable list.
@@ -42,9 +43,14 @@ function SequenceList() {
           </li>
         )}
       />
-      <SequencePlusButton
-        onClick={() => dispatch(numberOfSequencesUpdate(numberOfSequences + 1))}
-      />
+      <div className='grid grid-cols-2'>
+        <SequencePlusButton
+          onClick={() => dispatch(numberOfSequencesUpdate(numberOfSequences + 1))}
+        />
+        <SequenceMinusButton
+          onClick={() => dispatch(numberOfSequencesUpdate(numberOfSequences - 1))}
+        />
+      </div>
     </>
   );
 }
