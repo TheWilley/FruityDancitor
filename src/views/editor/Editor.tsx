@@ -15,6 +15,7 @@ import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
 import useRefs from '../../hooks/state/useRefs.ts';
 import useUtils from '../../hooks/utils/useUtils.ts';
 import InspectorSettings from './inspector/InspectorSettings.tsx';
+import Collapse from '../../components/Collapse.tsx';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -42,14 +43,18 @@ function Editor() {
           {viewport && <InspectorPreview viewport={viewport} />}
           <div className='p-2'>
             <InspectorSequenceName />
-            <div className='divider'>Frame Mods</div>
-            <InspectorFrameMods />
-            <div className='divider'>Settings</div>
-            <InspectorSettings />
-            <div className='divider'>Upload</div>
-            <InspectorUpload fileUpload={fileUpload} />
-            <div className='divider'>Frames</div>
-            <InspectorFramesList />
+            <Collapse label='Frame Mods'>
+              <InspectorFrameMods />
+            </Collapse>
+            <Collapse label='Settings'>
+              <InspectorSettings />
+            </Collapse>
+            <Collapse label='Upload'>
+              <InspectorUpload fileUpload={fileUpload} />
+            </Collapse>
+            <Collapse label='Frames'>
+              <InspectorFramesList />
+            </Collapse>
           </div>
         </SectionRight>
         <InspectorPickFrames />
