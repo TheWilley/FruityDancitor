@@ -5,6 +5,7 @@ type Props = {
   faIcon: IconProp;
   tooltip: string;
   checked: boolean;
+  class?: string;
   onChange: () => void;
 };
 
@@ -14,7 +15,7 @@ type Props = {
  */
 function CheckboxInput(props: Props) {
   return (
-    <div className='join mb-2 w-full'>
+    <div className={`join w-full ${props.class}`}>
       <div className='join-item bg-base-200 p-1 px-2'>
         <div className='flex h-6 w-4 items-center justify-center'>
           <FontAwesomeIcon icon={props.faIcon} />

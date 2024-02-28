@@ -23,6 +23,7 @@ function InspectorFrameMods() {
         value={mods.scale}
         type='float'
         onChange={(value) => setScale(value)}
+        class='mb-2'
         disabled={disabled}
       />
       <NumberInput
@@ -32,6 +33,7 @@ function InspectorFrameMods() {
         max={500}
         value={mods.xoffset}
         onChange={(value) => setxoffset(value)}
+        class='mb-2'
         disabled={disabled}
       />
       <NumberInput
@@ -41,6 +43,7 @@ function InspectorFrameMods() {
         max={500}
         value={mods.yoffset}
         onChange={(value) => setyoffset(value)}
+        class='mb-2'
         disabled={disabled}
       />
       <button

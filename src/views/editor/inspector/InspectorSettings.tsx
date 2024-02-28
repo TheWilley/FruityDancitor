@@ -20,6 +20,7 @@ function InspectorSettings() {
         tooltip='Edit all frames in sequence'
         faIcon={faLayerGroup}
         checked={modifyAllFrames}
+        class='mb-2'
         onChange={() => {
           dispatch(modifyAllFramesUpdate(!modifyAllFrames));
         }}

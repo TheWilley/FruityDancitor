@@ -12,6 +12,7 @@ type Props = {
   disabled?: boolean;
   type?: 'number' | 'float';
   size?: 'sm' | 'md' | 'lg';
+  class?: string;
   onChange: (result: number) => void;
 };
 
@@ -23,7 +24,7 @@ function NumberInput(props: Props) {
   const { validateNumberInput } = useInputValidation();
 
   return (
-    <div className='join mb-2 w-full'>
+    <div className={`join w-full ${props.class}`}>
       <div className='join-item bg-base-200 p-1 px-2'>
         <div className='flex h-full w-4 items-center justify-center'>
           <FontAwesomeIcon icon={props.faIcon} />
