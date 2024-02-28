@@ -208,13 +208,18 @@ const spriteSheetSlice = createSlice({
       }
     },
     frameMovePosition(state, action) {
-      state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
-        state.sequencesWarehouse[state.selectedSequence].sequence,
-        action.payload.from,
-        action.payload.to
-      );
-      state.selectedFrame = action.payload.to;
-      spriteSheetSlice.caseReducers.transport(state);
+      if (
+        action.payload.to <
+        state.sequencesWarehouse[state.selectedSequence].sequence.length
+      ) {
+        state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
+          state.sequencesWarehouse[state.selectedSequence].sequence,
+          action.payload.from,
+          action.payload.to
+        );
+        state.selectedFrame = action.payload.to;
+        spriteSheetSlice.caseReducers.transport(state);
+      }
     },
     modifyAllFramesUpdate(state, action) {
       state.modifyAllFrames = action.payload;
