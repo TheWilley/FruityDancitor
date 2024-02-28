@@ -10,8 +10,6 @@
 with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm' alt='Fruity Dance'> Fruity Dance</a>.
 </h4>
 
-
-
 <p align="center">
 <a href='https://github.com/TheWilley/FruityDancitor/releases/latest'><img alt="GitHub release (with filter)" src="https://img.shields.io/github/v/release/TheWilley/FruityDancitor"></a>
 <a href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'><img src="https://img.shields.io/badge/license-MIT-blue" alt='license MIT' /></a>
@@ -27,15 +25,15 @@ with <a href='https://www.image-line.com/fl-studio-learning/fl-studio-online-man
   <a href="#license">License</a>
 </p>
 
-![image](https://github.com/TheWilley/FruityDancitor/assets/89783791/3d0e323a-fcb0-4432-b245-639855a0aaa7)
+![image](https://github.com/TheWilley/FruityDancitor/assets/89783791/77a63d7a-fa8e-4b28-b261-a4b195c8d95b)
 
 ## Key Features
 
 - Uploading frames from a GIF file
 - Editing induvidual frames
 - Rearranging sequences and frames
-- Save and Load
 - Live Preview
+- Save and Load
 - One-click export
 - Keyboard Shortcuts (press `h` for list)
 - Custom background image
@@ -60,7 +58,7 @@ $ npm install
 # Build app
 $ npm run build
 
-# If you want to start the app 
+# If you want to start the app
 $ npm run preview
 
 # If you want to develop the app
@@ -68,6 +66,7 @@ $ npm run dev
 ```
 
 ## Docker
+
 You can also use docker to run the app by using the following command:
 
 ```
@@ -80,11 +79,12 @@ Your application will be available at http://localhost:3000.
 
 This project would not be possible without these open source packages:
 
-* [React](https://react.dev/) — The core of the app
-* [react-movable](https://www.npmjs.com/package/react-movable) — Reordering sequences and frames
-* [file-saver](https://www.npmjs.com/package/file-saver) — Saving sprite sheets and project files
-* [omggif](https://www.npmjs.com/package/omggif) — Extracting gif frames
-* This README is heavily influenced
+- [React](https://react.dev/) — The core of the app
+- [Redux](https://redux.js.org/) — State management
+- [react-movable](https://www.npmjs.com/package/react-movable) — Reordering sequences and frames
+- [file-saver](https://www.npmjs.com/package/file-saver) — Saving sprite sheets and project files
+- [omggif](https://www.npmjs.com/package/omggif) — Extracting gif frames
+- This README is heavily influenced
   by [electron-markdownify](https://github.com/amitmerchant1990/electron-markdownify/tree/master), initially found
   at [awesome-readme](https://github.com/matiassingers/awesome-readme)
 
