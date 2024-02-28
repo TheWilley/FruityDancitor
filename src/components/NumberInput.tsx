@@ -22,6 +22,14 @@ type Props = {
  */
 function NumberInput(props: Props) {
   const { validateNumberInput } = useInputValidation();
+  const inputSize =
+    props.size == 'sm'
+      ? 'input-sm'
+      : props.size == 'md'
+        ? 'input-md'
+        : props.size == 'lg'
+          ? 'input-lg'
+          : '';
 
   return (
     <div className={`join w-full ${props.class}`}>
@@ -33,9 +41,7 @@ function NumberInput(props: Props) {
       <div className='tooltip tooltip-bottom w-full' data-tip={props.tooltip}>
         <input
           type='number'
-          className={`input join-item input-bordered w-full ${
-            props.size && 'input-' + props.size
-          }`}
+          className={`input join-item input-bordered w-full ${inputSize}`}
           value={props.value}
           max={props.max}
           min={props.min}

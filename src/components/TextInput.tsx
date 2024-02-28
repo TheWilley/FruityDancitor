@@ -17,6 +17,15 @@ type Props = {
  * @param props A object containing component properties.
  */
 function TextInput(props: Props) {
+  const inputSize =
+    props.size == 'sm'
+      ? 'input-sm'
+      : props.size == 'md'
+        ? 'input-md'
+        : props.size == 'lg'
+          ? 'input-lg'
+          : '';
+
   return (
     <div className={`join w-full ${props.class}`}>
       <div className='join-item bg-base-200 p-1 px-2'>
@@ -27,9 +36,7 @@ function TextInput(props: Props) {
       <div className='tooltip tooltip-bottom w-full' data-tip={props.tooltip}>
         <input
           type='text'
-          className={`input join-item input-bordered w-full ${
-            props.size && 'input-' + props.size
-          }`}
+          className={`input join-item input-bordered w-full ${inputSize}`}
           placeholder={props.placeholder}
           value={props.value}
           onChange={(e) => props.onChange(e.target.value)}
