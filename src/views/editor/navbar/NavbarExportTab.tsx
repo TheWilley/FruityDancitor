@@ -21,7 +21,7 @@ function NavbarExportTab(props: Props) {
       sequencesRetail: spriteSheetSequences,
       viewport: props.viewport,
     });
-  }, []);
+  }, [fileName]);
 
   return (
     <div>
