@@ -32,7 +32,7 @@ const initialState: SpriteSheetSlice = {
   }),
   spriteSheetSequences: new Array(1).fill({
     sequence: [],
-    name: 'Held',
+    name: '',
   }),
   selectedSequence: 0,
   selectedFrame: -1,
@@ -52,14 +52,6 @@ const spriteSheetSlice = createSlice({
 
       // Splice according to the number of sequences
       copy.splice(state.numberOfSequences);
-
-      // Make sure there is only one held sequence
-      for (let i = 0; i < copy.length; i++) {
-        if (copy[i].name === 'Held') copy[i].name = '';
-      }
-
-      // Modify the 'name' property of the last sequence
-      copy[copy.length - 1].name = 'Held';
 
       state.spriteSheetSequences = copy;
     },

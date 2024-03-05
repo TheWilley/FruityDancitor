@@ -1,4 +1,3 @@
-import useStyle from '../../../hooks/utils/useStyle.ts';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 import { sequenceChangeName } from '../../../redux/spriteSheetSlice.ts';
 
@@ -13,15 +12,10 @@ function InspectorSequenceName() {
   );
   const dispatch = useAppDispatch();
 
-  const disabled = spriteSheetSequences.length - 1 === selectedSequence;
-  const [formDisabledClass] = useStyle('form-control w-full', undefined, [
-    { condition: disabled, result: 'tooltip tooltip-bottom' },
-  ]);
-
   return (
     <div>
       <div className='mb-1 items-center rounded'>
-        <div className={formDisabledClass}>
+        <div className='form-control w-full'>
           <input
             value={spriteSheetSequences[selectedSequence].name}
             type='text'
@@ -30,7 +24,6 @@ function InspectorSequenceName() {
             onChange={(e) => {
               dispatch(sequenceChangeName(e.target.value));
             }}
-            disabled={disabled}
           />
         </div>
       </div>
