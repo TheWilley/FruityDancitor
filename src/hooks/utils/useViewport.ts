@@ -225,6 +225,15 @@ export default function useViewport(
     }
   };
 
+  /**
+   * Resets the view.
+   */
+  const resetView = () => {
+    if (transformComponentRef.current) {
+      setRelativeZoom();
+    }
+  };
+
   useEffect(() => {
     redrawViewport();
   }, [JSON.stringify(spriteSheetSequences.map((item) => item.sequence))]);
@@ -257,6 +266,7 @@ export default function useViewport(
     togglePermanentlyShowGrid,
     permanentlyShowGrid,
     toggleShowGrid,
+    resetView,
     showGrid,
   };
 }

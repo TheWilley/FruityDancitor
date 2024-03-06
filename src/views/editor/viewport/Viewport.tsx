@@ -28,12 +28,13 @@ function Viewport(props: Props) {
     togglePermanentlyShowGrid,
     permanentlyShowGrid,
     toggleShowGrid,
+    resetView,
     showGrid,
   } = useViewport(grid, overlay, props.viewport, transformComponentRef, container);
 
   return (
     <>
-      <Card className='h-full overflow-hidden p-3'>
+      <Card className='group h-full overflow-hidden p-3'>
         <div>
           {showGrid &&
             (permanentlyShowGrid ? (
@@ -48,7 +49,23 @@ function Viewport(props: Props) {
               />
             ))}
         </div>
-        <div className='flex h-full justify-center items-center' ref={container}>
+        <div className='absolute z-20 opacity-0 transition group-hover:opacity-100'>
+          <button
+            onClick={() => resetView()}
+            className='btn btn-primary btn-sm mr-1 w-32 cursor-pointer opacity-50 hover:opacity-100'
+          >
+            Reset View
+          </button>
+          <button
+            onMouseOver={() => toggleShowGrid(true)}
+            onMouseOut={() => toggleShowGrid(false)}
+            onClick={togglePermanentlyShowGrid}
+            className='btn btn-primary btn-sm w-32 cursor-pointer opacity-50 hover:opacity-100'
+          >
+            View Grid
+          </button>
+        </div>
+        <div className='flex h-full items-center justify-center' ref={container}>
           <TransformWrapper
             ref={transformComponentRef}
             minScale={0.1}
@@ -64,16 +81,13 @@ function Viewport(props: Props) {
               <div
                 ref={overlay}
                 style={{ width, height, background: `url(${opaque})` }}
-                className='absolute top-0 cursor-pointer'
+                className='absolute top-0'
               />
               <canvas
                 ref={grid}
                 width={width}
                 height={height}
-                onClick={() => togglePermanentlyShowGrid()}
-                onMouseOver={() => toggleShowGrid(true)}
-                onMouseLeave={() => toggleShowGrid(false)}
-                className='absolute top-0 cursor-pointer opacity-0'
+                className='absolute top-0 cursor-move opacity-0'
               />
             </TransformComponent>
           </TransformWrapper>
