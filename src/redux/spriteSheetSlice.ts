@@ -78,13 +78,15 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceMovePosition(state, action) {
-      state.sequencesWarehouse = arrayMoveImmutable(
-        state.sequencesWarehouse,
-        action.payload.from,
-        action.payload.to
-      );
-      state.selectedSequence = action.payload.to;
-      spriteSheetSlice.caseReducers.transport(state);
+      if (action.payload.to < state.numberOfSequences && action.payload.to >= 0) {
+        state.sequencesWarehouse = arrayMoveImmutable(
+          state.sequencesWarehouse,
+          action.payload.from,
+          action.payload.to
+        );
+        state.selectedSequence = action.payload.to;
+        spriteSheetSlice.caseReducers.transport(state);
+      }
     },
     sequenceChangeName(state, action) {
       state.sequencesWarehouse[state.selectedSequence].name = action.payload;
