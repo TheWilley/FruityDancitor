@@ -46,62 +46,47 @@ export default function useUtils(
   const handleKeyDown = (key: string) => {
     switch (key) {
       case 'arrowdown': {
-        if (selectedSequence < spriteSheetSequences.length) {
-          dispatch(selectedSequenceUpdate(selectedSequence + 1));
-        }
+        dispatch(selectedSequenceUpdate(selectedSequence + 1));
         break;
       }
 
       case 'arrowup': {
-        if (selectedSequence > 0) {
-          dispatch(selectedSequenceUpdate(selectedSequence - 1));
-        }
+        dispatch(selectedSequenceUpdate(selectedSequence - 1));
         break;
       }
 
       case 'control+arrowdown': {
-        if (selectedSequence < spriteSheetSequences.length - 1) {
-          dispatch(
-            sequenceMovePosition({ from: selectedSequence, to: selectedSequence + 1 })
-          );
-        }
+        dispatch(
+          sequenceMovePosition({ from: selectedSequence, to: selectedSequence + 1 })
+        );
         break;
       }
 
       case 'control+arrowup': {
-        if (selectedSequence > 0) {
-          dispatch(
-            sequenceMovePosition({ from: selectedSequence, to: selectedSequence - 1 })
-          );
-        }
+        dispatch(
+          sequenceMovePosition({ from: selectedSequence, to: selectedSequence - 1 })
+        );
         break;
       }
 
       case 'arrowright': {
-        if (selectedFrame < 7) {
-          dispatch(selectedFrameUpdate(selectedFrame + 1));
-        }
+        dispatch(selectedFrameUpdate(selectedFrame + 1));
+
         break;
       }
 
       case 'arrowleft': {
-        if (selectedFrame > 0) {
-          dispatch(selectedFrameUpdate(selectedFrame - 1));
-        }
+        dispatch(selectedFrameUpdate(selectedFrame - 1));
         break;
       }
 
       case 'control+arrowright': {
-        if (selectedFrame !== -1 && selectedFrame < 7) {
-          dispatch(frameMovePosition({ from: selectedFrame, to: selectedFrame + 1 }));
-        }
+        dispatch(frameMovePosition({ from: selectedFrame, to: selectedFrame + 1 }));
         break;
       }
 
       case 'control+arrowleft': {
-        if (selectedFrame !== -1 && selectedFrame > 0) {
-          dispatch(frameMovePosition({ from: selectedFrame, to: selectedFrame - 1 }));
-        }
+        dispatch(frameMovePosition({ from: selectedFrame, to: selectedFrame - 1 }));
         break;
       }
 
@@ -111,9 +96,7 @@ export default function useUtils(
       }
 
       case 'd': {
-        if (numberOfSequences > 1) {
-          dispatch(numberOfSequencesUpdate(numberOfSequences - 1));
-        }
+        dispatch(numberOfSequencesUpdate(numberOfSequences - 1));
         break;
       }
 

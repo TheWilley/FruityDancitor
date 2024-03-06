@@ -21,6 +21,7 @@ interface SpriteSheetSlice {
   selectedSequence: number;
   selectedFrame: number;
   numberOfSequences: number;
+  numberOfFrames: number;
   modifyAllFrames: boolean;
   copiedMods: Modifications[];
 }
@@ -37,6 +38,7 @@ const initialState: SpriteSheetSlice = {
   selectedSequence: 0,
   selectedFrame: -1,
   numberOfSequences: 1,
+  numberOfFrames: 8,
   modifyAllFrames: false,
   copiedMods: [],
 };
@@ -71,6 +73,10 @@ const spriteSheetSlice = createSlice({
         state.selectedSequence = state.selectedSequence - 1;
       }
     },
+    numberOfFramesUpdate(state, action) {
+      state.numberOfFrames = action.payload;
+      spriteSheetSlice.caseReducers.transport(state);
+    },
     sequenceMovePosition(state, action) {
       state.sequencesWarehouse = arrayMoveImmutable(
         state.sequencesWarehouse,
@@ -85,10 +91,9 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.transport(state);
     },
     sequenceAddFrame(state, action) {
-      if (state.sequencesWarehouse[state.selectedSequence].sequence.length < 8) {
-        state.sequencesWarehouse[state.selectedSequence].sequence.push(action.payload);
-        spriteSheetSlice.caseReducers.transport(state);
-      }
+      state.sequencesWarehouse[state.selectedSequence].sequence.push(action.payload);
+      spriteSheetSlice.caseReducers.transport(state);
+
       spriteSheetSlice.caseReducers.selectedFrameUpdate(state, {
         payload: 0,
         type: action.type,
@@ -183,18 +188,17 @@ const spriteSheetSlice = createSlice({
       });
     },
     selectedFrameUpdate(state, action) {
-      // Checks if the form is enabled (>0) or disabled (-1)
-      // If the selected index is out of bounds, move it down one step
       if (
         state.spriteSheetSequences[state.selectedSequence].sequence.length <=
         action.payload
       ) {
         state.selectedFrame = action.payload - 1;
-      }
-
-      // If we have no spriteSheetSequences, disable form
-      else if (state.spriteSheetSequences[state.selectedSequence].sequence.length === 0) {
+      } else if (
+        state.spriteSheetSequences[state.selectedSequence].sequence.length === 0
+      ) {
         state.selectedFrame = -1;
+      } else if (action.payload < 0) {
+        state.selectedFrame = 0;
       } else {
         state.selectedFrame = action.payload;
       }
@@ -202,7 +206,8 @@ const spriteSheetSlice = createSlice({
     frameMovePosition(state, action) {
       if (
         action.payload.to <
-        state.sequencesWarehouse[state.selectedSequence].sequence.length
+          state.sequencesWarehouse[state.selectedSequence].sequence.length &&
+        action.payload.to >= 0
       ) {
         state.sequencesWarehouse[state.selectedSequence].sequence = arrayMoveImmutable(
           state.sequencesWarehouse[state.selectedSequence].sequence,
@@ -243,6 +248,7 @@ const spriteSheetSlice = createSlice({
 export const {
   sequencesUpdate,
   numberOfSequencesUpdate,
+  numberOfFramesUpdate,
   sequenceMovePosition,
   sequenceChangeName,
   selectedFrameUpdate,

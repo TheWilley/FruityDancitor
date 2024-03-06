@@ -31,11 +31,6 @@ const dialogSlice = createSlice({
       if (state.selectedDialogFrames.includes(payloadIndex)) {
         state.selectedDialogFrames.splice(selectedIndex, 1);
       } else {
-        // Makes sure we don't upload too many frames
-        if (state.selectedDialogFrames.length >= action.payload.cap) {
-          state.selectedDialogFrames.shift();
-        }
-
         // Push clicked frame
         state.selectedDialogFrames.push(action.payload.index);
       }

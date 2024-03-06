@@ -17,9 +17,6 @@ import useLoader from './useLoader.ts';
  * Custom hook which handles file uploads.
  */
 export default function useUpload() {
-  const { spriteSheetSequences, selectedSequence } = useAppSelector(
-    (state) => state.spriteSheet
-  );
   const { selectedDialogFrames, dialogIsShown, dialogFrames, page } = useAppSelector(
     (state) => state.dialog
   );
@@ -27,10 +24,7 @@ export default function useUpload() {
   const [frameChunks, setFrameChunks] = useState<{ base64: string; index: number }[][]>([
     [],
   ]);
-  const amountOfFramesPicked = `${selectedDialogFrames.length} /
-    ${8 - spriteSheetSequences[selectedSequence].sequence.length}`;
-  const disabled = spriteSheetSequences[selectedSequence].sequence.length > 7;
-
+  const amountOfFramesPicked = selectedDialogFrames.length;
   const { openLoader, closeLoader } = useLoader();
 
   /**
@@ -41,23 +35,22 @@ export default function useUpload() {
     let fileIsGif = false;
 
     // Check if there is space for a new entry
-    if (!disabled) {
-      // Check if file is gif as it can
-      // take a while to load
-      if (file.type === 'image/gif') fileIsGif = true;
-      if (fileIsGif) openLoader();
 
-      // Get base64 for the file
-      const base64 = (await getBase64(file)) as string | string[];
+    // Check if file is gif as it can
+    // take a while to load
+    if (file.type === 'image/gif') fileIsGif = true;
+    if (fileIsGif) openLoader();
 
-      // Check if it is a collection of images or a single one
-      if (Array.isArray(base64)) {
-        handleUploadMultiple(base64);
-      } else {
-        addNewFrame(base64);
-      }
-      if (fileIsGif) closeLoader();
+    // Get base64 for the file
+    const base64 = (await getBase64(file)) as string | string[];
+
+    // Check if it is a collection of images or a single one
+    if (Array.isArray(base64)) {
+      handleUploadMultiple(base64);
+    } else {
+      addNewFrame(base64);
     }
+    if (fileIsGif) closeLoader();
   };
 
   /**
@@ -68,7 +61,7 @@ export default function useUpload() {
     try {
       const base64 = await getImageFromExternalUrl(url);
 
-      if (base64 && !disabled) {
+      if (base64) {
         addNewFrame(base64);
         toast.success('Added image from URL');
       }
@@ -102,7 +95,6 @@ export default function useUpload() {
     dispatch(
       adjustSelectedDialogFrame({
         index,
-        cap: 8 - spriteSheetSequences[selectedSequence].sequence.length,
       })
     );
   };
@@ -153,9 +145,7 @@ export default function useUpload() {
 
     dispatch(dialogFramesUpdate(newBase64List));
     dispatch(
-      resetSelectedDialogFrames(
-        8 - spriteSheetSequences[selectedSequence]?.sequence.length
-      )
+      resetSelectedDialogFrames(newBase64List.length >= 8 ? 8 : newBase64List.length)
     );
   };
 
@@ -199,7 +189,6 @@ export default function useUpload() {
     dialogFrames,
     selectedDialogFrames,
     page,
-    disabled,
     frameChunks,
     handleFileUpload,
     handleURLUpload,

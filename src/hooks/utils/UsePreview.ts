@@ -12,6 +12,7 @@ export default function usePreview(
 ) {
   const fps = useAppSelector((state) => state.preview.fps);
   const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const numberOfFrames = useAppSelector((state) => state.spriteSheet.numberOfFrames);
   const { width, height } = useAppSelector((state) => state.viewport);
   const [keepTimer, setKeepTimer] = useState(0);
   const [currentFrame, setCurrentFrame] = useState(0);
@@ -47,7 +48,7 @@ export default function usePreview(
       );
     }
 
-    setSx(sx + width > width * 7 ? 0 : sx + width);
+    setSx(sx + width > width * numberOfFrames - 1 ? 0 : sx + width);
     setCurrentFrame(Math.floor(sx / width + 1));
   };
 

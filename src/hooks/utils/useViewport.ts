@@ -69,6 +69,7 @@ export default function useViewport(
   const numberOfSequences = useAppSelector(
     (state) => state.spriteSheet.numberOfSequences
   );
+  const numberOfFrames = useAppSelector((state) => state.spriteSheet.numberOfFrames);
   const spriteSheetSequences = useAppSelector(
     (state) => state.spriteSheet.spriteSheetSequences
   );
@@ -211,14 +212,22 @@ export default function useViewport(
     width,
     height,
     JSON.stringify(spriteSheetSequences.map((item) => item.sequence.length)).length,
+    numberOfFrames,
   ]);
 
   useEffect(() => {
     drawGrid();
-  }, [grid, height, width, JSON.stringify(spriteSheetSequences), permanentlyShowGrid]);
+  }, [
+    grid,
+    height,
+    width,
+    JSON.stringify(spriteSheetSequences),
+    numberOfFrames,
+    permanentlyShowGrid,
+  ]);
 
   return {
-    width: width * 8,
+    width: width * numberOfFrames,
     height: height * numberOfSequences,
     togglePermanentlyShowGrid,
     permanentlyShowGrid,

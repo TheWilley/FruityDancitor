@@ -1,7 +1,15 @@
-import { faBars, faTextHeight, faTextWidth } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faBarsStaggered,
+  faTextHeight,
+  faTextWidth,
+} from '@fortawesome/free-solid-svg-icons';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 import { heightUpdate, widthUpdate } from '../../../redux/viewportSlice.ts';
-import { numberOfSequencesUpdate } from '../../../redux/spriteSheetSlice.ts';
+import {
+  numberOfFramesUpdate,
+  numberOfSequencesUpdate,
+} from '../../../redux/spriteSheetSlice.ts';
 import NumberInput from '../../../components/NumberInput.tsx';
 
 /**
@@ -14,10 +22,11 @@ function NavbarEditorSettingsTab() {
   const numberOfSequences = useAppSelector(
     (state) => state.spriteSheet.numberOfSequences
   );
+  const numberOfFrames = useAppSelector((state) => state.spriteSheet.numberOfFrames);
   const { height, width } = useAppSelector((state) => state.viewport);
 
   return (
-    <div className='grid grid-cols-3 gap-2'>
+    <div className='grid grid-cols-4 gap-2'>
       <NumberInput
         faIcon={faBars}
         tooltip='Sequences - The number of Sequences'
@@ -26,6 +35,15 @@ function NavbarEditorSettingsTab() {
         size='sm'
         value={numberOfSequences}
         onChange={(value) => dispatch(numberOfSequencesUpdate(value))}
+      />
+      <NumberInput
+        faIcon={faBarsStaggered}
+        tooltip='Frames - The number of Frames'
+        min={1}
+        max={100}
+        size='sm'
+        value={numberOfFrames}
+        onChange={(value) => dispatch(numberOfFramesUpdate(value))}
       />
       <NumberInput
         faIcon={faTextWidth}

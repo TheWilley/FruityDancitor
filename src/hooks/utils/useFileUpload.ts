@@ -7,10 +7,7 @@ import useStyle from './useStyle.ts';
  * @param handleFileUpload The callback function to run.
  * @param disabled Weather inputs are disabled.
  */
-export default function useFileUpload(
-  handleFileUpload: (file: File) => void,
-  disabled: boolean
-) {
+export default function useFileUpload(handleFileUpload: (file: File) => void) {
   const [dragOver, setDragOver] = useState(false);
 
   /**
@@ -62,33 +59,18 @@ export default function useFileUpload(
     onDragLeave,
   });
 
-  const placeholder = disabled
-    ? "Can't upload more than 8 files"
-    : isDragActive
-      ? 'Drop the files here...'
-      : "Drag 'n' drop some files here, or click to select files";
+  const placeholder = isDragActive
+    ? 'Drop the files here...'
+    : "Drag 'n' drop some files here, or click to select files";
 
   const [classes, styles] = useStyle(
-    'border-2 border-dashed rounded-md w-full mb-2 p-3 bg-base-200 opacity-60',
+    'border-2 border-dashed rounded-md w-full mb-2 p-3 bg-base-200 opacity-60 cursor-pointer hover:opacity-100 transition-opacity',
+    undefined,
     undefined,
     [
       {
-        condition: disabled,
-        result: {
-          true: 'cursor-not-allowed',
-          false: 'cursor-pointer hover:opacity-100 transition-opacity',
-        },
-      },
-    ],
-    [
-      {
         cssProperty: 'borderColor',
-        condition: dragOver && disabled,
-        result: { true: 'darkred' },
-      },
-      {
-        cssProperty: 'borderColor',
-        condition: dragOver && !disabled,
+        condition: dragOver,
         result: { true: 'darkgreen' },
       },
     ]

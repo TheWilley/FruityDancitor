@@ -10,21 +10,19 @@ type Props = Pick<Refs, 'fileUpload'>;
  * @param props A object containing component properties.
  */
 function InspectorUpload(props: Props) {
-  const { disabled, handleFileUpload, handleURLUpload } = useUpload();
+  const { handleFileUpload, handleURLUpload } = useUpload();
 
   /**
    * Component which displays a file upload box which can be clicked or file dropped.
    */
   const FileUpload = () => {
-    const { getRootProps, getInputProps, placeholder, styles, classes } = useFileUpload(
-      handleFileUpload,
-      disabled
-    );
+    const { getRootProps, getInputProps, placeholder, styles, classes } =
+      useFileUpload(handleFileUpload);
 
     return (
       /* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
       <div {...getRootProps()} className={classes} style={styles} ref={props.fileUpload}>
-        <input {...getInputProps()} disabled={disabled} />
+        <input {...getInputProps()} />
         <p>{placeholder}</p>
       </div>
     );
