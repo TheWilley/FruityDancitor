@@ -1,5 +1,6 @@
 import { RefObject, useEffect, useState } from 'react';
 import { useAppSelector } from '../../redux/hooks.ts';
+import { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 
 /**
  * Draws an image on a given tile.
@@ -59,11 +60,15 @@ function drawImageOnTile(
  * @param grid A canvas element.
  * @param overlay A div element with a background.
  * @param viewport A canvas element.
+ * @param transformComponentRef A reference to the transform component.
+ * @param container A div element surrounding the canvas elements.
  */
 export default function useViewport(
   grid: RefObject<HTMLCanvasElement>,
   overlay: RefObject<HTMLDivElement>,
-  viewport: RefObject<HTMLCanvasElement>
+  viewport: RefObject<HTMLCanvasElement>,
+  transformComponentRef: RefObject<ReactZoomPanPinchRef>,
+  container: RefObject<HTMLDivElement>
 ) {
   const { width, height } = useAppSelector((state) => state.viewport);
   const numberOfSequences = useAppSelector(
@@ -201,6 +206,25 @@ export default function useViewport(
     }
   };
 
+  const setRelativeZoom = () => {
+    // Get container width and height
+    const containerWidth = container.current!.offsetWidth;
+    const containerHeight = container.current!.offsetHeight;
+
+    const combinedWidth = width * numberOfFrames;
+    const combinedHeight = height * numberOfSequences;
+
+    const widthRatio = containerWidth / combinedWidth;
+    const heightRatio = containerHeight / combinedHeight;
+
+    // Set the zoom to the smaller of the two ratios
+    const zoom = Math.min(widthRatio, heightRatio);
+
+    if (transformComponentRef.current) {
+      transformComponentRef.current.centerView(zoom);
+    }
+  };
+
   useEffect(() => {
     redrawViewport();
   }, [JSON.stringify(spriteSheetSequences.map((item) => item.sequence))]);
@@ -208,6 +232,7 @@ export default function useViewport(
   useEffect(() => {
     toggleOverlay();
     redrawViewport();
+    setRelativeZoom();
   }, [
     width,
     height,

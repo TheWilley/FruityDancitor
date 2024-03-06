@@ -5,6 +5,11 @@ import opaque from '../../../media/opaque.jpeg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUnlock } from '@fortawesome/free-solid-svg-icons';
 import { Refs } from '../../../global/types.ts';
+import {
+  TransformWrapper,
+  TransformComponent,
+  ReactZoomPanPinchRef,
+} from 'react-zoom-pan-pinch';
 
 type Props = Pick<Refs, 'viewport'>;
 
@@ -13,8 +18,10 @@ type Props = Pick<Refs, 'viewport'>;
  * @param props A object containing component properties.
  */
 function Viewport(props: Props) {
+  const container = useRef<HTMLDivElement>(null);
   const grid = useRef<HTMLCanvasElement>(null);
   const overlay = useRef<HTMLDivElement>(null);
+  const transformComponentRef = useRef<ReactZoomPanPinchRef | null>(null);
   const {
     width,
     height,
@@ -22,11 +29,11 @@ function Viewport(props: Props) {
     permanentlyShowGrid,
     toggleShowGrid,
     showGrid,
-  } = useViewport(grid, overlay, props.viewport);
+  } = useViewport(grid, overlay, props.viewport, transformComponentRef, container);
 
   return (
     <>
-      <Card className='h-full p-3'>
+      <Card className='h-full overflow-hidden p-3'>
         <div>
           {showGrid &&
             (permanentlyShowGrid ? (
@@ -41,27 +48,35 @@ function Viewport(props: Props) {
               />
             ))}
         </div>
-        <div className='relative m-auto overflow-auto'>
-          <canvas
-            ref={props.viewport}
-            width={width}
-            height={height}
-            style={{ background: `url(${opaque})` }}
-          />
-          <div
-            ref={overlay}
-            style={{ width, height, background: `url(${opaque})` }}
-            className='absolute top-0 cursor-pointer'
-          />
-          <canvas
-            ref={grid}
-            width={width}
-            height={height}
-            onClick={() => togglePermanentlyShowGrid()}
-            onMouseOver={() => toggleShowGrid(true)}
-            onMouseLeave={() => toggleShowGrid(false)}
-            className='absolute top-0 cursor-pointer opacity-0'
-          />
+        <div className='flex h-full justify-center items-center' ref={container}>
+          <TransformWrapper
+            ref={transformComponentRef}
+            minScale={0.1}
+            centerZoomedOut={true}
+          >
+            <TransformComponent wrapperStyle={{ overflow: 'visible' }}>
+              <canvas
+                ref={props.viewport}
+                width={width}
+                height={height}
+                style={{ background: `url(${opaque})` }}
+              />
+              <div
+                ref={overlay}
+                style={{ width, height, background: `url(${opaque})` }}
+                className='absolute top-0 cursor-pointer'
+              />
+              <canvas
+                ref={grid}
+                width={width}
+                height={height}
+                onClick={() => togglePermanentlyShowGrid()}
+                onMouseOver={() => toggleShowGrid(true)}
+                onMouseLeave={() => toggleShowGrid(false)}
+                className='absolute top-0 cursor-pointer opacity-0'
+              />
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       </Card>
     </>
