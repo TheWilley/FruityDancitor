@@ -1,12 +1,17 @@
 import { ReactNode, useState } from 'react';
 
-type Props = { label: string; children: ReactNode | ReactNode[] };
+type CollapseProps = {
+  /** The label to display for the collapsible section. */
+  label: string;
+  /** Child nodes to be rendered within component. */
+  children: ReactNode | ReactNode[];
+};
 
 /**
- * Component which contains a label and can be collapsed.
+ * Component which represents a collapsible section.
  * @param props A object containing component properties.
  */
-function Collapse(props: Props) {
+function Collapse(props: CollapseProps) {
   const [hide, setHide] = useState(false);
 
   return (

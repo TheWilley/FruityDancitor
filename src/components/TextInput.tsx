@@ -1,14 +1,39 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type Props = {
+type TextInputProps = {
+  /**
+   * The Font Awesome icon to display.
+   */
   faIcon: IconProp;
+  /**
+   * The tooltip text to display.
+   */
   tooltip: string;
+  /**
+   * The placeholder text to display.
+   */
   placeholder: string;
+  /**
+   * The value of the input.
+   */
   value: string;
+  /**
+   * Indicates whether the input is disabled.
+   */
   disabled?: boolean;
+  /**
+   * The size of the input.
+   */
   size?: 'sm' | 'md' | 'lg';
+  /**
+   * Additional CSS class for styling.
+   */
   class?: string;
+  /**
+   * The function to call when the input value changes.
+   * @param result The new value of the input.
+   */
   onChange: (result: string) => void;
 };
 
@@ -16,7 +41,7 @@ type Props = {
  * Component which represent a input with a label.
  * @param props A object containing component properties.
  */
-function TextInput(props: Props) {
+function TextInput(props: TextInputProps) {
   const inputSize =
     props.size == 'sm'
       ? 'input-sm'

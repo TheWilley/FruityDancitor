@@ -1,19 +1,34 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-type Props = {
+type CheckboxInputProps = {
+  /**
+   * The Font Awesome icon to display.
+   */
   faIcon: IconProp;
+  /**
+   * The tooltip text to display.
+   */
   tooltip: string;
+  /**
+   * Indicates whether the checkbox is checked.
+   */
   checked: boolean;
+  /**
+   * Additional CSS class for styling.
+   */
   class?: string;
+  /**
+   * The function to call when the checkbox state changes.
+   */
   onChange: () => void;
 };
 
 /**
- * Component which represent a input with a label.
+ * Component which represents a checkbox input with a label and tooltip.
  * @param props A object containing component properties.
  */
-function CheckboxInput(props: Props) {
+function CheckboxInput(props: CheckboxInputProps): JSX.Element {
   return (
     <div className={`join w-full ${props.class}`}>
       <div className='join-item bg-base-200 p-1 px-2'>

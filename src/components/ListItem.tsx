@@ -2,7 +2,7 @@ import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useStyle from '../hooks/utils/useStyle.ts';
 
-type Props = {
+type ListItemProps = {
   /**
    * The text to display on the list item.
    */
@@ -33,7 +33,7 @@ type Props = {
  * Component which represent a list item within SequenceList and InspectorFramesList.
  * @param props A object containing component properties.
  */
-function CommonListItem(props: Props) {
+function CommonListItem(props: ListItemProps) {
   const [imageBorder] = useStyle('inline mr-2 w-10 h-10', undefined, [
     {
       condition: props.objectURL !== undefined,

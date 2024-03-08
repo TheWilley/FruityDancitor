@@ -2,17 +2,51 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useInputValidation from '../hooks/utils/useInputValidation';
 
-type Props = {
+type NumberInputProps = {
+  /**
+   * The Font Awesome icon to display.
+   */
   faIcon: IconProp;
+  /**
+   * The tooltip text to display.
+   */
   tooltip: string;
+  /**
+   * The minimum value allowed.
+   */
   min: number;
+  /**
+   * The maximum value allowed.
+   */
   max: number;
+  /**
+   * The step value.
+   */
   step?: number;
+  /**
+   * The value of the input.
+   */
   value: number;
+  /**
+   * Indicates whether the input is disabled.
+   */
   disabled?: boolean;
+  /**
+   * The type of input.
+   */
   type?: 'number' | 'float';
+  /**
+   * The size of the input.
+   */
   size?: 'sm' | 'md' | 'lg';
+  /**
+   * Additional CSS class for styling.
+   */
   class?: string;
+  /**
+   * The function to call when the input value changes.
+   * @param result The new value of the input.
+   */
   onChange: (result: number) => void;
 };
 
@@ -20,7 +54,7 @@ type Props = {
  * Component which represent a input with a label.
  * @param props A object containing component properties.
  */
-function NumberInput(props: Props) {
+function NumberInput(props: NumberInputProps) {
   const { validateNumberInput } = useInputValidation();
   const inputSize =
     props.size == 'sm'
