@@ -64,13 +64,14 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.transport(state);
     },
     numberOfSequencesUpdate(state, action) {
-      if (action.payload <= appConfig.warehouseStorage) {
+      console.log(action.payload);
+      if (action.payload <= appConfig.warehouseStorage && action.payload > 0) {
         state.numberOfSequences = action.payload;
         spriteSheetSlice.caseReducers.transport(state);
-      }
 
-      if (action.payload <= state.selectedSequence) {
-        state.selectedSequence = state.selectedSequence - 1;
+        if (action.payload <= state.selectedSequence) {
+          state.selectedSequence = state.selectedSequence - 1;
+        }
       }
     },
     numberOfFramesUpdate(state, action) {
