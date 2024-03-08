@@ -10,6 +10,7 @@ import {
   TransformComponent,
   ReactZoomPanPinchRef,
 } from 'react-zoom-pan-pinch';
+import { Else, If, Then, When } from 'react-if';
 
 type Props = Pick<Refs, 'viewport'>;
 
@@ -36,18 +37,22 @@ function Viewport(props: Props) {
     <>
       <Card className='group h-full overflow-hidden p-3'>
         <div>
-          {showGrid &&
-            (permanentlyShowGrid ? (
-              <FontAwesomeIcon
-                icon={faLock}
-                className='absolute inset-x-0 top-3 z-10 m-auto rounded bg-base-300 p-3 text-2xl'
-              />
-            ) : (
-              <FontAwesomeIcon
-                icon={faUnlock}
-                className='absolute inset-x-0 top-3 z-10 m-auto rounded bg-base-300 p-3 text-2xl'
-              />
-            ))}
+          <When condition={showGrid}>
+            <If condition={permanentlyShowGrid}>
+              <Then>
+                <FontAwesomeIcon
+                  icon={faLock}
+                  className='absolute inset-x-0 top-3 z-10 m-auto rounded bg-base-300 p-3 text-2xl'
+                />
+              </Then>
+              <Else>
+                <FontAwesomeIcon
+                  icon={faUnlock}
+                  className='absolute inset-x-0 top-3 z-10 m-auto rounded bg-base-300 p-3 text-2xl'
+                />
+              </Else>
+            </If>
+          </When>
         </div>
         <div className='absolute z-20 opacity-0 transition group-hover:opacity-100'>
           <button

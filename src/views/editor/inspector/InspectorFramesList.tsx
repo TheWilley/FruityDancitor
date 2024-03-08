@@ -6,6 +6,7 @@ import {
   frameMovePosition,
   selectedFrameUpdate,
 } from '../../../redux/spriteSheetSlice.ts';
+import { Else, If, Then } from 'react-if';
 
 /**
  * Component which represents the list of frames for a given sequence.
@@ -21,38 +22,43 @@ function InspectorFramesList() {
   const dispatch = useAppDispatch();
   const { callback } = useFrameList();
 
-  return spriteSheetSequences[selectedSequence].sequence.length ? (
-    <List
-      values={spriteSheetSequences[selectedSequence].sequence}
-      onChange={({ oldIndex, newIndex }) => {
-        dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
-        dispatch(selectedFrameUpdate(newIndex));
-      }}
-      renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-      renderItem={({ value, props, index }) => (
-        <>
-          <li
-            {...props}
-            onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
-            className={`z-30 ${Number(index) > numberOfFrames - 1 && 'opacity-50'}`}
-          >
-            <CommonListItem
-              {...props}
-              objectURL={value.objectURL}
-              text={`Frame ${(index || 0) + 1}`}
-              alt=''
-              trashClickedCallback={() => callback(index || 0)}
-              highlighted={selectedFrame === index || modifyAllFrames === true}
-              includeTrash
-            />
-          </li>
-        </>
-      )}
-    />
-  ) : (
-    <div className='text-center'>
-      <i> No uploaded frames </i>
-    </div>
+  return (
+    <If condition={spriteSheetSequences[selectedSequence].sequence.length}>
+      <Then>
+        <List
+          values={spriteSheetSequences[selectedSequence].sequence}
+          onChange={({ oldIndex, newIndex }) => {
+            dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
+            dispatch(selectedFrameUpdate(newIndex));
+          }}
+          renderList={({ children, props }) => <ul {...props}>{children}</ul>}
+          renderItem={({ value, props, index }) => (
+            <>
+              <li
+                {...props}
+                onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
+                className={`z-30 ${Number(index) > numberOfFrames - 1 && 'opacity-50'}`}
+              >
+                <CommonListItem
+                  {...props}
+                  objectURL={value.objectURL}
+                  text={`Frame ${(index || 0) + 1}`}
+                  alt=''
+                  trashClickedCallback={() => callback(index || 0)}
+                  highlighted={selectedFrame === index || modifyAllFrames === true}
+                  includeTrash
+                />
+              </li>
+            </>
+          )}
+        />
+      </Then>
+      <Else>
+        <div className='text-center'>
+          <i> No uploaded frames </i>
+        </div>
+      </Else>
+    </If>
   );
 }
 

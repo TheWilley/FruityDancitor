@@ -61,7 +61,7 @@ export default function useFileUpload(handleFileUpload: (file: File) => void) {
 
   const placeholder = isDragActive
     ? 'Drop the files here...'
-    : "Drag 'n' drop some files here, or click to select files";
+    : 'Drag \'n\' drop some files here, or click to select files';
 
   const [classes, styles] = useStyle(
     'border-2 border-dashed rounded-md w-full mb-2 p-3 bg-base-200 opacity-60 cursor-pointer hover:opacity-100 transition-opacity',

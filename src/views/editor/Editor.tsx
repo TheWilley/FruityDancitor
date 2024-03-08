@@ -16,6 +16,7 @@ import useRefs from '../../hooks/state/useRefs.ts';
 import useUtils from '../../hooks/utils/useUtils.ts';
 import InspectorSettings from './inspector/InspectorSettings.tsx';
 import Collapse from '../../components/Collapse.tsx';
+import { When } from 'react-if';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -40,7 +41,9 @@ function Editor() {
         </SectionMiddle>
 
         <SectionRight>
-          {viewport && <InspectorPreview viewport={viewport} />}
+          <When condition={!!viewport}>
+            <InspectorPreview viewport={viewport} />
+          </When>
           <div className='p-2'>
             <InspectorSequenceName />
             <Collapse label='Frame Mods'>

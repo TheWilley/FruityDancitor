@@ -1,6 +1,7 @@
 import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useStyle from '../hooks/utils/useStyle.ts';
+import { Else, If, Then, When } from 'react-if';
 
 type ListItemProps = {
   /**
@@ -49,15 +50,18 @@ function CommonListItem(props: ListItemProps) {
 
   return (
     <div className={highlighted}>
-      {props.objectURL ? (
-        <img src={props.objectURL} className={imageBorder} width='40px' height='40px' />
-      ) : (
-        <FontAwesomeIcon icon={faImage} className='mr-2 size-[40px] text-4xl' />
-      )}
+      <If condition={props.objectURL}>
+        <Then>
+          <img src={props.objectURL} className={imageBorder} width='40px' height='40px' />
+        </Then>
+        <Else>
+          <FontAwesomeIcon icon={faImage} className='mr-2 size-[40px] text-4xl' />
+        </Else>
+      </If>
       <span className='overflow-hidden text-ellipsis'>
         {props.text || <i> {props.alt} </i>}
       </span>
-      {props.includeTrash && (
+      <When condition={props.includeTrash}>
         <span className='absolute right-3 top-[15px] cursor-pointer text-lg'>
           <FontAwesomeIcon
             icon={faTrash}
@@ -65,7 +69,7 @@ function CommonListItem(props: ListItemProps) {
             onMouseDown={props.trashClickedCallback}
           />
         </span>
-      )}
+      </When>
     </div>
   );
 }

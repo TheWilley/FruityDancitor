@@ -1,3 +1,4 @@
+import { When } from 'react-if';
 import useUpload from '../../../hooks/utils/useUpload.ts';
 
 /**
@@ -45,19 +46,17 @@ function InspectorPickFrames() {
               />
             ))}
           </div>
-          {frameChunks.length > 1 && (
-            <>
-              <div className='mt-4 flex justify-center rounded'>
-                <button className='btn' onClick={() => previousPage()}>
-                  ←
-                </button>
-                <span className='mx-2 rounded bg-base-200 p-2 text-xl'>{page}</span>
-                <button className='btn' onClick={() => nextPage()}>
-                  →
-                </button>
-              </div>
-            </>
-          )}
+          <When condition={frameChunks.length > 1}>
+            <div className='mt-4 flex justify-center rounded'>
+              <button className='btn' onClick={() => previousPage()}>
+                ←
+              </button>
+              <span className='mx-2 rounded bg-base-200 p-2 text-xl'>{page}</span>
+              <button className='btn' onClick={() => nextPage()}>
+                →
+              </button>
+            </div>
+          </When>
           <div className='modal-action'>
             <form method='dialog'>
               <button className='btn btn-circle btn-ghost btn-sm absolute right-2 top-2'>

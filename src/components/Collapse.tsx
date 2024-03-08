@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import { When } from 'react-if';
 
 type CollapseProps = {
   /** The label to display for the collapsible section. */
@@ -22,7 +23,7 @@ function Collapse(props: CollapseProps) {
       >
         {props.label}
       </div>
-      {!hide && <div>{props.children}</div>}
+      <When condition={hide}>{props.children}</When>
     </>
   );
 }
