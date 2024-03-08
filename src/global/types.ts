@@ -9,6 +9,7 @@ export type SaveAndLoad = {
   backgroundDarkness: number;
   fps: number;
   numberOfSequences: number;
+  numberOfFrames: number;
   spriteSheetSequences: SpriteSheetSequence[];
 };
 

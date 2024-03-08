@@ -14,6 +14,7 @@ import {
 } from '../../redux/backgroundSlice.ts';
 import { fpsUpdate } from '../../redux/previewSlice.ts';
 import {
+  numberOfFramesUpdate,
   numberOfSequencesUpdate,
   sequencesUpdate,
 } from '../../redux/spriteSheetSlice.ts';
@@ -72,6 +73,7 @@ export default function useSaveAndLoad() {
     backgroundDarkness: 0,
     fps: 0,
     numberOfSequences: 0,
+    numberOfFrames: 0,
     spriteSheetSequences: [],
   };
 
@@ -86,6 +88,7 @@ export default function useSaveAndLoad() {
     useAppSelector((state) => state.background.backgroundDarkness),
     useAppSelector((state) => state.preview.fps),
     useAppSelector((state) => state.spriteSheet.numberOfSequences),
+    useAppSelector((state) => state.spriteSheet.numberOfFrames),
     convertFramesToBase64(
       useAppSelector((state) => state.spriteSheet.spriteSheetSequences)
     ),
@@ -98,6 +101,7 @@ export default function useSaveAndLoad() {
       backgroundDarkness,
       fps,
       numberOfSequences,
+      numberOfFrames,
       spriteSheetSequences,
     ]) => {
       saveState.id = identifier;
@@ -108,6 +112,7 @@ export default function useSaveAndLoad() {
       saveState.backgroundDarkness = backgroundDarkness;
       saveState.fps = fps;
       saveState.numberOfSequences = numberOfSequences;
+      saveState.numberOfFrames = numberOfFrames;
       saveState.spriteSheetSequences = spriteSheetSequences;
     }
   );
@@ -141,6 +146,7 @@ export default function useSaveAndLoad() {
           dispatch(backgroundDarknessUpdate(result.backgroundDarkness));
           dispatch(fpsUpdate(result.fps));
           dispatch(numberOfSequencesUpdate(result.numberOfSequences));
+          dispatch(numberOfFramesUpdate(result.numberOfFrames));
           dispatch(
             sequencesUpdate(await convertFramesToObjectURLs(result.spriteSheetSequences))
           );
