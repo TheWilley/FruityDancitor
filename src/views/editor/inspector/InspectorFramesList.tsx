@@ -4,6 +4,7 @@ import useFrameList from '../../../hooks/utils/useFrameList.ts';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks.ts';
 import {
   frameMovePosition,
+  selectCurrentlySelectedSequenceFrames,
   selectedFrameUpdate,
 } from '../../../redux/spriteSheetSlice.ts';
 import { Else, If, Then } from 'react-if';
@@ -13,20 +14,18 @@ import { Else, If, Then } from 'react-if';
  */
 function InspectorFramesList() {
   const selectedFrame = useAppSelector((state) => state.spriteSheet.selectedFrame);
-  const spriteSheetSequences = useAppSelector(
-    (state) => state.spriteSheet.spriteSheetSequences
-  );
-  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
-  const numberOfFrames = spriteSheetSequences[selectedSequence].sequence.length;
+  const numberOfFrames = useAppSelector((state) => state.spriteSheet.numberOfFrames);
+  const currentSequence = useAppSelector(selectCurrentlySelectedSequenceFrames);
   const modifyAllFrames = useAppSelector((state) => state.spriteSheet.modifyAllFrames);
   const dispatch = useAppDispatch();
   const { callback } = useFrameList();
+  console.log(currentSequence.sequence.length);
 
   return (
-    <If condition={spriteSheetSequences[selectedSequence].sequence.length}>
+    <If condition={currentSequence.sequence.length}>
       <Then>
         <List
-          values={spriteSheetSequences[selectedSequence].sequence}
+          values={currentSequence.sequence}
           onChange={({ oldIndex, newIndex }) => {
             dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
             dispatch(selectedFrameUpdate(newIndex));
@@ -37,7 +36,9 @@ function InspectorFramesList() {
               <li
                 {...props}
                 onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
-                className={`z-30 ${Number(index) > numberOfFrames - 1 && 'opacity-50'}`}
+                className={`z-30 ${
+                  Number(index) > numberOfFrames - 1 ? 'opacity-50' : ''
+                }`}
               >
                 <CommonListItem
                   {...props}
