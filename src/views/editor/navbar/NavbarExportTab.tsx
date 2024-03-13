@@ -1,6 +1,5 @@
 import useExport from '../../../hooks/utils/useExport.ts';
 import { useCallback } from 'react';
-import { useAppSelector } from '../../../redux/hooks.ts';
 import { Refs } from '../../../global/types.ts';
 
 type Props = Pick<Refs, 'viewport'>;
@@ -11,14 +10,10 @@ type Props = Pick<Refs, 'viewport'>;
  */
 function NavbarExportTab(props: Props) {
   const { fileName, setFileName, downloadFile } = useExport();
-  const spriteSheetSequences = useAppSelector(
-    (state) => state.spriteSheet.spriteSheetSequences
-  );
 
   const download = useCallback(() => {
     downloadFile({
       filename: fileName,
-      sequencesRetail: spriteSheetSequences,
       viewport: props.viewport,
     });
   }, [fileName]);

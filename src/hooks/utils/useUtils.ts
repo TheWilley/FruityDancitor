@@ -114,7 +114,6 @@ export default function useUtils(
       case 'e': {
         downloadFile({
           filename: '',
-          sequencesRetail: spriteSheetSequences,
           viewport: viewport,
         });
         break;

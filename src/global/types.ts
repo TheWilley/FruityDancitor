@@ -93,10 +93,6 @@ export type Refs = {
  */
 export type Export = Pick<Refs, 'viewport'> & {
   /**
-   * The sequences of the sprite sheet.
-   */
-  sequencesRetail: SpriteSheetSequence[];
-  /**
    * The file name of the exported ZIP file.
    */
   filename: string;
