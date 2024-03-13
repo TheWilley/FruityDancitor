@@ -255,6 +255,22 @@ const spriteSheetSlice = createSlice({
   },
 });
 
+export const selectSequenceFrames = (state: { spriteSheet: SpriteSheetSlice }) => {
+  return state.spriteSheet.spriteSheetSequences[state.spriteSheet.selectedSequence]
+    .sequence;
+};
+export const selectCurrentlySelectedSequenceFrames = (state: {
+  spriteSheet: SpriteSheetSlice;
+}) => {
+  return state.spriteSheet.spriteSheetSequences[state.spriteSheet.selectedSequence];
+};
+export const selectCurrentlySelectedFrame = (state: {
+  spriteSheet: SpriteSheetSlice;
+}) => {
+  return state.spriteSheet.spriteSheetSequences[state.spriteSheet.selectedSequence]
+    .sequence[state.spriteSheet.selectedFrame];
+};
+
 export const {
   sequencesUpdate,
   numberOfSequencesUpdate,

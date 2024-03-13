@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../redux/hooks.ts';
 import {
+  selectCurrentlySelectedFrame,
   sequenceModsReset,
   sequenceModsScaleUpdate,
   sequenceModsXoffsetUpdate,
@@ -10,16 +11,14 @@ import {
  * Custom hook which handles frame manupilaton.
  */
 export default function useFrameMods() {
-  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const mods = useAppSelector(selectCurrentlySelectedFrame)?.modifications || {
+    scale: 1,
+    xoffset: 0,
+    yoffset: 0,
+  };
   const selectedFrame = useAppSelector((state) => state.spriteSheet.selectedFrame);
-  const spriteSheetSequences = useAppSelector(
-    (state) => state.spriteSheet.spriteSheetSequences
-  );
 
   const dispatch = useAppDispatch();
-
-  const mods = spriteSheetSequences[selectedSequence]?.sequence[selectedFrame]
-    ?.modifications || { scale: 1, xoffset: 0, yoffset: 0 };
 
   /**
    * Resets mod params to default.
