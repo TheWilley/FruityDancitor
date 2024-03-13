@@ -10,9 +10,12 @@ import {
  * Custom hook which handles frame manupilaton.
  */
 export default function useFrameMods() {
-  const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
-    (state) => state.spriteSheet
+  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const selectedFrame = useAppSelector((state) => state.spriteSheet.selectedFrame);
+  const spriteSheetSequences = useAppSelector(
+    (state) => state.spriteSheet.spriteSheetSequences
   );
+
   const dispatch = useAppDispatch();
 
   const mods = spriteSheetSequences[selectedSequence]?.sequence[selectedFrame]

@@ -13,8 +13,12 @@ import SequenceMinusButton from './SequenceMinusButton.tsx';
  * Component which represents a list of all sequences in a reordable list.
  */
 function SequenceList() {
-  const { spriteSheetSequences, selectedSequence, numberOfSequences } = useAppSelector(
-    (state) => state.spriteSheet
+  const spriteSheetSequences = useAppSelector(
+    (state) => state.spriteSheet.spriteSheetSequences
+  );
+  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const numberOfSequences = useAppSelector(
+    (state) => state.spriteSheet.numberOfSequences
   );
   const dispatch = useAppDispatch();
 

@@ -12,13 +12,13 @@ import { Else, If, Then } from 'react-if';
  * Component which represents the list of frames for a given sequence.
  */
 function InspectorFramesList() {
-  const {
-    selectedSequence,
-    selectedFrame,
-    spriteSheetSequences,
-    modifyAllFrames,
-    numberOfFrames,
-  } = useAppSelector((state) => state.spriteSheet);
+  const selectedFrame = useAppSelector((state) => state.spriteSheet.selectedFrame);
+  const spriteSheetSequences = useAppSelector(
+    (state) => state.spriteSheet.spriteSheetSequences
+  );
+  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const numberOfFrames = spriteSheetSequences[selectedSequence].sequence.length;
+  const modifyAllFrames = useAppSelector((state) => state.spriteSheet.modifyAllFrames);
   const dispatch = useAppDispatch();
   const { callback } = useFrameList();
 

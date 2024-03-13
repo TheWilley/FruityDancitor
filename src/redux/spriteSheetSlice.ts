@@ -15,6 +15,8 @@ import { arrayMoveImmutable } from 'array-move';
   Warehouse --> Transport --> Retail
 */
 
+//TODO: Improve redux selectors: https://redux.js.org/usage/deriving-data-selectors#deriving-data
+
 interface SpriteSheetSlice {
   sequencesWarehouse: SpriteSheetSequence[];
   spriteSheetSequences: SpriteSheetSequence[]; // TODO: Rename to sequencesRetail
@@ -64,7 +66,6 @@ const spriteSheetSlice = createSlice({
       spriteSheetSlice.caseReducers.transport(state);
     },
     numberOfSequencesUpdate(state, action) {
-      console.log(action.payload);
       if (action.payload <= appConfig.warehouseStorage && action.payload > 0) {
         state.numberOfSequences = action.payload;
         spriteSheetSlice.caseReducers.transport(state);

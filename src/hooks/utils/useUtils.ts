@@ -25,10 +25,16 @@ export default function useUtils(
   viewport: Refs['viewport'],
   fileUpload: Refs['fileUpload']
 ) {
-  const { numberOfSequences, spriteSheetSequences, selectedSequence, selectedFrame } =
-    useAppSelector((state) => state.spriteSheet);
-  const dispatch = useAppDispatch();
+  const numberOfSequences = useAppSelector(
+    (state) => state.spriteSheet.numberOfSequences
+  );
+  const spriteSheetSequences = useAppSelector(
+    (state) => state.spriteSheet.spriteSheetSequences
+  );
+  const selectedSequence = useAppSelector((state) => state.spriteSheet.selectedSequence);
+  const selectedFrame = useAppSelector((state) => state.spriteSheet.selectedFrame);
   const background = useAppSelector((state) => state.background);
+  const dispatch = useAppDispatch();
 
   // Hook to adjust background
   useBackground(background.backgroundSrc, background.backgroundDarkness);
