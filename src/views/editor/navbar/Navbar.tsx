@@ -67,7 +67,7 @@ function Navbar(props: Props) {
         key={index}
         onClick={() => showTab(index)}
       >
-        <span className='mr-1'> {item.icon} </span> {item.name}
+        <span className='mr-1'> {item.icon} </span> <span className='hidden lg:block'> {item.name} </span>
       </span>
     ));
   };

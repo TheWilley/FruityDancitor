@@ -23,7 +23,7 @@ function NavbarAppSettingsTab() {
   const showHeader = useAppSelector((state) => state.viewport.showHeader);
 
   return (
-    <div className='grid grid-cols-4 gap-2'>
+    <div className='grid grid-cols-2 gap-2 md:grid-cols-4'>
       <NumberInput
         faIcon={faPlay}
         tooltip='Preview FPS - The sequence preview FPS'
