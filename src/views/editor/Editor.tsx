@@ -57,8 +57,8 @@ function Editor() {
             </Collapse>
           </div>
         </SectionRight>
-        <InspectorPickFrames />
       </SectionContainer>
+      <InspectorPickFrames />
       <PopupKeyboardBindings />
     </>
   );
