@@ -19,7 +19,7 @@ function SequenceList() {
   const dispatch = useAppDispatch();
 
   return (
-    <>
+    <div className='p-2'>
       <List
         values={spriteSheetSequences}
         onChange={({ oldIndex, newIndex }) => {
@@ -51,7 +51,7 @@ function SequenceList() {
           onClick={() => dispatch(numberOfSequencesUpdate(numberOfSequences - 1))}
         />
       </div>
-    </>
+    </div>
   );
 }
 

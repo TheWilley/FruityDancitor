@@ -13,7 +13,7 @@ function SectionLeft(props: Props) {
 
   return (
     <Card
-      className='mr-2 max-w-[98.5] p-1 max-md:carousel-item max-md:w-full'
+      className='mr-2 max-md:carousel-item max-md:w-full'
       id={incorporateKeyword(0)}
     >
       {props.children}
