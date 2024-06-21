@@ -41,7 +41,7 @@ function Viewport(props: Props) {
               />
             ))}
         </div>
-        <div className='relative m-auto overflow-auto'>
+        <div className='relative m-auto'>
           <canvas
             ref={props.viewport}
             width={width}
