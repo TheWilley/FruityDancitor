@@ -8,6 +8,47 @@ import useHeader from '../../hooks/utils/useHeader.ts';
 function Header() {
   const { showHeader, version } = useHeader();
 
+  const MenuItems = () => (
+    <>
+      <li>
+        <a
+          href='https://github.com/TheWilley/FruityDancitor'
+          target='_blank'
+          rel='noreferrer'
+        >
+          Source Code
+        </a>
+      </li>
+      <li>
+        <a
+          href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'
+          target='_blank'
+          rel='noreferrer'
+        >
+          License
+        </a>
+      </li>
+      <li>
+        <a
+          href='https://github.com/TheWilley/FruityDancitor/issues'
+          target='_blank'
+          rel='noreferrer'
+        >
+          Report a Bug
+        </a>
+      </li>
+      <li>
+        <a
+          href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm'
+          target='_blank'
+          rel='noreferrer'
+        >
+          Fruity Dance Docs
+        </a>
+      </li>
+    </>
+  );
+
   return (
     <div
       id='header'
@@ -35,6 +76,9 @@ function Header() {
               />
             </svg>
           </div>
+          <ul className="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow">
+            <MenuItems />
+          </ul>
         </div>
         <div className='flex items-center'>
           <img src={logotype} alt='logotype' width='60' height='60' className='mr-2' />
@@ -54,42 +98,7 @@ function Header() {
       </div>
       <div className='navbar-center hidden lg:flex'>
         <ul className='menu menu-horizontal px-1'>
-          <li>
-            <a
-              href='https://github.com/TheWilley/FruityDancitor'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Source Code
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://github.com/TheWilley/FruityDancitor/blob/main/LICENSE'
-              target='_blank'
-              rel='noreferrer'
-            >
-              License
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://github.com/TheWilley/FruityDancitor/issues'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Report a Bug
-            </a>
-          </li>
-          <li>
-            <a
-              href='https://www.image-line.com/fl-studio-learning/fl-studio-online-manual/html/plugins/Fruity%20Dance.htm'
-              target='_blank'
-              rel='noreferrer'
-            >
-              Fruity Dance Docs
-            </a>
-          </li>
+          <MenuItems />
         </ul>
       </div>
       <div className='navbar-end'>{<ThemeSwitcher />}</div>
