@@ -14,7 +14,6 @@ import InspectorUpload from './inspector/InspectorUpload.tsx';
 import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
 import useRefs from '../../hooks/state/useRefs.ts';
 import useUtils from '../../hooks/utils/useUtils.ts';
-import InspectorSettings from './inspector/InspectorSettings.tsx';
 import Collapse from '../../components/Collapse.tsx';
 
 /**
