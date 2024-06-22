@@ -17,7 +17,7 @@ function CheckboxInput(props: Props) {
   return (
     <div className={`join w-full ${props.class}`}>
       <div className='join-item bg-base-200 p-1 px-2'>
-        <div className='flex h-6 w-4 items-center justify-center'>
+        <div className='flex h-full w-4 items-center justify-center'>
           <FontAwesomeIcon icon={props.faIcon} />
         </div>
       </div>

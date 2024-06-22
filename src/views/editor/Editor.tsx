@@ -46,9 +46,6 @@ function Editor() {
             <Collapse label='Frame Mods'>
               <InspectorFrameMods />
             </Collapse>
-            <Collapse label='Settings'>
-              <InspectorSettings />
-            </Collapse>
             <Collapse label='Upload'>
               <InspectorUpload fileUpload={fileUpload} />
             </Collapse>

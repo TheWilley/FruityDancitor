@@ -4,15 +4,17 @@ import {
   sequenceModsScaleUpdate,
   sequenceModsXoffsetUpdate,
   sequenceModsYoffsetUpdate,
+  sequenceCopyMods,
+  modifyAllFramesUpdate,
+  sequencePasteMods,
 } from '../../redux/spriteSheetSlice.ts';
 
 /**
  * Custom hook which handles frame manupilaton.
  */
 export default function useFrameMods() {
-  const { selectedSequence, selectedFrame, spriteSheetSequences } = useAppSelector(
-    (state) => state.spriteSheet
-  );
+  const { selectedSequence, selectedFrame, spriteSheetSequences, modifyAllFrames } =
+    useAppSelector((state) => state.spriteSheet);
   const dispatch = useAppDispatch();
 
   const mods = spriteSheetSequences[selectedSequence]?.sequence[selectedFrame]
@@ -23,6 +25,18 @@ export default function useFrameMods() {
    */
   const resetMods = () => {
     dispatch(sequenceModsReset());
+  };
+
+  const copyMods = () => {
+    dispatch(sequenceCopyMods());
+  };
+
+  const pasteMods = () => {
+    dispatch(sequencePasteMods());
+  };
+
+  const toggleSelectAll = () => {
+    dispatch(modifyAllFramesUpdate(!modifyAllFrames));
   };
 
   const setScale = (value: number) => {
@@ -40,5 +54,16 @@ export default function useFrameMods() {
   // Decides weather the inputs should be disabled or not
   const disabled = selectedFrame === -1;
 
-  return { mods, disabled, resetMods, setxoffset, setyoffset, setScale };
+  return {
+    mods,
+    disabled,
+    modifyAllFrames,
+    resetMods,
+    copyMods,
+    pasteMods,
+    setxoffset,
+    setyoffset,
+    setScale,
+    toggleSelectAll,
+  };
 }

@@ -224,7 +224,7 @@ const spriteSheetSlice = createSlice({
     modifyAllFramesUpdate(state, action) {
       state.modifyAllFrames = action.payload;
     },
-    copyMods(state) {
+    sequenceCopyMods(state) {
       state.copiedMods = state.spriteSheetSequences[state.selectedSequence].sequence.map(
         (frame) => {
           return {
@@ -235,7 +235,7 @@ const spriteSheetSlice = createSlice({
         }
       );
     },
-    pasteMods(state) {
+    sequencePasteMods(state) {
       state.sequencesWarehouse[state.selectedSequence].sequence.forEach(
         (frame, index) => {
           frame.modifications.scale = state.copiedMods[index].scale;
@@ -263,8 +263,8 @@ export const {
   selectedSequenceUpdate,
   frameMovePosition,
   modifyAllFramesUpdate,
-  copyMods,
-  pasteMods,
+  sequenceCopyMods,
+  sequencePasteMods,
 } = spriteSheetSlice.actions;
 
 export default spriteSheetSlice.reducer;
