@@ -41,6 +41,7 @@ function InspectorFramesList() {
           />
         </li>
       )}
+      lockVertically={true}
     />
   ) : (
     <div className='text-center'>

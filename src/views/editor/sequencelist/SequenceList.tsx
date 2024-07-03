@@ -42,6 +42,7 @@ function SequenceList() {
             />
           </li>
         )}
+        lockVertically={true}
       />
       <div className='grid grid-cols-2'>
         <SequencePlusButton
