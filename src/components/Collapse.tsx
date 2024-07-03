@@ -1,4 +1,5 @@
 import { ReactNode, useState } from 'react';
+import useStyle from '../hooks/utils/useStyle';
 
 type Props = { label: string; children: ReactNode | ReactNode[] };
 
@@ -8,6 +9,21 @@ type Props = { label: string; children: ReactNode | ReactNode[] };
  */
 function Collapse(props: Props) {
   const [hide, setHide] = useState(false);
+  const [hiddenClass, hiddenCss] = useStyle('h-auto overflow-hidden', undefined, [{
+    condition: hide,
+    result: 'opacity-50'
+  }], [
+    {
+      condition: hide,
+      cssProperty: 'WebkitMask',
+      result: 'linear-gradient(black, transparent)'
+    },
+    {
+      condition: hide,
+      cssProperty: 'height',
+      result: '40px'
+    }
+  ]);
 
   return (
     <>
@@ -17,7 +33,7 @@ function Collapse(props: Props) {
       >
         {props.label}
       </div>
-      {!hide && <div>{props.children}</div>}
+      <div className={hiddenClass} style={hiddenCss}>{props.children}</div>
     </>
   );
 }
