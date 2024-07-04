@@ -16,6 +16,15 @@ function InspectorFrameMods() {
 
   return (
     <>
+      <CheckboxInput
+        tooltip='Edit all frames in sequence'
+        faIcon={faLayerGroup}
+        checked={modifyAllFrames}
+        class='mb-2 h-full'
+        onChange={
+          toggleSelectAll
+        }
+      />
       <NumberInput
         faIcon={faUpRightAndDownLeftFromCenter}
         tooltip='Scale Multiplier'
@@ -48,16 +57,7 @@ function InspectorFrameMods() {
         class='mb-2'
         disabled={disabled}
       />
-      <div className='grid grid-cols-1 gap-2 md:grid-cols-2'>
-        <CheckboxInput
-          tooltip='Edit all frames in sequence'
-          faIcon={faLayerGroup}
-          checked={modifyAllFrames}
-          class='mb-2'
-          onChange={
-            toggleSelectAll
-          }
-        />
+      <div className='grid grid-cols-1 gap-2'>
         <button
           className='btn btn-md mb-2 w-full disabled:bg-base-200'
           onClick={resetMods}
