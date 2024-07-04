@@ -16,38 +16,33 @@ function InspectorFramesList() {
   const dispatch = useAppDispatch();
   const { callback } = useFrameList();
 
-  return spriteSheetSequences[selectedSequence].sequence.length ? (
-    <List
-      values={spriteSheetSequences[selectedSequence].sequence}
-      onChange={({ oldIndex, newIndex }) => {
-        dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
-        dispatch(selectedFrameUpdate(newIndex));
-      }}
-      renderList={({ children, props }) => <ul {...props}>{children}</ul>}
-      renderItem={({ value, props, index }) => (
-        <li
+  return <List
+    values={spriteSheetSequences[selectedSequence].sequence}
+    onChange={({ oldIndex, newIndex }) => {
+      dispatch(frameMovePosition({ from: oldIndex, to: newIndex }));
+      dispatch(selectedFrameUpdate(newIndex));
+    }}
+    renderList={({ children, props }) => <ul {...props}>{children}</ul>}
+    renderItem={({ value, props, index }) => (
+      <li
+        {...props}
+        onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
+        className='z-30'
+      >
+        <CommonListItem
           {...props}
-          onMouseDown={() => dispatch(selectedFrameUpdate(index || 0))}
-          className='z-30'
-        >
-          <CommonListItem
-            {...props}
-            objectURL={value.objectURL}
-            text={`Frame ${(index || 0) + 1}`}
-            alt=''
-            trashClickedCallback={() => callback(index || 0)}
-            highlighted={selectedFrame === index || modifyAllFrames === true}
-            includeTrash
-          />
-        </li>
-      )}
-      lockVertically={true}
-    />
-  ) : (
-    <div className='text-center'>
-      <i> No uploaded frames </i>
-    </div>
-  );
+          objectURL={value.objectURL}
+          text={`Frame ${(index || 0) + 1}`}
+          alt=''
+          trashClickedCallback={() => callback(index || 0)}
+          highlighted={selectedFrame === index || modifyAllFrames === true}
+          includeTrash
+        />
+      </li>
+    )}
+    lockVertically={true}
+  />;
+  
 }
 
 export default InspectorFramesList;
