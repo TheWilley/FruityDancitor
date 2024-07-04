@@ -15,6 +15,8 @@ import PopupKeyboardBindings from './popup/PopupKeyboardBindings.tsx';
 import useRefs from '../../hooks/state/useRefs.ts';
 import useUtils from '../../hooks/utils/useUtils.ts';
 import Collapse from '../../components/Collapse.tsx';
+import { If, Then } from 'react-if';
+import { useAppSelector } from '../../redux/hooks.ts';
 
 /**
  * Component which represents a sprite sheet Editor.
@@ -39,7 +41,11 @@ function Editor() {
         </SectionMiddle>
 
         <SectionRight>
-          {viewport && <InspectorPreview viewport={viewport} />}
+          <If condition={!!viewport}>
+            <Then>
+              <InspectorPreview viewport={viewport} />
+            </Then>
+          </If>
           <div className='p-2'>
             <InspectorSequenceName />
             <Collapse label='Frame Mods'>
