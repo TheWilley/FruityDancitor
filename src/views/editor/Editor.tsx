@@ -27,6 +27,8 @@ function Editor() {
   // States
   const { viewport, fileUpload } = useRefs();
   useUtils(viewport, fileUpload);
+  const { selectedSequence, spriteSheetSequences } =
+    useAppSelector((state) => state.spriteSheet);
 
   return (
     <>
@@ -54,9 +56,13 @@ function Editor() {
             <Collapse label='Upload'>
               <InspectorUpload fileUpload={fileUpload} />
             </Collapse>
-            <Collapse label='Frames'>
-              <InspectorFramesList />
-            </Collapse>
+            <If condition={spriteSheetSequences[selectedSequence].sequence.length}>
+              <Then>
+                <Collapse label='Frames'>
+                  <InspectorFramesList />
+                </Collapse>
+              </Then>
+            </If>
           </div>
         </SectionRight>
       </SectionContainer>
