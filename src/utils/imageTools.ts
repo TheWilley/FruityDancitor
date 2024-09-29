@@ -148,3 +148,62 @@ export function getImageFromExternalUrl(src: string): Promise<string> {
     image.src = src;
   });
 }
+
+/**
+ * Compresses an image file using the Canvas API and returns a Base64 encoded string.
+ * @param imageFile - The image file to be compressed.
+ * @param quality - The quality of the output image, between 0 and 1. Default is 0.7.
+ * @param maxWidth - The maximum width of the output image. Default is 800 pixels.
+ * @param maxHeight - The maximum height of the output image. Default is 600 pixels.
+ * @returns A promise that resolves with the Base64 encoded string of the compressed image.
+ */
+export function compressImage(imageFile: File, quality = 0.7, maxWidth = 800, maxHeight = 600) {
+  return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+          const img = new Image();
+          
+          img.onload = () => {
+              let width = img.width;
+              let height = img.height;
+
+              // Calculate new dimensions if necessary
+              if (width > maxWidth || height > maxHeight) {
+                  if (width / height > maxWidth / maxHeight) {
+                      height = Math.round((height *= maxWidth / width));
+                      width = maxWidth;
+                  } else {
+                      width = Math.round((width *= maxHeight / height));
+                      height = maxHeight;
+                  }
+              }
+
+              // Create a canvas with the calculated dimensions
+              const canvas = document.createElement('canvas');
+              canvas.width = width;
+              canvas.height = height;
+              
+              const ctx = canvas.getContext('2d');
+              ctx!.drawImage(img, 0, 0, width, height);
+              
+              // Convert the image to Base64 with compression
+              const base64String = canvas.toDataURL('image/jpeg', quality);
+              resolve(base64String);
+          };
+          
+          img.onerror = () => {
+              reject(new Error('Image loading failed.'));
+          };
+          
+          img.src = event.target!.result;
+      };
+      
+      reader.onerror = () => {
+          reject(new Error('File reading failed.'));
+      };
+      
+      reader.readAsDataURL(imageFile);
+  });
+}
+
